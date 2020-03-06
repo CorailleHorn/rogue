@@ -8,9 +8,9 @@
 #include "Corridor.h"
 using namespace std;
 
-int const nbrooms = 50;
+int const NB_ROOMS = 50;
 
-long double const pi = 3.1415926535897932384626433832795028841968;
+long double const PI = 3.1415926535897932384626433832795028841968;
 
 double genRandomFloat() {
     return ((double)rand() / (RAND_MAX));
@@ -37,7 +37,7 @@ void arrondValRoom(Room& R) {
 
 
 
-const bool room_collision(Room *A, Room *B) {
+const bool roomCollision(Room *A, Room *B) {
     
     //detecte si B entre en collision avec A
     if((B->x0 >= A->x0 + A->L)      // trop à droite
@@ -50,10 +50,10 @@ const bool room_collision(Room *A, Room *B) {
 
 const bool allRoomsCollisions(int ID, Room list_room[]) {
     //vérifie si la room au rang ID entre en collision avec toutes les autres rooms
-    for (int i = 0; i < nbrooms; i++) {
-        //on test avec room_collision pour toutes les autres rooms
+    for (int i = 0; i < NB_ROOMS; i++) {
+        //on test avec roomCollision pour toutes les autres rooms
         if (i != ID) { 
-            if (room_collision(&list_room[i], &list_room[ID])) {
+            if (roomCollision(&list_room[i], &list_room[ID])) {
                 return true;
             }
         }
@@ -68,14 +68,14 @@ const bool isRoomIn(Room& R, int map_size) {
 }
 /*
 void createLink(int ID, Room list_room[]) {
-    float tabLinks[nbrooms - 1];
+    float tabLinks[NB_ROOMS - 1];
 
 
 
 }
 */
 
-void map_vide(int map_size,int **ptr_map) {
+void mapVider(int map_size,int **ptr_map) {
     for (int i = 0; i < map_size; i++) {
         for (int j = 0; j < map_size; j++) {
             ptr_map[i][j] = 0;
@@ -83,10 +83,10 @@ void map_vide(int map_size,int **ptr_map) {
     }
 }
 
-void map_avec_room(int map_size, Room list_room[], int **ptr_map) {
+void mapAvecRoom(int map_size, Room list_room[], int **ptr_map) {
     //ajouter l'affichage des rooms dans la map
     //on arrondi d'abord les valeurs 
-    for (int i = 0; i < nbrooms; i++) {
+    for (int i = 0; i < NB_ROOMS; i++) {
         arrondValRoom(list_room[i]);
         if (list_room[i].slc && isRoomIn(list_room[i], map_size)) {
             //on ajoute la largeur des rooms
@@ -108,7 +108,7 @@ void map_avec_room(int map_size, Room list_room[], int **ptr_map) {
     }
 }
 
-void afficheMap(int map_size, int **ptr_map) {
+void afficherMap(int map_size, int **ptr_map) {
     //on affiche dans le terminal ligne par ligne
     for (int i = 0; i < map_size; i++) {
         for (int j = 0; j < map_size; j++) {
@@ -137,7 +137,7 @@ void genInCircle(Room& R, int max, int min, int radius, int map_size) {
     R.L = (rand() % (max - min)) + min;//largeur
 
     //on genere des points aléatoires dans un cercle
-    float t = 2 * pi * genRandomFloat();
+    float t = 2 * PI * genRandomFloat();
     float u = genRandomFloat() + genRandomFloat();
     float r;
     if (u > 1) r = (2 - u);
@@ -153,11 +153,11 @@ void eclatement(Room list_room[]) {
     //on "éclate" les rooms
     //pour chaque room on la déplace suivant un angle variant sur le cercle tant qu'elle est en collision avec une des rooms de la map
 
-    for (int i = 0; i < nbrooms; i++) {
+    for (int i = 0; i < NB_ROOMS; i++) {
         while (allRoomsCollisions(i,list_room)) {
 
-            list_room[i].x0 += (cos(((i + 1.0) * pi) / (nbrooms / 2)));
-            list_room[i].y0 += (sin(((i + 1.0) * pi) / (nbrooms / 2)));
+            list_room[i].x0 += (cos(((i + 1.0) * PI) / (NB_ROOMS / 2)));
+            list_room[i].y0 += (sin(((i + 1.0) * PI) / (NB_ROOMS / 2)));
             list_room[i].x1 = list_room[i].x0 + list_room[i].L - 1;
             list_room[i].y1 = list_room[i].y0 + list_room[i].H - 1;
         }
@@ -166,7 +166,7 @@ void eclatement(Room list_room[]) {
 
 void chooseRooms(Room list_room[]) {
     //on choisis les rooms en fonction des parametres voulus
-    for (int i = 0; i < nbrooms; i++) {
+    for (int i = 0; i < NB_ROOMS; i++) {
         if ((list_room[i].H < 7) || (list_room[i].L < 7)) {
             list_room[i].slc = false;
         }
@@ -175,7 +175,7 @@ void chooseRooms(Room list_room[]) {
 
 void initCenterRooms(Room list_room[]) {
     //on place les centres des rooms utilisé (slc = true)
-    for (int i = 0; i < nbrooms; i++) {
+    for (int i = 0; i < NB_ROOMS; i++) {
         if (list_room[i].slc) {
             if ((list_room[i].L % 2) == 0) list_room[i].X = list_room[i].L / 2;
             else list_room[i].X = (int)(list_room[i].L / 2) + (rand() % 2);
@@ -188,9 +188,9 @@ void initCenterRooms(Room list_room[]) {
 
 
 /*
-void initLinks(int nbrooms, Room list_room[]) {
+void initLinks(int NB_ROOMS, Room list_room[]) {
     //on va créer des liens (des rooms) pour chaques 
-    for (int i = 0; i < nbrooms; i++) {
+    for (int i = 0; i < NB_ROOMS; i++) {
         if (list_room[i].slc) {
             createLink(i,list_room);
         }
@@ -227,18 +227,18 @@ int main()
     }
     
     //on initialise un pointeur list_room pointant sur un tableau de Room
-    Room *list_room = new Room[nbrooms];
+    Room *list_room = new Room[NB_ROOMS];
     // On crée un tableau de rooms 
    
 
     //GENERATION
     //on fabrique la map : 0:vide 1:plein
 
-    map_vide(map_size, ptr_map);
+    mapVider(map_size, ptr_map);
 
 
     //on genere les room
-    for (int i = 0; i < nbrooms; i++) {
+    for (int i = 0; i < NB_ROOMS; i++) {
         list_room[i].slc = true;
         //Tech1 on gen les rooms sur la map alea
         //genInMap(list_room[i], room_max_size, room_min_size, map_size);
@@ -248,9 +248,9 @@ int main()
     }
 
 
-    map_avec_room(map_size, &(*list_room), ptr_map);
-    afficheMap(map_size, ptr_map);
-    map_vide(map_size, ptr_map);
+    mapAvecRoom(map_size, &(*list_room), ptr_map);
+    afficherMap(map_size, ptr_map);
+    mapVider(map_size, ptr_map);
     
     for (int i = 0; i < map_size; i++) {
         cout << "**";
@@ -264,9 +264,9 @@ int main()
     //AFFICHAGE
 
 
-    map_avec_room(map_size,&(*list_room), ptr_map);
-    afficheMap(map_size, ptr_map);
-    map_vide(map_size, ptr_map);
+    mapAvecRoom(map_size,&(*list_room), ptr_map);
+    afficherMap(map_size, ptr_map);
+    mapVider(map_size, ptr_map);
 
     for (int i = 0; i < map_size; i++) {
         cout << "**";
@@ -276,9 +276,9 @@ int main()
     
     chooseRooms(&(*list_room));
    
-    map_avec_room(map_size, &(*list_room), ptr_map);
-    afficheMap(map_size, ptr_map);
-    map_vide(map_size, ptr_map);
+    mapAvecRoom(map_size, &(*list_room), ptr_map);
+    afficherMap(map_size, ptr_map);
+    mapVider(map_size, ptr_map);
 
     for (int i = 0; i < map_size; i++) {
         cout << "**";
@@ -288,9 +288,9 @@ int main()
     initCenterRooms(&(*list_room));
 
 
-    map_avec_room(map_size, &(*list_room), ptr_map);
-    afficheMap(map_size, ptr_map);
-    map_vide(map_size, ptr_map);
+    mapAvecRoom(map_size, &(*list_room), ptr_map);
+    afficherMap(map_size, ptr_map);
+    mapVider(map_size, ptr_map);
 */
     for (int i = 0; i < map_size; i++) {
         cout << "**";
