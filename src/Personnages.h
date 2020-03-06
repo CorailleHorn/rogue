@@ -20,7 +20,7 @@ class Personnage {
   protected:
     int atk, def, pv, lv;
     char sprite;
-}
+};
 
 
 class Hero: public Personnage {
@@ -32,7 +32,7 @@ class Hero: public Personnage {
     void setName();
   protected:
     std::string name;
-}
+};
 
 
 class Ennemi: public Personnage {
@@ -41,5 +41,5 @@ class Ennemi: public Personnage {
     virtual ~Ennemi();
     virtual void lvUp();
     virtual void deplacement();
-}
+};
 #endif

@@ -3,7 +3,6 @@
 
 #include <iostream>
 #include <ctime>
-#include <string>
 #include <cmath>
 #include "Room.h"
 #include "Corridor.h"
@@ -67,14 +66,14 @@ const bool isRoomIn(Room& R, int map_size) {
     if ((R.X0 >= 0) && (R.Y0 >= 0) && (R.X1 < map_size) && (R.Y1 < map_size)) return true;
     else return false;
 }
-
+/*
 void createLink(int ID, Room list_room[]) {
     float tabLinks[nbrooms - 1];
 
 
 
 }
-
+*/
 
 void map_vide(int map_size,int **ptr_map) {
     for (int i = 0; i < map_size; i++) {
@@ -188,7 +187,7 @@ void initCenterRooms(Room list_room[]) {
 }
 
 
-
+/*
 void initLinks(int nbrooms, Room list_room[]) {
     //on va créer des liens (des rooms) pour chaques 
     for (int i = 0; i < nbrooms; i++) {
@@ -197,7 +196,7 @@ void initLinks(int nbrooms, Room list_room[]) {
         }
     }
 }
-
+*/
 
 int main()
 {
@@ -259,7 +258,7 @@ int main()
     cout << endl;
 
     eclatement(&(*list_room));
-    initLinks(&(*list_room));
+    
 
     
     //AFFICHAGE
@@ -285,14 +284,14 @@ int main()
         cout << "**";
     }
     cout << endl;
-
+/*
     initCenterRooms(&(*list_room));
 
 
     map_avec_room(map_size, &(*list_room), ptr_map);
     afficheMap(map_size, ptr_map);
     map_vide(map_size, ptr_map);
-
+*/
     for (int i = 0; i < map_size; i++) {
         cout << "**";
     }
