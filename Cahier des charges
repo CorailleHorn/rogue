@@ -1,0 +1,60 @@
+Cahier des charges – LIFAP4
+
+Chapitre 1 – Présentation du projet 
+Qui : Les 3 Fantastiques
+Contexte : Créateur de mini-jeux 
+
+Chapitre 2 – Description de la demande 
+Résultats visés : créer un mini-jeu de type RogueLike, passage de niveaux en battant des ennemis, avec différents niveaux de jeu et différents types de héros (classes) pour vaincre les ennemis. 
+Fonctionnalités 
+Les parties de jeu durent entre 10 et 15 minutes. 
+Plus on avance dans les niveaux, plus la difficulté sera élevée et le niveau du joueur sera haut.
+Nous pouvons choisir le type de héro avec lequel nous souhaitons jouer.
+Pour déplacer le personnage, on utilise les touches directionnelles : Z, Q, S, D ou flèches directionnelles. 
+Nous pouvons commencer une nouvelle partie n’importe quand, à la guise de l’utilisateur. 
+
+Chapitre 3 – Contraintes 
+Durée de développement : Le projet doit être rendu avant la date limite du 4 mai 2020. 
+Démo intermédiaire du projet le 31 mars 2020.
+
+Chapitre 4 – Déroulement du projet 
+Liste des tâches
+Tâche 1
+Création des classes pour les personnages, développement en mode shell. 
+Livrable => Les classes Personnages = Personnages.cpp/Personnages.h, (le héro que l’on choisit), Room = Room.cpp/Room.h (les salles), Corridor = Corridor.cpp/Corridor.h (couloir pour lier les salles), et le programme principal main = Main.cpp. 
+
+Tâche 2 
+Génération du donjon, développement en mode shell. 
+Livrable => Le programme Generation.cpp.
+
+Tâche 3
+Développement du menu de jeu, gestion des erreurs et mort du personnage. 
+Livrable => Complément des fichiers précédents avec les ajouts des derniers éléments pour la gestion des erreurs.
+
+Tâche 4
+Réalisation du projet en mode graphique : génération du donjon en mode graphique grâce à SFML (la librairie graphique que nous allons utiliser). 
+Livrable => Le code du donjon en mode graphique donc les classes Personnages = Personnages.cpp/Personnages.h, (le héro que l’on choisit) modifiées, Room = Room.cpp/Room.h (les salles) modifiées, Corridor = Corridor.cpp/Corridor.h (couloir pour lier les salles) modifiées, et le programme principal main modifié = Main.cpp.
+
+Tâche 5
+Réalisation des dernières animations pour finaliser l’affichage du donjon en mode graphique.
+Livrable => Complément des fichiers précédents avec les ajouts des derniers éléments pour le mode graphique. 
+
+Tâche 6
+Création du gameplay pour pouvoir faire avancer le personnage, définition des programmes graphique pour les mouvements du héro.
+Livrable => Complément des fichiers précédents avec les ajouts des derniers éléments pour le gameplay. 
+
+Tâche 7
+Création de l’interface graphique pour les combats entre le personnage de l’utilisateur et les ennemis dans les niveaux.
+Livrable => Complément des fichiers précédents avec les ajouts des derniers éléments pour les combats. 
+
+Tâche 8
+Création des écrans de game pour le jeu.
+Livrable => Complément des fichiers précédents avec les ajouts des derniers éléments pour les écrans.
+
+Tâche 9
+Création des écrans de menu et écran pour quitter le jeu. 
+Livrable => Complément des fichiers précédents avec les ajouts des derniers éléments pour les animations. 
+
+Tâche 10
+Finalisation des générations du donjon, gestion des erreurs et gestion des sauvegarde du jeu. 
+Livrable => Le jeu complet et fini.
