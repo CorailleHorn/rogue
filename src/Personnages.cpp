@@ -1,7 +1,10 @@
 #include "Personnages.h"
 
 	Personnage::Personnage() {
-
+		atk = 0;
+		def = 0;
+		pv = 0;
+		lv = 0;
 	}
 
 	Personnage::~Personnage() {
@@ -16,32 +19,32 @@
 
 	}
 
-	void Personnage::setAtk() {
-
+	void Personnage::setAtk(int x) {
+		atk = x;
 	}
 
-	void Personnage::setDef() {
-
+	void Personnage::setDef(int x) {
+		def = x;
 	}
 
-	void Personnage::setPv() {
-
+	void Personnage::setPv(int x) {
+		pv = x;
 	}
 
-	int Personnage::getAtk() {
-
+	int Personnage::getAtk() const {
+		return atk;
 	}
 
-	int Personnage::getDef() {
-
+	int Personnage::getDef() const {
+		return def;
 	}
 
-	int Personnage::getPv() {
-
+	int Personnage::getPv() const {
+		return pv;
 	}
 
-	int Personnage::getLv() {
-
+	int Personnage::getLv() const {
+		return lv;
 	}
 
 
