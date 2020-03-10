@@ -5,18 +5,20 @@
 		def = 0;
 		pv = 0;
 		lv = 0;
+		int x;
+		int y;
 	}
 
 	Personnage::~Personnage() {
-
+        
 	}
 
 	void Personnage::combat() {
-
+        
 	}
 
 	void Personnage::affichage() {
-
+        
 	}
 
 	void Personnage::setAtk(int x) {
@@ -48,16 +50,17 @@
 	}
 
 
-	Hero::Hero() {
-
+	Hero::Hero() :Personnage(){
+        name = " ";
+        
 	}
 
 	Hero::~Hero() {
-
+        
 	}
 
 	void Hero::lvUp() {
-
+        
 	}
 
 	void Hero::deplacement() {
