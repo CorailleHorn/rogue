@@ -1,5 +1,6 @@
 #ifndef PERSONNAGES_H
 #define PERSONNAGES_H
+#include <iostream>
 
 class Personnage {
   public:
@@ -42,4 +43,5 @@ class Ennemi: public Personnage {
     virtual void lvUp();
     virtual void deplacement();
 };
+
 #endif
