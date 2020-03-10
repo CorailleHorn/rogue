@@ -11,16 +11,16 @@ class Personnage {
 		virtual void deplacement() = 0;
 		virtual void combat();
 		void affichage();
-		void setAtk();
-		void setDef();
-		void setPv();
-		int getAtk();
-		int getDef();
-		int getPv();
-		int getLv();
+		void setAtk(int x);
+		void setDef(int x);
+		void setPv(int x);
+		int getAtk() const;
+		int getDef() const;
+		int getPv() const;
+		int getLv() const;
 
 	protected:
-		int atk, def, pv, lv;
+		int atk, def, pv, lv, x, y;
 		char sprite;
 };
 

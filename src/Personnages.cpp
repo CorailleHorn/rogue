@@ -1,24 +1,19 @@
 #include "Personnages.h"
 
 	Personnage::Personnage() {
-		atk = 0;
-		def = 0;
-		pv = 0;
-		lv = 0;
-		int x;
-		int y;
+		atk = def = pv = lv = x = y = 0;
 	}
 
 	Personnage::~Personnage() {
-        
+
 	}
 
 	void Personnage::combat() {
-        
+
 	}
 
 	void Personnage::affichage() {
-        
+
 	}
 
 	void Personnage::setAtk(int x) {
@@ -52,15 +47,15 @@
 
 	Hero::Hero() :Personnage(){
         name = " ";
-        
+
 	}
 
 	Hero::~Hero() {
-        
+
 	}
 
 	void Hero::lvUp() {
-        
+
 	}
 
 	void Hero::deplacement() {
@@ -80,10 +75,10 @@
 
 	}
 
-	Ennemi::lvUp() {
+	void Ennemi::lvUp() {
 
 	}
 
-	Ennemi::deplacement() {
+	void Ennemi::deplacement() {
 
 	}
