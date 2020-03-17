@@ -107,7 +107,7 @@
 	Ennemi::Ennemi(int leveling) {
 		int stat = 30;
 		int randstat;
-		int randomiser = rand(1,3);
+		int randomiser = rand(1,4);
 		switch (randomiser) {
 			case 1:
 				atk = rand(1,stat-2);
@@ -131,7 +131,7 @@
 				def = stat;
 				break;
 		}
-		sprite = "a";
+		sprite = "e";
 	}
 
 	Ennemi::~Ennemi() {
