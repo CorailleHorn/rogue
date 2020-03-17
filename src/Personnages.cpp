@@ -51,8 +51,49 @@
 	Hero::~Hero() {}
 
 	void Hero::lvUp() {
+		int choix1, choix2;
+		cout<<"Vous disposez de 3 points pour augmenter vos statistiques.
+		Que décidez vous de faire: "<<endl<<"Mettre 1 point par attribut (tapez 1)
+		ou "<<endl<<"Mettre les 3 points dans un attribut unique ? (tapez 2)"<<endl;
 
+		cin>>choix1;
+
+		switch (choix1) {
+			case 1:
+				cout<<"L'attaque, la défense et les PV ont été augmentés de 1 !"<<endl;
+				atk++;
+				def++;
+				pv++;
+			break;
+
+			case 2:
+				cout<<"Quel attribut voulez-vous augmenter ? (1=attaque, 2=défense, 3=PV)"<<endl;
+				cin>>choix2;
+				switch (choix2) {
+					case 1:
+						cout<<"Votre attaque a été augmenté de 3 !"<<endl;
+						atk+=3;
+					break;
+
+					case 2:
+					cout<<"Votre défense a été augmenté de 3 !"<<endl;
+					def+=3;
+					break;
+
+					case 3:
+					cout<<"Vos PV ont été augmenté de 3 !"<<endl;
+						PV+=3;
+					break;
+					default: cout<<"Pas de choix possibles disponibles pour cette option, réessayez !"<<endl;
+
+				}
+			break;
+
+			default:
+				cout<<"Pas de choix disponibles pour cette option, réessayez !"<<endl;
+		}
 	}
+
 
 	void Hero::deplacement() {
 
