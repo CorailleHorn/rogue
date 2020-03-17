@@ -64,14 +64,30 @@
 
 
 	Ennemi::Ennemi(int leveling) {
+		int stat = 30;
+		int randstat;
 		int randomiser = rand(1,3);
 		switch (randomiser) {
 			case 1:
-
+				atk = rand(1,stat-2);
+				stat -= atk;
+				def = rand(1,stat-1);
+				stat -= def;
+				pv = stat;
 				break;
 			case 2:
+				def = rand(1,stat-2);
+				stat -= def;
+				pv = rand(1,stat-1);
+				stat -= pv;
+				atk = stat;
 				break;
 			case 3:
+				pv = rand(1,stat-2);
+				stat -= pv;
+				atk = rand(1,stat-1);
+				stat -= atk;
+				def = stat;
 				break;
 		}
 		sprite = "a";
