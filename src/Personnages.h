@@ -7,7 +7,6 @@ class Personnage {
 	public:
 		Personnage();
 		virtual ~Personnage();
-		virtual void lvUp() = 0;
 		virtual void deplacement() = 0;
 		virtual void combat();
 		void affichage();
@@ -29,9 +28,9 @@ class Hero: public Personnage {
 	public:
 		Hero();
 		virtual ~Hero();
-		virtual void lvUp();
+		void lvUp();
 		virtual void deplacement();
-		void setName();
+		void setName(std::string sname);
 	protected:
 		std::string name;
 };
@@ -39,9 +38,8 @@ class Hero: public Personnage {
 
 class Ennemi: public Personnage {
 	public:
-		Ennemi();
+		Ennemi(int leveling);
 		virtual ~Ennemi();
-		virtual void lvUp();
 		virtual void deplacement();
 };
 

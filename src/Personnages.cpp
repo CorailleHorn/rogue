@@ -1,12 +1,8 @@
 #include "Personnages.h"
 
-	Personnage::Personnage() {
-		atk = def = pv = lv = x = y = 0;
-	}
+	Personnage::Personnage() {}
 
-	Personnage::~Personnage() {
-
-	}
+	Personnage::~Personnage() {}
 
 	void Personnage::combat() {
 
@@ -45,14 +41,14 @@
 	}
 
 
-	Hero::Hero() :Personnage(){
-        name = " ";
-
+	Hero::Hero() {
+		atk = def = pv = lv = 0;
+		x = y = 0;
+		sprite = "a";
+    name = "";
 	}
 
-	Hero::~Hero() {
-
-	}
+	Hero::~Hero() {}
 
 	void Hero::lvUp() {
 
@@ -62,20 +58,26 @@
 
 	}
 
-	void Hero::setName() {
-
+	void Hero::setName(string sname) {
+			name = sname;
 	}
 
 
-	Ennemi::Ennemi() {
+	Ennemi::Ennemi(int leveling) {
+		int randomiser = rand(1,3);
+		switch (randomiser) {
+			case 1:
 
+				break;
+			case 2:
+				break;
+			case 3:
+				break;
+		}
+		sprite = "a";
 	}
 
 	Ennemi::~Ennemi() {
-
-	}
-
-	void Ennemi::lvUp() {
 
 	}
 
