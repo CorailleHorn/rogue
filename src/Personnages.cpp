@@ -176,7 +176,6 @@ using namespace std;
 
 
 	Ennemi::Ennemi(int leveling) {
-		srand(time(NULL));
 		int stat = 30;
 		int randomiser = rand() % 4 + 1;
 		switch (randomiser) {
