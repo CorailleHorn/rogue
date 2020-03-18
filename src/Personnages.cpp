@@ -1,4 +1,8 @@
 #include "Personnages.h"
+#include <math.h>
+
+
+using namespace std;
 
 	Personnage::Personnage() {}
 
@@ -51,26 +55,30 @@
 	Hero::~Hero() {}
 
 	void Hero::lvUp() {
-		int choix1, choix2;
-		//Tu peux aussi faire un tableau de 2 valeurs
+		int choix[4];
+
 		cout << "Vous disposez de 3 points pour augmenter vos statistiques." <<	endl
 			<< "Que décidez vous de faire: " << endl
 			<< "Mettre 1 point par attribut (tapez 1)" << endl
 			<< "ou" << endl
-			<< "Mettre les 3 points dans un attribut unique ? (tapez 2)" << endl;
-			//Tu as oublié la possibilité d'en mettre 2 dans un attribut et 1 dans un autre
-		cin >> choix1;
-		switch(choix1) {
+			<< "Mettre les 3 points dans un attribut unique (tapez 2)" << endl
+			<< "ou" << endl
+			<< "Mettre 2 points dans un attribut et 1 point dans un autre ? (tapez 3)" << endl;
+
+		cin >> choix[0];
+
+		switch(choix[0]) {
 			case 1:
 							cout << "L'attaque, la défense et les PV ont été augmentés de 1 !" << endl;
 							atk++;
 							def++;
 							pv++;
 							break;
+
 			case 2:
 							cout << "Quel attribut voulez-vous augmenter ? (1=attaque, 2=défense, 3=PV)" << endl;
-							cin >> choix2;
-							switch(choix2) {
+							cin >> choix[1];
+							switch(choix[1]) {
 								case 1:
 												cout << "Votre attaque a été augmenté de 3 !" << endl;
 												atk += 3;
@@ -88,12 +96,103 @@
 
 								default:
 												cout << "Pas de choix possibles disponibles pour cette option, réessayez !" << endl;
-												//Dans ce cas il faut qu'il puisse a nouveau choisir ou retourner en arrière
-											}
+												lvUp();
+												break;
+							}
+							break;
+
+			case 3:
+							cout << "Quel attribut voulez-vous augmenter de 2 ? (1=attaque, 2=défense, 3=PV)" << endl;
+							cin >> choix[2];
+							switch(choix[2]) {
+								case 1:
+													cout << "Votre attaque a été augmenté de 2 !" << endl;
+													atk += 2;
+
+													cout << "Quel attribut voulez-vous augmenter de 1 ? (1=défense, 2=PV)" << endl;
+
+													cin >> choix[3];
+
+													switch (choix[3]) {
+														case 1:
+																		cout << "Votre défense a été augmenté de 1 !" << endl;
+																		def++;
+																		break;
+
+														case 2:
+																		cout << "Vos PV ont été augmentés de 1 !" << endl;
+																		pv++;
+																		break;
+
+														default:
+																		cout << "Pas de choix disponibles pour cette option, réessayez !" << endl;
+																		lvUp();
+																		break;
+													}
+													break;
+
+								case 2:
+													cout << "Votre défense a été augmenté de 2 !" << endl;
+													def += 2;
+
+													cout << "Quel attribut voulez-vous augmenter de 1 ? (1=attaque, 2=PV)" << endl;
+
+													cin >> choix[3];
+
+													switch (choix[3]) {
+														case 1:
+																		cout << "Votre attaque a été augmenté de 1 !" << endl;
+																		atk++;
+																		break;
+
+														case 2:
+																		cout << "Vos PV ont été augmentés de 1 !" << endl;
+																		pv++;
+																		break;
+
+														default:
+																		cout << "Pas de choix disponibles pour cette option, réessayez !" << endl;
+																		lvUp();
+																		break;
+													}
+													break;
+
+								case 3:
+													cout << "Vos PV ont été augmenté de 2 !" << endl;
+													pv += 2;
+
+													cout << "Quel attribut voulez-vous augmenter de 1 ? (1=attaque, 2=défense)" << endl;
+													cin >> choix[3];
+
+													switch (choix[3]) {
+														case 1:
+																		cout << "Votre attaque a été augmenté de 1 !" << endl;
+																		atk++;
+																		break;
+
+														case 2:
+																		cout << "Votre défense a été augmenté de 1 !" << endl;
+																		def++;
+																		break;
+
+														default:
+																		cout << "Pas de choix disponibles pour cette option, réessayez !" << endl;
+																		lvUp();
+																		break;
+													}
+													break;
+
+								default:
+													cout << "Pas de choix possibles disponibles pour cette option, réessayez !" << endl;
+													lvUp();
+													break;
+								}
 								break;
+
 			default:
 								cout << "Pas de choix disponibles pour cette option, réessayez !" << endl;
-								//Dans ce cas il faut qu'il puisse a nouveau choisir
+								lvUp();
+								break;
 			}
 	}
 
