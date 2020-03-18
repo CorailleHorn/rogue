@@ -97,7 +97,6 @@ using namespace std;
 								default:
 												cout << "Pas de choix possibles disponibles pour cette option, réessayez !" << endl;
 												lvUp();
-												break;
 							}
 							break;
 
@@ -127,7 +126,6 @@ using namespace std;
 														default:
 																		cout << "Pas de choix disponibles pour cette option, réessayez !" << endl;
 																		lvUp();
-																		break;
 													}
 													break;
 
@@ -153,7 +151,6 @@ using namespace std;
 														default:
 																		cout << "Pas de choix disponibles pour cette option, réessayez !" << endl;
 																		lvUp();
-																		break;
 													}
 													break;
 
@@ -178,21 +175,18 @@ using namespace std;
 														default:
 																		cout << "Pas de choix disponibles pour cette option, réessayez !" << endl;
 																		lvUp();
-																		break;
 													}
 													break;
 
 								default:
 													cout << "Pas de choix possibles disponibles pour cette option, réessayez !" << endl;
 													lvUp();
-													break;
 								}
 								break;
 
 			default:
 								cout << "Pas de choix disponibles pour cette option, réessayez !" << endl;
 								lvUp();
-								break;
 			}
 	}
 
