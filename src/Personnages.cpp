@@ -48,7 +48,7 @@ using namespace std;
 	Hero::Hero() {
 		atk = def = pv = lv = 0;
 		x = y = 0;
-		sprite = "a";
+		sprite = 'a';
     name = "";
 	}
 
@@ -64,9 +64,7 @@ using namespace std;
 			<< "Mettre les 3 points dans un attribut unique (tapez 2)" << endl
 			<< "ou" << endl
 			<< "Mettre 2 points dans un attribut et 1 point dans un autre ? (tapez 3)" << endl;
-
 		cin >> choix[0];
-
 		switch(choix[0]) {
 			case 1:
 							cout << "L'attaque, la défense et les PV ont été augmentés de 1 !" << endl;
@@ -74,7 +72,6 @@ using namespace std;
 							def++;
 							pv++;
 							break;
-
 			case 2:
 							cout << "Quel attribut voulez-vous augmenter ? (1=attaque, 2=défense, 3=PV)" << endl;
 							cin >> choix[1];
@@ -83,23 +80,19 @@ using namespace std;
 												cout << "Votre attaque a été augmenté de 3 !" << endl;
 												atk += 3;
 												break;
-
 								case 2:
 												cout << "Votre défense a été augmenté de 3 !" << endl;
 												def += 3;
 												break;
-
 								case 3:
 												cout << "Vos PV ont été augmenté de 3 !" << endl;
 												pv += 3;
 												break;
-
 								default:
 												cout << "Pas de choix possibles disponibles pour cette option, réessayez !" << endl;
 												lvUp();
 							}
 							break;
-
 			case 3:
 							cout << "Quel attribut voulez-vous augmenter de 2 ? (1=attaque, 2=défense, 3=PV)" << endl;
 							cin >> choix[2];
@@ -107,83 +100,65 @@ using namespace std;
 								case 1:
 													cout << "Votre attaque a été augmenté de 2 !" << endl;
 													atk += 2;
-
 													cout << "Quel attribut voulez-vous augmenter de 1 ? (1=défense, 2=PV)" << endl;
-
 													cin >> choix[3];
-
 													switch (choix[3]) {
 														case 1:
 																		cout << "Votre défense a été augmenté de 1 !" << endl;
 																		def++;
 																		break;
-
 														case 2:
 																		cout << "Vos PV ont été augmentés de 1 !" << endl;
 																		pv++;
 																		break;
-
 														default:
 																		cout << "Pas de choix disponibles pour cette option, réessayez !" << endl;
 																		lvUp();
 													}
 													break;
-
 								case 2:
 													cout << "Votre défense a été augmenté de 2 !" << endl;
 													def += 2;
-
 													cout << "Quel attribut voulez-vous augmenter de 1 ? (1=attaque, 2=PV)" << endl;
-
 													cin >> choix[3];
-
 													switch (choix[3]) {
 														case 1:
 																		cout << "Votre attaque a été augmenté de 1 !" << endl;
 																		atk++;
 																		break;
-
 														case 2:
 																		cout << "Vos PV ont été augmentés de 1 !" << endl;
 																		pv++;
 																		break;
-
 														default:
 																		cout << "Pas de choix disponibles pour cette option, réessayez !" << endl;
 																		lvUp();
 													}
 													break;
-
 								case 3:
 													cout << "Vos PV ont été augmenté de 2 !" << endl;
 													pv += 2;
-
 													cout << "Quel attribut voulez-vous augmenter de 1 ? (1=attaque, 2=défense)" << endl;
 													cin >> choix[3];
-
 													switch (choix[3]) {
 														case 1:
 																		cout << "Votre attaque a été augmenté de 1 !" << endl;
 																		atk++;
 																		break;
-
 														case 2:
 																		cout << "Votre défense a été augmenté de 1 !" << endl;
 																		def++;
 																		break;
-
 														default:
 																		cout << "Pas de choix disponibles pour cette option, réessayez !" << endl;
 																		lvUp();
 													}
 													break;
-
 								default:
 													cout << "Pas de choix possibles disponibles pour cette option, réessayez !" << endl;
 													lvUp();
 								}
 								break;
-
 			default:
 								cout << "Pas de choix disponibles pour cette option, réessayez !" << endl;
 								lvUp();
@@ -202,32 +177,31 @@ using namespace std;
 
 	Ennemi::Ennemi(int leveling) {
 		int stat = 30;
-		int randstat;
-		int randomiser = rand(1,4);
+		int randomiser = rand() % 4 + 1;
 		switch (randomiser) {
 			case 1:
-				atk = rand(1,stat-2);
+				atk = rand() % stat-2 + 1;
 				stat -= atk;
-				def = rand(1,stat-1);
+				def = rand() % stat-1 + 1;
 				stat -= def;
 				pv = stat;
 				break;
 			case 2:
-				def = rand(1,stat-2);
+				def = rand() % stat-2 + 1;
 				stat -= def;
-				pv = rand(1,stat-1);
+				pv = rand() % stat-1 + 1;
 				stat -= pv;
 				atk = stat;
 				break;
 			case 3:
-				pv = rand(1,stat-2);
+				pv = rand() % stat-2 + 1;
 				stat -= pv;
-				atk = rand(1,stat-1);
+				atk = rand() % stat-1 + 1;
 				stat -= atk;
 				def = stat;
 				break;
 		}
-		sprite = "e";
+		sprite = 'e';
 	}
 
 	Ennemi::~Ennemi() {
