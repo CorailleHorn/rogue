@@ -8,7 +8,9 @@ using namespace std;
 
 	Personnage::Personnage() {}
 
-	Personnage::~Personnage() {}
+	Personnage::~Personnage() {
+		delete r;
+	}
 
 	void Personnage::combat() {}
 
