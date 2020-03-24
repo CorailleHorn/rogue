@@ -23,7 +23,7 @@ class Personnage {
 	protected:
 		int atk, def, pv, lv, *x, *y;
 		char sprite;
-		Room * r;
+		Room *r;
 };
 
 
