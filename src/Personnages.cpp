@@ -1,6 +1,4 @@
 #include "Personnages.h"
-#include <math.h>
-
 
 using namespace std;
 
@@ -12,39 +10,7 @@ using namespace std;
 
 	}
 
-	void Personnage::affichage(const char touche) {
-		switch (touche) {
-			case 'z':
-
-			break;
-
-			case 's':
-
-			break;
-
-			case 'q':
-
-			break;
-
-			case 'd':
-
-			break;
-
-			default:   ;
-		}
-	}
-
-	void Personnage::setAtk(int x) {
-		atk = x;
-	}
-
-	void Personnage::setDef(int x) {
-		def = x;
-	}
-
-	void Personnage::setPv(int x) {
-		pv = x;
-	}
+	void Personnage::affichage() {}
 
 	int Personnage::getAtk() const {
 		return atk;
@@ -193,8 +159,8 @@ using namespace std;
 	}
 
 
-	Ennemi::Ennemi(int leveling) {
-		int stat = 30;
+	Ennemi::Ennemi(const int &leveling) {
+		int stat = 30 * leveling;
 		int randomiser = rand() % 4 + 1;
 		switch (randomiser) {
 			case 1:

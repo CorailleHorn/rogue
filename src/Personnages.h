@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <unistd.h>
+#include <math.h>
 
 class Personnage {
 	public:
@@ -37,7 +38,7 @@ class Hero: public Personnage {
 
 class Ennemi: public Personnage {
 	public:
-		Ennemi(int leveling);
+		Ennemi(const int &leveling);
 		virtual ~Ennemi();
 		virtual void deplacement();
 };
