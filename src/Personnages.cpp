@@ -6,9 +6,25 @@ using namespace std;
 
 	Personnage::~Personnage() {}
 
-	void Personnage::combat() {}
+	void Personnage::combat() {
 
-	void Personnage::affichage() {}
+	}
+
+	void Personnage::affichage() {
+
+	}
+
+	void Personnage::setAtk(int x) {
+		atk = x;
+	}
+
+	void Personnage::setDef(int x) {
+		def = x;
+	}
+
+	void Personnage::setPv(int x) {
+		pv = x;
+	}
 
 	int Personnage::getAtk() const {
 		return atk;
@@ -156,14 +172,60 @@ using namespace std;
 	}
 
 
-	void Hero::deplacement() {
+	void Hero::deplacement(const char touche) {
+		switch (touche) {
+			case 'z':
+						h.Haut();
+						break;
 
+			case 's':
+						h.Bas();
+						break;
+
+			case 'q':
+						h.Gauche();
+						break;
+
+			case 'd':
+						h.Droite();
+						break;
+
+			default:
+						deplacement(touche);
+		}
 	}
 
 	void Hero::setName(string sname) {
 			name = sname;
 	}
 
+	bool Hero::positionValide (const int x, const int y) const {
+	return ((x>=0) && (x<dimx) && (y>=0) && (y<dimy) && (ter[x][y]!='#'));
+
+
+	void Hero::Haut(){
+		if (positionValide(*x, *y++)){
+			*y++;
+		}
+	}
+
+	void Hero::Bas(){
+		if (positionValide(*x, *y--)){
+			*y--;
+		}
+	}
+
+	void Hero::Gauche(){
+		if (positionValide(*x--, *y)){
+			*x--;
+		}
+	}
+
+	void Hero::Droite(){
+		if (positionValide(*x++, *y)){
+			*x++;
+		}
+	}
 
 	Ennemi::Ennemi(const int &leveling) {
 		int stat = 30 * leveling;
