@@ -162,23 +162,23 @@ using namespace std;
 
 	void Hero::Haut(){
 		if (positionValide(*x, *y++))
-			*y++;
+			*y += 1;
 	}
 
 
 	void Hero::Bas(){
 		if (positionValide(*x, *y--))
-			*y--;
+			*y -= 1;
 	}
 
 	void Hero::Gauche(){
 		if (positionValide(*x--, *y))
-			*x--;
+			*x -= 1;
 	}
 
 	void Hero::Droite(){
 		if (positionValide(*x++, *y))
-			*x++;
+			*x += 1;
 	}
 
 	void Hero::deplacement() {
