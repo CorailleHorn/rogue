@@ -22,7 +22,7 @@ class Personnage {
 	protected:
 		int atk, def, pv, lv, *x, *y;
 		char sprite;
-		Room * r;
+		Room *r;
 };
 
 
@@ -37,7 +37,7 @@ class Hero: public Personnage {
 		void Droite();
 		void Gauche();
 		void Bas();
-		bool positionValide(int x, int y) const;
+		bool positionValide(const int x, const int y);
 	protected:
 		std::string name;
 };

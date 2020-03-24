@@ -156,29 +156,29 @@ using namespace std;
 
 
 	bool Hero::positionValide (const int x, const int y) {
-		return ((*r->slc) && (x>*r->X0) && (x<*r->X1) && (y>*r->Y0) && (y<*r->Y1);
+		return ((r->slc) && (x>r->X0) && (x<r->X1) && (y>r->Y0) && (y<r->Y1));
 	}
 
 
 	void Hero::Haut(){
 		if (positionValide(*x, *y++))
-			*y++;
+			*y+=1;
 	}
 
 
 	void Hero::Bas(){
 		if (positionValide(*x, *y--))
-			*y--;
+			*y-=1;
 	}
 
 	void Hero::Gauche(){
 		if (positionValide(*x--, *y))
-			*x--;
+			*x-=1;
 	}
 
 	void Hero::Droite(){
 		if (positionValide(*x++, *y))
-			*x++;
+			*x+=1;
 	}
 
 	void Hero::deplacement() {
