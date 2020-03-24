@@ -17,8 +17,8 @@ using namespace std;
 
 	void Personnage::affichage() {}
 
-	bool Personnage::positionValide (const int x, const int y) {
-		return ((*r->slc) && (x>*r->X0) && (x<*r->X1) && (y>*r->Y0) && (y<*r->Y1);
+	bool Personnage::positionValide (int x, int y) {
+		return ((r->slc) && (x>r->X0) && (x<r->X1) && (y>r->Y0) && (y<r->Y1));
 	}
 
 	int Personnage::getAtk() const {
