@@ -1,4 +1,8 @@
 #include "Personnages.h"
+#include <iostream>
+#include <unistd.h>
+#include <math.h>
+#include "Room.h"
 
 using namespace std;
 
@@ -6,25 +10,9 @@ using namespace std;
 
 	Personnage::~Personnage() {}
 
-	void Personnage::combat() {
+	void Personnage::combat() {}
 
-	}
-
-	void Personnage::affichage() {
-
-	}
-
-	void Personnage::setAtk(int x) {
-		atk = x;
-	}
-
-	void Personnage::setDef(int x) {
-		def = x;
-	}
-
-	void Personnage::setPv(int x) {
-		pv = x;
-	}
+	void Personnage::affichage() {}
 
 	int Personnage::getAtk() const {
 		return atk;
@@ -175,21 +163,17 @@ using namespace std;
 	void Hero::deplacement(const char touche) {
 		switch (touche) {
 			case 'z':
-						h.Haut();
+						Haut();
 						break;
-
 			case 's':
-						h.Bas();
+						Bas();
 						break;
-
 			case 'q':
-						h.Gauche();
+						Gauche();
 						break;
-
 			case 'd':
-						h.Droite();
+						Droite();
 						break;
-
 			default:
 						deplacement(touche);
 		}
@@ -199,7 +183,7 @@ using namespace std;
 			name = sname;
 	}
 
-	bool Hero::positionValide (const int x, const int y) const {
+	bool Hero::positionValide(int x, int y) {
 	return ((x>=0) && (x<dimx) && (y>=0) && (y<dimy) && (ter[x][y]!='#'));
 
 

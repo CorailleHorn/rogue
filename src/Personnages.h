@@ -4,6 +4,7 @@
 #include <iostream>
 #include <unistd.h>
 #include <math.h>
+#include "Room.h"
 
 class Personnage {
 	public:
@@ -19,8 +20,7 @@ class Personnage {
 		int* getX() const;
 		int* getY() const;
 	protected:
-		int atk, def, pv, lv;
-		int* x, y;
+		int atk, def, pv, lv, *x, *y;
 		char sprite;
 };
 
@@ -36,7 +36,7 @@ class Hero: public Personnage {
 		void Droite();
 		void Gauche();
 		void Bas();
-		bool positionValide(int x, int y);
+		bool positionValide(int x, int y) const;
 	protected:
 		std::string name;
 };
