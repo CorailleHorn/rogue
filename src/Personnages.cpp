@@ -8,7 +8,10 @@ using namespace std;
 
 	Personnage::Personnage() {}
 
-	Personnage::~Personnage() {}
+	Personnage::~Personnage() {
+		delete x;
+		delete y;
+	}
 
 	void Personnage::combat() {}
 
@@ -46,10 +49,7 @@ using namespace std;
     name = "";
 	}
 
-	Hero::~Hero() {
-		delete x;
-		delete y;
-	}
+	Hero::~Hero() {}
 
 	void Hero::lvUp() {
 		int choix[4];
@@ -241,10 +241,7 @@ using namespace std;
 		y = new int;
 	}
 
-	Ennemi::~Ennemi() {
-		delete x;
-		delete y;
-	}
+	Ennemi::~Ennemi() {}
 
 	void Ennemi::deplacement() {
 
