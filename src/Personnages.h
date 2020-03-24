@@ -1,7 +1,8 @@
-#ifndef PERSONNAGES_H
-#define PERSONNAGES_H
+#ifndef _PERSONNAGES_H_
+#define _PERSONNAGES_H_
 
 #include <iostream>
+#include <unistd.h>
 
 class Personnage {
 	public:
@@ -10,14 +11,12 @@ class Personnage {
 		virtual void deplacement() = 0;
 		virtual void combat();
 		void affichage();
-		void setAtk(int x);
-		void setDef(int x);
-		void setPv(int x);
 		int getAtk() const;
 		int getDef() const;
 		int getPv() const;
 		int getLv() const;
-
+		int getX() const;
+		int getY() const;
 	protected:
 		int atk, def, pv, lv, x, y;
 		char sprite;
