@@ -1,4 +1,6 @@
 #include "Personnages.h"
+#include <math.h>
+
 
 using namespace std;
 
@@ -42,19 +44,11 @@ using namespace std;
 		return lv;
 	}
 
-	int* Personnage::getX() const {
-		return x;
-	}
-
-	int* Personnage::getY() const {
-		return y;
-	}
 
 	Hero::Hero() {
 		atk = def = pv = lv = 0;
-		x = new int;
-		y = new int;
-		sprite = 'H';
+		x = y = 0;
+		sprite = 'a';
     name = "";
 	}
 
@@ -172,35 +166,9 @@ using namespace std;
 	}
 
 
-	void Hero::deplacement(const char touche) {
-		switch (touche) {
-			case 'z':
-						h.Haut();
-						break;
-
-			case 's':
-						h.Bas();
-						break;
-
-			case 'q':
-						h.Gauche();
-						break;
-
-			case 'd':
-						h.Droite();
-						break;
-
-			default:
-						deplacement(touche);
-		}
+	bool Hero::positionValide (const int x, const int y) {
+		return ((*r.slc) && (x>*r.X0) && (x<*r.X1) && (y>*r.Y0) && (y<*r.Y1);
 	}
-
-	void Hero::setName(string sname) {
-			name = sname;
-	}
-
-	bool Hero::positionValide (const int x, const int y) const {
-	return ((x>=0) && (x<dimx) && (y>=0) && (y<dimy) && (ter[x][y]!='#'));
 
 
 	void Hero::Haut(){
@@ -215,7 +183,7 @@ using namespace std;
 		}
 	}
 
-	void Hero::Gauche(){
+void Hero::Gauche(){
 		if (positionValide(*x--, *y)){
 			*x--;
 		}
@@ -227,8 +195,38 @@ using namespace std;
 		}
 	}
 
-	Ennemi::Ennemi(const int &leveling) {
-		int stat = 30 * leveling;
+	void Hero::deplacement() {
+		char touche;
+		cin>>touche;
+		switch (touche) {
+			case 'z':
+						Haut();
+						break;
+
+			case 's':
+						Bas();
+						break;
+
+			case 'q':
+						Gauche();
+						break;
+
+			case 'd':
+						Droite();
+						break;
+
+			default:
+						deplacement(touche);
+		}
+	}
+
+	void Hero::setName(string sname) {
+			name = sname;
+	}
+
+
+	Ennemi::Ennemi(int leveling) {
+		int stat = 30;
 		int randomiser = rand() % 4 + 1;
 		switch (randomiser) {
 			case 1:
@@ -253,9 +251,7 @@ using namespace std;
 				def = stat;
 				break;
 		}
-		sprite = 'E';
-		x = new int;
-		y = new int;
+		sprite = 'e';
 	}
 
 	Ennemi::~Ennemi() {
