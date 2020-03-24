@@ -12,8 +12,38 @@ using namespace std;
 
 	}
 
-	void Personnage::affichage() {
-		
+	void Personnage::affichage(const char touche) {
+		switch (touche) {
+			case 'z':
+
+			break;
+
+			case 's':
+
+			break;
+
+			case 'q':
+
+			break;
+
+			case 'd':
+
+			break;
+
+			default:   ;
+		}
+	}
+
+	void Personnage::setAtk(int x) {
+		atk = x;
+	}
+
+	void Personnage::setDef(int x) {
+		def = x;
+	}
+
+	void Personnage::setPv(int x) {
+		pv = x;
 	}
 
 	int Personnage::getAtk() const {
@@ -32,13 +62,6 @@ using namespace std;
 		return lv;
 	}
 
-	int Personnage::getX() const {
-		return x;
-	}
-
-	int Personnage::getY() const {
-		return y;
-	}
 
 	Hero::Hero() {
 		atk = def = pv = lv = 0;
