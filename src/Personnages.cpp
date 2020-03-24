@@ -28,11 +28,18 @@ using namespace std;
 		return lv;
 	}
 
+	int* Personnage::getX() const {
+		return x;
+	}
+
+	int* Personnage::getY() const {
+		return y;
+	}
 
 	Hero::Hero() {
 		atk = def = pv = lv = 0;
 		x = y = 0;
-		sprite = 'a';
+		sprite = 'H';
     name = "";
 	}
 
@@ -185,7 +192,7 @@ using namespace std;
 				def = stat;
 				break;
 		}
-		sprite = 'e';
+		sprite = 'E';
 	}
 
 	Ennemi::~Ennemi() {

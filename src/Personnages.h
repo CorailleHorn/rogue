@@ -16,10 +16,11 @@ class Personnage {
 		int getDef() const;
 		int getPv() const;
 		int getLv() const;
-		int getX() const;
-		int getY() const;
+		int* getX() const;
+		int* getY() const;
 	protected:
-		int atk, def, pv, lv, x, y;
+		int atk, def, pv, lv;
+		int* x, y;
 		char sprite;
 };
 
