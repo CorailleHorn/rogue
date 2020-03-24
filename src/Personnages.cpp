@@ -13,7 +13,7 @@ using namespace std;
 	}
 
 	void Personnage::affichage() {
-
+		
 	}
 
 	void Personnage::setAtk(int x) {
