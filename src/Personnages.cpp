@@ -6,9 +6,7 @@ using namespace std;
 
 	Personnage::~Personnage() {}
 
-	void Personnage::combat() {
-
-	}
+	void Personnage::combat() {}
 
 	void Personnage::affichage() {}
 
@@ -38,7 +36,8 @@ using namespace std;
 
 	Hero::Hero() {
 		atk = def = pv = lv = 0;
-		x = y = 0;
+		x = new int;
+		y = new int;
 		sprite = 'H';
     name = "";
 	}
@@ -193,6 +192,8 @@ using namespace std;
 				break;
 		}
 		sprite = 'E';
+		x = new int;
+		y = new int;
 	}
 
 	Ennemi::~Ennemi() {
