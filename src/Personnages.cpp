@@ -11,6 +11,7 @@ using namespace std;
 	Personnage::~Personnage() {
 		delete x;
 		delete y;
+		delete r;
 	}
 
 	void Personnage::combat() {}
