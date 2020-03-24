@@ -18,10 +18,10 @@ class Personnage {
 		int getDef() const;
 		int getPv() const;
 		int getLv() const;
-		int* getX() const;
-		int* getY() const;
+		int getX() const;
+		int getY() const;
 	protected:
-		int atk, def, pv, lv, *x, *y;
+		int atk, def, pv, lv, x, y;
 		char sprite;
 		Room *r;
 };
@@ -47,7 +47,7 @@ class Ennemi: public Personnage {
 	public:
 		Ennemi(const int &leveling);
 		virtual ~Ennemi();
-		virtual void deplacement();
+		virtual void deplacement(Hero h);
 };
 
 #endif

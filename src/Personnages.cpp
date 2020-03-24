@@ -8,10 +8,7 @@ using namespace std;
 
 	Personnage::Personnage() {}
 
-	Personnage::~Personnage() {
-		delete x;
-		delete y;
-	}
+	Personnage::~Personnage() {}
 
 	void Personnage::combat() {}
 
@@ -39,8 +36,7 @@ using namespace std;
 
 
 	Hero::Hero() {
-		atk = def = pv = lv = 0;
-		x = y = 0;
+		atk = def = pv = lv = x = y = 0;
 		sprite = 'H';
     name = "";
 	}
@@ -159,24 +155,24 @@ using namespace std;
 		}
 
 	void Hero::Haut(){
-		if (positionValide(*x, *y++))
-			*y += 1;
+		if (positionValide(x, ++y))
+			y++;
 	}
 
 
 	void Hero::Bas(){
-		if (positionValide(*x, *y--))
-			*y -= 1;
+		if (positionValide(x, --y))
+			--y;
 	}
 
 	void Hero::Gauche(){
-		if (positionValide(*x--, *y))
-			*x -= 1;
+		if (positionValide(--x, y))
+			--x;
 	}
 
 	void Hero::Droite(){
-		if (positionValide(*x++, *y))
-			*x += 1;
+		if (positionValide(++x, y))
+			++x;
 	}
 
 	void Hero::deplacement() {
@@ -195,8 +191,6 @@ using namespace std;
 			case 'd':
 						Droite();
 						break;
-			default:
-						deplacement();
 		}
 	}
 
@@ -236,6 +230,9 @@ using namespace std;
 
 	Ennemi::~Ennemi() {}
 
-	void Ennemi::deplacement() {
-
+	void Ennemi::deplacement(Hero h) {
+		/*if(h.getX() < x && positionValide(--x, y))
+		if(h.getX() > x && positionValide(++x, y))
+		if(h.getY() < y && positionValide(x, --y))
+		if(h.getY() > y && positionValide(x, ++y))*/
 	}
