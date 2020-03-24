@@ -28,8 +28,13 @@ class Hero: public Personnage {
 		Hero();
 		virtual ~Hero();
 		void lvUp();
-		virtual void deplacement();
+		virtual void deplacement(const char touche);
 		void setName(std::string sname);
+		void Haut();
+		void Droite();
+		void Gauche();
+		void Bas();
+		bool positionValide(int x, int y);
 	protected:
 		std::string name;
 };
