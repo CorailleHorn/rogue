@@ -1,32 +1,21 @@
 #include "Personnages.h"
+#include <iostream>
+#include <unistd.h>
 #include <math.h>
-
+#include "Room.h"
 
 using namespace std;
 
 	Personnage::Personnage() {}
 
-	Personnage::~Personnage() {}
-
-	void Personnage::combat() {
-
+	Personnage::~Personnage() {
+		delete x;
+		delete y;
 	}
 
-	void Personnage::affichage() {
+	void Personnage::combat() {}
 
-	}
-
-	void Personnage::setAtk(int x) {
-		atk = x;
-	}
-
-	void Personnage::setDef(int x) {
-		def = x;
-	}
-
-	void Personnage::setPv(int x) {
-		pv = x;
-	}
+	void Personnage::affichage() {}
 
 	int Personnage::getAtk() const {
 		return atk;
@@ -172,27 +161,24 @@ using namespace std;
 
 
 	void Hero::Haut(){
-		if (positionValide(*x, *y++)){
+		if (positionValide(*x, *y++))
 			*y++;
-		}
 	}
+
 
 	void Hero::Bas(){
-		if (positionValide(*x, *y--)){
+		if (positionValide(*x, *y--))
 			*y--;
-		}
 	}
 
-void Hero::Gauche(){
-		if (positionValide(*x--, *y)){
+	void Hero::Gauche(){
+		if (positionValide(*x--, *y))
 			*x--;
-		}
 	}
 
 	void Hero::Droite(){
-		if (positionValide(*x++, *y)){
+		if (positionValide(*x++, *y))
 			*x++;
-		}
 	}
 
 	void Hero::deplacement() {
@@ -254,9 +240,7 @@ void Hero::Gauche(){
 		sprite = 'e';
 	}
 
-	Ennemi::~Ennemi() {
-
-	}
+	Ennemi::~Ennemi() {}
 
 	void Ennemi::deplacement() {
 

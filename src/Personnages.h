@@ -20,8 +20,7 @@ class Personnage {
 		int* getX() const;
 		int* getY() const;
 	protected:
-		int atk, def, pv, lv;
-		int* x, y;
+		int atk, def, pv, lv, *x, *y;
 		char sprite;
 		Room * r;
 };
