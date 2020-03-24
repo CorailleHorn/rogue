@@ -13,6 +13,7 @@ class Personnage {
 		virtual void deplacement() = 0;
 		virtual void combat();
 		void affichage();
+		bool positionValide(int x, int y) const;
 		int getAtk() const;
 		int getDef() const;
 		int getPv() const;
@@ -37,7 +38,6 @@ class Hero: public Personnage {
 		void Droite();
 		void Gauche();
 		void Bas();
-		bool positionValide(int x, int y) const;
 	protected:
 		std::string name;
 };

@@ -17,6 +17,10 @@ using namespace std;
 
 	void Personnage::affichage() {}
 
+	bool Personnage::positionValide (const int x, const int y) {
+		return ((*r->slc) && (x>*r->X0) && (x<*r->X1) && (y>*r->Y0) && (y<*r->Y1);
+	}
+
 	int Personnage::getAtk() const {
 		return atk;
 	}
@@ -152,13 +156,7 @@ using namespace std;
 								cout << "Pas de choix disponibles pour cette option, réessayez !" << endl;
 								lvUp();
 			}
-	}
-
-
-	bool Hero::positionValide (const int x, const int y) {
-		return ((*r->slc) && (x>*r->X0) && (x<*r->X1) && (y>*r->Y0) && (y<*r->Y1);
-	}
-
+		}
 
 	void Hero::Haut(){
 		if (positionValide(*x, *y++))
@@ -188,19 +186,15 @@ using namespace std;
 			case 'z':
 						Haut();
 						break;
-
 			case 's':
 						Bas();
 						break;
-
 			case 'q':
 						Gauche();
 						break;
-
 			case 'd':
 						Droite();
 						break;
-
 			default:
 						deplacement();
 		}
