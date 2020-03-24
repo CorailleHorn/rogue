@@ -156,7 +156,7 @@ using namespace std;
 
 
 	bool Hero::positionValide (const int x, const int y) {
-		return ((*r.slc) && (x>*r.X0) && (x<*r.X1) && (y>*r.Y0) && (y<*r.Y1);
+		return ((*r->slc) && (x>*r->X0) && (x<*r->X1) && (y>*r->Y0) && (y<*r->Y1);
 	}
 
 
@@ -202,7 +202,7 @@ using namespace std;
 						break;
 
 			default:
-						deplacement(touche);
+						deplacement();
 		}
 	}
 
@@ -211,7 +211,7 @@ using namespace std;
 	}
 
 
-	Ennemi::Ennemi(int leveling) {
+	Ennemi::Ennemi(const int &leveling) {
 		int stat = 30;
 		int randomiser = rand() % 4 + 1;
 		switch (randomiser) {
