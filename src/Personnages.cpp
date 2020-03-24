@@ -46,7 +46,10 @@ using namespace std;
     name = "";
 	}
 
-	Hero::~Hero() {}
+	Hero::~Hero() {
+		delete x;
+		delete y;
+	}
 
 	void Hero::lvUp() {
 		int choix[4];
@@ -184,31 +187,27 @@ using namespace std;
 	}
 
 	bool Hero::positionValide(int x, int y) {
-	return ((x>=0) && (x<dimx) && (y>=0) && (y<dimy) && (ter[x][y]!='#'));
-
+		return ((x>=0) && (x<dimx) && (y>=0) && (y<dimy) && (ter[x][y]!='#'));
+}
 
 	void Hero::Haut(){
-		if (positionValide(*x, *y++)){
+		if (positionValide(*x, *y++))
 			*y++;
-		}
 	}
 
 	void Hero::Bas(){
-		if (positionValide(*x, *y--)){
+		if (positionValide(*x, *y--))
 			*y--;
-		}
 	}
 
 	void Hero::Gauche(){
-		if (positionValide(*x--, *y)){
+		if (positionValide(*x--, *y))
 			*x--;
-		}
 	}
 
 	void Hero::Droite(){
-		if (positionValide(*x++, *y)){
+		if (positionValide(*x++, *y))
 			*x++;
-		}
 	}
 
 	Ennemi::Ennemi(const int &leveling) {
@@ -243,7 +242,8 @@ using namespace std;
 	}
 
 	Ennemi::~Ennemi() {
-
+		delete x;
+		delete y;
 	}
 
 	void Ennemi::deplacement() {
