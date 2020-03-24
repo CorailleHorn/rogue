@@ -37,7 +37,7 @@ using namespace std;
 	Hero::Hero() {
 		atk = def = pv = lv = 0;
 		x = y = 0;
-		sprite = 'a';
+		sprite = 'H';
     name = "";
 	}
 
@@ -162,23 +162,23 @@ using namespace std;
 
 	void Hero::Haut(){
 		if (positionValide(*x, *y++))
-			*y+=1;
+			*y += 1;
 	}
 
 
 	void Hero::Bas(){
 		if (positionValide(*x, *y--))
-			*y-=1;
+			*y -= 1;
 	}
 
 	void Hero::Gauche(){
 		if (positionValide(*x--, *y))
-			*x-=1;
+			*x -= 1;
 	}
 
 	void Hero::Droite(){
 		if (positionValide(*x++, *y))
-			*x+=1;
+			*x += 1;
 	}
 
 	void Hero::deplacement() {
@@ -212,7 +212,7 @@ using namespace std;
 
 
 	Ennemi::Ennemi(const int &leveling) {
-		int stat = 30;
+		int stat = 30 * leveling;
 		int randomiser = rand() % 4 + 1;
 		switch (randomiser) {
 			case 1:
@@ -237,7 +237,7 @@ using namespace std;
 				def = stat;
 				break;
 		}
-		sprite = 'e';
+		sprite = 'E';
 	}
 
 	Ennemi::~Ennemi() {}
