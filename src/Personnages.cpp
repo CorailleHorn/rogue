@@ -156,17 +156,7 @@ using namespace std;
 								cout << "Pas de choix disponibles pour cette option, réessayez !" << endl;
 								lvUp();
 			}
-<<<<<<< HEAD
 		}
-=======
-	}
-
-
-	bool Hero::positionValide (const int x, const int y) {
-		return ((r->slc) && (x>r->X0) && (x<r->X1) && (y>r->Y0) && (y<r->Y1));
-	}
-
->>>>>>> e554917bfb3b6fc84f425fed487f2b8d5eeba45b
 
 	void Hero::Haut(){
 		if (positionValide(*x, *y++))
