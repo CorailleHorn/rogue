@@ -12,9 +12,13 @@ using namespace std;
 		delete r;
 	}
 
+<<<<<<< HEAD
 	void Personnage::combat() {
 		
 	}
+=======
+	void Personnage::degat(Personnage* p) {}
+>>>>>>> e7f792933e83c2b249f5e6663554c764722a2f1f
 
 	void Personnage::affichage() {
 		cout << sprite << endl;
@@ -168,17 +172,30 @@ using namespace std;
 
 	void Hero::Bas(){
 		if (positionValide(x, (y-1)))
+<<<<<<< HEAD
 			--y;
+=======
+			y--;
+
+>>>>>>> e7f792933e83c2b249f5e6663554c764722a2f1f
 	}
 
 	void Hero::Gauche(){
 		if (positionValide((x-1), y))
+<<<<<<< HEAD
 			--x;
+=======
+			x--;
+>>>>>>> e7f792933e83c2b249f5e6663554c764722a2f1f
 	}
 
 	void Hero::Droite(){
 		if (positionValide((x+1), y))
+<<<<<<< HEAD
 			++x;
+=======
+			x++;
+>>>>>>> e7f792933e83c2b249f5e6663554c764722a2f1f
 	}
 
 	void Hero::deplacement() {
@@ -199,6 +216,8 @@ using namespace std;
 						break;
 		}
 	}
+
+	void Hero::combat(Ennemi* e) {}
 
 	void Hero::setName(string sname) {
 			name = sname;
@@ -236,13 +255,18 @@ using namespace std;
 
 	Ennemi::~Ennemi() {}
 
-	void Ennemi::deplacement(Hero h) {
-		if(h.getX() < x && positionValide((x+1), y))
+	void Ennemi::deplacement(const Hero* h) {
+		if(h->getX() < x && positionValide((x+1), y))
 			x++;
-		if(h.getX() > x && positionValide((x-1), y))
+		if(h->getX() > x && positionValide((x-1), y))
 			x--;
-		if(h.getY() < y && positionValide(x, (y+1)))
+		if(h->getY() < y && positionValide(x, (y+1)))
 			y++;
-		if(h.getY() > y && positionValide(x, (y-1)))
+		if(h->getY() > y && positionValide(x, (y-1)))
 			y--;
+	}
+
+	void Ennemi::combat(Hero* h) {
+		if((h->getX() == x-1) || (h->getX() == x+1))
+
 	}
