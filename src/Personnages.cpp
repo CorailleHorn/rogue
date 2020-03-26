@@ -12,6 +12,8 @@ using namespace std;
 		delete r;
 	}
 
+	void Personnage::degat(Personnage* p) {}
+
 	void Personnage::affichage() {}
 
 	bool Personnage::positionValide (int x, int y) {
@@ -243,4 +245,7 @@ using namespace std;
 			y--;
 	}
 
-	void Ennemi::combat(Hero* h) {}
+	void Ennemi::combat(Hero* h) {
+		if((h->getX() == x-1) || (h->getX() == x+1))
+
+	}
