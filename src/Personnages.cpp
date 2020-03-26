@@ -12,8 +12,6 @@ using namespace std;
 		delete r;
 	}
 
-	void Personnage::combat() {}
-
 	void Personnage::affichage() {}
 
 	bool Personnage::positionValide (int x, int y) {
@@ -164,17 +162,17 @@ using namespace std;
 
 	void Hero::Bas(){
 		if (positionValide(x, (y-1)))
-			--y;
+			y--;
 	}
 
 	void Hero::Gauche(){
 		if (positionValide((x-1), y))
-			--x;
+			x--;
 	}
 
 	void Hero::Droite(){
 		if (positionValide((x+1), y))
-			++x;
+			x++;
 	}
 
 	void Hero::deplacement() {
@@ -195,6 +193,8 @@ using namespace std;
 						break;
 		}
 	}
+
+	void Hero::combat(Ennemi* e) {}
 
 	void Hero::setName(string sname) {
 			name = sname;
@@ -242,3 +242,5 @@ using namespace std;
 		if(h->getY() > y && positionValide(x, (y-1)))
 			y--;
 	}
+
+	void Ennemi::combat(Hero* h) {}

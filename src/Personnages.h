@@ -11,7 +11,7 @@ class Personnage {
 		Personnage();
 		virtual ~Personnage();
 		virtual void deplacement() = 0;
-		virtual void combat();
+		virtual void combat() = 0;
 		void affichage();
 		bool positionValide(int x, int y);
 		int getAtk() const;
@@ -33,6 +33,7 @@ class Hero: public Personnage {
 		virtual ~Hero();
 		void lvUp();
 		virtual void deplacement();
+		virtual void combat(Ennemi* e);
 		void setName(std::string sname);
 		void Haut();
 		void Droite();
@@ -48,6 +49,7 @@ class Ennemi: public Personnage {
 		Ennemi(const int &leveling);
 		virtual ~Ennemi();
 		virtual void deplacement(const Hero* h);
+		virtual void combat(Hero* h);
 };
 
 #endif
