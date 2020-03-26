@@ -31,10 +31,10 @@ class Personnage {
 class Hero: public Personnage {
 	public:
 		Hero();
-		virtual ~Hero();
+		~Hero();
 		void lvUp();
-		virtual void deplacement();
-		virtual void combat(Personnage* e);
+		void deplacement();
+		void combat(Personnage* e);
 		void setName(std::string sname);
 		void Haut();
 		void Droite();
@@ -48,9 +48,9 @@ class Hero: public Personnage {
 class Ennemi: public Personnage {
 	public:
 		Ennemi(const int &leveling);
-		virtual ~Ennemi();
-		virtual void deplacement(const Hero* h);
-		virtual void combat(Hero* h);
+		~Ennemi();
+		void deplacement(const Hero* h);
+		void combat(Hero* h);
 };
 
 #endif

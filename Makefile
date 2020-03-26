@@ -1,10 +1,10 @@
 all : bin/executable_texte bin/exec_gen
 
 bin/executable_texte : obj/main.o obj/Personnages.o
-	g++ obj/main.o obj/Personnages.o -o bin/executable_texte
+	g++ -Wall -ggdb obj/main.o obj/Personnages.o -o bin/executable_texte
 
 bin/exec_gen : obj/Generation.o obj/Room.o obj/Map.o obj/Corridor.o
-	g++ obj/Generation.o obj/Room.o obj/Map.o obj/Corridor.o -o bin/exec_gen
+	g++ -Wall -ggdb obj/Generation.o obj/Room.o obj/Map.o obj/Corridor.o -o bin/exec_gen
 
 obj/main.o : src/main.cpp src/Personnages.h
 	g++ -Wall -ggdb	-c src/main.cpp -o obj/main.o
