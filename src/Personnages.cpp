@@ -12,7 +12,9 @@ using namespace std;
 		delete r;
 	}
 
-	void Personnage::combat() {}
+	void Personnage::combat() {
+		
+	}
 
 	void Personnage::affichage() {
 		cout << sprite << endl;
@@ -159,40 +161,23 @@ using namespace std;
 		}
 
 	void Hero::Haut(){
-<<<<<<< HEAD
-		if (positionValide(x, y+1))
-			++y;
-=======
 		if (positionValide(x, (y+1)))
 			y++;
->>>>>>> cce360eaa7e96332107f9c2343855e4327088cfe
 	}
 
 
 	void Hero::Bas(){
-<<<<<<< HEAD
-		if (positionValide(x, y-1))
-=======
 		if (positionValide(x, (y-1)))
->>>>>>> cce360eaa7e96332107f9c2343855e4327088cfe
 			--y;
 	}
 
 	void Hero::Gauche(){
-<<<<<<< HEAD
-		if (positionValide(x-1, y))
-=======
 		if (positionValide((x-1), y))
->>>>>>> cce360eaa7e96332107f9c2343855e4327088cfe
 			--x;
 	}
 
 	void Hero::Droite(){
-<<<<<<< HEAD
-		if (positionValide(x+1, y))
-=======
 		if (positionValide((x+1), y))
->>>>>>> cce360eaa7e96332107f9c2343855e4327088cfe
 			++x;
 	}
 
