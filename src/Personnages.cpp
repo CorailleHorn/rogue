@@ -12,8 +12,8 @@ using namespace std;
 		delete r;
 	}
 
-	void Personnage::degat(Personnage* p) {
-		int d = ((p->getAtk() - def) + 1);
+	void Personnage::degat(const int &atkA) {
+		int d = ((atkA - def) + 1);
 		if(d >= 0)
 			pv -= d;
 	}
@@ -253,5 +253,5 @@ using namespace std;
 
 	void Ennemi::combat(Hero* h) {
 		if((h->getX() == x-1) || (h->getX() == x+1))
-
+			h->degat(atk);
 	}
