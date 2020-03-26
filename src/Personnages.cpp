@@ -252,6 +252,7 @@ using namespace std;
 	}
 
 	void Ennemi::combat(Hero* h) {
-		if((h->getX() == x-1) || (h->getX() == x+1))
+		if((h->getX() == x-1) || (h->getX() == x+1)
+		|| (h->getY() == y-1) || (h->getY() == y+1))
 			h->degat(atk);
 	}
