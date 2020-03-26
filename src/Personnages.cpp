@@ -12,7 +12,9 @@ using namespace std;
 		delete r;
 	}
 
-	void Personnage::degat(Personnage* p) {}
+	void Personnage::degat(Personnage* p) {
+		
+	}
 
 	void Personnage::affichage() {
 		cout << sprite << endl;

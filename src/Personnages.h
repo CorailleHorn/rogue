@@ -12,7 +12,7 @@ class Personnage {
 		virtual ~Personnage();
 		virtual void deplacement() = 0;
 		virtual void combat() = 0;
-		void degat();
+		void degat(Personnage* p);
 		void affichage();
 		bool positionValide(int x, int y);
 		int getAtk() const;
