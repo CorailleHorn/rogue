@@ -34,7 +34,7 @@ class Hero: public Personnage {
 		virtual ~Hero();
 		void lvUp();
 		virtual void deplacement();
-		virtual void combat(Ennemi* e);
+		virtual void combat(Personnage* e);
 		void setName(std::string sname);
 		void Haut();
 		void Droite();

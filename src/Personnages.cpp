@@ -12,7 +12,9 @@ using namespace std;
 		delete r;
 	}
 
-	void Personnage::degat(Personnage* p) {}
+	void Personnage::degat(Personnage* p) {
+		
+	}
 
 	void Personnage::affichage() {
 		cout << sprite << endl;
@@ -198,7 +200,7 @@ using namespace std;
 		}
 	}
 
-	void Hero::combat(Ennemi* e) {}
+	void Hero::combat(Personnage* e) {}
 
 	void Hero::setName(string sname) {
 			name = sname;
