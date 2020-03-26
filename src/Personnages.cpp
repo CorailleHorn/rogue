@@ -13,7 +13,7 @@ using namespace std;
 	}
 
 	void Personnage::degat(Personnage* p) {
-		int d = (int)((p->getAtk() - def) + 1);
+		int d = ((p->getAtk() - def) + 1);
 		if(d >= 0)
 			pv -= d;
 	}
