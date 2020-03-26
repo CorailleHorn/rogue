@@ -42,6 +42,13 @@ using namespace std;
 		return lv;
 	}
 
+	int Personnage::getX() const {
+		return x;
+	}
+
+	int Personnage::getY() const {
+		return y;
+	}
 
 	Hero::Hero() {
 		atk = def = pv = lv = x = y = 0;
