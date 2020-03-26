@@ -202,7 +202,11 @@ using namespace std;
 		}
 	}
 
-	void Hero::combat(Personnage* e) {}
+	void Hero::combat(Personnage* e) {
+		if((e->getX() == x-1) || (e->getX() == x+1)
+		|| (e->getY() == y-1) || (e->getY() == y+1))
+			e->degat(atk);
+	}
 
 	void Hero::setName(string sname) {
 			name = sname;
