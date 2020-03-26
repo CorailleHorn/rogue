@@ -159,23 +159,40 @@ using namespace std;
 		}
 
 	void Hero::Haut(){
+<<<<<<< HEAD
 		if (positionValide(x, y+1))
 			++y;
+=======
+		if (positionValide(x, (y+1)))
+			y++;
+>>>>>>> cce360eaa7e96332107f9c2343855e4327088cfe
 	}
 
 
 	void Hero::Bas(){
+<<<<<<< HEAD
 		if (positionValide(x, y-1))
+=======
+		if (positionValide(x, (y-1)))
+>>>>>>> cce360eaa7e96332107f9c2343855e4327088cfe
 			--y;
 	}
 
 	void Hero::Gauche(){
+<<<<<<< HEAD
 		if (positionValide(x-1, y))
+=======
+		if (positionValide((x-1), y))
+>>>>>>> cce360eaa7e96332107f9c2343855e4327088cfe
 			--x;
 	}
 
 	void Hero::Droite(){
+<<<<<<< HEAD
 		if (positionValide(x+1, y))
+=======
+		if (positionValide((x+1), y))
+>>>>>>> cce360eaa7e96332107f9c2343855e4327088cfe
 			++x;
 	}
 
@@ -235,8 +252,12 @@ using namespace std;
 	Ennemi::~Ennemi() {}
 
 	void Ennemi::deplacement(Hero h) {
-		/*if(h.getX() < x && positionValide(--x, y))
-		if(h.getX() > x && positionValide(++x, y))
-		if(h.getY() < y && positionValide(x, --y))
-		if(h.getY() > y && positionValide(x, ++y))*/
+		if(h.getX() < x && positionValide((x+1), y))
+			x++;
+		if(h.getX() > x && positionValide((x-1), y))
+			x--;
+		if(h.getY() < y && positionValide(x, (y+1)))
+			y++;
+		if(h.getY() > y && positionValide(x, (y-1)))
+			y--;
 	}
