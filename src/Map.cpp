@@ -1,7 +1,9 @@
 #include <iostream>
+#include <cmath>
+#include <vector>
 #include "Map.h"
 #include "Room.h"
-#include <cmath>
+
 using namespace std;
 
 

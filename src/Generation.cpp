@@ -4,6 +4,7 @@
 #include <iostream>
 #include <ctime>
 #include <cmath>
+#include <vector>
 #include "Room.h"
 #include "Corridor.h"
 #include "Map.h"
@@ -19,7 +20,6 @@ double genRandomDouble() {
 float dist2Points(float x1, float y1, float x2, float y2) {
     return sqrt(pow((x1 - x2), 2) + pow((y1 - y2), 2));
 }
-
 
 
 
@@ -154,14 +154,15 @@ int main(int argc, char *argv[], char **envp)
     //int seed = 132892952984;
     //srand(seed);
     // ... ou la générer avec time(NULL)
-    srand(time(NULL));
+    int const seed = time(NULL);
+    srand(seed);
 
     //parametre des rooms et du terrain pour la generation
     int const map_size = 90;
-    int const room_max_size = 20;
-    int const room_min_size = 5;
+    int const room_max_size = 25; //ces dimensions sont uniquement pour la génération les dimensions réél sont séléctionner dans chooseRooms
+    int const room_min_size = 3;
     int const radius = 5;
-    int const nbrooms = 50;
+    int const nbrooms = 100;//comme pour les dimensions on ne conservera pas toutes les rooms generees
 
     Map *donjon = new Map(map_size, nbrooms);
     //création du terrain : chaque case dans un tableau dynamique de coordonnées (x,y)
@@ -174,15 +175,19 @@ int main(int argc, char *argv[], char **envp)
 
     //GENERATION
     //on genere les rooms
-
-    //affichage
     genRooms(list_room, nbrooms, room_max_size, room_min_size, radius, map_size);
+    //comme on manipule des coordonnees de type float on les arrondis en entier avec updateRooms
     updateRooms(list_room, nbrooms, map_size);
 
+    //AFFICHAGE
+    //on affiche les rooms
+    //on ajoute les affichages des rooms dans le tableau de la map donjon
     donjon->ajouterRooms(list_room);
     donjon->afficherMap();
+    //on onblie pas de vider le tableau pour pouvoir mettre à jours l'aspect
     donjon->viderMap();
 
+    //on procède à l'éclatement en cercle
     eclatement(list_room, nbrooms);
     updateRooms(list_room, nbrooms, map_size);
 
@@ -190,12 +195,15 @@ int main(int argc, char *argv[], char **envp)
     donjon->afficherMap();
     donjon->viderMap();
 
+    //on choisis les rooms qui possède un aspect jouable
     chooseRooms(list_room, nbrooms);
     updateRooms(list_room, nbrooms, map_size);
 
     donjon->ajouterRooms(list_room);
     donjon->afficherMap();
-    donjon->viderMap();
+    //on ne vide pas le tableau car on conservera ces rooms dans la version finale
+
+    //Generation des couloirs
 
 
     //initCenterRooms(&(*list_room));

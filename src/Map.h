@@ -3,6 +3,7 @@
 
 using namespace std;
 #include "Room.h"
+#include <vector>
 
 class Map {
 public:
