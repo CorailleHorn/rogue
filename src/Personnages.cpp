@@ -14,7 +14,9 @@ using namespace std;
 
 	void Personnage::combat() {}
 
-	void Personnage::affichage() {}
+	void Personnage::affichage() {
+		cout << sprite << endl;
+	}
 
 	bool Personnage::positionValide (int x, int y) {
 		return ((r->slc) && (x>r->X0) && (x<r->X1) && (y>r->Y0) && (y<r->Y1));
@@ -40,7 +42,7 @@ using namespace std;
 	Hero::Hero() {
 		atk = def = pv = lv = x = y = 0;
 		sprite = 'H';
-    name = "";
+    	name = "";
 	}
 
 	Hero::~Hero() {}
@@ -157,23 +159,23 @@ using namespace std;
 		}
 
 	void Hero::Haut(){
-		if (positionValide(x, ++y))
-			y++;
+		if (positionValide(x, y+1))
+			++y;
 	}
 
 
 	void Hero::Bas(){
-		if (positionValide(x, --y))
+		if (positionValide(x, y-1))
 			--y;
 	}
 
 	void Hero::Gauche(){
-		if (positionValide(--x, y))
+		if (positionValide(x-1, y))
 			--x;
 	}
 
 	void Hero::Droite(){
-		if (positionValide(++x, y))
+		if (positionValide(x+1, y))
 			++x;
 	}
 
