@@ -12,9 +12,7 @@ using namespace std;
 		delete r;
 	}
 
-	void Personnage::degat(Personnage* p) {
-		
-	}
+	void Personnage::degat(Personnage* p) {}
 
 	void Personnage::affichage() {
 		cout << sprite << endl;
@@ -169,7 +167,6 @@ using namespace std;
 	void Hero::Bas(){
 		if (positionValide(x, (y-1)))
 			y--;
-
 	}
 
 	void Hero::Gauche(){
