@@ -232,13 +232,13 @@ using namespace std;
 
 	Ennemi::~Ennemi() {}
 
-	void Ennemi::deplacement(Hero h) {
-		if(h.getX() < x && positionValide((x+1), y))
+	void Ennemi::deplacement(const Hero* h) {
+		if(h->getX() < x && positionValide((x+1), y))
 			x++;
-		if(h.getX() > x && positionValide((x-1), y))
+		if(h->getX() > x && positionValide((x-1), y))
 			x--;
-		if(h.getY() < y && positionValide(x, (y+1)))
+		if(h->getY() < y && positionValide(x, (y+1)))
 			y++;
-		if(h.getY() > y && positionValide(x, (y-1)))
+		if(h->getY() > y && positionValide(x, (y-1)))
 			y--;
 	}

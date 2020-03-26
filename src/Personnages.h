@@ -47,7 +47,7 @@ class Ennemi: public Personnage {
 	public:
 		Ennemi(const int &leveling);
 		virtual ~Ennemi();
-		virtual void deplacement(Hero h);
+		virtual void deplacement(const Hero* h);
 };
 
 #endif
