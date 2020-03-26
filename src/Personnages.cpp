@@ -14,7 +14,9 @@ using namespace std;
 
 	void Personnage::degat(Personnage* p) {}
 
-	void Personnage::affichage() {}
+	void Personnage::affichage() {
+		cout << sprite << endl;
+	}
 
 	bool Personnage::positionValide (int x, int y) {
 		return ((r->slc) && (x>r->X0) && (x<r->X1) && (y>r->Y0) && (y<r->Y1));
@@ -40,7 +42,7 @@ using namespace std;
 	Hero::Hero() {
 		atk = def = pv = lv = x = y = 0;
 		sprite = 'H';
-    name = "";
+    	name = "";
 	}
 
 	Hero::~Hero() {}
@@ -165,6 +167,7 @@ using namespace std;
 	void Hero::Bas(){
 		if (positionValide(x, (y-1)))
 			y--;
+
 	}
 
 	void Hero::Gauche(){
