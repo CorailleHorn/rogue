@@ -27,6 +27,7 @@ public:
 
     bool const allRoomsCollisions(unsigned int const ID);
     bool const roomCollision(Room A, Room B);
+    float* moyenneRooms(float mean[]);
 
     void ajouterRooms();
     void updateRooms();

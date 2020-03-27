@@ -113,10 +113,15 @@ void Map::eclatement() {
 }
 
 void Map::chooseRooms() {
-    //on choisis les rooms en fonction des parametres voulus
+    //on choisis toutes les rooms plus grande que 1.25 * la moyenne de toute les
+    //rooms affichées
+    float mean[2] = {0,0};
+    moyenneRooms(mean);
+    //mean[0] *= 1.25;
+    //mean[1] *= 1.25;
     //NOTE: on ne met pas de unsigned int pour i car cette valeur peut prendre-1
     for (int i = 0; i < (int)list_room.size(); i++) {
-        if ((list_room[i].H < 7) || (list_room[i].L < 7)) {
+        if ((list_room[i].H < mean[0]) || (list_room[i].L < mean[1])) {
             list_room.erase(list_room.begin() + i);
             i--;
         }
@@ -183,6 +188,17 @@ bool const Map::roomCollision(Room A, Room B) {
     else return true;
 }
 
+float* Map::moyenneRooms(float mean[]) {
+
+    for(unsigned int i = 0; i < list_room.size(); i++) {
+        mean[0] += list_room[i].H;
+        mean[1] += list_room[i].L;
+    }
+    mean[0] /= list_room.size();
+    mean[1] /= list_room.size();
+    return mean;
+}
+
 
 void Map::ajouterRooms() {
     //ajouter l'affichage des rooms dans la map
@@ -203,6 +219,9 @@ void Map::ajouterRooms() {
         //on affiche le num de la room
         initCenterRooms();
         ptr_map[list_room[i].X][list_room[i].Y] = i;
+        
+        cout << "room " << i << " : " << list_room[i].H << ";" << list_room[i].L
+        << " - " << list_room[i].X0 << ";" << list_room[i].Y0 << endl;
     }
 }
 
@@ -211,13 +230,9 @@ void Map::updateRooms() {
     for(int i = 0; i < (int)list_room.size(); i++) {
         //on arrondis les valeurs des coordonnees des rooms
         list_room[i].arrondValRoom();
-        //et on verifie que les rooms sont dans la map
-        if(list_room[i].isRoomIn(map_size)) {
-            cout << "room " << i << " : " << list_room[i].H << ";" << list_room[i].L
-            << " - " << list_room[i].X0 << ";" << list_room[i].Y0 << endl;
-        }
-        else {
-            //sinon on les supprime du tableau dynamique
+        //et on verifie que les rooms ne sont pas dans la map
+        if(!list_room[i].isRoomIn(map_size)) {
+            //et on les supprime du tableau dynamique
             list_room.erase(list_room.begin() + i);
             i--;
         }
