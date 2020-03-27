@@ -8,20 +8,42 @@ using namespace std;
 class Map {
 public:
 
-    Map();
-    Map(int const size, int const nb);
+    Map(int const size, int const nb, int const room_max_size,
+        int const room_min_size, int const radius);
     ~Map();
 
-    int const getSize();
-    int const getNbRooms();
+    void initGeneration();
+
+    void genInCircle(Room& R);
+    void genInMap(Room& R);
+
+    void genRooms();
+    void eclatement();
+    void chooseRooms();
+    void initCenterRooms();
+    void initLinks();
+
+    void choisirRoomLink(unsigned int const ID);
+
+    bool const allRoomsCollisions(unsigned int const ID);
+    bool const roomCollision(Room A, Room B);
+
+    void ajouterRooms();
+    void updateRooms();
 
     void viderMap();
-    void ajouterRooms(Room list_room[]);
     void afficherMap();
+
 private:
-    int map_size;
+
     int **ptr_map;
+    vector<Room> list_room;
+
+    int map_size;
     int nbrooms;
+    int radius;
+    int room_max_size;
+    int room_min_size;
 };
 
 
