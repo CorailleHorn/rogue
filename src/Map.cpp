@@ -1,6 +1,7 @@
 #include <iostream>
 #include <cmath>
 #include <vector>
+#include <assert.h>
 #include "Map.h"
 #include "Room.h"
 
@@ -48,15 +49,15 @@ Map::~Map() {
 
 void Map::initGeneration() {
     genRooms();
-
     eclatement();
     updateRooms();
-
     chooseRooms();
 
     ajouterRooms();
+
+    initLinks();
+    ajouterLinks(); //DECOMMENTER CETTE LIGNE POUR ENLEVER L'AFFICHAGE DES LIENS
     afficherMap();
-    viderMap();
 }
 
 
@@ -87,13 +88,13 @@ void Map::genInMap(Room& R) {
     R.y1 = R.y0 + R.H - 1; //y1
 }
 
-
 void Map::genRooms()  {
     for (int i = 0; i < nbrooms; i++) {
         //Tech1 on gen les rooms sur la map alea
         //genInMap();
         //Tech2 on gen les rooms dans un cercle, puis on "éclate" les particules
         genInCircle(list_room[i]);
+        list_room[i].IDlinked = -1;
     }
 }
 
@@ -117,8 +118,8 @@ void Map::chooseRooms() {
     //rooms affichées
     float mean[2] = {0,0};
     moyenneRooms(mean);
-    //mean[0] *= 1.25;
-    //mean[1] *= 1.25;
+    //mean[0] *= 0.75;
+    //mean[1] *= 0.75;
     //NOTE: on ne met pas de unsigned int pour i car cette valeur peut prendre-1
     for (int i = 0; i < (int)list_room.size(); i++) {
         if ((list_room[i].H < mean[0]) || (list_room[i].L < mean[1])) {
@@ -142,27 +143,84 @@ void Map::initCenterRooms() {
             list_room[i].Y = list_room[i].Y0 + (int)(list_room[i].H / 2) - 1;
     }
 }
-/*
+
 void Map::initLinks() {
-    for (unsigned int i = 0; i < list_room.size(); i++) {
+    for (int i = 0; i < (int)list_room.size(); i++) {
         choisirRoomLink(i);
     }
 }
 
-void Map::choisirRoomLink(unsigned int const ID) {
-    //on initialise chaque liens dans un tableau et on en choisis un
-    int tablinks[2][list_room.size() - 1];
-    for (unsigned int i = 0; i < list_room.size(); i++) {
-        tablinks[0][i] = i;
-        if (i != ID)
-            tablinks[1][i] = dist2Points(list_room[ID].X, list_room[ID].Y,list_room[i].X, list_room[i].Y);
-        else
-            tablinks[1][i] = -1;
-    }
-    sort(tablinks[1], tablinks[1] + list_room.size() - 2);
 
+void Map::choisirRoomLink(int const ID) {
+    //on initialise chaque liens dans un tableau et on en choisis un
+    float distmin = 100000;
+    int IDmin;
+    int idist;
+    for (int i = 0; i < (int)list_room.size(); i++) {
+        if (!isRoomLinked(ID,i) && !(i == ID)) {
+            idist = dist2Points(list_room[ID].X, list_room[ID].Y,list_room[i].X, list_room[i].Y);
+            if(idist < distmin) {
+                distmin = idist;
+                IDmin = i;
+            }
+        }
+    }
+    list_room[ID].IDlinked = IDmin;
+    cout << ID  << " -> " <<list_room[ID].IDlinked <<endl;;
 }
-*/
+
+bool const Map::isRoomLinked(int id1, int id2) {
+    return (id1 == list_room[id2].IDlinked);
+}
+
+void Map::ajouterLinks(){
+    int r, x0, y0, x1, y1, diffX, diffY, departX, finX, departY, finY;
+
+    for(int i = 0; i < (int)list_room.size(); i++) {
+        x0 = list_room[i].X;
+        y0 = list_room[i].Y;
+        r = list_room[i].IDlinked;
+        x1 = list_room[r].X;
+        y1 = list_room[r].Y;
+        diffX = x0 - x1;
+        diffY = y0 - y1;
+
+        departX = (round(list_room[i].L/2) + 1);
+        finX = abs(diffX) + 2;
+        departY = 1;
+        finY = abs(diffY) - round(list_room[r].H/2);
+
+        if( diffX <= 0) {
+            for (int j = departX; j < finX; j++) {
+                ptr_map[x0 + j][y0 - 1] = 1;
+                ptr_map[x0 + j][y0] = 0;
+                ptr_map[x0 + j][y0 + 1] = 1;
+            }
+        }
+        else{
+            for (int j = departX; j < finX; j++) {
+                ptr_map[x0 - j][y0 - 1] = 1;
+                ptr_map[x0 - j][y0] = 0;
+                ptr_map[x0 - j][y0 + 1] = 1;
+            }
+        }
+        if( diffY <= 0) {
+            for (int j = departY; j < finY; j++) {
+                ptr_map[x1 - 1][y0 + j] = 1;
+                ptr_map[x1][y0 + j] = 0;
+                ptr_map[x1 + 1][y0 + j] = 1;
+            }
+        }
+        else{
+            for (int j = departY; j < finY; j++) {
+                ptr_map[x1 - 1][y0 - j] = 1;
+                ptr_map[x1][y0 - j] = 0;
+                ptr_map[x1 + 1][y0 - j] = 1;
+            }
+        }
+    }
+}
+
 
 bool const Map::allRoomsCollisions(unsigned int const ID) {
     //vérifie si la room au rang ID entre en collision avec toutes les autres rooms
@@ -219,7 +277,6 @@ void Map::ajouterRooms() {
         //on affiche le num de la room
         initCenterRooms();
         ptr_map[list_room[i].X][list_room[i].Y] = i;
-        
         cout << "room " << i << " : " << list_room[i].H << ";" << list_room[i].L
         << " - " << list_room[i].X0 << ";" << list_room[i].Y0 << endl;
     }

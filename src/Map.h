@@ -1,12 +1,17 @@
 #ifndef Map_H
 #define Map_H
 
-using namespace std;
-#include "Room.h"
 #include <vector>
+#include "Room.h"
+
+
 
 class Map {
 public:
+	struct Link {
+		int n;//numero de la room adjacente lié
+		float dist; //distance à cette rooms
+	};
 
     Map(int const size, int const nb, int const room_max_size,
         int const room_min_size, int const radius);
@@ -23,7 +28,9 @@ public:
     void initCenterRooms();
     void initLinks();
 
-    void choisirRoomLink(unsigned int const ID);
+    void choisirRoomLink(int const ID);
+	bool const isRoomLinked(int ID1, int ID2);
+	void ajouterLinks();
 
     bool const allRoomsCollisions(unsigned int const ID);
     bool const roomCollision(Room A, Room B);
@@ -38,7 +45,7 @@ public:
 private:
 
     int **ptr_map;
-    vector<Room> list_room;
+    std::vector<Room> list_room;
 
     int map_size;
     int nbrooms;
@@ -46,6 +53,7 @@ private:
     int room_max_size;
     int room_min_size;
 };
+
 
 
 #endif /* Map_H */

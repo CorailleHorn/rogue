@@ -9,12 +9,13 @@ public:
 	int X, Y;  //coordonnees du centre de la room
 	int H, L; //hauteur et largeur
 
-	int link; //compteur du nombre de liens avec les autres rooms (pour la generation
-	Room* ptr_link;//pointeur sur une room adjacente représentant le liens
+	int IDlinked; // ID de la room lié
 
 	void arrondValRoom();
 	const bool isRoomIn(int size);
 
+
 };
+
 
 #endif

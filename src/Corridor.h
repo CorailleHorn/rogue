@@ -1,14 +1,11 @@
 #ifndef CORRIDOR_H
 #define CORRIDOR_H
 
-#include "Room.h"
 #include <iostream>
 
 class Corridor {
 public:
-	Room * ptr1;
-	Room * ptr2;
+	int x0,y0,x1,y1;
 };
 
 #endif
-
