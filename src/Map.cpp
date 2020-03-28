@@ -4,6 +4,7 @@
 #include <assert.h>
 #include "Map.h"
 #include "Room.h"
+#include "Corridor.h"
 
 using namespace std;
 
@@ -58,7 +59,14 @@ void Map::initGeneration() { //on lance la generation complete
 
     initLinks(); //on initialise les liens pour pouvoir ensuite gen les couloirs
     ajouterLinks(); //DECOMMENTER CETTE LIGNE POUR ENLEVER L'AFFICHAGE DES LIENS
+    afficherMap();
+    viderMap();
 
+
+    genCorridors();
+
+    ajouterRooms();
+    ajouterCorridors();
     afficherMap();
     viderMap();
 }
@@ -156,7 +164,7 @@ void Map::initLinks() {
 
 void Map::choisirRoomLink(int const ID) {
     //on initialise chaque liens dans un tableau et on en choisis un
-    float distmin = 100000;
+    float distmin = 100000; //on donne juste un distance max de depart assez grande
     int IDmin;
     int idist;
     for (int i = 0; i < (int)list_room.size(); i++) {
@@ -177,6 +185,7 @@ bool const Map::isRoomLinked(int id1, int id2) {
 }
 
 void Map::ajouterLinks(){
+    //on ajoute les liens sur la map pour mieux visualiser si la gen est correct
     int r, x0, y0, x1, y1, diffX, diffY;
 
     for(int i = 0; i < (int)list_room.size(); i++) {
@@ -213,6 +222,91 @@ void Map::ajouterLinks(){
     }
 }
 
+
+void Map::genCorridors() {
+    int id2;
+    list_corridor.resize(list_room.size());
+    for(int i = 0; i < (int)list_corridor.size(); i++) {
+        list_corridor[i].x0 = list_room[i].X;
+        list_corridor[i].y0 = list_room[i].Y;
+
+        id2 = list_room[i].IDlinked;
+
+        list_corridor[i].x1 = list_room[id2].X;
+        list_corridor[i].y1 = list_room[id2].Y;
+
+        list_corridor[i].X = list_room[id2].X;
+        list_corridor[i].Y = list_room[i].Y;
+    }
+}
+
+void Map::ajouterCorridors() {
+
+    for(int i = 0; i < (int)list_corridor.size(); i++) {
+
+        if(list_corridor[i].X >= list_corridor[i].x0) {
+
+            for(int j = list_corridor[i].x0; j < list_corridor[i].X; j++) {
+
+                if(!isPointIn(j,list_corridor[i].Y)) {
+                    ptr_map[j][list_corridor[i].Y - 1] = 1;
+                    ptr_map[j][list_corridor[i].Y] = 0;
+                    ptr_map[j][list_corridor[i].Y + 1] = 1;
+                }
+                else ptr_map[j][list_corridor[i].Y] = 0;
+            }
+        }
+        else {
+
+            for(int j = list_corridor[i].x0; j > list_corridor[i].X; j--) {
+                if(!isPointIn(j,list_corridor[i].Y)) {
+                    ptr_map[j][list_corridor[i].Y - 1] = 1;
+                    ptr_map[j][list_corridor[i].Y] = 0;
+                    ptr_map[j][list_corridor[i].Y + 1] = 1;
+                }
+                else ptr_map[j][list_corridor[i].Y] = 0;
+            }
+        }
+
+        if(list_corridor[i].y1 >= list_corridor[i].Y) {
+
+            for(int j = list_corridor[i].Y; j < list_corridor[i].y1; j++) {
+                if(!isPointIn(list_corridor[i].X,j)) {
+                    ptr_map[list_corridor[i].X - 1][j] = 1;
+                    ptr_map[list_corridor[i].X][j] = 0;
+                    ptr_map[list_corridor[i].X + 1][j] = 1;
+                }
+                else ptr_map[list_corridor[i].X][j] = 0;
+            }
+        }
+        else {
+
+            for(int j = list_corridor[i].Y; j > list_corridor[i].y1; j--) {
+                if(!isPointIn(list_corridor[i].X,j)) {
+                    ptr_map[list_corridor[i].X - 1][j] = 1;
+                    ptr_map[list_corridor[i].X][j] = 0;
+                    ptr_map[list_corridor[i].X + 1][j] = 1;
+                }
+                else ptr_map[list_corridor[i].X][j] = 0;
+            }
+        }
+    }
+}
+
+bool const Map::isPointIn(int const X, int const Y) {
+    //test si le point du couloir traverse un couloir ou une room
+    bool is = false;
+    //for(int i = 0; i < (int)list_corridor.size(); i++) {
+    //}
+    for(int i = 0; i < (int)list_room.size(); i++) {
+        if((X > list_room[i].x0)
+        &&  (X < list_room[i].x1)
+        &&  (Y > list_room[i].y0)
+        &&  (Y < list_room[i].y1))
+            is = true;
+    }
+    return is;
+}
 
 bool const Map::allRoomsCollisions(unsigned int const ID) {
     //vérifie si la room au rang ID entre en collision avec toutes les autres rooms
@@ -306,6 +400,7 @@ void Map::afficherMap() {
 
             if (ptr_map[j][i] == 0) cout << "  ";
             else if (ptr_map[j][i] == 1) cout << "##";
+            else if (ptr_map[j][i] == -1) cout << "XX";
             else if (ptr_map[j][i] < 10) cout << " " << ptr_map[j][i]; //petite modif pour afficher les num des rooms
             else cout << ptr_map[j][i];
         }

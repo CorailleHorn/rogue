@@ -6,11 +6,12 @@ using namespace std;
 int main(int argc, char *argv[], char **envp)
 {
 	//on peut écrire la seed manuellement ...
-	//int seed = 56548888203265956032;
-	//srand(seed);
+	int seed = 1585401860;
 	// ... ou la générer avec time(NULL)
-	int const seed = time(NULL);
+	//int const seed = time(NULL);
 	srand(seed);
+
+	cout << "LA SEED EST " << seed <<endl;
 
 	int const map_size = 90;
 	int const nbrooms = 100;//comme pour les dimensions on ne conservera pas toutes les rooms generees

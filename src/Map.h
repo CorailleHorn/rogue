@@ -3,16 +3,11 @@
 
 #include <vector>
 #include "Room.h"
-
+#include "Corridor.h"
 
 
 class Map {
 public:
-	struct Link {
-		int n;//numero de la room adjacente lié
-		float dist; //distance à cette rooms
-	};
-
     Map(int const size, int const nb, int const room_max_size,
         int const room_min_size, int const radius);
     ~Map();
@@ -32,6 +27,10 @@ public:
 	bool const isRoomLinked(int ID1, int ID2);
 	void ajouterLinks();
 
+	void genCorridors();
+	void ajouterCorridors();
+	bool const isPointIn(int const X, int const Y);
+
     bool const allRoomsCollisions(unsigned int const ID);
     bool const roomCollision(Room A, Room B);
     float* moyenneRooms(float mean[]);
@@ -46,6 +45,7 @@ private:
 
     int **ptr_map;
     std::vector<Room> list_room;
+	std::vector<Corridor> list_corridor;
 
     int map_size;
     int nbrooms;

@@ -5,7 +5,7 @@
 
 class Corridor {
 public:
-	int x0,y0,x1,y1;
+	int x0,y0,X,Y,x1,y1;
 };
 
 #endif
