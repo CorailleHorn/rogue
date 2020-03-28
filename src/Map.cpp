@@ -47,17 +47,20 @@ Map::~Map() {
 
 
 
-void Map::initGeneration() {
-    genRooms();
-    eclatement();
-    updateRooms();
-    chooseRooms();
+void Map::initGeneration() { //on lance la generation complete
+    genRooms(); //on genere les rooms dans un cercle
+    eclatement();//on procede a l'eclatement des rooms en leur donnant une physique (et donc un vecteur de deplacement)
+    updateRooms();//on "met a jour" les rooms affichables (a l'interieur de map)
+    chooseRooms();//on selectionne les rooms avec un aspect jouable
 
-    ajouterRooms();
+    ajouterRooms();//on ajoute les rooms dans la map physiquement
+    afficherMap(); //on affiche la map
 
-    initLinks();
+    initLinks(); //on initialise les liens pour pouvoir ensuite gen les couloirs
     ajouterLinks(); //DECOMMENTER CETTE LIGNE POUR ENLEVER L'AFFICHAGE DES LIENS
+
     afficherMap();
+    viderMap();
 }
 
 
@@ -174,9 +177,11 @@ bool const Map::isRoomLinked(int id1, int id2) {
 }
 
 void Map::ajouterLinks(){
-    int r, x0, y0, x1, y1, diffX, diffY, departX, finX, departY, finY;
+    int r, x0, y0, x1, y1, diffX, diffY;
 
     for(int i = 0; i < (int)list_room.size(); i++) {
+        //ces variables "de transition" ne sont pas necessaire, elle sont
+        //seulement là pour plus de lisibilité du code
         x0 = list_room[i].X;
         y0 = list_room[i].Y;
         r = list_room[i].IDlinked;
@@ -185,37 +190,24 @@ void Map::ajouterLinks(){
         diffX = x0 - x1;
         diffY = y0 - y1;
 
-        departX = (round(list_room[i].L/2) + 1);
-        finX = abs(diffX) + 2;
-        departY = 1;
-        finY = abs(diffY) - round(list_room[r].H/2);
-
         if( diffX <= 0) {
-            for (int j = departX; j < finX; j++) {
-                ptr_map[x0 + j][y0 - 1] = 1;
-                ptr_map[x0 + j][y0] = 0;
-                ptr_map[x0 + j][y0 + 1] = 1;
+            for (int j = 0; j < abs(diffX); j++) {
+                ptr_map[x0 + j][y0] = -1;
             }
         }
         else{
-            for (int j = departX; j < finX; j++) {
-                ptr_map[x0 - j][y0 - 1] = 1;
-                ptr_map[x0 - j][y0] = 0;
-                ptr_map[x0 - j][y0 + 1] = 1;
+            for (int j = 0; j < diffX; j++) {
+                ptr_map[x0 - j][y0] = -1;
             }
         }
         if( diffY <= 0) {
-            for (int j = departY; j < finY; j++) {
-                ptr_map[x1 - 1][y0 + j] = 1;
-                ptr_map[x1][y0 + j] = 0;
-                ptr_map[x1 + 1][y0 + j] = 1;
+            for (int j = 0; j < abs(diffY); j++) {
+                ptr_map[x1][y0 + j] = -1;
             }
         }
         else{
-            for (int j = departY; j < finY; j++) {
-                ptr_map[x1 - 1][y0 - j] = 1;
-                ptr_map[x1][y0 - j] = 0;
-                ptr_map[x1 + 1][y0 - j] = 1;
+            for (int j = 0; j < diffY; j++) {
+                ptr_map[x1][y0 - j] = -1;
             }
         }
     }
