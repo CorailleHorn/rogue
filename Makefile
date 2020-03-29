@@ -14,7 +14,10 @@ bin/exec_gen_test : obj/GenerationTest.o obj/Room.o obj/Map.o obj/Personnages.o
 obj/main.o : src/main.cpp src/Personnages.h
 	g++ -Wall -ggdb	-c src/main.cpp -o obj/main.o
 
-obj/Personnages.o : src/Personnages.cpp src/Personnages.h
+obj/Map.o : src/Map.cpp src/Map.h src/Personnages.h
+	g++ -Wall -ggdb -c src/Map.cpp -o obj/Map.o
+
+obj/Personnages.o : src/Personnages.cpp src/Personnages.h src/Room.h
 	g++ -Wall -ggdb -c src/Personnages.cpp -o obj/Personnages.o
 
 obj/Generation.o : src/Generation.cpp src/Room.h src/Map.h src/Personnages.h
@@ -25,9 +28,6 @@ obj/GenerationTest.o : src/GenerationTest.cpp src/Room.h src/Map.h
 
 obj/Room.o : src/Room.cpp src/Room.h
 	g++ -Wall -ggdb -c src/Room.cpp -o obj/Room.o
-
-obj/Map.o : src/Map.cpp src/Map.h
-	g++ -Wall -ggdb -c src/Map.cpp -o obj/Map.o
 
 clean :
 		rm obj/*.o && rm bin/*
