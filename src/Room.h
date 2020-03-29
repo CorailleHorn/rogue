@@ -12,6 +12,11 @@ public:
 	float gety0();
 	float gety1();
 
+	int getX0();
+	int getX1();
+	int getY0();
+	int getY1();
+
 	//mutateur
 	void setIDlinked(int const& val);
 
@@ -28,13 +33,13 @@ public:
 
     void initCenterRooms();
 
-	int X0, X1, Y0, Y1; //arrondi en int pour les affichages
+
 	int X, Y;  //coordonnees du centre de la room
 	int H, L; //hauteur et largeur
 private:
 	int IDlinked; // ID de la room lié
 	float x0, x1, y0, y1; //float pour les calculs
-
+	int X0, X1, Y0, Y1; //arrondi en int pour les affichages
 };
 
 

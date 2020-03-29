@@ -27,6 +27,19 @@ float Room::gety1() {
     return y1;
 }
 
+int Room::getX0() {
+    return X0;
+}
+int Room::getX1() {
+    return X1;
+}
+int Room::getY0() {
+    return Y0;
+}
+int Room::getY1() {
+    return Y1;
+}
+
 //MUTATEUR
 void Room::setIDlinked(int const& val) {
     IDlinked = val;

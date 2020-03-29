@@ -149,10 +149,10 @@ void Map::testRegression() { //on lance le test de regression
         assert(M2.list_room[i].gety0() == 0);
         assert(M2.list_room[i].getx1() == 0);
         assert(M2.list_room[i].gety1() == 0);
-        assert(M2.list_room[i].X0 == 0);
-        assert(M2.list_room[i].Y0 == 0);
-        assert(M2.list_room[i].X1 == 0);
-        assert(M2.list_room[i].Y1 == 0);
+        assert(M2.list_room[i].getX0() == 0);
+        assert(M2.list_room[i].getY0() == 0);
+        assert(M2.list_room[i].getX1() == 0);
+        assert(M2.list_room[i].getY1() == 0);
         assert(M2.list_room[i].X == 0);
         assert(M2.list_room[i].Y == 0);
         assert(M2.list_room[i].getIDlinked() == 0);
@@ -427,14 +427,14 @@ void Map::ajouterRooms() {
         //on ajoute la largeur des rooms
         // j parcourant la largeur de la room
         for (int j = 0; j < list_room[i].L; j++) {
-            ptr_map[list_room[i].X0 + j][list_room[i].Y0] = 1;
-            ptr_map[list_room[i].X0 + j][list_room[i].Y1] = 1;
+            ptr_map[list_room[i].getX0() + j][list_room[i].getY0()] = 1;
+            ptr_map[list_room[i].getX0() + j][list_room[i].getY1()] = 1;
         }
         //on ajoute la hauteur des rooms
         // k parcourant la hauteur de la room
         for (int k = 0; k < list_room[i].H; k++) {
-            ptr_map[list_room[i].X0][list_room[i].Y0 + k] = 1;
-            ptr_map[list_room[i].X1][list_room[i].Y0 + k] = 1;
+            ptr_map[list_room[i].getX0()][list_room[i].getY0() + k] = 1;
+            ptr_map[list_room[i].getX1()][list_room[i].getY0() + k] = 1;
         }
         //on affiche le num de la room
         list_room[i].initCenterRooms();
@@ -442,7 +442,7 @@ void Map::ajouterRooms() {
         //ptr_map[list_room[i].X][list_room[i].Y] = i;
         //lignes pour l'affichage des données des rooms
         //cout << "room " << i << " : " << list_room[i].H << ";" << list_room[i].L
-        //<< " - " << list_room[i].X0 << ";" << list_room[i].Y0 << endl;
+        //<< " - " << list_room[i].getX0() << ";" << list_room[i].getY0() << endl;
     }
 }
 
