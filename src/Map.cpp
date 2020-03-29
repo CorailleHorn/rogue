@@ -166,9 +166,9 @@ void Map::testRegression() { //on lance le test de regression
         assert(M2.list_room[i].IDlinked == -1);
     }
     M2.eclatement();
-    assert((int)M2.list_room.size() < M2.nbrooms);
+    //assert((int)M2.list_room.size() < M2.nbrooms);
     for(int i = 0; i < (int)M2.list_room.size(); i++) {
-        
+
     }
 
 
@@ -181,7 +181,7 @@ void Map::genRooms()  {
 
         //on gen les rooms dans un cercle, puis on "éclate" les particules
         list_room[i].genInCircle(map_size, radius, room_max_size, room_min_size);
-        list_room[i].IDlinked = -1;
+        list_room[i].setIDlinked(-1);
     }
 }
 
@@ -216,20 +216,7 @@ void Map::chooseRooms() {
     }
 }
 
-void Map::initCenterRooms() {
-    //on place les centres des rooms
-    for (unsigned int i = 0; i < list_room.size() ; i++) {
-        if ((list_room[i].L % 2) == 0)
-            list_room[i].X = list_room[i].X0 + list_room[i].L / 2 -(rand() % 2);
-        else
-            list_room[i].X = list_room[i].X0 + (int)(list_room[i].L / 2) - 1;
 
-        if ((list_room[i].H % 2) == 0)
-            list_room[i].Y = list_room[i].Y0 + list_room[i].H / 2 -(rand() % 2);
-        else
-            list_room[i].Y = list_room[i].Y0 + (int)(list_room[i].H / 2) - 1;
-    }
-}
 
 void Map::initLinks() {
     for (int i = 0; i < (int)list_room.size(); i++) {
@@ -252,13 +239,13 @@ void Map::choisirRoomLink(int const ID) {
             }
         }
     }
-    list_room[ID].IDlinked = IDmin;
+    list_room[ID].setIDlinked(IDmin);
     //ligne pour afficher les liens de manière condensé
     //cout << ID  << " -> " <<list_room[ID].IDlinked <<endl;;
 }
 
 bool const Map::isRoomLinked(int id1, int id2) {
-    return (id1 == list_room[id2].IDlinked);
+    return (id1 == list_room[id2].getIDlinked());
 }
 
 void Map::ajouterLinks(){
@@ -413,23 +400,12 @@ bool const Map::allRoomsCollisions(unsigned int const ID) {
     for (unsigned int i = 0; i < list_room.size(); i++) {
         //on test avec roomCollision pour toutes les autres rooms
         if (i != ID) {
-            if (roomCollision(list_room[i], list_room[ID])) {
+            if (list_room[i].roomCollision(list_room[ID])) {
                 return true;
             }
         }
     }
     return false;
-}
-
-bool const Map::roomCollision(Room A, Room B) {
-
-    //detecte si B entre en collision avec A
-    if((B.x0 >= A.x0 + A.L)      // trop à droite
-	|| (B.x0 + B.L <= A.x0) // trop à gauche
-	|| (B.y0 >= A.y0 + A.H) // trop en bas
- 	|| (B.y0 + B.H <= A.y0))  // trop en haut
-        return false;
-    else return true;
 }
 
 float* Map::moyenneRooms(float mean[]) {
@@ -461,7 +437,7 @@ void Map::ajouterRooms() {
             ptr_map[list_room[i].X1][list_room[i].Y0 + k] = 1;
         }
         //on affiche le num de la room
-        initCenterRooms();
+        list_room[i].initCenterRooms();
         //ligne pour l'affichage des numéros des rooms
         //ptr_map[list_room[i].X][list_room[i].Y] = i;
         //lignes pour l'affichage des données des rooms

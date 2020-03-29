@@ -23,7 +23,6 @@ public:
     void genRooms();
     void eclatement();
     void chooseRooms();
-    void initCenterRooms();
     void initLinks();
 
     void choisirRoomLink(int const ID);
@@ -35,7 +34,6 @@ public:
 	bool const isPointIn(int const X, int const Y, int const ID);
 
     bool const allRoomsCollisions(unsigned int const ID);
-    bool const roomCollision(Room A, Room B);
     float* moyenneRooms(float mean[]);
 
     void ajouterRooms();
