@@ -13,6 +13,7 @@ public:
     ~Map();
 
     void initGeneration();
+    void initGenerationDebug();
 
     void genInCircle(Room& R);
     void genInMap(Room& R);

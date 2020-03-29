@@ -55,6 +55,23 @@ void Map::initGeneration() { //on lance la generation complete
     chooseRooms();//on selectionne les rooms avec un aspect jouable
 
     ajouterRooms();//on ajoute les rooms dans la map physiquement
+
+    initLinks(); //on initialise les liens pour pouvoir ensuite gen les couloirs
+
+    genCorridors();
+
+    ajouterCorridors();
+    afficherMap();
+    viderMap();
+}
+
+void Map::initGenerationDebug() { //on lance la generation complete
+    genRooms(); //on genere les rooms dans un cercle
+    eclatement();//on procede a l'eclatement des rooms en leur donnant une physique (et donc un vecteur de deplacement)
+    updateRooms();//on "met a jour" les rooms affichables (a l'interieur de map)
+    chooseRooms();//on selectionne les rooms avec un aspect jouable
+
+    ajouterRooms();//on ajoute les rooms dans la map physiquement
     afficherMap(); //on affiche la map
 
     initLinks(); //on initialise les liens pour pouvoir ensuite gen les couloirs
@@ -177,7 +194,8 @@ void Map::choisirRoomLink(int const ID) {
         }
     }
     list_room[ID].IDlinked = IDmin;
-    cout << ID  << " -> " <<list_room[ID].IDlinked <<endl;;
+    //ligne pour afficher les liens de manière condensé
+    //cout << ID  << " -> " <<list_room[ID].IDlinked <<endl;;
 }
 
 bool const Map::isRoomLinked(int id1, int id2) {
@@ -385,9 +403,11 @@ void Map::ajouterRooms() {
         }
         //on affiche le num de la room
         initCenterRooms();
+        //ligne pour l'affichage des numéros des rooms
         //ptr_map[list_room[i].X][list_room[i].Y] = i;
-        cout << "room " << i << " : " << list_room[i].H << ";" << list_room[i].L
-        << " - " << list_room[i].X0 << ";" << list_room[i].Y0 << endl;
+        //lignes pour l'affichage des données des rooms
+        //cout << "room " << i << " : " << list_room[i].H << ";" << list_room[i].L
+        //<< " - " << list_room[i].X0 << ";" << list_room[i].Y0 << endl;
     }
 }
 
