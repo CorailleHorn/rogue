@@ -6,17 +6,16 @@
 
 using namespace std;
 
-	Personnage::Personnage() {}
-
-	Personnage::~Personnage() {
-		delete r;
+	Personnage::Personnage() {
+		atk = def = pv = lv = x = y = 1;
 	}
 
-	int Personnage::deplacement() {
-		return 0;
-	}
+	Personnage::~Personnage() {}
 
-	int Personnage::combat() {
+	int Personnage::combat(Personnage* p) {
+		if((p->getX() == x-1) || (p->getX() == x+1)
+		|| (p->getY() == y-1) || (p->getY() == y+1))
+			p->degat(atk);
 		return 0;
 	}
 
@@ -31,11 +30,11 @@ using namespace std;
 		cout << sprite << endl;
 		return 0;
 	}
-
+/*
 	bool Personnage::positionValide (int x, int y) {
 		return ((x>r->X0) && (x<r->X1) && (y>r->Y0) && (y<r->Y1));
 	}
-
+*/
 	int Personnage::getAtk() const {
 		return atk;
 	}
@@ -61,16 +60,23 @@ using namespace std;
 	}
 
 	Hero::Hero() {
-		atk = def = pv = lv = x = y = 1;
+		atk = def = pv = 10;
+		lv = x = y = 1;
 		sprite = 'H';
-    	name = "";
+    name = "";
+	}
+
+	Hero::Hero(string sname) {
+		atk = def = pv = 10;
+		lv = x = y = 1;
+		sprite = 'H';
+		name = sname;
 	}
 
 	Hero::~Hero() {}
 
 	int Hero::lvUp() {
 		int choix[4];
-
 		cout << "Vous disposez de 3 points pour augmenter vos statistiques." <<	endl
 			<< "Que décidez vous de faire: " << endl
 			<< "Mettre 1 point par attribut (tapez 1)" << endl
@@ -105,6 +111,7 @@ using namespace std;
 								default:
 												cout << "Pas de choix possibles disponibles pour cette option, réessayez !" << endl;
 												lvUp();
+												lv--;
 							}
 							break;
 			case 3:
@@ -128,6 +135,7 @@ using namespace std;
 														default:
 																		cout << "Pas de choix disponibles pour cette option, réessayez !" << endl;
 																		lvUp();
+																		lv--;
 													}
 													break;
 								case 2:
@@ -147,6 +155,7 @@ using namespace std;
 														default:
 																		cout << "Pas de choix disponibles pour cette option, réessayez !" << endl;
 																		lvUp();
+																		lv--;
 													}
 													break;
 								case 3:
@@ -166,20 +175,24 @@ using namespace std;
 														default:
 																		cout << "Pas de choix disponibles pour cette option, réessayez !" << endl;
 																		lvUp();
+																		lv--;
 													}
 													break;
 								default:
 													cout << "Pas de choix possibles disponibles pour cette option, réessayez !" << endl;
 													lvUp();
+													lv--;
 								}
 								break;
 			default:
 								cout << "Pas de choix disponibles pour cette option, réessayez !" << endl;
 								lvUp();
+								lv--;
 			}
+			lv++;
 			return 0;
 		}
-
+/*
 	int Hero::Haut() {
 		if (positionValide(x, (y+1)))
 			y++;
@@ -224,53 +237,54 @@ using namespace std;
 		}
 		return 0;
 	}
-
-	int Hero::combat(Personnage* e) {
-		if((e->getX() == x-1) || (e->getX() == x+1)
-		|| (e->getY() == y-1) || (e->getY() == y+1))
-			e->degat(atk);
-		return 0;
-	}
+*/
 
 	int Hero::setName(string sname) {
 			name = sname;
 			return 0;
 	}
 
-	Ennemi::Ennemi() :Ennemi(1) {}
+	string Hero::getName() const {
+		return name;
+	}
+
+	Ennemi::Ennemi() : Ennemi(1) {}
 
 	Ennemi::Ennemi(const int &leveling) {
-		int stat = 30 * leveling;
-		int randomiser = rand() % 4 + 1;
+		lv = leveling;
+		int stat = 3 * lv;
+		int randomiser = rand() % 3 + 1;
 		switch (randomiser) {
 			case 1:
-				atk = rand() % stat-2 + 1;
-				stat -= atk;
-				def = rand() % stat-1 + 1;
-				stat -= def;
-				pv = stat;
+				atk = rand() % stat + 5;
+				stat -= atk - 5;
+				def = rand() % stat + 5;
+				stat -= def - 5;
+				pv = stat + 5;
 				break;
 			case 2:
-				def = rand() % stat-2 + 1;
-				stat -= def;
-				pv = rand() % stat-1 + 1;
-				stat -= pv;
-				atk = stat;
+				def = rand() % stat + 5;
+				stat -= def - 5;
+				pv = rand() % stat + 5;
+				stat -= pv - 5;
+				atk = stat + 5;
 				break;
 			case 3:
-				pv = rand() % stat-2 + 1;
-				stat -= pv;
-				atk = rand() % stat-1 + 1;
-				stat -= atk;
-				def = stat;
+				pv = rand() % stat + 5;
+				stat -= pv - 5;
+				atk = rand() % stat + 5;
+				stat -= atk - 5;
+				def = stat + 5;
 				break;
 		}
+		x = 1;
+		y = 2;
 		sprite = 'E';
 	}
 
 	Ennemi::~Ennemi() {}
-
-	int Ennemi::deplacement(const Personnage* h) {
+/*
+	int Ennemi::deplacement(const Hero* h) {
 		if(h->getX() < x && positionValide((x+1), y))
 			x++;
 		if(h->getX() > x && positionValide((x-1), y))
@@ -281,8 +295,8 @@ using namespace std;
 			y--;
 		return 0;
 	}
-
-	int Ennemi::combat(Personnage* h) {
+*/
+	int Ennemi::combat(Hero* h) {
 		if((h->getX() == x-1) || (h->getX() == x+1)
 		|| (h->getY() == y-1) || (h->getY() == y+1))
 			h->degat(atk);
