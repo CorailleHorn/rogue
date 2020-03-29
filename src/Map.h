@@ -51,6 +51,8 @@ private:
     std::vector<Corridor> list_corridor;
 
     int map_size, nbrooms, radius, room_max_size, room_min_size;
+    Hero hero;
+    std::vector<Ennemi> ennemis;
 };
 
 

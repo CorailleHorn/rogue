@@ -169,23 +169,23 @@ using namespace std;
 			}
 		}
 
-	void Hero::Haut(){
+	void Hero::Haut() {
 		if (positionValide(x, (y+1)))
 			y++;
 	}
 
 
-	void Hero::Bas(){
+	void Hero::Bas() {
 		if (positionValide(x, (y-1)))
 			y--;
 	}
 
-	void Hero::Gauche(){
+	void Hero::Gauche() {
 		if (positionValide((x-1), y))
 			x--;
 	}
 
-	void Hero::Droite(){
+	void Hero::Droite() {
 		if (positionValide((x+1), y))
 			x++;
 	}
