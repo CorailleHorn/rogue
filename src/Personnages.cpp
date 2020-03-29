@@ -169,23 +169,23 @@ using namespace std;
 			}
 		}
 
-	void Hero::Haut(){
+	void Hero::Haut() {
 		if (positionValide(x, (y+1)))
 			y++;
 	}
 
 
-	void Hero::Bas(){
+	void Hero::Bas() {
 		if (positionValide(x, (y-1)))
 			y--;
 	}
 
-	void Hero::Gauche(){
+	void Hero::Gauche() {
 		if (positionValide((x-1), y))
 			x--;
 	}
 
-	void Hero::Droite(){
+	void Hero::Droite() {
 		if (positionValide((x+1), y))
 			x++;
 	}
@@ -266,4 +266,34 @@ using namespace std;
 		if((h->getX() == x-1) || (h->getX() == x+1)
 		|| (h->getY() == y-1) || (h->getY() == y+1))
 			h->degat(atk);
+	}
+
+	int main(){
+		
+		Hero h;
+		int adp = atk+def+pv;
+		h.lvUp();
+		assert(adp == atk+def+pv+3);
+		Bas();
+		assert(y == y--);
+		Haut();
+		assert(y == y++);
+		Gauche();
+		assert(x == x--);
+		Droite();
+		assert(x == x++);
+		h.deplacement();
+		assert();
+		h.combat();
+		h.setName("player1");
+		assert()
+		Ennemi(5);
+		Ennemi e;
+		e.deplacement(h);
+		e.combat(h);
+		~Personnage();
+		~Ennemi();
+		~Hero();
+
+		return 0;
 	}
