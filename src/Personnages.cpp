@@ -237,6 +237,7 @@ using namespace std;
 			return 0;
 	}
 
+	Ennemi::Ennemi() :Ennemi(1) {}
 
 	Ennemi::Ennemi(const int &leveling) {
 		int stat = 30 * leveling;
