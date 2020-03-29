@@ -194,8 +194,8 @@ void Map::eclatement() {
 
             list_room[i].setx0(list_room[i].getx0() +  (cos(((i + 1.0) * PI) / (nbrooms / 2))));
             list_room[i].sety0(list_room[i].gety0() + (sin(((i + 1.0) * PI) / (nbrooms / 2))));
-            list_room[i].setx1(list_room[i].getx0() + list_room[i].L - 1);
-            list_room[i].sety1(list_room[i].gety0() + list_room[i].H - 1);
+            list_room[i].setx1(list_room[i].getx0() + list_room[i].getL() - 1);
+            list_room[i].sety1(list_room[i].gety0() + list_room[i].getH() - 1);
         }
     }
 }
@@ -209,7 +209,7 @@ void Map::chooseRooms() {
     //mean[1] *= 0.75;
     //NOTE: on ne met pas de unsigned int pour i car cette valeur peut prendre-1
     for (int i = 0; i < (int)list_room.size(); i++) {
-        if ((list_room[i].H < mean[0]) || (list_room[i].L < mean[1])) {
+        if ((list_room[i].getH() < mean[0]) || (list_room[i].getL() < mean[1])) {
             list_room.erase(list_room.begin() + i);
             i--;
         }
@@ -232,7 +232,7 @@ void Map::choisirRoomLink(int const ID) {
     int idist;
     for (int i = 0; i < (int)list_room.size(); i++) {
         if (!isRoomLinked(ID,i) && !(i == ID)) {
-            idist = dist2Points(list_room[ID].X, list_room[ID].Y,list_room[i].getX(), list_room[i].getY());
+            idist = dist2Points(list_room[ID].getX(), list_room[ID].getY(),list_room[i].getX(), list_room[i].getY());
             if(idist < distmin) {
                 distmin = idist;
                 IDmin = i;
@@ -411,8 +411,8 @@ bool const Map::allRoomsCollisions(unsigned int const ID) {
 float* Map::moyenneRooms(float mean[]) {
 
     for(unsigned int i = 0; i < list_room.size(); i++) {
-        mean[0] += list_room[i].H;
-        mean[1] += list_room[i].L;
+        mean[0] += list_room[i].getH();
+        mean[1] += list_room[i].getL();
     }
     mean[0] /= list_room.size();
     mean[1] /= list_room.size();
@@ -426,13 +426,13 @@ void Map::ajouterRooms() {
     for (unsigned int i = 0; i < list_room.size(); i++) {
         //on ajoute la largeur des rooms
         // j parcourant la largeur de la room
-        for (int j = 0; j < list_room[i].L; j++) {
+        for (int j = 0; j < list_room[i].getL(); j++) {
             ptr_map[list_room[i].getX0() + j][list_room[i].getY0()] = 1;
             ptr_map[list_room[i].getX0() + j][list_room[i].getY1()] = 1;
         }
         //on ajoute la hauteur des rooms
         // k parcourant la hauteur de la room
-        for (int k = 0; k < list_room[i].H; k++) {
+        for (int k = 0; k < list_room[i].getH(); k++) {
             ptr_map[list_room[i].getX0()][list_room[i].getY0() + k] = 1;
             ptr_map[list_room[i].getX1()][list_room[i].getY0() + k] = 1;
         }
@@ -441,7 +441,7 @@ void Map::ajouterRooms() {
         //ligne pour l'affichage des numéros des rooms
         //ptr_map[list_room[i].getX()][list_room[i].getY()] = i;
         //lignes pour l'affichage des données des rooms
-        //cout << "room " << i << " : " << list_room[i].H << ";" << list_room[i].L
+        //cout << "room " << i << " : " << list_room[i].getH() << ";" << list_room[i].getL()
         //<< " - " << list_room[i].getX0() << ";" << list_room[i].getY0() << endl;
     }
 }

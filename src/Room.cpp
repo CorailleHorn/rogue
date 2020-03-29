@@ -46,7 +46,12 @@ int Room::getX() {
 int Room::getY() {
     return Y;
 }
-
+int Room::getH() {
+    return H;
+}
+int Room::getL() {
+    return L;
+}
 //MUTATEUR
 void Room::setIDlinked(int const& val) {
     IDlinked = val;
