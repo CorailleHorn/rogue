@@ -2,8 +2,9 @@
 #define _TXTJEU_H_
 
 #include "Personnages.h"
+#include "Map.h"
 
-void txtAff(const Hero &me, const Ennemi &you);
+void txtAff(const Map &m);
 void txtInit();
 void txtBoucle(Hero &me, Ennemi &you);
 void txtDetruit();
