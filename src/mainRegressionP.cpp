@@ -20,3 +20,6 @@ int main(){
   ~Personnage();
   ~Ennemi();
   ~Hero();
+
+  return 0;
+}
