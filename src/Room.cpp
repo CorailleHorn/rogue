@@ -27,47 +27,22 @@ float Room::gety1() {
     return y1;
 }
 
-int Room::getX0() {
-    return X0;
-}
-int Room::getX1() {
-    return X1;
-}
-int Room::getY0() {
-    return y0;
-}
-int Room::getY1() {
-    return y1;
-}
-
-int Room::getX() {
-    return X;
-}
-int Room::getY() {
-    return Y;
-}
-int Room::getH() {
-    return H;
-}
-int Room::getL() {
-    return L;
-}
-
 //MUTATEUR
 void Room::setIDlinked(int const& val) {
     IDlinked = val;
 }
 
-void Room::setx0(int const& val) {
+void Room::setx0(float const& val) {
     x0 = val;
 }
-void Room::setx1(int const& val) {
+void Room::setx1(float const& val) {
     x1 = val;
 }
-void Room::sety0(int const& val) {
+void Room::sety0(float const& val) {
     y0 = val;
 }
-void Room::sety1(int const& val) {
+
+void Room::sety1(float const& val) {
     y1 = val;
 }
 
@@ -108,9 +83,9 @@ bool const Room::roomCollision(Room& A) {
 
     //detecte si A entre en collision avec l'objet actuelle
     if((A.getx0() >= x0 + L)      // trop à droite
-	|| (A.getx0() + A.getL() <= x0) // trop à gauche
+	|| (A.getx0() + A.L <= x0) // trop à gauche
 	|| (A.gety0() >= y0 + H) // trop en bas
- 	|| (A.gety0() + A.getH() <= y0))  // trop en haut
+ 	|| (A.gety0() + A.H <= y0))  // trop en haut
         return false;
     else return true;
 }
