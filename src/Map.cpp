@@ -4,7 +4,6 @@
 #include <assert.h>
 #include "Map.h"
 #include "Room.h"
-#include "Corridor.h"
 
 using namespace std;
 

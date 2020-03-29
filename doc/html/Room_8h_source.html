@@ -1,0 +1,92 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.13"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Rogue:  Fichier source de /home/jean/Documents/Travail/Projets/Rogue/rogue/src/Room.h</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">Rogue
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Généré par Doxygen 1.8.13 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search",false,'Recherche');
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+$(function() {
+  initMenu('',true,false,'search.php','Recherche');
+  $(document).ready(function() { init_search(); });
+});
+</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="headertitle">
+<div class="title">Room.h</div>  </div>
+</div><!--header-->
+<div class="contents">
+<a href="Room_8h.html">Aller à la documentation de ce fichier.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef ROOM_H</span></div><div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define ROOM_H</span></div><div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;iostream&gt;</span></div><div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;</div><div class="line"><a name="l00005"></a><span class="lineno"><a class="line" href="classRoom.html">    5</a></span>&#160;<span class="keyword">class </span><a class="code" href="classRoom.html">Room</a> {</div><div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">public</span>:</div><div class="line"><a name="l00007"></a><span class="lineno"><a class="line" href="classRoom.html#a6a15148bbcac2e661cde043513f6ebcd">    7</a></span>&#160;    <span class="keywordtype">float</span> <a class="code" href="classRoom.html#a8c2c53dfd4ac5f0ef8a8c70eb4fed53f">x0</a>, <a class="code" href="classRoom.html#a6c2c152badbf40c60007a0549a65816d">x1</a>, <a class="code" href="classRoom.html#a8f0ab053f8ae8aa19a20886abcee48b1">y0</a>, <a class="code" href="classRoom.html#a6a15148bbcac2e661cde043513f6ebcd">y1</a>; <span class="comment">//float pour les calculs</span></div><div class="line"><a name="l00008"></a><span class="lineno"><a class="line" href="classRoom.html#a0f689986e4bb0c1074397d4ca32fcd9a">    8</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="classRoom.html#ae885f74893479bd7c52683d765a05ec3">X0</a>, <a class="code" href="classRoom.html#a3dd18ad8ac5a6e3bcecf9cb027608659">X1</a>, <a class="code" href="classRoom.html#a923a4d2d5a430aad247a9a96cb3b6102">Y0</a>, <a class="code" href="classRoom.html#a0f689986e4bb0c1074397d4ca32fcd9a">Y1</a>; <span class="comment">//arrondi en int pour les affichages</span></div><div class="line"><a name="l00009"></a><span class="lineno"><a class="line" href="classRoom.html#adc03e19935b35a30dfcbab2140bf8316">    9</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="classRoom.html#a2d0dea3f2da189a0d55a5690458e9666">X</a>, <a class="code" href="classRoom.html#adc03e19935b35a30dfcbab2140bf8316">Y</a>;  <span class="comment">//coordonn�es du centre de la room</span></div><div class="line"><a name="l00010"></a><span class="lineno"><a class="line" href="classRoom.html#ab536200b9342330428d4ec08fa844837">   10</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="classRoom.html#ab77bfb2628c58874d85d55c71670f1c0">H</a>, <a class="code" href="classRoom.html#ab536200b9342330428d4ec08fa844837">L</a>;</div><div class="line"><a name="l00011"></a><span class="lineno"><a class="line" href="classRoom.html#a6af8720f2f66b2133b209d4c64fba0e1">   11</a></span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="classRoom.html#a6af8720f2f66b2133b209d4c64fba0e1">slc</a>; <span class="comment">//true si selectionn� pour �tre une room</span></div><div class="line"><a name="l00012"></a><span class="lineno"><a class="line" href="classRoom.html#adb97bee1bbe5ca5819962704633144c0">   12</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="classRoom.html#adb97bee1bbe5ca5819962704633144c0">link</a>; <span class="comment">//compteur du nombre de liens avec les autres rooms (pour la gen  </span></div><div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;</div><div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;};</div><div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;</div><div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="preprocessor">#endif</span></div><div class="ttc" id="classRoom_html_adb97bee1bbe5ca5819962704633144c0"><div class="ttname"><a href="classRoom.html#adb97bee1bbe5ca5819962704633144c0">Room::link</a></div><div class="ttdeci">int link</div><div class="ttdef"><b>Definition:</b> Room.h:12</div></div>
+<div class="ttc" id="classRoom_html_a6a15148bbcac2e661cde043513f6ebcd"><div class="ttname"><a href="classRoom.html#a6a15148bbcac2e661cde043513f6ebcd">Room::y1</a></div><div class="ttdeci">float y1</div><div class="ttdef"><b>Definition:</b> Room.h:7</div></div>
+<div class="ttc" id="classRoom_html_ab77bfb2628c58874d85d55c71670f1c0"><div class="ttname"><a href="classRoom.html#ab77bfb2628c58874d85d55c71670f1c0">Room::H</a></div><div class="ttdeci">int H</div><div class="ttdef"><b>Definition:</b> Room.h:10</div></div>
+<div class="ttc" id="classRoom_html_ae885f74893479bd7c52683d765a05ec3"><div class="ttname"><a href="classRoom.html#ae885f74893479bd7c52683d765a05ec3">Room::X0</a></div><div class="ttdeci">int X0</div><div class="ttdef"><b>Definition:</b> Room.h:8</div></div>
+<div class="ttc" id="classRoom_html_a6af8720f2f66b2133b209d4c64fba0e1"><div class="ttname"><a href="classRoom.html#a6af8720f2f66b2133b209d4c64fba0e1">Room::slc</a></div><div class="ttdeci">bool slc</div><div class="ttdef"><b>Definition:</b> Room.h:11</div></div>
+<div class="ttc" id="classRoom_html_adc03e19935b35a30dfcbab2140bf8316"><div class="ttname"><a href="classRoom.html#adc03e19935b35a30dfcbab2140bf8316">Room::Y</a></div><div class="ttdeci">int Y</div><div class="ttdef"><b>Definition:</b> Room.h:9</div></div>
+<div class="ttc" id="classRoom_html_a0f689986e4bb0c1074397d4ca32fcd9a"><div class="ttname"><a href="classRoom.html#a0f689986e4bb0c1074397d4ca32fcd9a">Room::Y1</a></div><div class="ttdeci">int Y1</div><div class="ttdef"><b>Definition:</b> Room.h:8</div></div>
+<div class="ttc" id="classRoom_html_a2d0dea3f2da189a0d55a5690458e9666"><div class="ttname"><a href="classRoom.html#a2d0dea3f2da189a0d55a5690458e9666">Room::X</a></div><div class="ttdeci">int X</div><div class="ttdef"><b>Definition:</b> Room.h:9</div></div>
+<div class="ttc" id="classRoom_html_a3dd18ad8ac5a6e3bcecf9cb027608659"><div class="ttname"><a href="classRoom.html#a3dd18ad8ac5a6e3bcecf9cb027608659">Room::X1</a></div><div class="ttdeci">int X1</div><div class="ttdef"><b>Definition:</b> Room.h:8</div></div>
+<div class="ttc" id="classRoom_html_a8c2c53dfd4ac5f0ef8a8c70eb4fed53f"><div class="ttname"><a href="classRoom.html#a8c2c53dfd4ac5f0ef8a8c70eb4fed53f">Room::x0</a></div><div class="ttdeci">float x0</div><div class="ttdef"><b>Definition:</b> Room.h:7</div></div>
+<div class="ttc" id="classRoom_html_a923a4d2d5a430aad247a9a96cb3b6102"><div class="ttname"><a href="classRoom.html#a923a4d2d5a430aad247a9a96cb3b6102">Room::Y0</a></div><div class="ttdeci">int Y0</div><div class="ttdef"><b>Definition:</b> Room.h:8</div></div>
+<div class="ttc" id="classRoom_html_a6c2c152badbf40c60007a0549a65816d"><div class="ttname"><a href="classRoom.html#a6c2c152badbf40c60007a0549a65816d">Room::x1</a></div><div class="ttdeci">float x1</div><div class="ttdef"><b>Definition:</b> Room.h:7</div></div>
+<div class="ttc" id="classRoom_html_a8f0ab053f8ae8aa19a20886abcee48b1"><div class="ttname"><a href="classRoom.html#a8f0ab053f8ae8aa19a20886abcee48b1">Room::y0</a></div><div class="ttdeci">float y0</div><div class="ttdef"><b>Definition:</b> Room.h:7</div></div>
+<div class="ttc" id="classRoom_html_ab536200b9342330428d4ec08fa844837"><div class="ttname"><a href="classRoom.html#ab536200b9342330428d4ec08fa844837">Room::L</a></div><div class="ttdeci">int L</div><div class="ttdef"><b>Definition:</b> Room.h:10</div></div>
+<div class="ttc" id="classRoom_html"><div class="ttname"><a href="classRoom.html">Room</a></div><div class="ttdef"><b>Definition:</b> Room.h:5</div></div>
+</div><!-- fragment --></div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Généré par &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.8.13
+</small></address>
+</body>
+</html>

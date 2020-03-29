@@ -3,8 +3,10 @@
 
 #include <vector>
 #include "Room.h"
-#include "Corridor.h"
 
+struct Corridor {
+    int x0,y0,X,Y,x1,y1;
+};
 
 class Map {
 public:
@@ -32,15 +34,15 @@ public:
 	void ajouterCorridors();
 	bool const isPointIn(int const X, int const Y, int const ID);
 
-  bool const allRoomsCollisions(unsigned int const ID);
-  bool const roomCollision(Room A, Room B);
-  float* moyenneRooms(float mean[]);
+    bool const allRoomsCollisions(unsigned int const ID);
+    bool const roomCollision(Room A, Room B);
+    float* moyenneRooms(float mean[]);
 
-  void ajouterRooms();
-  void updateRooms();
+    void ajouterRooms();
+    void updateRooms();
 
-  void viderMap();
-  void afficherMap();
+    void viderMap();
+    void afficherMap();
 
 private:
 
@@ -49,9 +51,6 @@ private:
     std::vector<Corridor> list_corridor;
 
     int map_size, nbrooms, radius, room_max_size, room_min_size;
-
-    Hero hero;
-    std::vector<Ennemi> ennemis;
 };
 
 
