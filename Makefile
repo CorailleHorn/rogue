@@ -5,19 +5,19 @@ all : bin/exec_gen bin/exec_gen_test
 
 
 
-bin/exec_gen : obj/Generation.o obj/Room.o obj/Map.o
+bin/exec_gen : obj/Generation.o obj/Room.o obj/Map.o obj/Personnages.o
 	g++ -Wall -ggdb obj/Generation.o obj/Room.o obj/Map.o -o bin/exec_gen
 
-bin/exec_gen_test : obj/GenerationTest.o obj/Room.o obj/Map.o
+bin/exec_gen_test : obj/GenerationTest.o obj/Room.o obj/Map.o obj/Personnages.o
 	g++ -Wall -ggdb obj/GenerationTest.o obj/Room.o obj/Map.o -o bin/exec_gen_test
 
-#obj/main.o : src/main.cpp src/Personnages.h
-#	g++ -Wall -ggdb	-c src/main.cpp -o obj/main.o
+obj/main.o : src/main.cpp src/Personnages.h
+	g++ -Wall -ggdb	-c src/main.cpp -o obj/main.o
 
-#obj/Personnages.o : src/Personnages.cpp src/Personnages.h
-#	g++ -Wall -ggdb -c src/Personnages.cpp -o obj/Personnages.o
+obj/Personnages.o : src/Personnages.cpp src/Personnages.h
+	g++ -Wall -ggdb -c src/Personnages.cpp -o obj/Personnages.o
 
-obj/Generation.o : src/Generation.cpp src/Room.h src/Map.h
+obj/Generation.o : src/Generation.cpp src/Room.h src/Map.h src/Personnages.h
 	g++ -Wall -ggdb -c src/Generation.cpp -o obj/Generation.o
 
 obj/GenerationTest.o : src/GenerationTest.cpp src/Room.h src/Map.h
