@@ -33,7 +33,7 @@ using namespace std;
 	}
 
 	bool Personnage::positionValide (int x, int y) {
-		return ((r->slc) && (x>r->X0) && (x<r->X1) && (y>r->Y0) && (y<r->Y1));
+		return ((x>r->X0) && (x<r->X1) && (y>r->Y0) && (y<r->Y1));
 	}
 
 	int Personnage::getAtk() const {
@@ -233,8 +233,8 @@ using namespace std;
 	}
 
 	int Hero::setName(string sname) {
-		name = sname;
-		return 0;
+			name = sname;
+			return 0;
 	}
 
 

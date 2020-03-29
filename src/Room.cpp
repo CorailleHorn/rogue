@@ -18,14 +18,14 @@ void Room::arrondValRoom() {
     Y1 = round(y1);
 }
 
-const bool Room::isRoomIn(int map_size) {
+const bool Room::isRoomIn(int const& map_size) {
     //vérifie si la room est dans la map
     if ((X0 >= 0) && (Y0 >= 0) && (X1 < map_size) && (Y1 < map_size)) return true;
     else return false;
 }
 
 
-void Room::genInCircle(int const map_size, int const radius, int const room_max_size, int const room_min_size) {
+void Room::genInCircle(int const& map_size, int const& radius, int const& room_max_size, int const& room_min_size) {
     //on genere des tailles aléatoire
     H = (rand() % (room_max_size - room_min_size)) + room_min_size;//hauteur
     L = (rand() % (room_max_size - room_min_size)) + room_min_size;//largeur

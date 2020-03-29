@@ -13,11 +13,9 @@ int main(){
   assert(ok == h.deplacement());
   assert(ok == h.combat());
   assert(ok == h.setName("player1"));
-  Ennemi(5);
-  Ennemi e;
-  e.deplacement(h);
-  e.combat(h);
-  ~Personnage();
+  Ennemi e; 
+  assert(ok == e.deplacement(h));
+  assert(ok == e.combat(h));
   ~Ennemi();
   ~Hero();
 
