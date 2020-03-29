@@ -20,9 +20,6 @@ public:
     void initGenerationDebug();
     void testRegression();
 
-    void genInCircle(Room& R);
-    void genInMap(Room& R);
-
     void genRooms();
     void eclatement();
     void chooseRooms();

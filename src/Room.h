@@ -14,7 +14,7 @@ public:
 	void arrondValRoom();
 	const bool isRoomIn(int size);
 
-
+	void genInCircle(int const map_size, int const radius, int const room_max_size, int const room_min_size);
 };
 
 
