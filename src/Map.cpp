@@ -9,10 +9,6 @@ using namespace std;
 
 long double const PI = 3.1415926535897932384626433832795028841968;
 
-double genRandomDouble() {
-    return ((double)rand() / (RAND_MAX));
-}
-
 float dist2Points(float x1, float y1, float x2, float y2) {
     return sqrt(pow((x1 - x2), 2) + pow((y1 - y2), 2));
 }
@@ -141,47 +137,20 @@ void Map::testRegression() { //on lance le test de regression
 
     M2.genRooms();
 
-    for(int i = 0; i < M2.list_room.size(); i++) {
-
+    for(int i = 0; i < (int)M2.list_room.size(); i++) {
+        
     }
 
 
 
 }
 
-void Map::genInCircle(Room& R) {
-    //on genere des tailles aléatoire
-    R.H = (rand() % (room_max_size - room_min_size)) + room_min_size;//hauteur
-    R.L = (rand() % (room_max_size - room_min_size)) + room_min_size;//largeur
-
-    //on genere des points aléatoires dans un cercle
-    float t = 2 * PI * genRandomDouble();
-    float u = genRandomDouble() + genRandomDouble();
-    float r;
-    if (u > 1) r = (2 - u);
-    else r = u;
-
-    R.x0 = (radius * r * cos(t)) + (map_size/2);
-    R.y0 = (radius * r * sin(t)) + (map_size/2);
-    R.x1 = R.x0 + R.L - 1;
-    R.y1 = R.y0 + R.H - 1;
-}
-
-void Map::genInMap(Room& R) {
-    R.H = (rand() % (room_max_size - room_min_size)) + room_min_size;//hauteur
-    R.L = (rand() % (room_max_size - room_min_size)) + room_min_size;//largeur
-    R.x0 = rand() % (map_size - R.L); //x0 en évitant de sortir de la map : gen entre 0 - largeur
-    R.y0 = rand() % (map_size - R.H); //y0
-    R.x1 = R.x0 + R.L - 1; //x1
-    R.y1 = R.y0 + R.H - 1; //y1
-}
 
 void Map::genRooms()  {
     for (int i = 0; i < nbrooms; i++) {
-        //Tech1 on gen les rooms sur la map alea
-        //genInMap();
-        //Tech2 on gen les rooms dans un cercle, puis on "éclate" les particules
-        genInCircle(list_room[i]);
+
+        //on gen les rooms dans un cercle, puis on "éclate" les particules
+        list_room[i].genInCircle(map_size, radius, room_max_size, room_min_size);
         list_room[i].IDlinked = -1;
     }
 }
