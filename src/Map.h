@@ -8,8 +8,8 @@
 
 class Map {
 public:
-    Map(int const size, int const nb, int const room_max_size,
-        int const room_min_size, int const radius);
+    Map(int const size, int const nb, int const radius, int const room_max_size,
+        int const room_min_size);
     ~Map();
 
     void initGeneration();

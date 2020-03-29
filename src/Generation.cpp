@@ -15,11 +15,11 @@ int main(int argc, char *argv[], char **envp)
 
 	int const map_size = 90;
 	int const nbrooms = 100;//comme pour les dimensions on ne conservera pas toutes les rooms generees
-    int const room_max_size = 20; //ces dimensions sont uniquement pour la génération les dimensions réél sont séléctionner dans chooseRooms
+	int const radius = 5;
+	int const room_max_size = 20; //ces dimensions sont uniquement pour la génération les dimensions réél sont séléctionner dans chooseRooms
     int const room_min_size = 5;
-    int const radius = 5;
 
-    Map *donjon = new Map(map_size, nbrooms, room_max_size, room_min_size, radius);
+    Map *donjon = new Map(map_size, nbrooms, radius, room_max_size, room_min_size);
 
 	donjon->initGeneration();
 

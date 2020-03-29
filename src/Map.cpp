@@ -19,8 +19,8 @@ float dist2Points(float x1, float y1, float x2, float y2) {
 }
 
 
-Map::Map(int const size, int const nb, int const max, int const min, int const rad) :
-    map_size(size), nbrooms(nb), room_max_size(max), room_min_size(min), radius(rad) {
+Map::Map(int const size, int const nb, int const rad, int const max, int const min) :
+    map_size(size), nbrooms(nb), radius(rad), room_max_size(max), room_min_size(min) {
 
     ptr_map = new int*[map_size];
     //on initialise les pointeurs sur des valeurs nulles
@@ -385,7 +385,7 @@ void Map::ajouterRooms() {
         }
         //on affiche le num de la room
         initCenterRooms();
-        ptr_map[list_room[i].X][list_room[i].Y] = i;
+        //ptr_map[list_room[i].X][list_room[i].Y] = i;
         cout << "room " << i << " : " << list_room[i].H << ";" << list_room[i].L
         << " - " << list_room[i].X0 << ";" << list_room[i].Y0 << endl;
     }
