@@ -14,10 +14,61 @@ double genRandomDouble() {
 int Room::getIDlinked() {
     return IDlinked;
 }
+float Room::getx0() {
+    return x0;
+}
+float Room::getx1() {
+    return x1;
+}
+float Room::gety0() {
+    return y0;
+}
+float Room::gety1() {
+    return y1;
+}
+
+int Room::getX0() {
+    return X0;
+}
+int Room::getX1() {
+    return X1;
+}
+int Room::getY0() {
+    return y0;
+}
+int Room::getY1() {
+    return y1;
+}
+
+int Room::getX() {
+    return X;
+}
+int Room::getY() {
+    return Y;
+}
+int Room::getH() {
+    return H;
+}
+int Room::getL() {
+    return L;
+}
 
 //MUTATEUR
 void Room::setIDlinked(int const& val) {
     IDlinked = val;
+}
+
+void Room::setx0(int const& val) {
+    x0 = val;
+}
+void Room::setx1(int const& val) {
+    x1 = val;
+}
+void Room::sety0(int const& val) {
+    y0 = val;
+}
+void Room::sety1(int const& val) {
+    y1 = val;
 }
 
 void Room::arrondValRoom() {
@@ -56,10 +107,10 @@ void Room::genInCircle(int const& map_size, int const& radius, int const& room_m
 bool const Room::roomCollision(Room& A) {
 
     //detecte si A entre en collision avec l'objet actuelle
-    if((A.x0 >= x0 + L)      // trop à droite
-	|| (A.x0 + A.L <= x0) // trop à gauche
-	|| (A.y0 >= y0 + H) // trop en bas
- 	|| (A.y0 + A.H <= y0))  // trop en haut
+    if((A.getx0() >= x0 + L)      // trop à droite
+	|| (A.getx0() + A.getL() <= x0) // trop à gauche
+	|| (A.gety0() >= y0 + H) // trop en bas
+ 	|| (A.gety0() + A.getH() <= y0))  // trop en haut
         return false;
     else return true;
 }
