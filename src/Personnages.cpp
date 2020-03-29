@@ -269,11 +269,11 @@ using namespace std;
 	}
 
 	int main(){
-		Personnage p;
-		p.affichage();
+		
 		Hero h;
+		int adp = atk+def+pv;
 		h.lvUp();
-		assert();
+		assert(adp == atk+def+pv+3);
 		Bas();
 		assert(y == y--);
 		Haut();
@@ -283,6 +283,7 @@ using namespace std;
 		Droite();
 		assert(x == x++);
 		h.deplacement();
+		assert();
 		h.combat();
 		h.setName("player1");
 		assert()
