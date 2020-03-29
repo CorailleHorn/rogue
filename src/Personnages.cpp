@@ -12,13 +12,19 @@ using namespace std;
 		delete r;
 	}
 
+	int Personnage::deplacement() {
+		return 0;
+	}
+
+	int Personnage::combat() {
+		return 0;
+	}
+
 	int Personnage::degat(const int &atkA) {
 		int d = ((atkA - def) + 1);
-		if(d >= 0){
+		if(d >= 0)
 			pv -= d;
-		}
 		return 0;
-
 	}
 
 	int Personnage::affichage() {
@@ -55,7 +61,7 @@ using namespace std;
 	}
 
 	Hero::Hero() {
-		atk = def = pv = lv = x = y = 0;
+		atk = def = pv = lv = x = y = 1;
 		sprite = 'H';
     	name = "";
 	}
@@ -177,28 +183,29 @@ using namespace std;
 	int Hero::Haut() {
 		if (positionValide(x, (y+1)))
 			y++;
-
 		return 0;
-
 	}
 
 
-	void Hero::Bas() {
+	int Hero::Bas() {
 		if (positionValide(x, (y-1)))
 			y--;
+		return 0;
 	}
 
-	void Hero::Gauche() {
+	int Hero::Gauche() {
 		if (positionValide((x-1), y))
 			x--;
+		return 0;
 	}
 
-	void Hero::Droite() {
+	int Hero::Droite() {
 		if (positionValide((x+1), y))
 			x++;
+		return 0;
 	}
 
-	void Hero::deplacement() {
+	int Hero::deplacement() {
 		char touche;
 		cin>>touche;
 		switch (touche) {
@@ -215,16 +222,19 @@ using namespace std;
 						Droite();
 						break;
 		}
+		return 0;
 	}
 
-	void Hero::combat(Personnage* e) {
+	int Hero::combat(Personnage* e) {
 		if((e->getX() == x-1) || (e->getX() == x+1)
 		|| (e->getY() == y-1) || (e->getY() == y+1))
 			e->degat(atk);
+		return 0;
 	}
 
-	void Hero::setName(string sname) {
-			name = sname;
+	int Hero::setName(string sname) {
+		name = sname;
+		return 0;
 	}
 
 
@@ -259,7 +269,7 @@ using namespace std;
 
 	Ennemi::~Ennemi() {}
 
-	void Ennemi::deplacement(const Hero* h) {
+	int Ennemi::deplacement(const Personnage* h) {
 		if(h->getX() < x && positionValide((x+1), y))
 			x++;
 		if(h->getX() > x && positionValide((x-1), y))
@@ -268,40 +278,12 @@ using namespace std;
 			y++;
 		if(h->getY() > y && positionValide(x, (y-1)))
 			y--;
+		return 0;
 	}
 
-	void Ennemi::combat(Hero* h) {
+	int Ennemi::combat(Personnage* h) {
 		if((h->getX() == x-1) || (h->getX() == x+1)
 		|| (h->getY() == y-1) || (h->getY() == y+1))
 			h->degat(atk);
-	}
-
-	int main(){
-
-		Hero h;
-		int adp = atk+def+pv;
-		h.lvUp();
-		assert(adp == atk+def+pv+3);
-		Bas();
-		assert(y == y--);
-		Haut();
-		assert(y == y++);
-		Gauche();
-		assert(x == x--);
-		Droite();
-		assert(x == x++);
-		h.deplacement();
-		assert();
-		h.combat();
-		h.setName("player1");
-		assert()
-		Ennemi(5);
-		Ennemi e;
-		e.deplacement(h);
-		e.combat(h);
-		~Personnage();
-		~Ennemi();
-		~Hero();
-
 		return 0;
 	}

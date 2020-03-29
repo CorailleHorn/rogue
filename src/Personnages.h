@@ -4,16 +4,17 @@
 #include <iostream>
 #include <unistd.h>
 #include <math.h>
+#include <assert.h>
 #include "Room.h"
 
 class Personnage {
 	public:
 		Personnage();
 		virtual ~Personnage();
-		virtual void deplacement() = 0;
-		virtual void combat() = 0;
-		void degat(const int &atkA);
-		void affichage();
+		virtual int deplacement();
+		virtual int combat();
+		int degat(const int &atkA);
+		int affichage();
 		bool positionValide(int x, int y);
 		int getAtk() const;
 		int getDef() const;
@@ -32,14 +33,14 @@ class Hero: public Personnage {
 	public:
 		Hero();
 		~Hero();
-		void lvUp();
-		void deplacement();
-		void combat(Personnage* e);
-		void setName(std::string sname);
-		void Haut();
-		void Droite();
-		void Gauche();
-		void Bas();
+		int lvUp();
+		int deplacement();
+		int combat(Personnage* e);
+		int setName(std::string sname);
+		int Haut();
+		int Droite();
+		int Gauche();
+		int Bas();
 	protected:
 		std::string name;
 };
@@ -49,8 +50,8 @@ class Ennemi: public Personnage {
 	public:
 		Ennemi(const int &leveling);
 		~Ennemi();
-		void deplacement(const Hero* h);
-		void combat(Hero* h);
+		int deplacement(const Personnage* h);
+		int combat(Personnage* h);
 };
 
 #endif
