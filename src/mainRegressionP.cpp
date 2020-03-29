@@ -3,21 +3,16 @@
 using namespace std;
 
 int main(){
+  ok = 0;
   Hero h;
-  h.lvUp();
-  assert();
-  Bas();
-  assert(y == y--);
-  Haut();
-  assert(y == y++);
-  Gauche();
-  assert(x == x--);
-  Droite();
-  assert(x == x++);
-  h.deplacement();
-  h.combat();
-  h.setName("player1");
-  assert()
+  assert(ok == h.lvUp());
+  assert(ok == Bas());
+  assert(ok == Haut());
+  assert(ok == Gauche());
+  assert(ok == Droite());
+  assert(ok == h.deplacement());
+  assert(ok == h.combat());
+  assert(ok == h.setName("player1"));
   Ennemi(5);
   Ennemi e;
   e.deplacement(h);

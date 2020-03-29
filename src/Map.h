@@ -3,6 +3,7 @@
 
 #include <vector>
 #include "Room.h"
+#include "Personnages.h"
 
 struct Corridor {
     int x0,y0,X,Y,x1,y1;
