@@ -190,30 +190,18 @@ using namespace std;
 	int Hero::Bas() {
 		if (positionValide(x, (y-1)))
 			y--;
-<<<<<<< HEAD
-
-=======
->>>>>>> 48a164cc4af4cee8e33d21acc4866294d58b3095
 		return 0;
 	}
 
 	int Hero::Gauche() {
 		if (positionValide((x-1), y))
 			x--;
-<<<<<<< HEAD
-
-=======
->>>>>>> 48a164cc4af4cee8e33d21acc4866294d58b3095
 		return 0;
 	}
 
 	int Hero::Droite() {
 		if (positionValide((x+1), y))
 			x++;
-<<<<<<< HEAD
-
-=======
->>>>>>> 48a164cc4af4cee8e33d21acc4866294d58b3095
 		return 0;
 	}
 
@@ -241,21 +229,12 @@ using namespace std;
 		if((e->getX() == x-1) || (e->getX() == x+1)
 		|| (e->getY() == y-1) || (e->getY() == y+1))
 			e->degat(atk);
-<<<<<<< HEAD
-
-=======
->>>>>>> 48a164cc4af4cee8e33d21acc4866294d58b3095
 		return 0;
 	}
 
 	int Hero::setName(string sname) {
-<<<<<<< HEAD
-			name = sname;
-			return 0;
-=======
 		name = sname;
 		return 0;
->>>>>>> 48a164cc4af4cee8e33d21acc4866294d58b3095
 	}
 
 
@@ -290,11 +269,7 @@ using namespace std;
 
 	Ennemi::~Ennemi() {}
 
-<<<<<<< HEAD
-	int Ennemi::deplacement(const Hero* h) {
-=======
 	int Ennemi::deplacement(const Personnage* h) {
->>>>>>> 48a164cc4af4cee8e33d21acc4866294d58b3095
 		if(h->getX() < x && positionValide((x+1), y))
 			x++;
 		if(h->getX() > x && positionValide((x-1), y))
@@ -303,43 +278,6 @@ using namespace std;
 			y++;
 		if(h->getY() > y && positionValide(x, (y-1)))
 			y--;
-<<<<<<< HEAD
-
-		return 0;
-	}
-
-	int Ennemi::combat(Hero* h) {
-		if((h->getX() == x-1) || (h->getX() == x+1)
-		|| (h->getY() == y-1) || (h->getY() == y+1))
-			h->degat(atk);
-
-		return 0;
-	}
-
-	int main(){
-
-		Hero h;
-		assert(h.lvUp() == 0);
-		assert(h.Bas() == 0);
-		assert(h.Gauche() == 0);
-
-		assert(x == x--);
-
-		assert(x == x++);
-		h.deplacement();
-		assert();
-		h.combat();
-		h.setName("player1");
-		assert()
-		Ennemi(5);
-		Ennemi e;
-		e.deplacement(h);
-		e.combat(h);
-		~Personnage();
-		~Ennemi();
-		~Hero();
-
-=======
 		return 0;
 	}
 
@@ -347,6 +285,5 @@ using namespace std;
 		if((h->getX() == x-1) || (h->getX() == x+1)
 		|| (h->getY() == y-1) || (h->getY() == y+1))
 			h->degat(atk);
->>>>>>> 48a164cc4af4cee8e33d21acc4866294d58b3095
 		return 0;
 	}
