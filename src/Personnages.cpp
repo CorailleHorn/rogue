@@ -33,7 +33,7 @@ using namespace std;
 	}
 
 	bool Personnage::positionValide (int x, int y) {
-		return ((x>r->X0) && (x<r->X1) && (y>r->Y0) && (y<r->Y1));
+		return ((x>r->getX0()) && (x<r->getX1()) && (y>r->getY0()) && (y<r->getY1()));
 	}
 
 	int Personnage::getAtk() const {
