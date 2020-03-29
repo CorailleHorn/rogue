@@ -48,6 +48,7 @@ class Hero: public Personnage {
 
 class Ennemi: public Personnage {
 	public:
+		Ennemi();
 		Ennemi(const int &leveling);
 		~Ennemi();
 		int deplacement(const Personnage* h);
