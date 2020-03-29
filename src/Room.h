@@ -17,6 +17,9 @@ public:
 	int getY0();
 	int getY1();
 
+	int getX();
+	int getY();
+	
 	//mutateur
 	void setIDlinked(int const& val);
 

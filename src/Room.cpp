@@ -40,6 +40,13 @@ int Room::getY1() {
     return Y1;
 }
 
+int Room::getX() {
+    return X;
+}
+int Room::getY() {
+    return Y;
+}
+
 //MUTATEUR
 void Room::setIDlinked(int const& val) {
     IDlinked = val;

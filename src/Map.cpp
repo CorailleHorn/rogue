@@ -153,8 +153,8 @@ void Map::testRegression() { //on lance le test de regression
         assert(M2.list_room[i].getY0() == 0);
         assert(M2.list_room[i].getX1() == 0);
         assert(M2.list_room[i].getY1() == 0);
-        assert(M2.list_room[i].X == 0);
-        assert(M2.list_room[i].Y == 0);
+        assert(M2.list_room[i].getX() == 0);
+        assert(M2.list_room[i].getY() == 0);
         assert(M2.list_room[i].getIDlinked() == 0);
     }
     M2.genRooms();
@@ -232,7 +232,7 @@ void Map::choisirRoomLink(int const ID) {
     int idist;
     for (int i = 0; i < (int)list_room.size(); i++) {
         if (!isRoomLinked(ID,i) && !(i == ID)) {
-            idist = dist2Points(list_room[ID].X, list_room[ID].Y,list_room[i].X, list_room[i].Y);
+            idist = dist2Points(list_room[ID].X, list_room[ID].Y,list_room[i].getX(), list_room[i].getY());
             if(idist < distmin) {
                 distmin = idist;
                 IDmin = i;
@@ -255,11 +255,11 @@ void Map::ajouterLinks(){
     for(int i = 0; i < (int)list_room.size(); i++) {
         //ces variables "de transition" ne sont pas necessaire, elle sont
         //seulement là pour plus de lisibilité du code
-        x0 = list_room[i].X;
-        y0 = list_room[i].Y;
+        x0 = list_room[i].getX();
+        y0 = list_room[i].getY();
         r = list_room[i].getIDlinked();
-        x1 = list_room[r].X;
-        y1 = list_room[r].Y;
+        x1 = list_room[r].getX();
+        y1 = list_room[r].getY();
         diffX = x0 - x1;
         diffY = y0 - y1;
 
@@ -291,16 +291,16 @@ void Map::genCorridors() {
     int id2;
     list_corridor.resize(list_room.size());
     for(int i = 0; i < (int)list_corridor.size(); i++) {
-        list_corridor[i].x0 = list_room[i].X;
-        list_corridor[i].y0 = list_room[i].Y;
+        list_corridor[i].x0 = list_room[i].getX();
+        list_corridor[i].y0 = list_room[i].getY();
 
         id2 = list_room[i].getIDlinked();
 
-        list_corridor[i].x1 = list_room[id2].X;
-        list_corridor[i].y1 = list_room[id2].Y;
+        list_corridor[i].x1 = list_room[id2].getX();
+        list_corridor[i].y1 = list_room[id2].getY();
 
-        list_corridor[i].X = list_room[id2].X;
-        list_corridor[i].Y = list_room[i].Y;
+        list_corridor[i].X = list_room[id2].getX();
+        list_corridor[i].Y = list_room[i].getY();
     }
 }
 
@@ -439,7 +439,7 @@ void Map::ajouterRooms() {
         //on affiche le num de la room
         list_room[i].initCenterRooms();
         //ligne pour l'affichage des numéros des rooms
-        //ptr_map[list_room[i].X][list_room[i].Y] = i;
+        //ptr_map[list_room[i].getX()][list_room[i].getY()] = i;
         //lignes pour l'affichage des données des rooms
         //cout << "room " << i << " : " << list_room[i].H << ";" << list_room[i].L
         //<< " - " << list_room[i].getX0() << ";" << list_room[i].getY0() << endl;
