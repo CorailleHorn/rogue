@@ -12,9 +12,9 @@ public:
 	int IDlinked; // ID de la room lié
 
 	void arrondValRoom();
-	const bool isRoomIn(int size);
+	const bool isRoomIn(int const& size);
 
-	void genInCircle(int const map_size, int const radius, int const room_max_size, int const room_min_size);
+	void genInCircle(int const& map_size, int const& radius, int const& room_max_size, int const& room_min_size);
 };
 
 

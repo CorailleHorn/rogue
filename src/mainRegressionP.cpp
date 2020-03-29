@@ -18,3 +18,6 @@ int main(){
   assert(ok == e.combat(h));
   ~Ennemi();
   ~Hero();
+
+  return 0;
+}
