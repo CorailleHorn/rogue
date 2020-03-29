@@ -67,8 +67,25 @@ void Map::initGeneration() { //on lance la generation complete
 
 void Map::initGenerationDebug() { //on lance la generation complete
     genRooms(); //on genere les rooms dans un cercle
+    updateRooms();//on "met a jour" les rooms affichables (a l'interieur de map)
+
+    ajouterRooms();//on ajoute les rooms dans la map physiquement
+    afficherMap(); //on affiche la map
+    viderMap();
+
     eclatement();//on procede a l'eclatement des rooms en leur donnant une physique (et donc un vecteur de deplacement)
     updateRooms();//on "met a jour" les rooms affichables (a l'interieur de map)
+
+    ajouterRooms();//on ajoute les rooms dans la map physiquement
+    afficherMap(); //on affiche la map
+    viderMap();
+
+    updateRooms();//on "met a jour" les rooms affichables (a l'interieur de map)
+
+    ajouterRooms();//on ajoute les rooms dans la map physiquement
+    afficherMap(); //on affiche la map
+    viderMap();
+
     chooseRooms();//on selectionne les rooms avec un aspect jouable
 
     ajouterRooms();//on ajoute les rooms dans la map physiquement

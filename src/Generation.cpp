@@ -21,8 +21,8 @@ int main(int argc, char *argv[], char **envp)
 
     Map *donjon = new Map(map_size, nbrooms, radius, room_max_size, room_min_size);
 
-	//donjon->initGenerationDebug();
-	donjon->initGeneration();
+	donjon->initGenerationDebug();
+	//donjon->initGeneration();
 	delete donjon;
 
 	return 0;
