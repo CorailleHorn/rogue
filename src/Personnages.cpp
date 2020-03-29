@@ -12,14 +12,18 @@ using namespace std;
 		delete r;
 	}
 
-	void Personnage::degat(const int &atkA) {
+	int Personnage::degat(const int &atkA) {
 		int d = ((atkA - def) + 1);
-		if(d >= 0)
+		if(d >= 0){
 			pv -= d;
+		}
+		return 0;
+
 	}
 
-	void Personnage::affichage() {
+	int Personnage::affichage() {
 		cout << sprite << endl;
+		return 0;
 	}
 
 	bool Personnage::positionValide (int x, int y) {
@@ -58,7 +62,7 @@ using namespace std;
 
 	Hero::~Hero() {}
 
-	void Hero::lvUp() {
+	int Hero::lvUp() {
 		int choix[4];
 
 		cout << "Vous disposez de 3 points pour augmenter vos statistiques." <<	endl
@@ -167,11 +171,15 @@ using namespace std;
 								cout << "Pas de choix disponibles pour cette option, réessayez !" << endl;
 								lvUp();
 			}
+			return 0;
 		}
 
-	void Hero::Haut() {
+	int Hero::Haut() {
 		if (positionValide(x, (y+1)))
 			y++;
+
+		return 0;
+
 	}
 
 
@@ -269,7 +277,7 @@ using namespace std;
 	}
 
 	int main(){
-		
+
 		Hero h;
 		int adp = atk+def+pv;
 		h.lvUp();
