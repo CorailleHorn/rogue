@@ -32,27 +32,26 @@ public:
 	void ajouterCorridors();
 	bool const isPointIn(int const X, int const Y, int const ID);
 
-    bool const allRoomsCollisions(unsigned int const ID);
-    bool const roomCollision(Room A, Room B);
-    float* moyenneRooms(float mean[]);
+  bool const allRoomsCollisions(unsigned int const ID);
+  bool const roomCollision(Room A, Room B);
+  float* moyenneRooms(float mean[]);
 
-    void ajouterRooms();
-    void updateRooms();
+  void ajouterRooms();
+  void updateRooms();
 
-    void viderMap();
-    void afficherMap();
+  void viderMap();
+  void afficherMap();
 
 private:
 
     int **ptr_map;
     std::vector<Room> list_room;
-	std::vector<Corridor> list_corridor;
+    std::vector<Corridor> list_corridor;
 
-    int map_size;
-    int nbrooms;
-    int radius;
-    int room_max_size;
-    int room_min_size;
+    int map_size, nbrooms, radius, room_max_size, room_min_size;
+
+    Hero hero;
+    std::vector<Ennemi> ennemis;
 };
 
 
