@@ -31,11 +31,38 @@ Map::Map(int const& size, int const& nb, int const& rad, int const& max, int con
     list_room.resize(nbrooms);
 }
 
-Map::Map(Hero *h) : Map() {
+Map::Map(Hero *h) : map_size(90), nbrooms(100), radius(5), room_max_size(20), room_min_size(5) {
+    ptr_map = new int*[map_size];
+    //on initialise les pointeurs sur des valeurs nulles
+    for (int i = 0; i < map_size; i++) {
+      ptr_map[i] = nullptr;
+    }
+
+    //on affecte a chaque pointeur du tableau un tableau alloué dynamiquement
+    for (int i = 0; i < map_size; i++) {
+      ptr_map[i] = new int[map_size];
+    }
+    //on fabrique la map : 0:vide 1:plein
+    viderMap();
+    list_room.resize(nbrooms);
   hero = h;
 }
 
-Map::Map() : Map(90,100,5,20,5) {} //param par defaut
+Map::Map() : map_size(90), nbrooms(100), radius(5), room_max_size(20), room_min_size(5) {
+    ptr_map = new int*[map_size];
+    //on initialise les pointeurs sur des valeurs nulles
+    for (int i = 0; i < map_size; i++) {
+      ptr_map[i] = nullptr;
+    }
+
+    //on affecte a chaque pointeur du tableau un tableau alloué dynamiquement
+    for (int i = 0; i < map_size; i++) {
+      ptr_map[i] = new int[map_size];
+    }
+    //on fabrique la map : 0:vide 1:plein
+    viderMap();
+    list_room.resize(nbrooms);
+  }//param par defaut
 
 Map::~Map() {
   //on libère la mémoire du tableau 2D map
