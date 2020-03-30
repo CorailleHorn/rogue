@@ -32,23 +32,11 @@ Map::Map(int const& size, int const& nb, int const& rad, int const& max, int con
     list_room.resize(nbrooms);
 }
 
-Map::Map() : //param par defaut
-    map_size(90), nbrooms(100), radius(5), room_max_size(20), room_min_size(5) {
-
-    ptr_map = new int*[map_size];
-    //on initialise les pointeurs sur des valeurs nulles
-    for (int i = 0; i < map_size; i++) {
-      ptr_map[i] = nullptr;
-    }
-
-    //on affecte a chaque pointeur du tableau un tableau alloué dynamiquement
-    for (int i = 0; i < map_size; i++) {
-      ptr_map[i] = new int[map_size];
-    }
-    //on fabrique la map : 0:vide 1:plein
-    viderMap();
-    list_room.resize(nbrooms);
+Map::Map(Hero *h) : Map() {
+  hero = h;
 }
+
+Map::Map() : Map(90,100,5,20,5) {} //param par defaut
 
 Map::~Map() {
   //on libère la mémoire du tableau 2D map
@@ -89,7 +77,7 @@ void Map::testRegression() { //on lance le test de regression
 
     Map* M = new Map;
     assert(M->map_size == 90);
-    assert(M->nbrooms == 100); 
+    assert(M->nbrooms == 100);
     assert(M->radius == 5);
     assert(M->room_max_size == 20 && M->room_min_size == 5);
     for (int i = 0; i < M->map_size; i++) {
@@ -519,7 +507,10 @@ void Map::updateRooms() {
     }
 }
 
-
+int Map::setHero(Hero *h) {
+  hero = h;
+  return 0;
+}
 
 void Map::viderMap() {
     //on fabrique la map : 0:vide 1:plein
