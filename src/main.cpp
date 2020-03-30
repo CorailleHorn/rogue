@@ -5,8 +5,10 @@ using namespace std;
 int main() {
 	srand(time(NULL));
 	Hero* h;
-	system(clear);
+	system("clear");
 	txtBoucle(h);
-	system(clear);
+	system("clear");
+	delete h;
+	h = NULL;
 	return 0;
 }

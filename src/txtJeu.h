@@ -7,6 +7,6 @@
 void txtAff(const Map &m);
 void txtInit(Map *m, Hero *h);
 void txtBoucle(Hero *h);
-void txtDetruit(Map *m, Hero *h);
+void txtDetruit(Map *m);
 
 #endif

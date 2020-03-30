@@ -32,6 +32,5 @@ int main(){
   cout << h->getName() << " - pv : " << h->getPv();
   delete e;
   delete h;
-
   return 0;
 }

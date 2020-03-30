@@ -22,21 +22,22 @@ void txtAff(const Map &m) {
 }
 
 void txtBoucle (Hero *h) {
-  txtInit(Map *m, Hero *h)
+  Map *m = new Map(h);
+  txtInit(m, h);
   while(){
 
+    system("clear");
   }
-
+  txtDetruit(m)
 }
 
 void txtInit(Map *m, Hero *h){
   m.initGeneration();
 }
 
-void txtDetruit(Map *m, Hero *h){
+void txtDetruit(Map *m){
     delete m;
     m = NULL;
-    h = NULL;
 }
 
 
