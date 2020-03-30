@@ -5,7 +5,6 @@
 #include <unistd.h>
 #include <math.h>
 #include <assert.h>
-#include "Room.h"
 
 class Personnage {
 	public:
@@ -13,6 +12,10 @@ class Personnage {
 		virtual ~Personnage();
 		int combat(Personnage* p);
 		int degat(const int &atkA);
+		int Haut();
+		int Bas();
+		int Gauche();
+		int Droite();
 		int setX(const int &sx);
 		int setY(const int &sy);
 		int getAtk() const;
@@ -36,10 +39,6 @@ class Hero : public Personnage {
 		int lvUp();
 		int setName(std::string sname);
 		std::string getName() const;
-		int Haut();
-		int Bas();
-		int Gauche();
-		int Droite();
 	protected:
 		std::string name;
 		char touche;
@@ -51,7 +50,6 @@ class Ennemi : public Personnage {
 		Ennemi();
 		Ennemi(const int &leveling);
 		~Ennemi();
-		int deplacement(const Hero* h);
 };
 
 #endif

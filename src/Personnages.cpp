@@ -25,6 +25,26 @@ using namespace std;
 		return 0;
 	}
 
+	int Personnage::Haut() {//Déplacement des personnages
+		y--;
+		return 0;
+	}
+
+	int Personnage::Bas() {//Déplacement des personnages
+		y++;
+		return 0;
+	}
+
+	int Personnage::Gauche() {//Déplacement des personnages
+		x--;
+		return 0;
+	}
+
+	int Personnage::Droite() {//Déplacement des personnages
+		x++;
+		return 0;
+	}
+
 	int Personnage::setX(const int &sx) {
 		x = sx;
 		return 0;
@@ -203,27 +223,6 @@ using namespace std;
 			return 0;
 		}
 
-	int Hero::Haut() {//Déplacement du héro
-		y--;
-		return 0;
-	}
-
-	int Hero::Bas() {//Déplacement du héro
-		y++;
-		return 0;
-	}
-
-	int Hero::Gauche() {//Déplacement du héro
-		x--;
-		return 0;
-	}
-
-	int Hero::Droite() {//Déplacement du héro
-		x++;
-		return 0;
-	}
-
-
 	int Hero::setName(string sname) {//Définir le nom du joueur
 			name = sname;
 			return 0;
@@ -267,16 +266,4 @@ using namespace std;
 		sprite = 'E';
 	}
 
-	Ennemi::~Ennemi() {} //Destructeur des ennemis
-
-	int Ennemi::deplacement(const Hero* h) {
-		if(h->getX() < x)
-			x--;
-		if(h->getX() > x)
-			x++;
-		if(h->getY() < y)
-			y--;
-		if(h->getY() > y)
-			y++;
-		return 0;
-	}
+	Ennemi::~Ennemi() {}

@@ -40,7 +40,7 @@ public:
   void ajouterRooms();
   void updateRooms();
 
-  int setHero(Hero *h);
+  int newPosHero();
   int update();
   bool position_valide(const int &x, const int &y);
 
@@ -53,6 +53,7 @@ private:
   std::vector<Corridor> list_corridor;
 
   int map_size, nbrooms, radius, room_max_size, room_min_size, nb_ennemie;
+  int hxm1, hym1;
   Hero *hero;
   std::vector<Ennemi*> ennemis;
 };

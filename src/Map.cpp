@@ -81,8 +81,11 @@ void Map::initGeneration() { //on lance la generation complete
         ennemis[ennemis.size()-1]->setY(pos[1]);
       }
     }
-    hero->setX(list_room[0].getX());
-    hero->setY(list_room[0].getY());
+    hxm1 = list_room[0].getX();
+    hym1 =list_room[0].getY();
+    hero->setX(hxm1);
+    hero->setY(hym1);
+    ptr_map[hxm1][hym1] = 2;
 }
 
 
@@ -526,17 +529,32 @@ void Map::updateRooms() {
     }
 }
 
-int Map::setHero(Hero *h) {
-  hero = h;
+int Map::newPosHero() {
+  if(hxm1 != hero->getX() || hym1 != hero->getY()) {
+    ptr_map[hxm1][hym1] = 0;
+    hxm1 = hero->getX();
+    hym1 = hero->getY();
+    ptr_map[hxm1][hym1] = 2;
+  }
   return 0;
 }
 
 int Map::update() {
-  ptr_map[hero->getX()][hero->getY()] = 2;
+  newPosHero();
   for(unsigned int i = 0; i < ennemis.size(); i++) {
-    //cout << ennemis[i]->getX() << ennemis[i]->getY();
     ptr_map[ennemis[i]->getX()][ennemis[i]->getY()] = 0;
-    ennemis[i]->deplacement(hero);
+    if(position_valide(ennemis[i]->getX(),(ennemis[i]->getY() + 1))
+      && hero->getY() < ennemis[i]->getY())
+      ennemis[i]->Haut();
+    if(position_valide(ennemis[i]->getX(),(ennemis[i]->getY() - 1))
+      && hero->getY() > ennemis[i]->getY())
+      ennemis[i]->Bas();
+    if(position_valide((ennemis[i]->getX() - 1),ennemis[i]->getY())
+      && hero->getX() < ennemis[i]->getX())
+      ennemis[i]->Gauche();
+    if(position_valide((ennemis[i]->getX() + 1),ennemis[i]->getY())
+      && hero->getX() > ennemis[i]->getX())
+      ennemis[i]->Droite();
     ptr_map[ennemis[i]->getX()][ennemis[i]->getY()] = 3;
   }
   return 0;

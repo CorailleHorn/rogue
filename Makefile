@@ -1,7 +1,7 @@
-all : bin/txt_regression bin/txt_jeu
+all : bin/txt_jeu
 
-bin/txt_regression : obj/mainRegressionP.o obj/Personnages.o
-	g++ -Wall -ggdb obj/mainRegressionP.o obj/Personnages.o -o bin/txt_regression
+#bin/txt_regression : obj/mainRegressionP.o obj/Personnages.o
+#	g++ -Wall -ggdb obj/mainRegressionP.o obj/Personnages.o -o bin/txt_regression
 
 bin/txt_jeu : obj/main.o obj/txtJeu.o obj/Map.o obj/Room.o obj/Personnages.o
 	g++ -Wall -ggdb obj/main.o obj/txtJeu.o obj/Map.o obj/Room.o obj/Personnages.o -o bin/txt_jeu
