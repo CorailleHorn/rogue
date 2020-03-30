@@ -145,7 +145,6 @@ void Map::testRegression() { //on lance le test de regression
     }
     assert((int)M2.list_room.size() == M2.nbrooms);
     for(int i = 0; i < M2.nbrooms; i++) {
-<<<<<<< HEAD
         assert(M2.list_room[i].getx0() == 0);
         assert(M2.list_room[i].gety0() == 0);
         assert(M2.list_room[i].getx1() == 0);
@@ -168,30 +167,6 @@ void Map::testRegression() { //on lance le test de regression
     }
     M2.eclatement();
     //assert((int)M2.list_room.size() < M2.nbrooms);
-=======
-        assert(M2.list_room[i].x0 == 0);
-        assert(M2.list_room[i].y0 == 0);
-        assert(M2.list_room[i].x1 == 0);
-        assert(M2.list_room[i].y1 == 0);
-        assert(M2.list_room[i].X0 == 0);
-        assert(M2.list_room[i].Y0 == 0);
-        assert(M2.list_room[i].X1 == 0);
-        assert(M2.list_room[i].Y1 == 0);
-        assert(M2.list_room[i].X == 0);
-        assert(M2.list_room[i].Y == 0);
-        assert(M2.list_room[i].IDlinked == 0);
-    }
-    M2.genRooms();
-    for(int i = 0; i < M2.nbrooms; i++) {
-        assert(M2.list_room[i].x0 > 0);
-        assert(M2.list_room[i].y0 > 0);
-        assert(M2.list_room[i].x1 > 0);
-        assert(M2.list_room[i].y1 > 0);
-        assert(M2.list_room[i].IDlinked == -1);
-    }
-    M2.eclatement();
-    assert((int)M2.list_room.size() < M2.nbrooms);
->>>>>>> Louis
     for(int i = 0; i < (int)M2.list_room.size(); i++) {
 
     }
