@@ -92,12 +92,6 @@ void Map::initGenerationDebug() { //on lance la generation avec affichage des é
     afficherMap(); //on affiche la map
     viderMap();
 
-    updateRooms();//on "met a jour" les rooms affichables (a l'interieur de map)
-
-    ajouterRooms();//on ajoute les rooms dans la map physiquement
-    afficherMap(); //on affiche la map
-    viderMap();
-
     chooseRooms();//on selectionne les rooms avec un aspect jouable
 
     ajouterRooms();//on ajoute les rooms dans la map physiquement
@@ -118,6 +112,11 @@ void Map::initGenerationDebug() { //on lance la generation avec affichage des é
 }
 
 void Map::testRegression() { //on lance le test de regression
+    //dans ces tests on vérifie après chaque parties de la Generation la
+    //"viabilite" des variables, i.e qu'elles ne depassent pas les regles qui
+    //leurs sont donnees, les tableaux, que les pointeurs sont bien remis sur NULL
+    //après utilisation, etc
+    //et ensuite on affiche en detail la generation step by step (comme dans initGenerationDebug() )
     Map* M = new Map;
     assert(M->map_size == 90);
     assert(M->nbrooms == 100);
@@ -157,17 +156,67 @@ void Map::testRegression() { //on lance le test de regression
         assert(M2.list_room[i].getY() == 0);
         assert(M2.list_room[i].getIDlinked() == 0);
     }
+    M2.afficherMap();
     M2.genRooms();
     for(int i = 0; i < M2.nbrooms; i++) {
-        assert(M2.list_room[i].isRoomIn(M2.map_size));
-        
+        assert((M2.list_room[i].getx0() >= 0)
+            && (M2.list_room[i].gety0() >= 0)
+            && (M2.list_room[i].getx1() < map_size)
+            && (M2.list_room[i].gety1() < map_size));
         assert(M2.list_room[i].getIDlinked() == -1);
     }
-    M2.eclatement();
-    //assert((int)M2.list_room.size() < M2.nbrooms);
-    for(int i = 0; i < (int)M2.list_room.size(); i++) {
-
+    M2.updateRooms();
+    //on parcoure ici pour une taille nbrooms car toutes les rooms sont affichables pour l'instant
+    for(int i = 0; i < M2.nbrooms; i++) {
+        assert(M2.list_room[i].isRoomIn(M2.map_size));
     }
+    M2.ajouterRooms();
+    for(int i = 0; i < M2.nbrooms; i++) {
+        //lignes pour l'affichage des données des rooms
+        cout<< "room " << i << " : " << M2.list_room[i].getH() << ";"
+        << M2.list_room[i].getL() << " - " << M2.list_room[i].getX0() << ";"
+        << M2.list_room[i].getY0() << endl;
+    }
+    M2.afficherMap();
+    M2.viderMap();
+
+    M2.eclatement();
+    for (int i = 0; i < nbrooms; i++) {
+        assert(!allRoomsCollisions(i));
+    }
+    M2.updateRooms();
+    for(int i = 0; i < (int)M2.list_room.size(); i++) {
+        assert(M2.list_room[i].isRoomIn(M2.map_size));
+    }
+    M2.ajouterRooms();
+    for(int i = 0; i < (int)M2.list_room.size(); i++) {
+        //lignes pour l'affichage des données des rooms
+        cout<< "room " << i << " : " << M2.list_room[i].getH() << ";"
+        << M2.list_room[i].getL() << " - " << M2.list_room[i].getX0() << ";"
+        << M2.list_room[i].getY0() << endl;
+    }
+    M2.afficherMap();
+    M2.viderMap();
+
+    M2.chooseRooms();
+
+    M2.ajouterRooms();
+    for(int i = 0; i < (int)M2.list_room.size(); i++) {
+        //lignes pour l'affichage des données des rooms
+        cout<< "room " << i << " : " << M2.list_room[i].getH() << ";"
+        << M2.list_room[i].getL() << " - " << M2.list_room[i].getX0() << ";"
+        << M2.list_room[i].getY0() << endl;
+    }
+    M2.afficherMap();
+    M2.viderMap();
+
+
+
+
+    //assert((int)M2.list_room.size() < M2.nbrooms);
+    //for(int i = 0; i < (int)M2.list_room.size(); i++) {
+
+    //}
 
 
 
