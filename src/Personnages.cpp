@@ -6,33 +6,33 @@
 
 using namespace std;
 
-	Personnage::Personnage() {}
+	Personnage::Personnage() {} //Constructeur de Personnage
 
-	Personnage::~Personnage() {
+	Personnage::~Personnage() { //Destructeur de personnage
 		delete r;
 	}
 
-	int Personnage::deplacement() {
+	int Personnage::deplacement() { //fait déplacer le personnage
 		return 0;
 	}
 
-	int Personnage::combat() {
+	int Personnage::combat() { //fonction combat pour le Personnage
 		return 0;
 	}
 
-	int Personnage::degat(const int &atkA) {
+	int Personnage::degat(const int &atkA) { //permets de définir le nombre de dégats que l'on va mettre au joueur
 		int d = ((atkA - def) + 1);
 		if(d >= 0)
 			pv -= d;
 		return 0;
 	}
 
-	int Personnage::affichage() {
+	int Personnage::affichage() { //affiche le Personnage
 		cout << sprite << endl;
 		return 0;
 	}
 
-	bool Personnage::positionValide (int x, int y) {
+	bool Personnage::positionValide (int x, int y) { //Permets de savoir si la position du héro est dans la map
 		return ((x>r->getX0()) && (x<r->getX1()) && (y>r->getY0()) && (y<r->getY1()));
 	}
 
@@ -60,15 +60,15 @@ using namespace std;
 		return y;
 	}
 
-	Hero::Hero() {
+	Hero::Hero() { //Constructeur du héro
 		atk = def = pv = lv = x = y = 1;
 		sprite = 'H';
     	name = "";
 	}
 
-	Hero::~Hero() {}
+	Hero::~Hero() {} //Destructeur du héro
 
-	int Hero::lvUp() {
+	int Hero::lvUp() { //Permets l'augmentation du niveau du joueur ainsi que des ces points d'attaque, de défense et pvs
 		int choix[4];
 
 		cout << "Vous disposez de 3 points pour augmenter vos statistiques." <<	endl
@@ -180,32 +180,32 @@ using namespace std;
 			return 0;
 		}
 
-	int Hero::Haut() {
+	int Hero::Haut() { //Verification si le perso peut aller en haut
 		if (positionValide(x, (y+1)))
 			y++;
 		return 0;
 	}
 
 
-	int Hero::Bas() {
+	int Hero::Bas() {//Verification si le perso peut aller en bas
 		if (positionValide(x, (y-1)))
 			y--;
 		return 0;
 	}
 
-	int Hero::Gauche() {
+	int Hero::Gauche() {//Verification si le perso peut aller à gauche
 		if (positionValide((x-1), y))
 			x--;
 		return 0;
 	}
 
-	int Hero::Droite() {
+	int Hero::Droite() {//Verification si le perso peut aller à droite
 		if (positionValide((x+1), y))
 			x++;
 		return 0;
 	}
 
-	int Hero::deplacement() {
+	int Hero::deplacement() {//Déplacement du héro
 		char touche;
 		cin>>touche;
 		switch (touche) {
@@ -225,20 +225,20 @@ using namespace std;
 		return 0;
 	}
 
-	int Hero::combat(Personnage* e) {
+	int Hero::combat(Personnage* e) {//Vérification de la zone de combat pour infliger des dégats au héro par les ennemis
 		if((e->getX() == x-1) || (e->getX() == x+1)
 		|| (e->getY() == y-1) || (e->getY() == y+1))
 			e->degat(atk);
 		return 0;
 	}
 
-	int Hero::setName(string sname) {
+	int Hero::setName(string sname) {//Définir le nom du joueur
 			name = sname;
 			return 0;
 	}
 
 
-	Ennemi::Ennemi(const int &leveling) {
+	Ennemi::Ennemi(const int &leveling) {//Augmentation du niveau des ennemis au fur et a mesure des niveaux passés par le héro
 		int stat = 30 * leveling;
 		int randomiser = rand() % 4 + 1;
 		switch (randomiser) {
@@ -267,9 +267,9 @@ using namespace std;
 		sprite = 'E';
 	}
 
-	Ennemi::~Ennemi() {}
+	Ennemi::~Ennemi() {} //Destructeur des ennemis
 
-	int Ennemi::deplacement(const Personnage* h) {
+	int Ennemi::deplacement(const Personnage* h) {//Déplacement automatique des ennemis
 		if(h->getX() < x && positionValide((x+1), y))
 			x++;
 		if(h->getX() > x && positionValide((x-1), y))
@@ -281,7 +281,7 @@ using namespace std;
 		return 0;
 	}
 
-	int Ennemi::combat(Personnage* h) {
+	int Ennemi::combat(Personnage* h) { //Vérification de la zone de combat pour infliger des dégats aux ennemis par le héro
 		if((h->getX() == x-1) || (h->getX() == x+1)
 		|| (h->getY() == y-1) || (h->getY() == y+1))
 			h->degat(atk);
