@@ -204,12 +204,12 @@ using namespace std;
 		}
 
 	int Hero::Haut() {//Déplacement du héro
-		y++;
+		y--;
 		return 0;
 	}
 
 	int Hero::Bas() {//Déplacement du héro
-		y--;
+		y++;
 		return 0;
 	}
 
@@ -271,12 +271,12 @@ using namespace std;
 
 	int Ennemi::deplacement(const Hero* h) {
 		if(h->getX() < x)
-			x++;
-		if(h->getX() > x)
 			x--;
+		if(h->getX() > x)
+			x++;
 		if(h->getY() < y)
-			y++;
-		if(h->getY() > y)
 			y--;
+		if(h->getY() > y)
+			y++;
 		return 0;
 	}

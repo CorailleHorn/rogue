@@ -8,6 +8,7 @@ void txtBoucle (Hero *h) {
   Map *m = new Map(h);
   m->initGeneration();
   while(jeu){
+    m->update();
     m->afficherMap();
     touche = fgetc(stdin);
     switch (touche) {
@@ -31,7 +32,6 @@ void txtBoucle (Hero *h) {
         jeu = false;
         break;
     }
-    m->update();
     system("clear");
   }
   txtDetruit(m);
