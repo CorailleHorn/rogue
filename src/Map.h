@@ -13,6 +13,7 @@ class Map {
 public:
     Map(int const size, int const nb, int const radius, int const room_max_size,
         int const room_min_size);
+    Map(Hero *h);
     Map();
     ~Map();
 
@@ -39,9 +40,10 @@ public:
     void ajouterRooms();
     void updateRooms();
 
+    int setHero(Hero *h);
+
     void viderMap();
     void afficherMap();
-
 private:
 
     int **ptr_map;
@@ -49,8 +51,8 @@ private:
     std::vector<Corridor> list_corridor;
 
     int map_size, nbrooms, radius, room_max_size, room_min_size;
-    //Hero hero;
-    //std::vector<Ennemi> ennemis;
+    Hero *hero;
+    std::vector<Ennemi> ennemis;
 };
 
 
