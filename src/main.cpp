@@ -4,7 +4,7 @@ using namespace std;
 
 int main() {
 	srand(time(NULL));
-	Hero* h;
+	Hero* h = new Hero;
 	system("clear");
 	txtBoucle(h);
 	system("clear");

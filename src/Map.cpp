@@ -61,14 +61,22 @@ void Map::initGeneration() { //on lance la generation complete
 
     ajouterCorridors();
 
-    for(long unsigned int i = 0; i < list_room.size(); i++) {
+    int pos[2];
+    for(long unsigned int i = 1; i < list_room.size(); i++) {
       nb_ennemie = rand() % 2 + 1;
       for(int j = 0; j < nb_ennemie; j++) {
+        do {
+          pos[0] = rand() % list_room[i].getX0()-list_room[i].getX1() + list_room[i].getX0()+1;
+          pos[1] = rand() % list_room[i].getY0()-list_room[i].getY1() + list_room[i].getY0()+1;
+        } while(ennemis[ennemis.size()-1]->getX() == pos[0]
+          && ennemis[ennemis.size()-1]->getY() == pos[1]);
         ennemis.push_back(new Ennemi(hero->getLv()));
-        ennemis[ennemis.size()-1]->setX(1);
-        ennemis[ennemis.size()-1]->setY(1);
+        ennemis[ennemis.size()-1]->setX(pos[0]);
+        ennemis[ennemis.size()-1]->setY(pos[1]);
       }
     }
+    hero->setX(list_room[0].getX());
+    hero->setY(list_room[0].getY());
 }
 
 
