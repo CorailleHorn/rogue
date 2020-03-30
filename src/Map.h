@@ -11,8 +11,8 @@ struct Corridor {
 
 class Map {
 public:
-    Map(int const size, int const nb, int const radius, int const room_max_size,
-        int const room_min_size);
+    Map(int const& size, int const& nb, int const& radius, int const& room_max_size,
+        int const& room_min_size);
     Map();
     ~Map();
 
