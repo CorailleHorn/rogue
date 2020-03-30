@@ -66,13 +66,13 @@ void Map::initGeneration() { //on lance la generation complete
       nb_ennemie = rand() % 2 + 1;
       for(int j = 0; j < nb_ennemie; j++) {
         if(ennemis.size() == 0) {
-          pos[0] = rand() % list_room[i].getX0()-list_room[i].getX1() + list_room[i].getX0()+1;
-          pos[1] = rand() % list_room[i].getY0()-list_room[i].getY1() + list_room[i].getY0()+1;
+          pos[0] = rand() % (list_room[i].getX0()-list_room[i].getX1()) + (list_room[i].getX0()+1);
+          pos[1] = rand() % (list_room[i].getY0()-list_room[i].getY1()) + (list_room[i].getY0()+1);
         }
         else {
           do {
-            pos[0] = rand() % list_room[i].getX0()-list_room[i].getX1() + list_room[i].getX0()+1;
-            pos[1] = rand() % list_room[i].getY0()-list_room[i].getY1() + list_room[i].getY0()+1;
+            pos[0] = rand() % (list_room[i].getX0()-list_room[i].getX1()) + (list_room[i].getX0()+1);
+            pos[1] = rand() % (list_room[i].getY0()-list_room[i].getY1()) + (list_room[i].getY0()+1);
           } while(ennemis[ennemis.size()-1]->getX() == pos[0]
             && ennemis[ennemis.size()-1]->getY() == pos[1]);
         }
@@ -534,6 +534,7 @@ int Map::setHero(Hero *h) {
 int Map::update() {
   ptr_map[hero->getX()][hero->getY()] = 2;
   for(unsigned int i = 0; i < ennemis.size(); i++) {
+    //cout << ennemis[i]->getX() << ennemis[i]->getY();
     ptr_map[ennemis[i]->getX()][ennemis[i]->getY()] = 0;
     ennemis[i]->deplacement(hero);
     ptr_map[ennemis[i]->getX()][ennemis[i]->getY()] = 3;
