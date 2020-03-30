@@ -159,10 +159,8 @@ void Map::testRegression() { //on lance le test de regression
     }
     M2.genRooms();
     for(int i = 0; i < M2.nbrooms; i++) {
-        assert(M2.list_room[i].getx0() > 0);
-        assert(M2.list_room[i].gety0() > 0);
-        assert(M2.list_room[i].getx1() > 0);
-        assert(M2.list_room[i].gety1() > 0);
+        assert(M2.list_room[i].isRoomIn(M2.map_size));
+        
         assert(M2.list_room[i].getIDlinked() == -1);
     }
     M2.eclatement();
