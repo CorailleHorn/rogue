@@ -258,11 +258,7 @@ using namespace std;
 
 	Ennemi::Ennemi() : Ennemi(1) {}
 
-<<<<<<< HEAD
-	Ennemi::Ennemi(const int &leveling) {
-=======
 	Ennemi::Ennemi(const int &leveling) {//Permets l'augmentation du niveau des ennemis
->>>>>>> 199044fd13d9be5e11d2c1028f551c31df2b9abc
 		lv = leveling;
 		int stat = 3 * lv;
 		int randomiser = rand() % 3 + 1;
@@ -309,9 +305,3 @@ using namespace std;
 		return 0;
 	}
 */
-	int Ennemi::combat(Hero* h) {//Vérifie si le héro est la zone autour pour lui infliger les dégats des ennemis
-		if((h->getX() == x-1) || (h->getX() == x+1)
-		|| (h->getY() == y-1) || (h->getY() == y+1))
-			h->degat(atk);
-		return 0;
-	}

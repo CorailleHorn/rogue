@@ -6,7 +6,7 @@
 
 void txtAff(const Map &m);
 void txtInit();
-void txtBoucle(Hero &me, Ennemi &you);
+void txtBoucle(Hero &h);
 void txtDetruit();
 
 #endif

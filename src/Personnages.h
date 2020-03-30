@@ -12,7 +12,7 @@ class Personnage {
 		Personnage();
 		virtual ~Personnage();
 		//virtual int deplacement();
-		virtual int combat(Personnage* p);
+		int combat(Personnage* p);
 		int degat(const int &atkA);
 		int affichage();
 		//bool positionValide(int x, int y);
@@ -52,7 +52,6 @@ class Ennemi : public Personnage {
 		Ennemi(const int &leveling);
 		~Ennemi();
 		//int deplacement(const Hero* h);
-		int combat(Hero* h);
 };
 
 #endif
