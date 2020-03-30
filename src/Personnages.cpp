@@ -6,7 +6,11 @@
 
 using namespace std;
 
+<<<<<<< HEAD
 	Personnage::Personnage() {
+=======
+	Personnage::Personnage() { //Constructeur pour un personnage
+>>>>>>> 199044fd13d9be5e11d2c1028f551c31df2b9abc
 		atk = def = pv = lv = x = y = 1;
 	}
 
@@ -258,7 +262,11 @@ using namespace std;
 
 	Ennemi::Ennemi() : Ennemi(1) {}
 
+<<<<<<< HEAD
 	Ennemi::Ennemi(const int &leveling) {
+=======
+	Ennemi::Ennemi(const int &leveling) {//Permets l'augmentation du niveau des ennemis
+>>>>>>> 199044fd13d9be5e11d2c1028f551c31df2b9abc
 		lv = leveling;
 		int stat = 3 * lv;
 		int randomiser = rand() % 3 + 1;
