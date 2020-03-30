@@ -32,11 +32,23 @@ Map::Map(int const& size, int const& nb, int const& rad, int const& max, int con
     list_room.resize(nbrooms);
 }
 
-Map::Map(Hero *h) : Map() {
-  hero = h;
-}
+Map::Map() : //param par defaut
+    map_size(90), nbrooms(100), radius(5), room_max_size(20), room_min_size(5) {
 
-Map::Map() : Map(90, 100, 5, 20, 5) {} //param par defaut
+    ptr_map = new int*[map_size];
+    //on initialise les pointeurs sur des valeurs nulles
+    for (int i = 0; i < map_size; i++) {
+      ptr_map[i] = nullptr;
+    }
+
+    //on affecte a chaque pointeur du tableau un tableau alloué dynamiquement
+    for (int i = 0; i < map_size; i++) {
+      ptr_map[i] = new int[map_size];
+    }
+    //on fabrique la map : 0:vide 1:plein
+    viderMap();
+    list_room.resize(nbrooms);
+}
 
 Map::~Map() {
   //on libère la mémoire du tableau 2D map
@@ -65,39 +77,6 @@ void Map::initGeneration() { //on lance la generation complete
     viderMap();
 }
 
-void Map::initGenerationDebug() { //on lance la generation avec affichage des étapes pour corriger les bugs
-    genRooms(); //on genere les rooms dans un cercle
-    updateRooms();//on "met a jour" les rooms affichables (a l'interieur de map)
-
-    ajouterRooms();//on ajoute les rooms dans la map physiquement
-    afficherMap(); //on affiche la map
-    viderMap();
-
-    eclatement();//on procede a l'eclatement des rooms en leur donnant une physique (et donc un vecteur de deplacement)
-    updateRooms();//on "met a jour" les rooms affichables (a l'interieur de map)
-
-    ajouterRooms();//on ajoute les rooms dans la map physiquement
-    afficherMap(); //on affiche la map
-    viderMap();
-
-    chooseRooms();//on selectionne les rooms avec un aspect jouable
-
-    ajouterRooms();//on ajoute les rooms dans la map physiquement
-    afficherMap(); //on affiche la map
-
-    initLinks(); //on initialise les liens pour pouvoir ensuite gen les couloirs
-    ajouterLinks(); //DECOMMENTER CETTE LIGNE POUR ENLEVER L'AFFICHAGE DES LIENS
-    afficherMap();
-    viderMap();
-
-
-    genCorridors();
-
-    ajouterRooms();
-    ajouterCorridors();
-    afficherMap();
-    viderMap();
-}
 
 void Map::testRegression() { //on lance le test de regression
     //dans ces tests on vérifie après chaque parties de la Generation la
@@ -110,7 +89,7 @@ void Map::testRegression() { //on lance le test de regression
 
     Map* M = new Map;
     assert(M->map_size == 90);
-    assert(M->nbrooms == 100);
+    assert(M->nbrooms == 100); 
     assert(M->radius == 5);
     assert(M->room_max_size == 20 && M->room_min_size == 5);
     for (int i = 0; i < M->map_size; i++) {
@@ -192,7 +171,7 @@ void Map::testRegression() { //on lance le test de regression
         << M2.list_room[i].getY0() << endl;
 
         //ligne pour l'affichage des numéros des rooms
-        M2.ptr_map[list_room[i].getX()][list_room[i].getY()] = i;
+        M2.ptr_map[M2.list_room[i].getX()][M2.list_room[i].getY()] = i;
     }
     M2.afficherMap();
     M2.viderMap();
@@ -207,7 +186,7 @@ void Map::testRegression() { //on lance le test de regression
         << M2.list_room[i].getY0() << endl;
 
         //ligne pour l'affichage des numéros des rooms
-        M2.ptr_map[list_room[i].getX()][list_room[i].getY()] = i;
+        M2.ptr_map[M2.list_room[i].getX()][M2.list_room[i].getY()] = i;
     }
 
     M2.afficherMap();
@@ -215,21 +194,36 @@ void Map::testRegression() { //on lance le test de regression
     //STEP 4 : ON GENERE LES LIENS
     M2.initLinks(); //on initialise les liens pour pouvoir ensuite gen les couloirs
     for(int i = 0; i < (int)M2.list_room.size(); i++) {
-
+        assert(M2.list_room[i].getIDlinked() != -1);
         //ligne pour afficher les liens de manière condensé
+        //NOTE :Ligne mis en comm car bug non resolu
         //assert(M2.list_room[i].getIDlinked() != i);
+
     }
     M2.ajouterLinks();
     for(int i = 0; i < (int)M2.list_room.size(); i++) {
         //ligne pour afficher les liens de manière condensé
-        cout << i  << " -> " <<list_room[i].getIDlinked() <<endl;;
+        cout << i  << " -> " <<M2.list_room[i].getIDlinked() <<endl;;
     }
     M2.afficherMap();
     M2.viderMap();
+
+    //STEP 5 : ON AJOUTE LES COULOIRS A PARTIR DES LIENS CREES
+    M2.genCorridors();
+    assert(M2.list_room.size() == M2.list_corridor.size());
     M2.ajouterRooms();
+    for(int i = 0; i < (int)M2.list_room.size(); i++) {
+        //lignes pour l'affichage des données des rooms
+        cout<< "room " << i << " : " << M2.list_room[i].getH() << ";"
+        << M2.list_room[i].getL() << " - " << M2.list_room[i].getX0() << ";"
+        << M2.list_room[i].getY0() << endl;
 
+        //ligne pour l'affichage des numéros des rooms
+        M2.ptr_map[M2.list_room[i].getX()][M2.list_room[i].getY()] = i;
+    }
+    M2.ajouterCorridors();
 
-
+    M2.afficherMap();
 
     //assert((int)M2.list_room.size() < M2.nbrooms);
     //for(int i = 0; i < (int)M2.list_room.size(); i++) {
@@ -525,10 +519,7 @@ void Map::updateRooms() {
     }
 }
 
-int Map::setHero(Hero *h) {
-  hero = h;
-  return 0;
-}
+
 
 void Map::viderMap() {
     //on fabrique la map : 0:vide 1:plein
