@@ -21,6 +21,7 @@ class Personnage {
 		int getLv() const;
 		int getX() const;
 		int getY() const;
+		char getSprite() const;
 	protected:
 		int atk, def, pv, lv, x, y;
 		char sprite;
@@ -35,7 +36,10 @@ class Hero : public Personnage {
 		int lvUp();
 		int setName(std::string sname);
 		std::string getName() const;
-		int deplacement();
+		int Haut();
+		int Bas();
+		int Gauche();
+		int Droite();
 	protected:
 		std::string name;
 		char touche;

@@ -65,11 +65,17 @@ void Map::initGeneration() { //on lance la generation complete
     for(long unsigned int i = 1; i < list_room.size(); i++) {
       nb_ennemie = rand() % 2 + 1;
       for(int j = 0; j < nb_ennemie; j++) {
-        do {
+        if(ennemis.size() == 0) {
           pos[0] = rand() % list_room[i].getX0()-list_room[i].getX1() + list_room[i].getX0()+1;
           pos[1] = rand() % list_room[i].getY0()-list_room[i].getY1() + list_room[i].getY0()+1;
-        } while(ennemis[ennemis.size()-1]->getX() == pos[0]
-          && ennemis[ennemis.size()-1]->getY() == pos[1]);
+        }
+        else {
+          do {
+            pos[0] = rand() % list_room[i].getX0()-list_room[i].getX1() + list_room[i].getX0()+1;
+            pos[1] = rand() % list_room[i].getY0()-list_room[i].getY1() + list_room[i].getY0()+1;
+          } while(ennemis[ennemis.size()-1]->getX() == pos[0]
+            && ennemis[ennemis.size()-1]->getY() == pos[1]);
+        }
         ennemis.push_back(new Ennemi(hero->getLv()));
         ennemis[ennemis.size()-1]->setX(pos[0]);
         ennemis[ennemis.size()-1]->setY(pos[1]);
@@ -347,7 +353,6 @@ void Map::ajouterLinks(){
     }
 }
 
-
 void Map::genCorridors() {
     int id2;
     list_corridor.resize(list_room.size());
@@ -526,6 +531,20 @@ int Map::setHero(Hero *h) {
   return 0;
 }
 
+int Map::update() {
+  ptr_map[hero->getX()][hero->getY()] = 2;
+  for(unsigned int i = 0; i < ennemis.size(); i++) {
+    ptr_map[ennemis[i]->getX()][ennemis[i]->getY()] = 0;
+    ennemis[i]->deplacement(hero);
+    ptr_map[ennemis[i]->getX()][ennemis[i]->getY()] = 3;
+  }
+  return 0;
+}
+
+bool Map::position_valide(const int &x, const int &y) {
+  return !ptr_map[x][y];
+}
+
 void Map::viderMap() {
     //on fabrique la map : 0:vide 1:plein
     for (int i = 0; i < map_size; i++) {
@@ -539,9 +558,10 @@ void Map::afficherMap() {
     //on affiche dans le terminal lignes par lignes
     for (int i = 0; i < map_size; i++) {
         for (int j = 0; j < map_size; j++) {
-
             if (ptr_map[j][i] == 0) cout << "  ";
             else if (ptr_map[j][i] == 1) cout << "##";
+            else if(ptr_map[j][i] == 2) cout << hero->getSprite();
+            else if(ptr_map[j][i] == 3) cout << ennemis[1]->getSprite();
             else if (ptr_map[j][i] == -1) cout << "XX";
             else if (ptr_map[j][i] < 10) cout << " " << ptr_map[j][i]; //petite modif pour afficher les num des rooms
             else cout << ptr_map[j][i];

@@ -59,6 +59,10 @@ using namespace std;
 		return y;
 	}
 
+	char Personnage::getSprite() const {
+		return sprite;
+	}
+
 	Hero::Hero() { //Constructeur du héro
 		atk = def = pv = 10;
 		lv = x = y = 1;
@@ -199,24 +203,26 @@ using namespace std;
 			return 0;
 		}
 
-	int Hero::deplacement() {//Déplacement du héro
-			touche = fgetc(stdin);
-			switch (touche) {
-				case 'z':
-					y++;
-					break;
-				case 's':
-					y--;
-					break;
-				case 'q':
-					x--;
-					break;
-				case 'd':
-					x++;
-					break;
-		}
+	int Hero::Haut() {//Déplacement du héro
+		y++;
 		return 0;
 	}
+
+	int Hero::Bas() {//Déplacement du héro
+		y--;
+		return 0;
+	}
+
+	int Hero::Gauche() {//Déplacement du héro
+		x--;
+		return 0;
+	}
+
+	int Hero::Droite() {//Déplacement du héro
+		x++;
+		return 0;
+	}
+
 
 	int Hero::setName(string sname) {//Définir le nom du joueur
 			name = sname;
