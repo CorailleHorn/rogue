@@ -6,30 +6,16 @@
 
 using namespace std;
 
-<<<<<<< HEAD
-	Personnage::Personnage() {} //Constructeur de Personnage
-
-	Personnage::~Personnage() { //Destructeur de personnage
-		delete r;
-	}
-
-	int Personnage::deplacement() { //fait déplacer le personnage
-		return 0;
-	}
-
-	int Personnage::combat() { //fonction combat pour le Personnage
-=======
-	Personnage::Personnage() {
+	Personnage::Personnage() { //Constructeur pour un personnage
 		atk = def = pv = lv = x = y = 1;
 	}
 
-	Personnage::~Personnage() {}
+	Personnage::~Personnage() {}//Destructeur de personnage
 
-	int Personnage::combat(Personnage* p) {
+	int Personnage::combat(Personnage* p) {//
 		if((p->getX() == x-1) || (p->getX() == x+1)
 		|| (p->getY() == y-1) || (p->getY() == y+1))
 			p->degat(atk);
->>>>>>> 0c1c1f238940eb86123d14e399e0c5d0d54d5f20
 		return 0;
 	}
 
@@ -44,13 +30,8 @@ using namespace std;
 		cout << sprite << endl;
 		return 0;
 	}
-<<<<<<< HEAD
-
-	bool Personnage::positionValide (int x, int y) { //Permets de savoir si la position du héro est dans la map
-=======
 /*
 	bool Personnage::positionValide (int x, int y) {
->>>>>>> 0c1c1f238940eb86123d14e399e0c5d0d54d5f20
 		return ((x>r->getX0()) && (x<r->getX1()) && (y>r->getY0()) && (y<r->getY1()));
 	}
 */
@@ -78,21 +59,16 @@ using namespace std;
 		return y;
 	}
 
-<<<<<<< HEAD
 	Hero::Hero() { //Constructeur du héro
-		atk = def = pv = lv = x = y = 1;
-=======
-	Hero::Hero() {
 		atk = def = pv = 10;
 		lv = x = y = 1;
 		sprite = 'H';
     name = "";
 	}
 
-	Hero::Hero(string sname) {
+	Hero::Hero(string sname) { //Définit le nom du héro
 		atk = def = pv = 10;
 		lv = x = y = 1;
->>>>>>> 0c1c1f238940eb86123d14e399e0c5d0d54d5f20
 		sprite = 'H';
 		name = sname;
 	}
@@ -133,9 +109,10 @@ using namespace std;
 												pv += 3;
 												break;
 								default:
-												cout << "Pas de choix possibles disponibles pour cette option, réessayez !" << endl;
-												lvUp();
-												lv--;
+												cout << "Pas de choix possibles disponibles pour cette option, toutes vo stats ont été augmentés de 1 !" << endl;
+												atk++;
+												def++;
+												pv++;
 							}
 							break;
 			case 3:
@@ -157,9 +134,10 @@ using namespace std;
 																		pv++;
 																		break;
 														default:
-																		cout << "Pas de choix disponibles pour cette option, réessayez !" << endl;
-																		lvUp();
-																		lv--;
+																		cout << "Pas de choix disponibles pour cette option, toutes vos stats ont été augmentés de 1 !" << endl;
+																		atk++;
+																		def++;
+																		pv++;
 													}
 													break;
 								case 2:
@@ -177,9 +155,10 @@ using namespace std;
 																		pv++;
 																		break;
 														default:
-																		cout << "Pas de choix disponibles pour cette option, réessayez !" << endl;
-																		lvUp();
-																		lv--;
+																		cout << "Pas de choix disponibles pour cette option, toutes vo stats ont été augmentés de 1 !" << endl;
+																		atk++;
+																		def++;
+																		pv++;
 													}
 													break;
 								case 3:
@@ -197,32 +176,30 @@ using namespace std;
 																		def++;
 																		break;
 														default:
-																		cout << "Pas de choix disponibles pour cette option, réessayez !" << endl;
-																		lvUp();
-																		lv--;
+																		cout << "Pas de choix disponibles pour cette option, toutes vo stats ont été augmentés de 1 !" << endl;
+																		atk++;
+																		def++;
+																		pv++;
 													}
 													break;
 								default:
-													cout << "Pas de choix possibles disponibles pour cette option, réessayez !" << endl;
-													lvUp();
-													lv--;
+													cout << "Pas de choix possibles disponibles pour cette option, toutes vo stats ont été augmentés de 1 !" << endl;
+													atk++;
+													def++;
+													pv++;
 								}
 								break;
 			default:
-								cout << "Pas de choix disponibles pour cette option, réessayez !" << endl;
-								lvUp();
-								lv--;
+								cout << "Pas de choix disponibles pour cette option, toutes vo stats ont été augmentés de 1 !" << endl;
+								atk++;
+								def++;
+								pv++;
 			}
 			lv++;
 			return 0;
 		}
-<<<<<<< HEAD
-
-	int Hero::Haut() { //Verification si le perso peut aller en haut
-=======
 /*
 	int Hero::Haut() {
->>>>>>> 0c1c1f238940eb86123d14e399e0c5d0d54d5f20
 		if (positionValide(x, (y+1)))
 			y++;
 		return 0;
@@ -266,17 +243,7 @@ using namespace std;
 		}
 		return 0;
 	}
-<<<<<<< HEAD
-
-	int Hero::combat(Personnage* e) {//Vérification de la zone de combat pour infliger des dégats au héro par les ennemis
-		if((e->getX() == x-1) || (e->getX() == x+1)
-		|| (e->getY() == y-1) || (e->getY() == y+1))
-			e->degat(atk);
-		return 0;
-	}
-=======
 */
->>>>>>> 0c1c1f238940eb86123d14e399e0c5d0d54d5f20
 
 	int Hero::setName(string sname) {//Définir le nom du joueur
 			name = sname;
@@ -289,16 +256,10 @@ using namespace std;
 
 	Ennemi::Ennemi() : Ennemi(1) {}
 
-<<<<<<< HEAD
-	Ennemi::Ennemi(const int &leveling) {//Augmentation du niveau des ennemis au fur et a mesure des niveaux passés par le héro
-		int stat = 30 * leveling;
-		int randomiser = rand() % 4 + 1;
-=======
-	Ennemi::Ennemi(const int &leveling) {
+	Ennemi::Ennemi(const int &leveling) {//Permets l'augmentation du niveau des ennemis
 		lv = leveling;
 		int stat = 3 * lv;
 		int randomiser = rand() % 3 + 1;
->>>>>>> 0c1c1f238940eb86123d14e399e0c5d0d54d5f20
 		switch (randomiser) {
 			case 1:
 				atk = rand() % stat + 5;
@@ -327,15 +288,9 @@ using namespace std;
 		sprite = 'E';
 	}
 
-<<<<<<< HEAD
-	Ennemi::~Ennemi() {} //Destructeur des ennemis
-
-	int Ennemi::deplacement(const Personnage* h) {//Déplacement automatique des ennemis
-=======
-	Ennemi::~Ennemi() {}
+	Ennemi::~Ennemi() {}//Destructeur des ennemis
 /*
 	int Ennemi::deplacement(const Hero* h) {
->>>>>>> 0c1c1f238940eb86123d14e399e0c5d0d54d5f20
 		if(h->getX() < x && positionValide((x+1), y))
 			x++;
 		if(h->getX() > x && positionValide((x-1), y))
@@ -346,13 +301,8 @@ using namespace std;
 			y--;
 		return 0;
 	}
-<<<<<<< HEAD
-
-	int Ennemi::combat(Personnage* h) { //Vérification de la zone de combat pour infliger des dégats aux ennemis par le héro
-=======
 */
-	int Ennemi::combat(Hero* h) {
->>>>>>> 0c1c1f238940eb86123d14e399e0c5d0d54d5f20
+	int Ennemi::combat(Hero* h) {//Vérifie si le héro est la zone autour pour lui infliger les dégats des ennemis
 		if((h->getX() == x-1) || (h->getX() == x+1)
 		|| (h->getY() == y-1) || (h->getY() == y+1))
 			h->degat(atk);
