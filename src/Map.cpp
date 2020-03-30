@@ -14,7 +14,7 @@ float dist2Points(float x1, float y1, float x2, float y2) {
 }
 
 
-Map::Map(int const size, int const nb, int const rad, int const max, int const min) :
+Map::Map(int const& size, int const& nb, int const& rad, int const& max, int const& min) :
     map_size(size), nbrooms(nb), radius(rad), room_max_size(max), room_min_size(min) {
 
     ptr_map = new int*[map_size];
@@ -105,6 +105,9 @@ void Map::testRegression() { //on lance le test de regression
     //leurs sont donnees, les tableaux, que les pointeurs sont bien remis sur NULL
     //après utilisation, etc
     //et ensuite on affiche en detail la generation step by step (comme dans initGenerationDebug() )
+
+    //TEST : CONSTRUCTEUR PAR DEFAUT + DESTRUCTEUR
+
     Map* M = new Map;
     assert(M->map_size == 90);
     assert(M->nbrooms == 100);
@@ -120,6 +123,8 @@ void Map::testRegression() { //on lance le test de regression
     M = NULL;
     assert(M == NULL);
 
+    //TEST : CONSTRUCTEUR SURCHAGE ET GENERATION
+    //STEP 0 : ON GENERE LA CLASS MAP
     Map M2(90,100,5,20,5);
     assert(M2.map_size == 90);
     assert(M2.nbrooms == 100);
@@ -145,6 +150,8 @@ void Map::testRegression() { //on lance le test de regression
         assert(M2.list_room[i].getIDlinked() == 0);
     }
     M2.afficherMap();
+
+    //STEP 1 : ON GENERE LES ROOMS
     M2.genRooms();
     for(int i = 0; i < M2.nbrooms; i++) {
         assert((M2.list_room[i].getx0() >= 0)
@@ -168,6 +175,7 @@ void Map::testRegression() { //on lance le test de regression
     M2.afficherMap();
     M2.viderMap();
 
+    //STEP 2 : ON ECLATE LES ROOMS
     M2.eclatement();
     for (int i = 0; i < nbrooms; i++) {
         assert(!allRoomsCollisions(i));
@@ -182,21 +190,43 @@ void Map::testRegression() { //on lance le test de regression
         cout<< "room " << i << " : " << M2.list_room[i].getH() << ";"
         << M2.list_room[i].getL() << " - " << M2.list_room[i].getX0() << ";"
         << M2.list_room[i].getY0() << endl;
+
+        //ligne pour l'affichage des numéros des rooms
+        M2.ptr_map[list_room[i].getX()][list_room[i].getY()] = i;
     }
     M2.afficherMap();
     M2.viderMap();
 
+    //STEP 3 : ON SELECTIONNE LES ROOMS
     M2.chooseRooms();
-
     M2.ajouterRooms();
     for(int i = 0; i < (int)M2.list_room.size(); i++) {
         //lignes pour l'affichage des données des rooms
         cout<< "room " << i << " : " << M2.list_room[i].getH() << ";"
         << M2.list_room[i].getL() << " - " << M2.list_room[i].getX0() << ";"
         << M2.list_room[i].getY0() << endl;
+
+        //ligne pour l'affichage des numéros des rooms
+        M2.ptr_map[list_room[i].getX()][list_room[i].getY()] = i;
+    }
+
+    M2.afficherMap();
+
+    //STEP 4 : ON GENERE LES LIENS
+    M2.initLinks(); //on initialise les liens pour pouvoir ensuite gen les couloirs
+    for(int i = 0; i < (int)M2.list_room.size(); i++) {
+
+        //ligne pour afficher les liens de manière condensé
+        //assert(M2.list_room[i].getIDlinked() != i);
+    }
+    M2.ajouterLinks();
+    for(int i = 0; i < (int)M2.list_room.size(); i++) {
+        //ligne pour afficher les liens de manière condensé
+        cout << i  << " -> " <<list_room[i].getIDlinked() <<endl;;
     }
     M2.afficherMap();
     M2.viderMap();
+    M2.ajouterRooms();
 
 
 
@@ -276,7 +306,7 @@ void Map::choisirRoomLink(int const ID) {
     }
     list_room[ID].setIDlinked(IDmin);
     //ligne pour afficher les liens de manière condensé
-    //cout << ID  << " -> " <<list_room[ID].IDlinked <<endl;;
+    //cout << ID  << " -> " <<list_room[ID].getIDlinked() <<endl;;
 }
 
 bool const Map::isRoomLinked(int id1, int id2) {
