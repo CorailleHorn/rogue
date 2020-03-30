@@ -16,7 +16,6 @@ float dist2Points(float x1, float y1, float x2, float y2) {
 
 Map::Map(int const& size, int const& nb, int const& rad, int const& max, int const& min) :
     map_size(size), nbrooms(nb), radius(rad), room_max_size(max), room_min_size(min) {
-
     ptr_map = new int*[map_size];
     //on initialise les pointeurs sur des valeurs nulles
     for (int i = 0; i < map_size; i++) {
@@ -61,8 +60,15 @@ void Map::initGeneration() { //on lance la generation complete
     genCorridors();
 
     ajouterCorridors();
-    afficherMap();
-    viderMap();
+
+    for(long unsigned int i = 0; i < list_room.size(); i++) {
+      nb_ennemie = rand() % 2 + 1;
+      for(int j = 0; j < nb_ennemie; j++) {
+        ennemis.push_back(new Ennemi(hero->getLv()));
+        ennemis[ennemis.size()-1]->setX(1);
+        ennemis[ennemis.size()-1]->setY(1);
+      }
+    }
 }
 
 

@@ -50,9 +50,9 @@ private:
     std::vector<Room> list_room;
     std::vector<Corridor> list_corridor;
 
-    int map_size, nbrooms, radius, room_max_size, room_min_size;
+    int map_size, nbrooms, radius, room_max_size, room_min_size, nb_ennemie;
     Hero *hero;
-    std::vector<Ennemi> ennemis;
+    std::vector<Ennemi*> ennemis;
 };
 
 

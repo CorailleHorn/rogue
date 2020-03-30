@@ -2,7 +2,6 @@
 #include <iostream>
 #include <unistd.h>
 #include <math.h>
-#include "Room.h"
 
 using namespace std;
 
@@ -26,15 +25,16 @@ using namespace std;
 		return 0;
 	}
 
-	int Personnage::affichage() { //affiche le Personnage
-		cout << sprite << endl;
+	int Personnage::setX(const int &sx) {
+		x = sx;
 		return 0;
 	}
-/*
-	bool Personnage::positionValide (int x, int y) {
-		return ((x>r->getX0()) && (x<r->getX1()) && (y>r->getY0()) && (y<r->getY1()));
+
+	int Personnage::setY(const int &sy) {
+		y = sy;
+		return 0;
 	}
-*/
+
 	int Personnage::getAtk() const {
 		return atk;
 	}
@@ -66,7 +66,7 @@ using namespace std;
     name = "";
 	}
 
-	Hero::Hero(string sname) { //Définit le nom du héro
+	Hero::Hero(string sname) { //Constructeur avec le nom du héro
 		atk = def = pv = 10;
 		lv = x = y = 1;
 		sprite = 'H';
@@ -199,53 +199,24 @@ using namespace std;
 			return 0;
 		}
 
-/*
-	int Hero::Haut() {
-		if (positionValide(x, (y+1)))
-			y++;
-		return 0;
-	}
-
-
-	int Hero::Bas() {//Verification si le perso peut aller en bas
-		if (positionValide(x, (y-1)))
-			y--;
-		return 0;
-	}
-
-	int Hero::Gauche() {//Verification si le perso peut aller à gauche
-		if (positionValide((x-1), y))
-			x--;
-		return 0;
-	}
-
-	int Hero::Droite() {//Verification si le perso peut aller à droite
-		if (positionValide((x+1), y))
-			x++;
-		return 0;
-	}
-
 	int Hero::deplacement() {//Déplacement du héro
-		char touche;
-		if (kbhit())
-			touche = getch();
-		switch (touche) {
-			case 'z':
-						Haut();
-						break;
-			case 's':
-						Bas();
-						break;
-			case 'q':
-						Gauche();
-						break;
-			case 'd':
-						Droite();
-						break;
+			touche = fgetc(stdin);
+			switch (touche) {
+				case 'z':
+					y++;
+					break;
+				case 's':
+					y--;
+					break;
+				case 'q':
+					x--;
+					break;
+				case 'd':
+					x++;
+					break;
 		}
 		return 0;
 	}
-*/
 
 	int Hero::setName(string sname) {//Définir le nom du joueur
 			name = sname;
@@ -256,9 +227,9 @@ using namespace std;
 		return name;
 	}
 
-	Ennemi::Ennemi() : Ennemi(1) {}
+	Ennemi::Ennemi() : Ennemi(1) {} //Constructeur par defaut (Niveau 1)
 
-	Ennemi::Ennemi(const int &leveling) {//Permets l'augmentation du niveau des ennemis
+	Ennemi::Ennemi(const int &leveling) { //Constructeur par niveau de l'ennemi
 		lv = leveling;
 		int stat = 3 * lv;
 		int randomiser = rand() % 3 + 1;
@@ -292,16 +263,14 @@ using namespace std;
 
 	Ennemi::~Ennemi() {} //Destructeur des ennemis
 
-/*
 	int Ennemi::deplacement(const Hero* h) {
-		if(h->getX() < x && positionValide((x+1), y))
+		if(h->getX() < x)
 			x++;
-		if(h->getX() > x && positionValide((x-1), y))
+		if(h->getX() > x)
 			x--;
-		if(h->getY() < y && positionValide(x, (y+1)))
+		if(h->getY() < y)
 			y++;
-		if(h->getY() > y && positionValide(x, (y-1)))
+		if(h->getY() > y)
 			y--;
 		return 0;
 	}
-*/

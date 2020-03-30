@@ -11,11 +11,10 @@ class Personnage {
 	public:
 		Personnage();
 		virtual ~Personnage();
-		//virtual int deplacement();
 		int combat(Personnage* p);
 		int degat(const int &atkA);
-		int affichage();
-		//bool positionValide(int x, int y);
+		int setX(const int &sx);
+		int setY(const int &sy);
 		int getAtk() const;
 		int getDef() const;
 		int getPv() const;
@@ -34,15 +33,12 @@ class Hero : public Personnage {
 		Hero(std::string sname);
 		~Hero();
 		int lvUp();
-		//int deplacement();
 		int setName(std::string sname);
 		std::string getName() const;
-		//int Haut();
-		//int Droite();
-		//int Gauche();
-		//int Bas();
+		int deplacement();
 	protected:
 		std::string name;
+		char touche;
 };
 
 
@@ -51,7 +47,7 @@ class Ennemi : public Personnage {
 		Ennemi();
 		Ennemi(const int &leveling);
 		~Ennemi();
-		//int deplacement(const Hero* h);
+		int deplacement(const Hero* h);
 };
 
 #endif
