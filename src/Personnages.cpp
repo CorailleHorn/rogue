@@ -6,11 +6,7 @@
 
 using namespace std;
 
-<<<<<<< HEAD
-	Personnage::Personnage() {
-=======
 	Personnage::Personnage() { //Constructeur pour un personnage
->>>>>>> 199044fd13d9be5e11d2c1028f551c31df2b9abc
 		atk = def = pv = lv = x = y = 1;
 	}
 
