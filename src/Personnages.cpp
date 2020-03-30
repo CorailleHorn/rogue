@@ -6,7 +6,11 @@
 
 using namespace std;
 
+<<<<<<< HEAD
 	Personnage::Personnage() { //Constructeur pour un personnage
+=======
+	Personnage::Personnage() {
+>>>>>>> f0c7ac75847f48b064de8a1360bb5a0de8b11d76
 		atk = def = pv = lv = x = y = 1;
 	}
 
@@ -59,7 +63,11 @@ using namespace std;
 		return y;
 	}
 
+<<<<<<< HEAD
 	Hero::Hero() { //Constructeur du héro
+=======
+	Hero::Hero() {
+>>>>>>> f0c7ac75847f48b064de8a1360bb5a0de8b11d76
 		atk = def = pv = 10;
 		lv = x = y = 1;
 		sprite = 'H';
@@ -198,6 +206,10 @@ using namespace std;
 			lv++;
 			return 0;
 		}
+<<<<<<< HEAD
+=======
+
+>>>>>>> f0c7ac75847f48b064de8a1360bb5a0de8b11d76
 /*
 	int Hero::Haut() {
 		if (positionValide(x, (y+1)))
@@ -226,7 +238,8 @@ using namespace std;
 
 	int Hero::deplacement() {//Déplacement du héro
 		char touche;
-		cin>>touche;
+		if (kbhit())
+			touche = getch();
 		switch (touche) {
 			case 'z':
 						Haut();
@@ -256,7 +269,11 @@ using namespace std;
 
 	Ennemi::Ennemi() : Ennemi(1) {}
 
+<<<<<<< HEAD
 	Ennemi::Ennemi(const int &leveling) {//Permets l'augmentation du niveau des ennemis
+=======
+	Ennemi::Ennemi(const int &leveling) {
+>>>>>>> f0c7ac75847f48b064de8a1360bb5a0de8b11d76
 		lv = leveling;
 		int stat = 3 * lv;
 		int randomiser = rand() % 3 + 1;
@@ -288,7 +305,12 @@ using namespace std;
 		sprite = 'E';
 	}
 
+<<<<<<< HEAD
 	Ennemi::~Ennemi() {}//Destructeur des ennemis
+=======
+	Ennemi::~Ennemi() {} //Destructeur des ennemis
+
+>>>>>>> f0c7ac75847f48b064de8a1360bb5a0de8b11d76
 /*
 	int Ennemi::deplacement(const Hero* h) {
 		if(h->getX() < x && positionValide((x+1), y))
@@ -302,7 +324,12 @@ using namespace std;
 		return 0;
 	}
 */
+<<<<<<< HEAD
 	int Ennemi::combat(Hero* h) {//Vérifie si le héro est la zone autour pour lui infliger les dégats des ennemis
+=======
+
+	int Ennemi::combat(Hero* h) {
+>>>>>>> f0c7ac75847f48b064de8a1360bb5a0de8b11d76
 		if((h->getX() == x-1) || (h->getX() == x+1)
 		|| (h->getY() == y-1) || (h->getY() == y+1))
 			h->degat(atk);
