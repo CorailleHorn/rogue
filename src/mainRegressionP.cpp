@@ -5,7 +5,7 @@ using namespace std;
 int main(){
   srand(time(NULL));
   int ok = 0;
-  Hero* h = new Hero("Dominique Strauss Kahn");
+  Hero* h = new Hero("Player");
   Ennemi* e = new Ennemi(4);
   cout << "Hero : " << h->getName() << endl
     << "x : " << h->getX() << endl
@@ -25,17 +25,11 @@ int main(){
   cout << "lv : "  << h->getLv() << endl
     << "atk : " << h->getAtk() << endl
     << "def : " << h->getDef() << endl;
-  /*assert(ok == h->Bas());
-  assert(ok == h->Haut());
-  assert(ok == h->Gauche());
-  assert(ok == h->Droite());
-  assert(ok == h->deplacement());*/
   assert(ok == h->combat(e));
-  cout << "pv : " << e->getPv() << endl;
-  assert(ok == h->setName("player1"));
-  //assert(ok == e->deplacement(h));
+  cout << "Ennemie - pv : " << e->getPv() << endl;
+  assert(ok == h->setName("Terrine"));
   assert(ok == e->combat(h));
-  cout << "pv : " << h->getPv();
+  cout << h->getName() << " - pv : " << h->getPv();
   delete e;
   delete h;
 
