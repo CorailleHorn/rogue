@@ -233,7 +233,37 @@ using namespace std;
 		return name;
 	}
 
-	Ennemi::Ennemi() : Ennemi(1) {} //Constructeur par defaut (Niveau 1)
+	Ennemi::Ennemi() {
+		lv = 1;
+		int stat = 3 * lv;
+		int randomiser = rand() % 3 + 1;
+		switch (randomiser) {
+			case 1:
+				atk = rand() % stat + 5;
+				stat -= atk - 5;
+				def = rand() % stat + 5;
+				stat -= def - 5;
+				pv = stat + 5;
+				break;
+			case 2:
+				def = rand() % stat + 5;
+				stat -= def - 5;
+				pv = rand() % stat + 5;
+				stat -= pv - 5;
+				atk = stat + 5;
+				break;
+			case 3:
+				pv = rand() % stat + 5;
+				stat -= pv - 5;
+				atk = rand() % stat + 5;
+				stat -= atk - 5;
+				def = stat + 5;
+				break;
+		}
+		x = 1;
+		y = 2;
+		sprite = 'E';
+	} //Constructeur par defaut (Niveau 1)
 
 	Ennemi::Ennemi(const int &leveling) { //Constructeur par niveau de l'ennemi
 		lv = leveling;
