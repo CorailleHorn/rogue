@@ -220,7 +220,8 @@ using namespace std;
 
 	int Hero::deplacement() {
 		char touche;
-		cin>>touche;
+		if (kbhit())
+			touche = getch();
 		switch (touche) {
 			case 'z':
 						Haut();
