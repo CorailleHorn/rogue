@@ -1,17 +1,18 @@
 #include <iostream>
 #include "Map.h"
+#include "Personnages.h"
 
 using namespace std;
 
-int main(int argc, char *argv[], char **envp)
+int main(int argc, char *argv[])
 {
 	//on peut écrire la seed manuellement ...
-	//int seed = 1585401860;
+	int seed = 1585612957;
 	// ... ou la générer avec time(NULL)
-	int const seed = time(NULL);
+	//int const seed = time(NULL);
 	srand(seed);
-
-	Map* donjon = new Map;
+	cout << seed << endl;
+	Map* donjon = new Map();
 	//donjon->initGenerationDebug();
 	donjon->testRegression();
 
