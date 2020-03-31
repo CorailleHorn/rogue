@@ -579,6 +579,24 @@ void Map::afficherMap() {
         for (int j = 0; j < map_size; j++) {
             if (ptr_map[j][i] == 0) cout << "  ";
             else if (ptr_map[j][i] == 1) cout << "##";
+            else if (ptr_map[j][i] == -1) cout << "XX";
+            else if (ptr_map[j][i] < 10) cout << " " << ptr_map[j][i]; //petite modif pour afficher les num des rooms
+            else cout << ptr_map[j][i];
+        }
+        cout << endl;
+    }
+    for (int i = 0; i < map_size; i++) {
+        cout << "**";
+    }
+    cout << endl;
+}
+
+void Map::afficherTout() {
+    //on affiche dans le terminal lignes par lignes
+    for (int i = 0; i < map_size; i++) {
+        for (int j = 0; j < map_size; j++) {
+            if (ptr_map[j][i] == 0) cout << "  ";
+            else if (ptr_map[j][i] == 1) cout << "##";
             else if(ptr_map[j][i] == 2) cout << hero->getSprite() << " ";
             else if(ptr_map[j][i] == 3) cout << ennemis[1]->getSprite() << " ";
             else if (ptr_map[j][i] == -1) cout << "XX";

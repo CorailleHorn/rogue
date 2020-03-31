@@ -46,6 +46,8 @@ public:
 
   void viderMap();
   void afficherMap();
+
+  void afficherTout();
 private:
 
   int **ptr_map;

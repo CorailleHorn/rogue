@@ -9,7 +9,7 @@ void txtBoucle (Hero *h) {
   m->initGeneration();
   while(jeu){
     m->update();
-    m->afficherMap();
+    m->afficherTout();
     touche = fgetc(stdin);
     switch (touche) {
       case 'z':
