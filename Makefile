@@ -22,10 +22,10 @@ obj/txtJeu.o : src/txtJeu.cpp src/txtJeu.h src/Map.cpp src/Map.h src/Room.h src/
 	g++ -Wall -ggdb	-c src/txtJeu.cpp -o obj/txtJeu.o
 
 obj/Map.o : src/Map.cpp src/Map.h src/Room.h src/Personnages.h
-	g++ -Wall -ggdb -c src/Map.cpp -o obj/Map.o
+	g++ -std=c++11 -Wall -ggdb -c src/Map.cpp -o obj/Map.o
 
 obj/Personnages.o : src/Personnages.cpp src/Personnages.h
-	g++ -Wall -ggdb -c src/Personnages.cpp -o obj/Personnages.o
+	g++ -std=c++11 -Wall -ggdb -c src/Personnages.cpp -o obj/Personnages.o
 
 
 obj/Room.o : src/Room.cpp src/Room.h
