@@ -1,4 +1,4 @@
-#include "txtJeu.h"
+#include "Jeu.h"
 
 using namespace std;
 
