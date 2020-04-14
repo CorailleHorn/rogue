@@ -5,6 +5,8 @@
 #include <unistd.h>
 #include <math.h>
 #include <assert.h>
+#include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 
 class Personnage {
 	public:
