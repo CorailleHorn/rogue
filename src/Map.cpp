@@ -31,9 +31,9 @@ Map::Map(int const& size, int const& nb, int const& rad, int const& max, int con
     list_room.resize(nbrooms);
 }
 
-Map::Map(Hero *h) : Map() {
+/*Map::Map(Hero *h) : Map() {
   hero = h;
-}
+}*/
 
 Map::Map() : Map(90,100,5,20,5) {} //param par defaut
 
@@ -47,7 +47,7 @@ Map::~Map() {
 }
 
 
-void Map::initGeneration() { //on lance la generation complete
+/*void Map::initGeneration() { //on lance la generation complete
     genRooms(); //on genere les rooms dans un cercle
     eclatement();//on procede a l'eclatement des rooms en leur donnant une physique (et donc un vecteur de deplacement)
     updateRooms();//on "met a jour" les rooms affichables (a l'interieur de map)
@@ -86,7 +86,7 @@ void Map::initGeneration() { //on lance la generation complete
     hero->setX(hxm1);
     hero->setY(hym1);
     ptr_map[hxm1][hym1] = 2;
-}
+}*/
 
 
 void Map::testRegression() { //on lance le test de regression
@@ -529,7 +529,7 @@ void Map::updateRooms() {
     }
 }
 
-int Map::newPosHero() {
+/*int Map::newPosHero() {
   if(hxm1 != hero->getX() || hym1 != hero->getY()) {
     ptr_map[hxm1][hym1] = 0;
     hxm1 = hero->getX();
@@ -537,9 +537,9 @@ int Map::newPosHero() {
     ptr_map[hxm1][hym1] = 2;
   }
   return 0;
-}
+}*/
 
-int Map::update() {
+/*int Map::update() {
   newPosHero();
   for(unsigned int i = 0; i < ennemis.size(); i++) {
     ptr_map[ennemis[i]->getX()][ennemis[i]->getY()] = 0;
@@ -558,7 +558,7 @@ int Map::update() {
     ptr_map[ennemis[i]->getX()][ennemis[i]->getY()] = 3;
   }
   return 0;
-}
+}*/
 
 bool Map::position_valide(const int &x, const int &y) {
   return !ptr_map[x][y];
@@ -591,7 +591,7 @@ void Map::afficherMap() {
     cout << endl;
 }
 
-void Map::afficherTout() {
+/*void Map::afficherTout() {
     //on affiche dans le terminal lignes par lignes
     for (int i = 0; i < map_size; i++) {
         for (int j = 0; j < map_size; j++) {
@@ -609,4 +609,4 @@ void Map::afficherTout() {
         cout << "**";
     }
     cout << endl;
-}
+}*/

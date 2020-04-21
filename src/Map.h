@@ -56,8 +56,8 @@ private:
 
   int map_size, nbrooms, radius, room_max_size, room_min_size, nb_ennemie;
   int hxm1, hym1;
-  Hero *hero;
-  std::vector<Ennemi*> ennemis;
+  //Hero *hero;
+  //std::vector<Ennemi*> ennemis;
 };
 
 
