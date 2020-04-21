@@ -2,11 +2,13 @@
 #define Map_H
 
 #include <vector>
+#include <utility>
+#include <string>
 #include "Room.h"
 #include "Personnages.h"
 
 struct Corridor {
-  int x0,y0,X,Y,x1,y1;
+  std::vector<std::pair<int,int>> layer;
 };
 
 class Map {
@@ -32,7 +34,9 @@ public:
 
 	void genCorridors();
 	void ajouterCorridors();
-	bool const isPointIn(int const X, int const Y, int const ID);
+    void creerLigne(int const &IDcouloir, int const&x, int const& y, int const &bord1, int const &bord2, std::string param);
+	bool const isPointInCorridor(int const &X, int const &Y, int const &ID);
+    bool const isPointInRoom(int const &X, int const &Y);
 
   bool const allRoomsCollisions(unsigned int const ID);
   float* moyenneRooms(float mean[]);

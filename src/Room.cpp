@@ -117,13 +117,7 @@ bool const Room::roomCollision(Room& A) {
 
 void Room::initCenterRooms() {
     //on place les centres des rooms et on les gen aleatoire si il faut (quand taille paire)
-    if ((L % 2) == 0)
-        X = X0 + L / 2 -(rand() % 2);
-    else
         X = X0 + (int)(L / 2) - 1;
 
-    if ((H % 2) == 0)
-        Y = Y0 + H / 2 -(rand() % 2);
-    else
         Y = Y0 + (int)(H / 2) - 1;
 }
