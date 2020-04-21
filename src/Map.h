@@ -34,9 +34,8 @@ public:
 
 	void genCorridors();
 	void ajouterCorridors();
-    void creerLigne(int const &IDcouloir, int const&x, int const& y, int const &bord1, int const &bord2, std::string param);
 	bool const isPointInCorridor(int const &X, int const &Y, int const &ID);
-    bool const isPointInRoom(int const &X, int const &Y);
+    bool const isPointInRoom(int const &X, int const &Y, std::string param);
 
   bool const allRoomsCollisions(unsigned int const ID);
   float* moyenneRooms(float mean[]);

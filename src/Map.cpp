@@ -225,6 +225,27 @@ void Map::testRegression() { //on lance le test de regression
     M2.genCorridors();
     assert(M2.list_room.size() == M2.list_corridor.size());
     M2.ajouterRooms();
+    for(int i = 0; i < (int)M2.list_corridor.size(); i++) {
+        for(int j = 0; j < (int)M2.list_corridor[i].layer.size(); j++) {
+            int x = M2.list_corridor[i].layer[j].first;
+            int y = M2.list_corridor[i].layer[j].second;
+            M2.ptr_map[x][y] = -1;
+        }
+    }
+    for(int i = 0; i < (int)M2.list_room.size(); i++) {
+        //lignes pour l'affichage des données des rooms
+        cout<< "room " << i << " : " << M2.list_room[i].getH() << ";"
+        << M2.list_room[i].getL() << " - " << M2.list_room[i].getX0() << ";"
+        << M2.list_room[i].getY0() << endl;
+
+        //ligne pour l'affichage des numéros des rooms
+        M2.ptr_map[M2.list_room[i].getX()][M2.list_room[i].getY()] = i;
+    }
+    M2.afficherMap();
+    M2.viderMap();
+
+    //STEP 6 : ON AFFICHE LES COULOIRS DE MANIERE JOUABLE
+    M2.ajouterRooms();
     for(int i = 0; i < (int)M2.list_room.size(); i++) {
         //lignes pour l'affichage des données des rooms
         cout<< "room " << i << " : " << M2.list_room[i].getH() << ";"
@@ -359,108 +380,190 @@ void Map::ajouterLinks(){
 }
 
 void Map::genCorridors() {
-    int id2, x, y;
+        int id2, x, y, r, incx, incy;
+    pair<int,int>  pair1, pair2;
     list_corridor.resize(list_room.size());
+
     for(int i = 0; i < (int)list_corridor.size(); i++) {
         id2 = list_room[i].getIDlinked();
 
-        //#1 si la room lié est ateignable en une ligne
-        //verticalement
-        if(list_room[i].getX() > list_room[id2].getX0() && list_room[i].getX() < list_room[id2].getX1()) {
-            x = list_room[i].getX();
-            y = list_room[i].getY();
-            creerLigne(i, x, y,list_room[id2].getY1(), list_room[id2].getY0(),"v");
-        }
-        else if(list_room[id2].getX() > list_room[i].getX0() && list_room[id2].getX() < list_room[i].getX1()) {
-            x = list_room[id2].getX();
-            y = list_room[id2].getY();
+        x = list_room[i].getX();
+        y = list_room[i].getY();
 
-            creerLigne(id2, x, y,list_room[i].getY1(), list_room[i].getY0() ,"v");
-        }
-        //horizontalement
-        else if(list_room[i].getY() > list_room[id2].getY0() && list_room[i].getY() < list_room[id2].getY1()) {
-            x = list_room[i].getX();
-            y = list_room[i].getY();
+        r = rand() % 2 - 1;
+        if (r) {
 
-            creerLigne(i, x, y, list_room[id2].getX1(), list_room[id2].getX0(),"h");
-        }
-        else if(list_room[id2].getY() > list_room[i].getY0() && list_room[id2].getY() < list_room[i].getY1()) {
-            x = list_room[id2].getX();
-            y = list_room[id2].getY();
+            pair1 = make_pair(list_room[i].getX(), list_room[id2].getY());
 
-            creerLigne(id2, x, y,list_room[i].getX1(), list_room[i].getX0() ,"h");
+            if(pair1.second > y) incy = 1;
+            else incy = -1;
+
+            while( y != pair1.second ) {
+                y += incy;
+                if(!isPointInRoom(x, y, "exc"))
+                    list_corridor[i].layer.push_back(make_pair(x,y));
+            }
+
+            pair2 = make_pair(list_room[id2].getX(), list_room[id2].getY());
+
+            if(pair2.first > x) incx = 1;
+            else incx = -1;
+
+            while( x != pair2.first ) {
+                x += incx;
+                if(!isPointInRoom(x, y, "exc"))
+                    list_corridor[i].layer.push_back(make_pair(x,y));
+            }
+
         }
-        //#2 sinon la room lié est ateignable en deux lignes
         else {
-            
+            pair1 = make_pair(list_room[id2].getX(), list_room[i].getY());
+
+            if(pair1.first > x) incx = 1;
+            else incx = -1;
+
+            while( x != pair1.first ) {
+                x += incx;
+                if(!isPointInRoom(x, y, "exc"))
+                    list_corridor[i].layer.push_back(make_pair(x,y));
+
+            }
+            pair2 = make_pair(list_room[id2].getX(), list_room[id2].getY());
+
+            if(pair2.second > y) incy = 1;
+            else incy = -1;
+
+            while( y != pair2.second ) {
+                y += incy;
+                if(!isPointInRoom(x, y, "exc"))
+                    list_corridor[i].layer.push_back(make_pair(x,y));
+
+            }
         }
     }
 }
 
-void Map::creerLigne(int const &IDcouloir, int const&x, int const& y, int const &bord1, int const &bord2, string param)  {
-    //creer une ligne allant du dernier point de couloir jusqu'a ce que bord1 ou bord2 sois atteint
-    pair<int, int> coord;
-    int incx, incy;
-    coord.first = x;
-    coord.second = y;
-    //creer ligne verticale
-    if(param == "v") {
-        if(coord.second > bord2)
-            incy = -1;
-        else if(coord.second < bord1)
-            incy = 1;
-        while(coord.second != bord1 && coord.second != bord2) {
-            coord.second += incy;
-            if(!isPointInRoom(coord.first, coord.second))
-                list_corridor[IDcouloir].layer.push_back(coord);
-        }
-    }
-    //creer ligne horizontale
-    else if (param == "h") {
-        if(coord.first > bord2)
-            incx = -1;
-        else if(coord.first < bord1)
-            incx = 1;
-        while(coord.first != bord1 && coord.first != bord2) {
-            coord.first += incx;
-            if(!isPointInRoom(coord.first, coord.second))
-                list_corridor[IDcouloir].layer.push_back(coord);
-        }
-    }
-    else cout << "wrong parameter in CreerLigne" <<endl;
-}
 
 void Map::ajouterCorridors() {
     int x,y;
     for(int i = 0; i < (int)list_corridor.size(); i++) {
-        for(int j = 0; j < (int)list_corridor[i].layer.size() ; j++) {
+        x = list_corridor[i].layer[0].first;
+        y = list_corridor[i].layer[0].second;
+        ptr_map[x][y] = 0;
+        if(!isPointInRoom(list_corridor[i].layer[1].first, list_corridor[i].layer[0].second,"bords")) {
+
+            if(!isPointInRoom(x-1,y-1, "exc"))
+                ptr_map[x-1][y-1] = 1;
+            if(!isPointInRoom(x-1,y, "exc"))
+                ptr_map[x-1][y] = 1;
+            if(!isPointInRoom(x-1,y+1, "exc"))
+                ptr_map[x-1][y+1] = 1;
+            if(!isPointInRoom(x,y-1, "exc"))
+                ptr_map[x][y-1] = 1;
+            if(!isPointInRoom(x,y+1, "exc"))
+                ptr_map[x][y+1] = 1;
+            if(!isPointInRoom(x+1,y-1, "exc"))
+                ptr_map[x+1][y-1] = 1;
+            if(!isPointInRoom(x+1,y, "exc"))
+                ptr_map[x+1][y] = 1;
+            if(!isPointInRoom(x+1,y+1, "exc"))
+                ptr_map[x+1][y+1] = 1;
+
+        }
+
+        for(int j = 1; j < (int)list_corridor[i].layer.size(); j++) {
             x = list_corridor[i].layer[j].first;
             y = list_corridor[i].layer[j].second;
-            ptr_map[x][y] = -1;
+            if(!isPointInCorridor(x,y,i)) {
+                if(x == list_corridor[i].layer[j - 1].first) {
+
+                    if(!isPointInRoom(x+1,y, "exc"))
+                        ptr_map[x + 1][y] = 1;
+                    if(!isPointInRoom(x-1,y, "exc"))
+                        ptr_map[x - 1][y] = 1;
+
+                    if( y == list_corridor[i].layer[j + 1].second) {
+                        if(y > list_corridor[i].layer[j - 1].second) {
+                            ptr_map[x + 1][y + 1] = 1;
+                            ptr_map[x][y + 1] = 1;
+                            ptr_map[x - 1][y + 1] = 1;
+                        }
+                        else {
+                            ptr_map[x + 1][y - 1] = 1;
+                            ptr_map[x][y - 1] = 1;
+                            ptr_map[x - 1][y - 1] = 1;
+                        }
+
+                    }
+                }
+                else {
+                    if(!isPointInRoom(x,y+1, "exc"))
+                        ptr_map[x][y + 1] = 1;
+                    if(!isPointInRoom(x,y-1, "exc"))
+                        ptr_map[x][y - 1] = 1;
+
+                    if( x == list_corridor[i].layer[j + 1].first) {
+                        if(x > list_corridor[i].layer[j - 1].first) {
+                            ptr_map[x+1][y + 1] = 1;
+                            ptr_map[x+1][y] = 1;
+                            ptr_map[x+1][y - 1] = 1;
+                        }
+                        else {
+                            ptr_map[x-1][y + 1] = 1;
+                            ptr_map[x-1][y] = 1;
+                            ptr_map[x-1][y - 1] = 1;
+                        }
+
+                    }
+                }
+            }
+
+            ptr_map[x][y] = 0;
         }
     }
 }
 bool const Map::isPointInCorridor(int const &X, int const &Y, int const &ID) {
-    //test si le point est dans un couloir
-    for(int i = 0; i < (int)list_corridor.size(); i++) {
-        if(i != ID) {
-            for(int j = 0; j < (int)list_corridor[i].layer.size() ; j++)
-                if(((X == list_corridor[i].layer[j].first)
-                &&  (Y == list_corridor[i].layer[j].second)))
-                    return true;
+    //test si le point du couloir ID passe a travers un couloir déjà généré
+    for(int i = 0; i < ID; i++) {
+        for(int j = 0; j < (int)list_corridor[i].layer.size() ; j++) {
+            if(((X == list_corridor[i].layer[j].first)
+            &&  (Y == list_corridor[i].layer[j].second)))
+                return true;
         }
     }
     return false;
 }
-bool const Map::isPointInRoom(int const &X, int const &Y) {
+bool const Map::isPointInRoom(int const &X, int const &Y, string param) {
     //test si point est dans une room
-    for(int i = 0; i < (int)list_room.size(); i++) {
-        if((X > list_room[i].getx0())
-        &&  (X < list_room[i].getx1())
-        &&  (Y > list_room[i].gety0())
-        &&  (Y < list_room[i].gety1()))
-            return true;
+    //bords inclues
+    if(param == "inc") {
+        for(int i = 0; i < (int)list_room.size(); i++) {
+            if((X >= list_room[i].getX0())
+            &&  (X <= list_room[i].getX1())
+            &&  (Y >= list_room[i].getY0())
+            &&  (Y <= list_room[i].getY1()))
+                return true;
+        }
     }
+    //bords exclues
+    else if (param == "exc") {
+        for(int i = 0; i < (int)list_room.size(); i++) {
+            if((X > list_room[i].getX0())
+            &&  (X < list_room[i].getX1())
+            &&  (Y > list_room[i].getY0())
+            &&  (Y < list_room[i].getY1()))
+                return true;
+        }
+    }
+    //bords seulement
+    else if (param =="bords") {
+        for(int i = 0; i < (int)list_room.size(); i++) {
+            if(((X == list_room[i].getX0()) ||  (X == list_room[i].getX1()))
+            && ((Y == list_room[i].getY0()) ||  (Y == list_room[i].getY1())))
+                return true;
+        }
+    }
+
     return false;
 }
 
