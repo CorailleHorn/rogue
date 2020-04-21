@@ -26,10 +26,10 @@ class Personnage {
 		int getLv() const;
 		int getX() const;
 		int getY() const;
-		char getSprite() const;
+		sf::texture *getSprite() const;
 	protected:
 		int atk, def, pv, lv, x, y;
-		char sprite;
+		sf::Sprite *sprite;
 };
 
 
@@ -43,7 +43,6 @@ class Hero : public Personnage {
 		std::string getName() const;
 	protected:
 		std::string name;
-		char touche;
 };
 
 
