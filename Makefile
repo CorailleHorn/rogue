@@ -1,4 +1,4 @@
-all : bin/txt_jeu bin/txt_regression
+all :  bin/exec_gen_test
 
 bin/txt_regression : obj/mainRegressionP.o obj/Personnages.o
 	g++ -Wall -ggdb obj/mainRegressionP.o obj/Personnages.o -o bin/txt_regression
@@ -11,6 +11,7 @@ bin/exec_gen_test : obj/RegressionGeneration.o obj/Room.o obj/Map.o obj/Personna
 
 obj/main.o : src/main.cpp src/txtJeu.h src/Map.h src/Room.h src/Personnages.h
 	g++ -Wall -ggdb	-c src/main.cpp -o obj/main.o
+
 
 obj/RegressionGeneration.o : src/RegressionGeneration.cpp src/Map.h src/Personnages.h src/Room.h
 	g++ -Wall -ggdb	-c src/RegressionGeneration.cpp -o obj/RegressionGeneration.o

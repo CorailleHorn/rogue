@@ -2,11 +2,13 @@
 #define Map_H
 
 #include <vector>
+#include <utility>
+#include <string>
 #include "Room.h"
 #include "Personnages.h"
 
 struct Corridor {
-  int x0,y0,X,Y,x1,y1;
+  std::vector<std::pair<int,int>> layer;
 };
 
 class Map {
@@ -32,7 +34,8 @@ public:
 
 	void genCorridors();
 	void ajouterCorridors();
-	bool const isPointIn(int const X, int const Y, int const ID);
+	bool const isPointInCorridor(int const &X, int const &Y, int const &ID);
+    bool const isPointInRoom(int const &X, int const &Y, std::string param);
 
   bool const allRoomsCollisions(unsigned int const ID);
   float* moyenneRooms(float mean[]);
@@ -56,8 +59,9 @@ private:
 
   int map_size, nbrooms, radius, room_max_size, room_min_size, nb_ennemie;
   int hxm1, hym1;
-  Hero *hero;
-  std::vector<Ennemi*> ennemis;
+  int nb_corridors;
+  //Hero *hero;
+  //std::vector<Ennemi*> ennemis;
 };
 
 
