@@ -61,7 +61,7 @@ Map::~Map() {
 
     genCorridors();
 
-    ajouterCorridors();
+    ajouterCorridorsTXT();
 
     int pos[2];
     for(long unsigned int i = 1; i < list_room.size(); i++) {
@@ -258,7 +258,7 @@ void Map::testRegression() { //on lance le test de regression
         //ligne pour l'affichage des numéros des rooms
         M2.ptr_map[M2.list_room[i].getX()][M2.list_room[i].getY()] = i;
     }
-    M2.ajouterCorridors();
+    M2.ajouterCorridorsTXT();
 
     M2.afficherMap();
 
@@ -461,7 +461,8 @@ void Map::genCorridors() {
 }
 
 
-void Map::ajouterCorridors() {
+void Map::ajouterCorridorsTXT() {
+    //version d'affichage en terminal
     int x,y;
     for(int i = 0; i < (int)list_corridor.size(); i++) {
         x = list_corridor[i].layer[0].first;
@@ -471,21 +472,21 @@ void Map::ajouterCorridors() {
         if(!isPointInRoom(list_corridor[i].layer[1].first, list_corridor[i].layer[1].second,"bords")) {
 
             if(!isPointInRoom(x-1,y-1, "exc") && !isPointInCorridor(x-1,y-1,i))
-                ptr_map[x-1][y-1] = -1;
+                ptr_map[x-1][y-1] = 1;
             if(!isPointInRoom(x-1,y, "exc") && !isPointInCorridor(x-1,y,i))
-                ptr_map[x-1][y] = -1;
+                ptr_map[x-1][y] = 1;
             if(!isPointInRoom(x-1,y+1, "exc") && !isPointInCorridor(x-1,y+1,i))
-                ptr_map[x-1][y+1] = -1;
+                ptr_map[x-1][y+1] = 1;
             if(!isPointInRoom(x,y-1, "exc") && !isPointInCorridor(x,y-1,i))
-                ptr_map[x][y-1] = -1;
+                ptr_map[x][y-1] = 1;
             if(!isPointInRoom(x,y+1, "exc") && !isPointInCorridor(x,y+1,i))
-                ptr_map[x][y+1] = -1;
+                ptr_map[x][y+1] = 1;
             if(!isPointInRoom(x+1,y-1, "exc") && !isPointInCorridor(x+1,y-1,i))
-                ptr_map[x+1][y-1] = -1;
+                ptr_map[x+1][y-1] = 1;
             if(!isPointInRoom(x+1,y, "exc") && !isPointInCorridor(x+1,y,i))
-                ptr_map[x+1][y] = -1;
+                ptr_map[x+1][y] = 1;
             if(!isPointInRoom(x+1,y+1, "exc") && !isPointInCorridor(x+1,y+1,i))
-                ptr_map[x+1][y+1] = -1;
+                ptr_map[x+1][y+1] = 1;
 
         }
 
@@ -540,6 +541,21 @@ void Map::ajouterCorridors() {
         }
     }
 }
+
+void Map::ajouterCorridorsSFML() {
+    //version d'affichage graphique en SFML
+    //note : dans cette affichage on ne creer pas de murs au couloirs
+    int x,y;
+    for(int i = 0; i < (int)list_corridor.size(); i++) {
+        for(int j = 0; j < (int)list_corridor[i].layer.size(); j++) {
+            x = list_corridor[i].layer[j].first;
+            y = list_corridor[i].layer[j].second;
+            ptr_map[x][y] = -1;
+        }
+    }
+}
+
+
 bool const Map::isPointInCorridor(int const &X, int const &Y, int const &ID) {
     //test si le point du couloir ID passe a travers un couloir déjà affiché
     for(int i = 0; i < ID; i++) {

@@ -33,7 +33,8 @@ public:
 	void ajouterLinks();
 
 	void genCorridors();
-	void ajouterCorridors();
+	void ajouterCorridorsTXT();
+    void ajouterCorridorsSFML();
 	bool const isPointInCorridor(int const &X, int const &Y, int const &ID);
     bool const isPointInRoom(int const &X, int const &Y, std::string param);
 
