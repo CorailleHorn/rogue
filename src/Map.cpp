@@ -68,13 +68,13 @@ Map::~Map() {
       nb_ennemie = rand() % 2 + 1;
       for(int j = 0; j < nb_ennemie; j++) {
         if(ennemis.size() == 0) {
-          pos[0] = rand() % (list_room[i].getX0()-list_room[i].getX1()) + (list_room[i].getX0()+1);
-          pos[1] = rand() % (list_room[i].getY0()-list_room[i].getY1()) + (list_room[i].getY0()+1);
+          pos[0] = rand() % (list_room[i].getX0()-(list_room[i].getX0() + list_room[i].getL() - 1) ) + (list_room[i].getX0()+1);
+          pos[1] = rand() % (list_room[i].getY0()-(list_room[i].getY0() + list_room[i].getH() - 1) ) + (list_room[i].getY0()+1);
         }
         else {
           do {
-            pos[0] = rand() % (list_room[i].getX0()-list_room[i].getX1()) + (list_room[i].getX0()+1);
-            pos[1] = rand() % (list_room[i].getY0()-list_room[i].getY1()) + (list_room[i].getY0()+1);
+            pos[0] = rand() % (list_room[i].getX0()-(list_room[i].getX0() + list_room[i].getL() - 1) ) + (list_room[i].getX0()+1);
+            pos[1] = rand() % (list_room[i].getY0()-(list_room[i].getY0() + list_room[i].getH() - 1) ) + (list_room[i].getY0()+1);
           } while(ennemis[ennemis.size()-1]->getX() == pos[0]
             && ennemis[ennemis.size()-1]->getY() == pos[1]);
         }
@@ -137,8 +137,6 @@ void Map::testRegression() { //on lance le test de regression
         assert(M2.list_room[i].gety1() == 0);
         assert(M2.list_room[i].getX0() == 0);
         assert(M2.list_room[i].getY0() == 0);
-        assert(M2.list_room[i].getX1() == 0);
-        assert(M2.list_room[i].getY1() == 0);
         assert(M2.list_room[i].getX() == 0);
         assert(M2.list_room[i].getY() == 0);
         assert(M2.list_room[i].getIDlinked() == 0);
@@ -573,9 +571,9 @@ bool const Map::isPointInRoom(int const &X, int const &Y, string param) {
     if(param == "inc") {
         for(int i = 0; i < (int)list_room.size(); i++) {
             if((X >= list_room[i].getX0())
-            &&  (X <= list_room[i].getX1())
+            &&  (X <= (list_room[i].getX0() + list_room[i].getL() - 1) )
             &&  (Y >= list_room[i].getY0())
-            &&  (Y <= list_room[i].getY1()))
+            &&  (Y <= (list_room[i].getY0() + list_room[i].getH() - 1) ))
                 return true;
         }
     }
@@ -583,17 +581,17 @@ bool const Map::isPointInRoom(int const &X, int const &Y, string param) {
     else if (param == "exc") {
         for(int i = 0; i < (int)list_room.size(); i++) {
             if((X > list_room[i].getX0())
-            &&  (X < list_room[i].getX1())
+            &&  (X < (list_room[i].getX0() + list_room[i].getL() - 1) )
             &&  (Y > list_room[i].getY0())
-            &&  (Y < list_room[i].getY1()))
+            &&  (Y < (list_room[i].getY0() + list_room[i].getH() - 1) ))
                 return true;
         }
     }
     //bords seulement
     else if (param =="bords") {
         for(int i = 0; i < (int)list_room.size(); i++) {
-            if(((X == list_room[i].getX0()) ||  (X == list_room[i].getX1()))
-            && ((Y == list_room[i].getY0()) ||  (Y == list_room[i].getY1())))
+            if(((X == list_room[i].getX0()) ||  (X == (list_room[i].getX0() + list_room[i].getL() - 1) ))
+            && ((Y == list_room[i].getY0()) ||  (Y == (list_room[i].getY0() + list_room[i].getH() - 1) )))
                 return true;
         }
     }
@@ -634,13 +632,13 @@ void Map::ajouterRooms() {
         // j parcourant la largeur de la room
         for (int j = 0; j < list_room[i].getL(); j++) {
             ptr_map[list_room[i].getX0() + j][list_room[i].getY0()] = 1;
-            ptr_map[list_room[i].getX0() + j][list_room[i].getY1()] = 1;
+            ptr_map[list_room[i].getX0() + j][(list_room[i].getY0() + list_room[i].getH() - 1) ] = 1;
         }
         //on ajoute la hauteur des rooms
         // k parcourant la hauteur de la room
         for (int k = 0; k < list_room[i].getH(); k++) {
             ptr_map[list_room[i].getX0()][list_room[i].getY0() + k] = 1;
-            ptr_map[list_room[i].getX1()][list_room[i].getY0() + k] = 1;
+            ptr_map[(list_room[i].getX0() + list_room[i].getL() - 1) ][list_room[i].getY0() + k] = 1;
         }
         //on affiche le num de la room
         list_room[i].initCenterRooms();

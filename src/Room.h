@@ -13,9 +13,7 @@ public:
 	float gety1();
 
 	int getX0();
-	int getX1();
 	int getY0();
-	int getY1();
 
 	int getX();
 	int getY();

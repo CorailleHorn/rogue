@@ -30,15 +30,10 @@ float Room::gety1() {
 int Room::getX0() {
     return X0;
 }
-int Room::getX1() {
-    return X1;
-}
 int Room::getY0() {
     return Y0;
 }
-int Room::getY1() {
-    return Y1;
-}
+
 
 int Room::getX() {
     return X;
@@ -74,14 +69,14 @@ void Room::sety1(float const& val) {
 void Room::arrondValRoom() {
     //on arrondi les valeurs des rooms
     X0 = round(x0);
-    X1 = round(x1);
+    //X1 = round(x1);
 	Y0 = round(y0);
-    Y1 = round(y1);
+    //Y1 = round(y1);
 }
 
 const bool Room::isRoomIn(int const& map_size) {
     //vérifie si la room est dans la map
-    if ((X0 >= 0) && (Y0 >= 0) && (X1 < map_size) && (Y1 < map_size)) return true;
+    if ((X0 >= 0) && (Y0 >= 0) && ((X0 + L - 1) < map_size) && ((Y0 + H - 1) < map_size)) return true;
     else return false;
 }
 
@@ -116,7 +111,7 @@ bool const Room::roomCollision(Room& A) {
 }
 
 void Room::initCenterRooms() {
-    //on place les centres des rooms et on les gen aleatoire si il faut (quand taille paire)
+    //on place les centres des rooms
         X = X0 + (int)(L / 2) - 1;
 
         Y = Y0 + (int)(H / 2) - 1;
