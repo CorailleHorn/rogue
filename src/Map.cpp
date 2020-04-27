@@ -133,8 +133,6 @@ void Map::testRegression() { //on lance le test de regression
     for(int i = 0; i < M2.nbrooms; i++) {
         assert(M2.list_room[i].getx0() == 0);
         assert(M2.list_room[i].gety0() == 0);
-        assert(M2.list_room[i].getx1() == 0);
-        assert(M2.list_room[i].gety1() == 0);
         assert(M2.list_room[i].getX0() == 0);
         assert(M2.list_room[i].getY0() == 0);
         assert(M2.list_room[i].getX() == 0);
@@ -148,8 +146,8 @@ void Map::testRegression() { //on lance le test de regression
     for(int i = 0; i < M2.nbrooms; i++) {
         assert((M2.list_room[i].getx0() >= 0)
             && (M2.list_room[i].gety0() >= 0)
-            && (M2.list_room[i].getx1() < map_size)
-            && (M2.list_room[i].gety1() < map_size));
+            && ((M2.list_room[i].getx0() + M2.list_room[i].getL() - 1)  < map_size)
+            && ((M2.list_room[i].gety0() + M2.list_room[i].getH() - 1) < map_size));
         assert(M2.list_room[i].getIDlinked() == -1);
     }
     M2.updateRooms();
@@ -288,8 +286,6 @@ void Map::eclatement() {
 
             list_room[i].setx0(list_room[i].getx0() +  (cos(((i + 1.0) * PI) / (nbrooms / 2))));
             list_room[i].sety0(list_room[i].gety0() + (sin(((i + 1.0) * PI) / (nbrooms / 2))));
-            list_room[i].setx1(list_room[i].getx0() + list_room[i].getL() - 1);
-            list_room[i].sety1(list_room[i].gety0() + list_room[i].getH() - 1);
         }
     }
 }
