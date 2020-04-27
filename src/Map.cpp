@@ -538,7 +538,8 @@ void Map::ajouterCorridorsTXT() {
         }
     }
 }
-
+/*
+//version 1 avec affichage détaillé des couloirs (angle)
 void Map::ajouterCorridorsSFML() {
     //version d'affichage graphique en SFML
     int x,y;
@@ -612,6 +613,82 @@ void Map::ajouterCorridorsSFML() {
         }
     }
 }
+*/
+
+void Map::ajouterCorridorsSFML() {
+    //version d'affichage graphique en SFML
+    int x,y;
+    for(int i = 0; i < (int)list_corridor.size(); i++) {
+        
+        x = list_corridor[i].layer[0].first;
+        y = list_corridor[i].layer[0].second;
+
+            if(ptr_map[x-1][y-1] == 0)
+                ptr_map[x-1][y-1] = 1;
+            if(ptr_map[x-1][y] == 0)
+                ptr_map[x-1][y] = 1;
+            if(ptr_map[x-1][y+1] == 0)
+                ptr_map[x-1][y+1] = 1;
+            if(ptr_map[x][y-1] == 0)
+                ptr_map[x][y-1] = 1;
+            if(ptr_map[x][y+1] == 0)
+                ptr_map[x][y+1] = 1;
+            if(ptr_map[x+1][y-1] == 0)
+                ptr_map[x+1][y-1] = 1;
+            if(ptr_map[x+1][y] == 0)
+                ptr_map[x+1][y] = 1;
+            if(ptr_map[x+1][y+1] == 0)
+                ptr_map[x+1][y+1] = 1;
+
+        for(int j = 1; j < (int)list_corridor[i].layer.size(); j++) {
+            x = list_corridor[i].layer[j].first;
+            y = list_corridor[i].layer[j].second;
+
+            if(x == list_corridor[i].layer[j - 1].first) {
+
+                if(ptr_map[x + 1][y] != 1 && ptr_map[x + 1][y] != 2)
+                    ptr_map[x + 1][y] = 1;
+                if(ptr_map[x - 1][y] != 1 && ptr_map[x - 1][y] != 2)
+                    ptr_map[x - 1][y] = 1;
+
+                if( y == list_corridor[i].layer[j + 1].second) {
+                    if(y > list_corridor[i].layer[j - 1].second) {
+                        ptr_map[x + 1][y + 1] = 1;
+                        ptr_map[x][y + 1] = 1;
+                        ptr_map[x - 1][y + 1] = 1;
+                    }
+                    else {
+                        ptr_map[x + 1][y - 1] = 1;
+                        ptr_map[x][y - 1] = 1;
+                        ptr_map[x - 1][y - 1] = 1;
+                    }
+
+                }
+            }
+            else {
+                if(ptr_map[x][y + 1] != 1 && ptr_map[x][y + 1] != 2)
+                    ptr_map[x][y + 1] = 1;
+                if(ptr_map[x][y - 1] != 1 && ptr_map[x][y - 1] != 2)
+                    ptr_map[x][y - 1] = 1;
+
+                if( x == list_corridor[i].layer[j + 1].first) {
+                    if(x > list_corridor[i].layer[j - 1].first) {
+                        ptr_map[x+1][y + 1] = 1;
+                        ptr_map[x+1][y] = 1;
+                        ptr_map[x+1][y - 1] = 1;
+                    }
+                    else {
+                        ptr_map[x-1][y + 1] = 1;
+                        ptr_map[x-1][y] = 1;
+                        ptr_map[x-1][y - 1] = 1;
+                    }
+
+                }
+            }
+        }
+    }
+}
+
 
 void Map::ajouterCorridorsSimpleSFML() {
     //version d'affichage graphique en SFML
@@ -723,28 +800,24 @@ void Map::ajouterRoomsSFML() {
     //ajouter les valeurs d'affichage de la map
     //on arrondi d'abord les valeurs
     for (unsigned int i = 0; i < list_room.size(); i++) {
-        //on ajoute les coins
-        ptr_map[list_room[i].getX0()][list_room[i].getY0()] = 7;
-        ptr_map[(list_room[i].getX0() + list_room[i].getL() - 1)][list_room[i].getY0()] = 8;
-        ptr_map[list_room[i].getX0()][(list_room[i].getY0() + list_room[i].getH() - 1)] = 9;
-        ptr_map[(list_room[i].getX0() + list_room[i].getL() - 1)][(list_room[i].getY0() + list_room[i].getH() - 1)] = 10;
+
 
         //on ajoute la largeur des rooms
         // j parcourant la largeur de la room
-        for (int j = 1; j < list_room[i].getL() - 1; j++) {
-            ptr_map[list_room[i].getX0() + j][list_room[i].getY0()] = 5;
-            ptr_map[list_room[i].getX0() + j][(list_room[i].getY0() + list_room[i].getH() - 1) ] = 6;
+        for (int j = 0; j < list_room[i].getL(); j++) {
+            ptr_map[list_room[i].getX0() + j][list_room[i].getY0()] = 1;
+            ptr_map[list_room[i].getX0() + j][(list_room[i].getY0() + list_room[i].getH() - 1) ] = 1;
         }
         //on ajoute la hauteur des rooms
         // k parcourant la hauteur de la room
-        for (int k = 1; k < list_room[i].getH() - 1; k++) {
-            ptr_map[list_room[i].getX0()][list_room[i].getY0() + k] = 3;
-            ptr_map[(list_room[i].getX0() + list_room[i].getL() - 1) ][list_room[i].getY0() + k] = 4;
+        for (int k = 0; k < list_room[i].getH(); k++) {
+            ptr_map[list_room[i].getX0()][list_room[i].getY0() + k] = 1;
+            ptr_map[(list_room[i].getX0() + list_room[i].getL() - 1) ][list_room[i].getY0() + k] = 1;
         }
         //on ajout l'interieur des rooms
         for (int j = 1; j < list_room[i].getH() - 1; j++) {
             for(int k = 1; k < list_room[i].getL() - 1; k++) {
-                ptr_map[list_room[i].getX0() + k][list_room[i].getY0() + j] = 1;
+                ptr_map[list_room[i].getX0() + k][list_room[i].getY0() + j] = 2;
             }
         }
     }
