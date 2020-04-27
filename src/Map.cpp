@@ -17,7 +17,7 @@ float dist2Points(float x1, float y1, float x2, float y2) {
 
 
 Map::Map(int const& size, int const& nb, int const& rad, int const& max, int const& min) :
-    map_size(size), nbrooms(nb), radius(rad), room_max_size(max), room_min_size(min) {
+    map_size(size), nbrooms(nb), radius(rad), room_max_size(max), room_min_size(min), nb_corridors(0) {
     ptr_map = new int*[map_size];
     //on initialise les pointeurs sur des valeurs nulles
     for (int i = 0; i < map_size; i++) {
@@ -105,6 +105,7 @@ void Map::testRegression() { //on lance le test de regression
     assert(M->nbrooms == 100);
     assert(M->radius == 5);
     assert(M->room_max_size == 20 && M->room_min_size == 5);
+    assert(M->nb_corridors == 0);
     for (int i = 0; i < M->map_size; i++) {
         for (int j = 0; j < M->map_size; j++) {
           assert(M->ptr_map[i][j] == 0);
@@ -122,6 +123,7 @@ void Map::testRegression() { //on lance le test de regression
     assert(M2.nbrooms == 100);
     assert(M2.radius == 5);
     assert(M2.room_max_size == 20 && M2.room_min_size == 5);
+    assert(M2.nb_corridors == 0);
     for(int i = 0; i < M2.map_size; i++) {
         for (int j = 0; j < M2.map_size; j++) {
           assert(M2.ptr_map[i][j] == 0);
@@ -207,12 +209,13 @@ void Map::testRegression() { //on lance le test de regression
     //STEP 4 : ON GENERE LES LIENS
     M2.initLinks(); //on initialise les liens pour pouvoir ensuite gen les couloirs
     for(int i = 0; i < (int)M2.list_room.size(); i++) {
-        assert(M2.list_room[i].getIDlinked() != -1);
+        assert(M2.list_room[i].getIDlinked() != i);
         //ligne pour afficher les liens de manière condensé
         //NOTE :Ligne mis en comm car bug non resolu
         //assert(M2.list_room[i].getIDlinked() != i);
 
     }
+    assert(M2.nb_corridors <= (int)M2.list_room.size());
     M2.ajouterLinks();
     for(int i = 0; i < (int)M2.list_room.size(); i++) {
         //ligne pour afficher les liens de manière condensé
@@ -223,7 +226,7 @@ void Map::testRegression() { //on lance le test de regression
 
     //STEP 5 : ON AJOUTE LES COULOIRS A PARTIR DES LIENS CREES
     M2.genCorridors();
-    assert(M2.list_room.size() == M2.list_corridor.size());
+
     M2.ajouterRooms();
     for(int i = 0; i < (int)M2.list_corridor.size(); i++) {
         for(int j = 0; j < (int)M2.list_corridor[i].layer.size(); j++) {
@@ -312,16 +315,21 @@ void Map::chooseRooms() {
 
 
 void Map::initLinks() {
+    int inc = 0; //incrementeur pour calculer le nombre de couloirs nb_corridors,
     for (int i = 0; i < (int)list_room.size(); i++) {
         choisirRoomLink(i);
+        if(list_room[i].getIDlinked() != -1) {
+            inc++;
+        }
     }
+    nb_corridors = inc;
 }
 
 
 void Map::choisirRoomLink(int const ID) {
     //on initialise chaque liens dans un tableau et on en choisis un
     float distmin = 100000; //on donne juste un distance max de depart assez grande
-    int IDmin;
+    int IDmin = -1;
     int idist;
     for (int i = 0; i < (int)list_room.size(); i++) {
         if (!isRoomLinked(ID,i) && !(i == ID)) {
@@ -355,91 +363,100 @@ void Map::ajouterLinks(){
         y1 = list_room[r].getY();
         diffX = x0 - x1;
         diffY = y0 - y1;
-
-        if( diffX <= 0) {
-            for (int j = 0; j < abs(diffX); j++) {
-                ptr_map[x0 + j][y0] = -1;
+        if(r != -1) {
+            if( diffX <= 0) {
+                for (int j = 0; j < abs(diffX); j++) {
+                    ptr_map[x0 + j][y0] = -1;
+                }
             }
-        }
-        else{
-            for (int j = 0; j < diffX; j++) {
-                ptr_map[x0 - j][y0] = -1;
+            else{
+                for (int j = 0; j < diffX; j++) {
+                    ptr_map[x0 - j][y0] = -1;
+                }
             }
-        }
-        if( diffY <= 0) {
-            for (int j = 0; j < abs(diffY); j++) {
-                ptr_map[x1][y0 + j] = -1;
+            if( diffY <= 0) {
+                for (int j = 0; j < abs(diffY); j++) {
+                    ptr_map[x1][y0 + j] = -1;
+                }
             }
-        }
-        else{
-            for (int j = 0; j < diffY; j++) {
-                ptr_map[x1][y0 - j] = -1;
+            else{
+                for (int j = 0; j < diffY; j++) {
+                    ptr_map[x1][y0 - j] = -1;
+                }
             }
         }
     }
 }
 
 void Map::genCorridors() {
-        int id2, x, y, r, incx, incy;
+    int id2, x, y, r, incx, incy;
+    int id_corridor = 0;
     pair<int,int>  pair1, pair2;
-    list_corridor.resize(list_room.size());
 
-    for(int i = 0; i < (int)list_corridor.size(); i++) {
+    list_corridor.resize(nb_corridors);
+
+    for(int i = 0; i < (int)list_room.size(); i++) {
         id2 = list_room[i].getIDlinked();
+        if(id2 != -1) {
 
-        x = list_room[i].getX();
-        y = list_room[i].getY();
+            x = list_room[i].getX();
+            y = list_room[i].getY();
 
-        r = rand() % 2 - 1;
-        if (r) {
+            r = rand() % 2 - 1;
+            if (r) {
 
-            pair1 = make_pair(list_room[i].getX(), list_room[id2].getY());
+                pair1 = make_pair(list_room[i].getX(), list_room[id2].getY());
 
-            if(pair1.second > y) incy = 1;
-            else incy = -1;
+                if(pair1.second > y) incy = 1;
+                else incy = -1;
 
-            while( y != pair1.second ) {
-                y += incy;
-                if(!isPointInRoom(x, y, "exc"))
-                    list_corridor[i].layer.push_back(make_pair(x,y));
+                while( y != pair1.second ) {
+                    y += incy;
+                    if(!isPointInRoom(x, y, "exc"))
+                        list_corridor[id_corridor].layer.push_back(make_pair(x,y));
+                }
+
+                pair2 = make_pair(list_room[id2].getX(), list_room[id2].getY());
+
+                if(pair2.first > x) incx = 1;
+                else incx = -1;
+
+                while( x != pair2.first ) {
+                    x += incx;
+                    if(!isPointInRoom(x, y, "exc"))
+                        list_corridor[id_corridor].layer.push_back(make_pair(x,y));
+                }
+
             }
+            else {
+                pair1 = make_pair(list_room[id2].getX(), list_room[i].getY());
 
-            pair2 = make_pair(list_room[id2].getX(), list_room[id2].getY());
+                if(pair1.first > x) incx = 1;
+                else incx = -1;
 
-            if(pair2.first > x) incx = 1;
-            else incx = -1;
+                while( x != pair1.first ) {
+                    x += incx;
+                    if(!isPointInRoom(x, y, "exc"))
+                        list_corridor[id_corridor].layer.push_back(make_pair(x,y));
 
-            while( x != pair2.first ) {
-                x += incx;
-                if(!isPointInRoom(x, y, "exc"))
-                    list_corridor[i].layer.push_back(make_pair(x,y));
+                }
+                pair2 = make_pair(list_room[id2].getX(), list_room[id2].getY());
+
+                if(pair2.second > y) incy = 1;
+                else incy = -1;
+
+                while( y != pair2.second ) {
+                    y += incy;
+                    if(!isPointInRoom(x, y, "exc"))
+                        list_corridor[id_corridor].layer.push_back(make_pair(x,y));
+
+                }
             }
-
+            //la taille de list_corridor est differente de list_room car une room peut ne pas etre liée
+            //on incremente le compteur id_cooridor uniquement si on viens de creer le layer du couloir precedent
+            id_corridor++;
         }
-        else {
-            pair1 = make_pair(list_room[id2].getX(), list_room[i].getY());
 
-            if(pair1.first > x) incx = 1;
-            else incx = -1;
-
-            while( x != pair1.first ) {
-                x += incx;
-                if(!isPointInRoom(x, y, "exc"))
-                    list_corridor[i].layer.push_back(make_pair(x,y));
-
-            }
-            pair2 = make_pair(list_room[id2].getX(), list_room[id2].getY());
-
-            if(pair2.second > y) incy = 1;
-            else incy = -1;
-
-            while( y != pair2.second ) {
-                y += incy;
-                if(!isPointInRoom(x, y, "exc"))
-                    list_corridor[i].layer.push_back(make_pair(x,y));
-
-            }
-        }
     }
 }
 
@@ -450,24 +467,25 @@ void Map::ajouterCorridors() {
         x = list_corridor[i].layer[0].first;
         y = list_corridor[i].layer[0].second;
         ptr_map[x][y] = 0;
-        if(!isPointInRoom(list_corridor[i].layer[1].first, list_corridor[i].layer[0].second,"bords")) {
+        //si le suivant est sur un bord on s'assure qu'il n'y ais pas de trou
+        if(!isPointInRoom(list_corridor[i].layer[1].first, list_corridor[i].layer[1].second,"bords")) {
 
-            if(!isPointInRoom(x-1,y-1, "exc"))
-                ptr_map[x-1][y-1] = 1;
-            if(!isPointInRoom(x-1,y, "exc"))
-                ptr_map[x-1][y] = 1;
-            if(!isPointInRoom(x-1,y+1, "exc"))
-                ptr_map[x-1][y+1] = 1;
-            if(!isPointInRoom(x,y-1, "exc"))
-                ptr_map[x][y-1] = 1;
-            if(!isPointInRoom(x,y+1, "exc"))
-                ptr_map[x][y+1] = 1;
-            if(!isPointInRoom(x+1,y-1, "exc"))
-                ptr_map[x+1][y-1] = 1;
-            if(!isPointInRoom(x+1,y, "exc"))
-                ptr_map[x+1][y] = 1;
-            if(!isPointInRoom(x+1,y+1, "exc"))
-                ptr_map[x+1][y+1] = 1;
+            if(!isPointInRoom(x-1,y-1, "exc") && !isPointInCorridor(x-1,y-1,i))
+                ptr_map[x-1][y-1] = -1;
+            if(!isPointInRoom(x-1,y, "exc") && !isPointInCorridor(x-1,y,i))
+                ptr_map[x-1][y] = -1;
+            if(!isPointInRoom(x-1,y+1, "exc") && !isPointInCorridor(x-1,y+1,i))
+                ptr_map[x-1][y+1] = -1;
+            if(!isPointInRoom(x,y-1, "exc") && !isPointInCorridor(x,y-1,i))
+                ptr_map[x][y-1] = -1;
+            if(!isPointInRoom(x,y+1, "exc") && !isPointInCorridor(x,y+1,i))
+                ptr_map[x][y+1] = -1;
+            if(!isPointInRoom(x+1,y-1, "exc") && !isPointInCorridor(x+1,y-1,i))
+                ptr_map[x+1][y-1] = -1;
+            if(!isPointInRoom(x+1,y, "exc") && !isPointInCorridor(x+1,y,i))
+                ptr_map[x+1][y] = -1;
+            if(!isPointInRoom(x+1,y+1, "exc") && !isPointInCorridor(x+1,y+1,i))
+                ptr_map[x+1][y+1] = -1;
 
         }
 
@@ -523,7 +541,7 @@ void Map::ajouterCorridors() {
     }
 }
 bool const Map::isPointInCorridor(int const &X, int const &Y, int const &ID) {
-    //test si le point du couloir ID passe a travers un couloir déjà généré
+    //test si le point du couloir ID passe a travers un couloir déjà affiché
     for(int i = 0; i < ID; i++) {
         for(int j = 0; j < (int)list_corridor[i].layer.size() ; j++) {
             if(((X == list_corridor[i].layer[j].first)
