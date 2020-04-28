@@ -8,7 +8,7 @@
 #include "Personnages.h"
 
 struct Corridor {
-  std::vector<std::pair<int,int>> layer;
+  std::vector<std::pair<int,int> > layer;
 };
 
 class Map {
