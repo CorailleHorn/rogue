@@ -65,19 +65,126 @@ using namespace sf;
   if (!font->loadFromFile("../data/ttf/Silver.ttf"))
     cerr << "Ton font charges pas batard" << '\n';
 
-      //Animation Joueur
-  anim_Joueur->idle.setSpriteSheet(texture);
-  anim_Joueur->idle.addFrame(sf::IntRect(32, 0, 32, 32));
-  anim_Joueur->idle.addFrame(sf::IntRect(64, 0, 32, 32));
-  anim_Joueur->idle.addFrame(sf::IntRect(32, 0, 32, 32));
-  anim_Joueur->idle.addFrame(sf::IntRect( 0, 0, 32, 32));
+      //Animation Joueur Gauche
+  anim_Joueur->idleG.setSpriteSheet(tHero[0]);
+  anim_Joueur->idleG.addFrame(sf::IntRect(2*32, 0, 32, 32));
+  anim_Joueur->idleG.addFrame(sf::IntRect(3*32, 0, 32, 32));
+  anim_Joueur->idleG.addFrame(sf::IntRect(4*32, 0, 32, 32));
+  anim_Joueur->idleG.addFrame(sf::IntRect(5*32, 0, 32, 32));
+  anim_Joueur->idleG.addFrame(sf::IntRect(6*32, 0, 32, 32));
+  anim_Joueur->idleG.addFrame(sf::IntRect(7*32, 0, 32, 32));
+  anim_Joueur->idleG.addFrame(sf::IntRect(8*32, 0, 32, 32));
+  anim_Joueur->idleG.addFrame(sf::IntRect(9*32, 0, 32, 32));
+  anim_Joueur->idleG.addFrame(sf::IntRect(10*32, 0, 32, 32));
+  anim_Joueur->idleG.addFrame(sf::IntRect(11*32, 0, 32, 32));
+  anim_Joueur->idleG.addFrame(sf::IntRect(12*32, 0, 32, 32));
+  anim_Joueur->idleG.addFrame(sf::IntRect(0*32, 0, 32, 32));
+  anim_Joueur->idleG.addFrame(sf::IntRect(1*32, 0, 32, 32));
+
+  anim_Joueur->walkG.setSpriteSheet(tHero[0]);
+  anim_Joueur->walkG.addFrame(sf::IntRect(0*32, 1*32, 32, 32));
+  anim_Joueur->walkG.addFrame(sf::IntRect(1*32, 1*32, 32, 32));
+  anim_Joueur->walkG.addFrame(sf::IntRect(2*32, 1*32, 32, 32));
+  anim_Joueur->walkG.addFrame(sf::IntRect(3*32, 1*32, 32, 32));
+  anim_Joueur->walkG.addFrame(sf::IntRect(4*32, 1*32, 32, 32));
+  anim_Joueur->walkG.addFrame(sf::IntRect(5*32, 1*32, 32, 32));
+  anim_Joueur->walkG.addFrame(sf::IntRect(6*32, 1*32, 32, 32));
+  anim_Joueur->walkG.addFrame(sf::IntRect(7*32, 1*32, 32, 32));
+
+  anim_Joueur->atkG.setSpriteSheet(tHero[0]);
+  anim_Joueur->atkG.addFrame(sf::IntRect(0*32, 4*32, 32, 32));
+  anim_Joueur->atkG.addFrame(sf::IntRect(1*32, 4*32, 32, 32));
+  anim_Joueur->atkG.addFrame(sf::IntRect(2*32, 4*32, 32, 32));
+
+  anim_Joueur->degatG.setSpriteSheet(tHero[0]);
+  anim_Joueur->degatG.addFrame(sf::IntRect(1*32, 6*32, 32, 32));
+  anim_Joueur->degatG.addFrame(sf::IntRect(2*32, 6*32, 32, 32));
+  anim_Joueur->degatG.addFrame(sf::IntRect(3*32, 6*32, 32, 32));
+  anim_Joueur->degatG.addFrame(sf::IntRect(0*32, 6*32, 32, 32));
+
+  anim_Joueur->mortG.setSpriteSheet(tHero[0]);
+  anim_Joueur->mortG.addFrame(sf::IntRect(1*32, 7*32, 32, 32));
+  anim_Joueur->mortG.addFrame(sf::IntRect(2*32, 7*32, 32, 32));
+  anim_Joueur->mortG.addFrame(sf::IntRect(3*32, 7*32, 32, 32));
+  anim_Joueur->mortG.addFrame(sf::IntRect(4*32, 7*32, 32, 32));
+  anim_Joueur->mortG.addFrame(sf::IntRect(5*32, 7*32, 32, 32));
+  anim_Joueur->mortG.addFrame(sf::IntRect(6*32, 7*32, 32, 32));
+
+    //Animation Joueur Droit
+  anim_Joueur->idleD.setSpriteSheet(tHero[0]);
+  anim_Joueur->idleD.addFrame(sf::IntRect(2*32, 8*32, 32, 32));
+  anim_Joueur->idleD.addFrame(sf::IntRect(3*32, 8*32, 32, 32));
+  anim_Joueur->idleD.addFrame(sf::IntRect(4*32, 8*32, 32, 32));
+  anim_Joueur->idleD.addFrame(sf::IntRect(5*32, 8*32, 32, 32));
+  anim_Joueur->idleD.addFrame(sf::IntRect(6*32, 8*32, 32, 32));
+  anim_Joueur->idleD.addFrame(sf::IntRect(7*32, 8*32, 32, 32));
+  anim_Joueur->idleD.addFrame(sf::IntRect(8*32, 8*32, 32, 32));
+  anim_Joueur->idleD.addFrame(sf::IntRect(9*32, 8*32, 32, 32));
+  anim_Joueur->idleD.addFrame(sf::IntRect(10*32, 8*32, 32, 32));
+  anim_Joueur->idleD.addFrame(sf::IntRect(11*32, 8*32, 32, 32));
+  anim_Joueur->idleD.addFrame(sf::IntRect(12*32, 8*32, 32, 32));
+  anim_Joueur->idleD.addFrame(sf::IntRect(0*32, 8*32, 32, 32));
+  anim_Joueur->idleD.addFrame(sf::IntRect(1*32, 8*32, 32, 32));
+
+  anim_Joueur->walkD.setSpriteSheet(tHero[0]);
+  anim_Joueur->walkD.addFrame(sf::IntRect(0*32, 9*32, 32, 32));
+  anim_Joueur->walkD.addFrame(sf::IntRect(1*32, 9*32, 32, 32));
+  anim_Joueur->walkD.addFrame(sf::IntRect(2*32, 9*32, 32, 32));
+  anim_Joueur->walkD.addFrame(sf::IntRect(3*32, 9*32, 32, 32));
+  anim_Joueur->walkD.addFrame(sf::IntRect(4*32, 9*32, 32, 32));
+  anim_Joueur->walkD.addFrame(sf::IntRect(5*32, 9*32, 32, 32));
+  anim_Joueur->walkD.addFrame(sf::IntRect(6*32, 9*32, 32, 32));
+  anim_Joueur->walkD.addFrame(sf::IntRect(7*32, 9*32, 32, 32));
+
+  anim_Joueur->atkD.setSpriteSheet(tHero[0]);
+  anim_Joueur->atkD.addFrame(sf::IntRect(0*32, 12*32, 32, 32));
+  anim_Joueur->atkD.addFrame(sf::IntRect(1*32, 12*32, 32, 32));
+  anim_Joueur->atkD.addFrame(sf::IntRect(2*32, 12*32, 32, 32));
+
+  anim_Joueur->degatD.setSpriteSheet(tHero[0]);
+  anim_Joueur->degatD.addFrame(sf::IntRect(1*32, 14*32, 32, 32));
+  anim_Joueur->degatD.addFrame(sf::IntRect(2*32, 14*32, 32, 32));
+  anim_Joueur->degatD.addFrame(sf::IntRect(3*32, 14*32, 32, 32));
+  anim_Joueur->degatD.addFrame(sf::IntRect(0*32, 14*32, 32, 32));
+
+  anim_Joueur->mortD.setSpriteSheet(tHero[0]);
+  anim_Joueur->mortD.addFrame(sf::IntRect(1*32, 15*32, 32, 32));
+  anim_Joueur->mortD.addFrame(sf::IntRect(2*32, 15*32, 32, 32));
+  anim_Joueur->mortD.addFrame(sf::IntRect(3*32, 15*32, 32, 32));
+  anim_Joueur->mortD.addFrame(sf::IntRect(4*32, 15*32, 32, 32));
+  anim_Joueur->mortD.addFrame(sf::IntRect(5*32, 15*32, 32, 32));
+  anim_Joueur->mortD.addFrame(sf::IntRect(6*32, 15*32, 32, 32));
 
     //Animation Ennemi
-  anim_Ennemie->idle.setSpriteSheet(texture);
-  anim_Ennemie->idle.addFrame(sf::IntRect(32, 0, 32, 32));
-  anim_Ennemie->idle.addFrame(sf::IntRect(64, 0, 32, 32));
-  anim_Ennemie->idle.addFrame(sf::IntRect(32, 0, 32, 32));
-  anim_Ennemie->idle.addFrame(sf::IntRect( 0, 0, 32, 32));
+  anim_Ennemie->idle.setSpriteSheet(tEnnemi[1]);
+  anim_Ennemie->idle.addFrame(sf::IntRect(*32, 0*32, 32, 32));
+  anim_Ennemie->idle.addFrame(sf::IntRect(*32, 0*32, 32, 32));
+  anim_Ennemie->idle.addFrame(sf::IntRect(*32, 0*32, 32, 32));
+  anim_Ennemie->idle.addFrame(sf::IntRect(0*32, 0*32, 32, 32));
+
+  anim_Ennemie->haut.setSpriteSheet(texture);
+  anim_Ennemie->haut.addFrame(sf::IntRect(*32, 0*32, 32, 32));
+  anim_Ennemie->haut.addFrame(sf::IntRect(*32, 0*32, 32, 32));
+  anim_Ennemie->haut.addFrame(sf::IntRect(*32, 0*32, 32, 32));
+  anim_Ennemie->haut.addFrame(sf::IntRect(0*32, 0*32, 32, 32));
+
+  anim_Ennemie->bas.setSpriteSheet(texture);
+  anim_Ennemie->bas.addFrame(sf::IntRect(*32, 0*32, 32, 32));
+  anim_Ennemie->bas.addFrame(sf::IntRect(*32, 0*32, 32, 32));
+  anim_Ennemie->bas.addFrame(sf::IntRect(*32, 0*32, 32, 32));
+  anim_Ennemie->bas.addFrame(sf::IntRect(0*32, 0*32, 32, 32));
+
+  anim_Ennemie->gauche.setSpriteSheet(texture);
+  anim_Ennemie->gauche.addFrame(sf::IntRect(*32, 0*32, 32, 32));
+  anim_Ennemie->gauche.addFrame(sf::IntRect(*32, 0*32, 32, 32));
+  anim_Ennemie->gauche.addFrame(sf::IntRect(*32, 0*32, 32, 32));
+  anim_Ennemie->gauche.addFrame(sf::IntRect(0*32, 0*32, 32, 32));
+
+  anim_Ennemie->droite.setSpriteSheet(texture);
+  anim_Ennemie->droite.addFrame(sf::IntRect(*32, 0*32, 32, 32));
+  anim_Ennemie->droite.addFrame(sf::IntRect(*32, 0*32, 32, 32));
+  anim_Ennemie->droite.addFrame(sf::IntRect(*32, 0*32, 32, 32));
+  anim_Ennemie->droite.addFrame(sf::IntRect(0*32, 0*32, 32, 32));
 }
 
   ~Contents() {
