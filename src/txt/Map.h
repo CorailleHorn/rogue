@@ -29,26 +29,32 @@ public:
   void initLinks();
 
   void choisirRoomLink(int const ID);
-	bool const isRoomLinked(int ID1, int ID2);
-	void ajouterLinks();
+  bool const isRoomLinked(int ID1, int ID2);
+  void ajouterLinks();
 
-	void genCorridors();
-	void ajouterCorridors();
-	bool const isPointInCorridor(int const &X, int const &Y, int const &ID);
-    bool const isPointInRoom(int const &X, int const &Y, std::string param);
+  void genCorridors();
+  void ajouterCorridorsTXT();
+  void ajouterCorridorsSimpleSFML();
+  void ajouterCorridorsSFML();
+  bool const isPointInCorridor(int const &X, int const &Y, int const &ID);
+  bool const isPointInRoom(int const &X, int const &Y, std::string param);
 
   bool const allRoomsCollisions(unsigned int const ID);
   float* moyenneRooms(float mean[]);
 
-  void ajouterRooms();
+  void ajouterRoomsTXT();
+  void ajouterRoomsSFML();
   void updateRooms();
 
   int newPosHero();
   int update();
   bool position_valide(const int &x, const int &y);
 
+
+
   void viderMap();
-  void afficherMap();
+  void afficherMapTXT();
+  void afficherMapSFML();
 
   void afficherTout();
 private:

@@ -7,7 +7,7 @@ using namespace std;
 int main(int argc, char *argv[])
 {
 	//on peut écrire la seed manuellement (utile en debug)
-	//int seed = 1588001361;
+	//int const seed = 1588031441;
 	// ... ou la générer avec time(NULL)
 	int const seed = time(NULL);
 	srand(seed);
