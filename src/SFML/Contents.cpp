@@ -6,6 +6,7 @@ using namespace sf;
 
   Contents() {
 
+      //New
   tJeu = new Texture;
   for (int i = 0; i < 3; i++)
     tHero[i] = new Texture;
@@ -14,6 +15,8 @@ using namespace sf;
   for (int i = 0; i < 8; i++)
     sJeu[i] = new SoundBuffer;
   font = new Font;
+  anim_Joueur = new AnimPerso;
+  anim_Ennemie = new AnimPerso;
 
       //Image
   if (!tJeu->loadFromFile("../data/img/Dungeon_Tileset.png"))
@@ -63,7 +66,19 @@ using namespace sf;
   if (!font->loadFromFile("../data/ttf/Silver.ttf"))
     cerr << "Ton font charges pas batard" << '\n';
 
-  return 1;
+      //Animation Joueur
+  anim_Joueur->idle.setSpriteSheet(texture);
+  anim_Joueur->idle.addFrame(sf::IntRect(32, 0, 32, 32));
+  anim_Joueur->idle.addFrame(sf::IntRect(64, 0, 32, 32));
+  anim_Joueur->idle.addFrame(sf::IntRect(32, 0, 32, 32));
+  anim_Joueur->idle.addFrame(sf::IntRect( 0, 0, 32, 32));
+
+    //Animation Ennemi
+  anim_Ennemie->idle.setSpriteSheet(texture);
+  anim_Ennemie->idle.addFrame(sf::IntRect(32, 0, 32, 32));
+  anim_Ennemie->idle.addFrame(sf::IntRect(64, 0, 32, 32));
+  anim_Ennemie->idle.addFrame(sf::IntRect(32, 0, 32, 32));
+  anim_Ennemie->idle.addFrame(sf::IntRect( 0, 0, 32, 32));
 }
 
   ~Contents() {
@@ -75,7 +90,8 @@ using namespace sf;
   for (int i = 0; i < 8; i++)
     delete sJeu[i];
   delete font;
-  return 1;
+  delete anim_Joueur;
+  delete anim_Ennemie;
 }
 
 
