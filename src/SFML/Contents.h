@@ -17,7 +17,7 @@ class Contents {
   private:
     sf::Texture* tJeu;
     sf::Texture* tHero[3];
-    sf::Texture* tEnnemi[6];
+    sf::Texture* tEnnemi[5];
     sf::SoundBuffer* sJeu[8];
     sf::Font* font;
     AnimPerso* anim_Joueur;

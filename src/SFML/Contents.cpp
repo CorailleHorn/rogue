@@ -29,17 +29,15 @@ using namespace sf;
   if (!tHero[2]->loadFromFile("../data/img/health_bar/health_bar.png"))
     cerr << "Ton image charges pas batard" << '\n';
 
-  if (!tEnnemi[0]->loadFromFile("../data/img/Skeleton/Sprite_Sheets/Skeleton_React.png"))
+  if (!tEnnemi[0]->loadFromFile("../data/img/Skeleton/Sprite_Sheets/Skeleton_Idle.png"))
     cerr << "Ton image charges pas batard" << '\n';
-  if (!tEnnemi[1]->loadFromFile("../data/img/Skeleton/Sprite_Sheets/Skeleton_Idle.png"))
+  if (!tEnnemi[1]->loadFromFile("../data/img/Skeleton/Sprite_Sheets/Skeleton_Walk.png"))
     cerr << "Ton image charges pas batard" << '\n';
-  if (!tEnnemi[2]->loadFromFile("../data/img/Skeleton/Sprite_Sheets/Skeleton_Walk.png"))
+  if (!tEnnemi[2]->loadFromFile("../data/img/Skeleton/Sprite_Sheets/Skeleton_Attack.png"))
     cerr << "Ton image charges pas batard" << '\n';
-  if (!tEnnemi[3]->loadFromFile("../data/img/Skeleton/Sprite_Sheets/Skeleton_Attack.png"))
+  if (!tEnnemi[3]->loadFromFile("../data/img/Skeleton/Sprite_Sheets/Skeleton_Hit.png"))
     cerr << "Ton image charges pas batard" << '\n';
-  if (!tEnnemi[4]->loadFromFile("../data/img/Skeleton/Sprite_Sheets/Skeleton_Hit.png"))
-    cerr << "Ton image charges pas batard" << '\n';
-  if (!tEnnemi[5]->loadFromFile("../data/img/Skeleton/Sprite_Sheets/Skeleton_Dead.png"))
+  if (!tEnnemi[4]->loadFromFile("../data/img/Skeleton/Sprite_Sheets/Skeleton_Dead.png"))
     cerr << "Ton image charges pas batard" << '\n';
 
       //Son
@@ -157,35 +155,51 @@ using namespace sf;
   anim_Joueur->mortD.addFrame(sf::IntRect(6*32, 15*32, 32, 32));
 
     //Animation Ennemi
-  anim_Ennemie->idle.setSpriteSheet(tEnnemi[1]);
-  anim_Ennemie->idle.addFrame(sf::IntRect(*32, 0*32, 32, 32));
-  anim_Ennemie->idle.addFrame(sf::IntRect(*32, 0*32, 32, 32));
-  anim_Ennemie->idle.addFrame(sf::IntRect(*32, 0*32, 32, 32));
-  anim_Ennemie->idle.addFrame(sf::IntRect(0*32, 0*32, 32, 32));
+  anim_Ennemie->idleG.setSpriteSheet(tEnnemi[0]);
+  anim_Ennemie->idleG.addFrame(sf::IntRect(0*32, 0, 22, 32));
+  anim_Ennemie->idleG.addFrame(sf::IntRect(1*32, 0, 22, 32));
+  anim_Ennemie->idleG.addFrame(sf::IntRect(2*32, 0, 22, 32));
+  anim_Ennemie->idleG.addFrame(sf::IntRect(3*32, 0, 22, 32));
+  anim_Ennemie->idleG.addFrame(sf::IntRect(4*32, 0, 22, 32));
+  anim_Ennemie->idleG.addFrame(sf::IntRect(5*32, 0, 22, 32));
+  anim_Ennemie->idleG.addFrame(sf::IntRect(6*32, 0, 22, 32));
+  anim_Ennemie->idleG.addFrame(sf::IntRect(7*32, 0, 22, 32));
+  anim_Ennemie->idleG.addFrame(sf::IntRect(8*32, 0, 22, 32));
+  anim_Ennemie->idleG.addFrame(sf::IntRect(9*32, 0, 22, 32));
+  anim_Ennemie->idleG.addFrame(sf::IntRect(10*32, 0, 22, 32));
 
-  anim_Ennemie->haut.setSpriteSheet(texture);
-  anim_Ennemie->haut.addFrame(sf::IntRect(*32, 0*32, 32, 32));
-  anim_Ennemie->haut.addFrame(sf::IntRect(*32, 0*32, 32, 32));
-  anim_Ennemie->haut.addFrame(sf::IntRect(*32, 0*32, 32, 32));
-  anim_Ennemie->haut.addFrame(sf::IntRect(0*32, 0*32, 32, 32));
+  anim_Ennemie->walkG.setSpriteSheet(tEnnemi[1]);
+  anim_Ennemie->walkG.addFrame(sf::IntRect(0*32, 0, 22, 32));
+  anim_Ennemie->walkG.addFrame(sf::IntRect(1*32, 0, 22, 32));
+  anim_Ennemie->walkG.addFrame(sf::IntRect(2*32, 0, 22, 32));
+  anim_Ennemie->walkG.addFrame(sf::IntRect(3*32, 0, 22, 32));
+  anim_Ennemie->walkG.addFrame(sf::IntRect(4*32, 0, 22, 32));
+  anim_Ennemie->walkG.addFrame(sf::IntRect(5*32, 0, 22, 32));
+  anim_Ennemie->walkG.addFrame(sf::IntRect(6*32, 0, 22, 32));
+  anim_Ennemie->walkG.addFrame(sf::IntRect(7*32, 0, 22, 32));
+  anim_Ennemie->walkG.addFrame(sf::IntRect(8*32, 0, 22, 32));
+  anim_Ennemie->walkG.addFrame(sf::IntRect(9*32, 0, 22, 32));
+  anim_Ennemie->walkG.addFrame(sf::IntRect(10*32, 0, 22, 32));
+  anim_Ennemie->walkG.addFrame(sf::IntRect(11*32, 0, 22, 32));
+  anim_Ennemie->walkG.addFrame(sf::IntRect(12*32, 0, 22, 32));
 
   anim_Ennemie->bas.setSpriteSheet(texture);
-  anim_Ennemie->bas.addFrame(sf::IntRect(*32, 0*32, 32, 32));
-  anim_Ennemie->bas.addFrame(sf::IntRect(*32, 0*32, 32, 32));
-  anim_Ennemie->bas.addFrame(sf::IntRect(*32, 0*32, 32, 32));
-  anim_Ennemie->bas.addFrame(sf::IntRect(0*32, 0*32, 32, 32));
+  anim_Ennemie->bas.addFrame(sf::IntRect(*32, 0, 22, 32));
+  anim_Ennemie->bas.addFrame(sf::IntRect(*32, 0, 22, 32));
+  anim_Ennemie->bas.addFrame(sf::IntRect(*32, 0, 22, 32));
+  anim_Ennemie->bas.addFrame(sf::IntRect(*32, 0, 22, 32));
 
   anim_Ennemie->gauche.setSpriteSheet(texture);
-  anim_Ennemie->gauche.addFrame(sf::IntRect(*32, 0*32, 32, 32));
-  anim_Ennemie->gauche.addFrame(sf::IntRect(*32, 0*32, 32, 32));
-  anim_Ennemie->gauche.addFrame(sf::IntRect(*32, 0*32, 32, 32));
-  anim_Ennemie->gauche.addFrame(sf::IntRect(0*32, 0*32, 32, 32));
+  anim_Ennemie->gauche.addFrame(sf::IntRect(*32, 0, 22, 32));
+  anim_Ennemie->gauche.addFrame(sf::IntRect(*32, 0, 22, 32));
+  anim_Ennemie->gauche.addFrame(sf::IntRect(*32, 0, 22, 32));
+  anim_Ennemie->gauche.addFrame(sf::IntRect(*32, 0, 22, 32));
 
   anim_Ennemie->droite.setSpriteSheet(texture);
-  anim_Ennemie->droite.addFrame(sf::IntRect(*32, 0*32, 32, 32));
-  anim_Ennemie->droite.addFrame(sf::IntRect(*32, 0*32, 32, 32));
-  anim_Ennemie->droite.addFrame(sf::IntRect(*32, 0*32, 32, 32));
-  anim_Ennemie->droite.addFrame(sf::IntRect(0*32, 0*32, 32, 32));
+  anim_Ennemie->droite.addFrame(sf::IntRect(*32, 0, 22, 32));
+  anim_Ennemie->droite.addFrame(sf::IntRect(*32, 0, 22, 32));
+  anim_Ennemie->droite.addFrame(sf::IntRect(*32, 0, 22, 32));
+  anim_Ennemie->droite.addFrame(sf::IntRect(*32, 0, 22, 32));
 }
 
   ~Contents() {
