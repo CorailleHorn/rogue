@@ -3,7 +3,7 @@ all :  bin/SFML_jeu
 		#SFMLJeu
 
 bin/SFML_jeu : obj/SFMLmain.o obj/SFMLJeu.o obj/SFMLMap.o obj/SFMLRoom.o obj/SFMLPersonnages.o
-	g++ -Wall -ggdb obj/SFMLmain.o obj/SFMLJeu.o obj/SFMLMap.o obj/SFMLRoom.o obj/SFMLPersonnages.o -o bin/SFML_jeu
+	g++ -Wall -ggdb obj/SFMLmain.o obj/SFMLJeu.o obj/SFMLMap.o obj/SFMLRoom.o obj/SFMLPersonnages.o -o bin/SFML_jeu -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio
 
 obj/SFMLmain.o : src/SFML/main.cpp src/SFML/SFMLJeu.h src/SFML/Map.h src/SFML/Room.h src/SFML/Personnages.h
 	g++ -Wall -ggdb	-c src/SFML/main.cpp -o obj/SFMLmain.o
