@@ -8,5 +8,6 @@
 
 void Boucle(Hero *h);
 void Detruit(Map *m);
+int ajoutTexture(Sprite* tab[100][100]);
 
 #endif

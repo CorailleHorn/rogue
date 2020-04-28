@@ -45,7 +45,7 @@ void Detruit(Map *m){
 
 int ajoutTexture(Sprite* tab[100][100]){
 
-    Contents content = new Contents;
+    Contents* content = new Contents;
 
     for (int i = 0; i < 100; i++){
 
