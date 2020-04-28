@@ -29,10 +29,6 @@ class Personnage {
 		int getY() const;
 		sf::Sprite *getSprite() const;
 	protected:
-		virtual void animHaut();
-		virtual void animBas();
-		virtual void animGauche();
-		virtual void animDroite();
 		int atk, def, pv, lv, x, y;
 		sf::Sprite *sprite;
 };

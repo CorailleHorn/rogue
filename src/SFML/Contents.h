@@ -4,16 +4,32 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
+#include "AnimationSprite.h"
 
-struct Contents {
-  sf::Texture *tJeu;
-  sf::Texture *tHero[3];
-  sf::Texture *tEnnemi[6];
-  sf::SoundBuffer *sJeu[8];
-  sf::Font *font;
+class Contents {
+  public:
+    Contents();
+    ~Contents();
+
+    AnimationSprite* getJ_anim(char d);
+    AnimationSprite* getE_anim(char d);
+
+  private:
+    sf::Texture *tJeu;
+    sf::Texture *tHero[3];
+    sf::Texture *tEnnemi[6];
+    sf::SoundBuffer *sJeu[8];
+    sf::Font *font;
+    AnimPerso joueur;
+    AnimPerso ennemie;
 };
 
-int InitContents(Contents* c);
-int DeleteContents(Contents* c);
+struct AnimPerso {
+  AnimationSprite IDLE;
+  AnimationSprite Haut;
+  AnimationSprite Bas;
+  AnimationSprite Gauche;
+  AnimationSprite Droite;
+}
 
 #endif
