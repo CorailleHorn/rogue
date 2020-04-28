@@ -86,8 +86,13 @@ int main(int argc, char const *argv[]) {
   ok = InitContents(c);
 
   Texture perso;
-  Sprite sprite_perso;
+  Sprite sprite_hero;
+  Sprite sprite_room;
+  Sprite sprite_corridor;
+  Sprite sprite_ennemi;
+  Sprite sprite_room;
   Window window;
+  Font font;
 
   sprite_perso.setTexture(perso);
 
@@ -119,7 +124,7 @@ int main(int argc, char const *argv[]) {
           }
 
       }
-      window.draw(sprite_perso);
+      window.draw(sprite_hero);
       window.display();
       window.clear();
   }
@@ -127,7 +132,7 @@ int main(int argc, char const *argv[]) {
 
   ok = DeleteContents(c);
   delete c;
-  c =NULL;
+  c = NULL;
 
   return 0;
 }
