@@ -5,8 +5,6 @@
 #include <unistd.h>
 #include <math.h>
 #include <assert.h>
-#include <SFML/Graphics.hpp>
-#include <SFML/Audio.hpp>
 
 class Personnage {
 	public:
@@ -26,14 +24,10 @@ class Personnage {
 		int getLv() const;
 		int getX() const;
 		int getY() const;
-		sf::Texture *getSprite() const;
+		char getSprite() const;
 	protected:
-		virtual void animHaut();
-		virtual void animBas();
-		virtual void animGauche();
-		virtual void animDroite();
 		int atk, def, pv, lv, x, y;
-		sf::Sprite *sprite;
+		char sprite;
 };
 
 
@@ -47,6 +41,7 @@ class Hero : public Personnage {
 		std::string getName() const;
 	protected:
 		std::string name;
+		char touche;
 };
 
 
