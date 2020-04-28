@@ -27,7 +27,7 @@ class Personnage {
 		int getLv() const;
 		int getX() const;
 		int getY() const;
-		sf::Texture *getSprite() const;
+		sf::Sprite *getSprite() const;
 	protected:
 		virtual void animHaut();
 		virtual void animBas();
