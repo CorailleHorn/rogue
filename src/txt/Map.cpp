@@ -619,7 +619,7 @@ void Map::ajouterCorridorsSFML() {
     //version d'affichage graphique en SFML
     int x,y;
     for(int i = 0; i < (int)list_corridor.size(); i++) {
-        
+
         x = list_corridor[i].layer[0].first;
         y = list_corridor[i].layer[0].second;
 
