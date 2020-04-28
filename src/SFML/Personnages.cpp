@@ -80,7 +80,7 @@ using namespace sf;
 		return y;
 	}
 
-	char Personnage::getSprite() const {
+	sf::Texture* Personnage::getSprite() const {
 		return sprite;
 	}
 
