@@ -868,8 +868,8 @@ void Map::updateRooms() {
   return 0;
 }*/
 
-bool Map::position_valide(const int &x, const int &y) {
-  return !ptr_map[x][y];
+int Map::position_valide(const int &x, const int &y) {
+  return ptr_map[x][y];
 }
 
 void Map::viderMap() {
@@ -905,7 +905,7 @@ void Map::afficherMapSFML() {
         for (int j = 0; j < map_size; j++) {
             if (ptr_map[j][i] == 0) cout <<"  ";
             else if (ptr_map[j][i] == 10) cout << 10;
-            else cout <<" " << ptr_map[j][i];
+            else cout << " " << ptr_map[j][i];
         }
         cout << endl;
     }

@@ -15,7 +15,7 @@ class Map {
 public:
   Map(int const& size, int const& nb, int const& radius, int const& room_max_size,
       int const& room_min_size);
-  Map(Hero *h);
+  //Map(Hero *h);
   Map();
   ~Map();
 
@@ -48,7 +48,7 @@ public:
 
   int newPosHero();
   int update();
-  bool position_valide(const int &x, const int &y);
+  int position_valide(const int &x, const int &y);
 
 
 

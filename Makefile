@@ -1,4 +1,4 @@
-all :  bin/txt_jeu
+all :  bin/SFML_jeu
 
 		#SFMLJeu
 
@@ -26,13 +26,13 @@ obj/SFMLRoom.o : src/SFML/Room.cpp src/SFML/Room.h
 #bin/txt_regression : obj/mainRegressionP.o obj/Personnages.o
 #	g++ -Wall -ggdb obj/mainRegressionP.o obj/Personnages.o -o bin/txt_regression
 
-bin/txt_jeu : obj/txtmain.o obj/txttxtJeu.o obj/txtMap.o obj/txtRoom.o obj/txtPersonnages.o
+bin/txt_jeu : obj/txtmain.o obj/txtJeu.o obj/txtMap.o obj/txtRoom.o obj/txtPersonnages.o
 	g++ -Wall -ggdb obj/txtmain.o obj/txtJeu.o obj/txtMap.o obj/txtRoom.o obj/txtPersonnages.o -o bin/txt_jeu
 
 #bin/exec_gen_test : obj/RegressionGeneration.o obj/Room.o obj/Map.o obj/Personnages.o
 #	g++ -Wall -ggdb obj/RegressionGeneration.o obj/Room.o obj/Map.o -o bin/exec_gen_test
 
-obj/main.o : src/txt/main.cpp src/txt/txtJeu.h src/txt/Map.h src/txt/Room.h src/txt/Personnages.h
+obj/txtmain.o : src/txt/main.cpp src/txt/txtJeu.h src/txt/Map.h src/txt/Room.h src/txt/Personnages.h
 	g++ -Wall -ggdb	-c src/txt/main.cpp -o obj/txtmain.o
 
 #obj/RegressionGeneration.o : src/txt/RegressionGeneration.cpp src/txt/Map.h src/txt/Personnages.h src/txt/Room.h
