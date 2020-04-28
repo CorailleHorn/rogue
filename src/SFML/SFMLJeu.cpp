@@ -45,64 +45,37 @@ void Detruit(Map *m){
 
 int ajoutTexture(Sprite* tab[100][100]){
 
-    Contents content = new Contents;
+    Contents* content = new Contents;
 
-    for (int i = 0; i < 100; i++){
+    for (int x = 0; x < 100; x++){
 
-        for (int j = 0; < 100; j++){
+        for (int y = 0; y < 100; y++){
 
-            int type = position_valide(i, j);
-
-            if (type == 0){
-                tab[i][j] = new Sprite;
-                sprite.setTexture(content->tJeu);
-                sprite.setTextureRect(intRect(sprite.x*32, sprite.y*32, 32, 32));
-            }
-            else if (type == 1){
-                tab[i][j] = new Sprite;
-                sprite.setTexture(content->tJeu);
-                sprite.setTextureRect(intRect(sprite.x*32, sprite.y*32, 32, 32));
-            }
-            else if (type == 2){
-                tab[i][j] = new Sprite;
-                sprite.setTexture(content->tJeu);
-                sprite.setTextureRect(intRect(sprite.x*32, sprite.y*32, 32, 32));
-            }
-            else if (type == 3){
-                tab[i][j] = new Sprite;
-                sprite.setTexture(content->tJeu);
-                sprite.setTextureRect(intRect(sprite.x*32, sprite.y*32, 32, 32));
-            }
-            else if (type == 4){
-                tab[i][j] = new Sprite;
-                sprite.setTexture(content->tJeu);
-                sprite.setTextureRect(intRect(sprite.x*32, sprite.y*32, 32, 32));
-            }
-            else if (type == 5){
-                tab[i][j] = new Sprite;
-                sprite.setTexture(content->tJeu);
-                sprite.setTextureRect(intRect(sprite.x*32, sprite.y*32, 32, 32));
-            }
-            else if (type == 6){
-                tab[i][j] = new Sprite;
-                sprite.setTexture(content->tJeu);
-                sprite.setTextureRect(intRect(sprite.x*32, sprite.y*32, 32, 32));
-            }
-            else if (type == 7){
-                tab[i][j] = new Sprite;
-                sprite.setTexture(content->tJeu);
-                sprite.setTextureRect(intRect(sprite.x*32, sprite.y*32, 32, 32));
-            }
-            else if (type == 8){
-                tab[i][j] = new Sprite;
-                sprite.setTexture(content->tJeu);
-                sprite.setTextureRect(intRect(sprite.x*32, sprite.y*32, 32, 32));
-            }
-            else if (type == 9){
-                tab[i][j] = new Sprite;
-                sprite.setTexture(content->tJeu);
-                sprite.setTextureRect(intRect(sprite.x*32, sprite.y*32, 32, 32));
-            }
+            int type = position_valide(x, y);
+            tab[x][y] = new Sprite;
+            sprite.setTexture(content->tJeu);
+            if (type == 0)
+                sprite.setTextureRect(intRect(32, 32, 32, 32));
+            else if (type == 1)
+                sprite.setTextureRect(intRect(32, 32, 32, 32));
+            else if (type == 2)
+                sprite.setTextureRect(intRect(32, 32, 32, 32));
+            else if (type == 3)
+                sprite.setTextureRect(intRect(32, 32, 32, 32));
+            else if (type == 4)
+                sprite.setTextureRect(intRect(32, 32, 32, 32));
+            else if (type == 5)
+                sprite.setTextureRect(intRect(32, 32, 32, 32));
+            else if (type == 6)
+                sprite.setTextureRect(intRect(32, 32, 32, 32));
+            else if (type == 7)
+                sprite.setTextureRect(intRect(32, 32, 32, 32));
+            else if (type == 8)
+                sprite.setTextureRect(intRect(32, 32, 32, 32));
+            else if (type == 9)
+                sprite.setTextureRect(intRect(32, 32, 32, 32));
+            else if (type == 10)
+                sprite.setTextureRect(intRect(32, 32, 32, 32));
         }
     }
     return 0;

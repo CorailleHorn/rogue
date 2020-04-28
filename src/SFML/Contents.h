@@ -15,21 +15,21 @@ class Contents {
     AnimationSprite* getE_anim(char d);
 
   private:
-    sf::Texture *tJeu;
-    sf::Texture *tHero[3];
-    sf::Texture *tEnnemi[6];
-    sf::SoundBuffer *sJeu[8];
-    sf::Font *font;
-    AnimPerso joueur;
-    AnimPerso ennemie;
+    sf::Texture* tJeu;
+    sf::Texture* tHero[3];
+    sf::Texture* tEnnemi[6];
+    sf::SoundBuffer* sJeu[8];
+    sf::Font* font;
+    AnimPerso* anim_Joueur;
+    AnimPerso* anim_Ennemie;
 };
 
 struct AnimPerso {
-  AnimationSprite IDLE;
-  AnimationSprite Haut;
-  AnimationSprite Bas;
-  AnimationSprite Gauche;
-  AnimationSprite Droite;
+  AnimationSprite idle;
+  AnimationSprite haut;
+  AnimationSprite bas;
+  AnimationSprite gauche;
+  AnimationSprite droite;
 }
 
 #endif

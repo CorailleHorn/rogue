@@ -8,6 +8,7 @@ using namespace sf;
 
 	Personnage::Personnage() { //Constructeur pour un personnage
 		atk = def = pv = lv = x = y = 1;
+		sprite = new AnimationSprite;
 	}
 
 	Personnage::~Personnage() {}//Destructeur de personnage
@@ -80,7 +81,7 @@ using namespace sf;
 		return y;
 	}
 
-	sf::Sprite* Personnage::getSprite() const {
+	AnimationSprite* Personnage::getSprite() const {
 		return sprite;
 	}
 
@@ -88,14 +89,14 @@ using namespace sf;
 		atk = def = pv = 10;
 		lv = x = y = 1;
     name = "";
-		sprite = new Sprite;
+		sprite = new AnimationSprite;
 	}
 
 	Hero::Hero(string sname) { //Constructeur avec le nom du héro
 		atk = def = pv = 10;
 		lv = x = y = 1;
 		name = sname;
-		sprite = new Sprite;
+		sprite = new AnimationSprite;
 	}
 
 	Hero::~Hero() {} //Destructeur du héro
@@ -264,7 +265,7 @@ using namespace sf;
 		}
 		x = 1;
 		y = 2;
-		sprite = new Sprite;
+		sprite = new AnimationSprite;
 	}
 
 	Ennemi::~Ennemi() {}
