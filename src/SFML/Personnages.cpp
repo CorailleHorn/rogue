@@ -4,6 +4,7 @@
 #include <math.h>
 
 using namespace std;
+using namespace sf;
 
 	Personnage::Personnage() { //Constructeur pour un personnage
 		atk = def = pv = lv = x = y = 1;
@@ -86,15 +87,15 @@ using namespace std;
 	Hero::Hero() { //Constructeur du héro
 		atk = def = pv = 10;
 		lv = x = y = 1;
-		sprite = 'H';
     name = "";
+		sprite = new Sprite;
 	}
 
 	Hero::Hero(string sname) { //Constructeur avec le nom du héro
 		atk = def = pv = 10;
 		lv = x = y = 1;
-		sprite = 'H';
 		name = sname;
+		sprite = new Sprite;
 	}
 
 	Hero::~Hero() {} //Destructeur du héro
@@ -263,7 +264,7 @@ using namespace std;
 		}
 		x = 1;
 		y = 2;
-		sprite = 'E';
+		sprite = new Sprite;
 	}
 
 	Ennemi::~Ennemi() {}
