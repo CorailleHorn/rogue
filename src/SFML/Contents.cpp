@@ -65,6 +65,7 @@ int InitContents(Contents* c) {
   return 1;
 }
 
+
 int DeleteContents(Contents* c) {
   delete c->tJeu;
   for (int i = 0; i < 3; i++)
@@ -77,12 +78,56 @@ int DeleteContents(Contents* c) {
   return 1;
 }
 
+
+
 int main(int argc, char const *argv[]) {
   Contents *c = new Contents;
   int ok = 1;
   ok = InitContents(c);
+
+  Texture perso;
+  Sprite sprite_perso;
+  Window window;
+
+  sprite_perso.setTexture(perso);
+
+  window.create(VideoMode(1000, 1000), "Rogue");
+  window.setFramerateLimit(60);
+
+  while(window.isOpen()){
+      Event event;
+      while(window.pollEvent(event)){
+
+          if(event.type == Event::Closed){
+              window.close();
+          }
+
+          if(Keyboard::isKeyPressed(Keyboard::Z){
+
+          }
+
+          if(Keyboard::isKeyPressed(Keyboard::Q){
+
+          }
+
+          if(Keyboard::isKeyPressed(Keyboard::S){
+
+          }
+
+          if(Keyboard::isKeyPressed(Keyboard::D){
+
+          }
+
+      }
+      window.draw(sprite_perso);
+      window.display();
+      window.clear();
+  }
+
+
   ok = DeleteContents(c);
   delete c;
   c =NULL;
+
   return 0;
 }

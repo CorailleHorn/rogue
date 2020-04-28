@@ -1,4 +1,4 @@
-#include "Jeu.h"
+#include "SFMLJeu.h"
 
 using namespace std;
 
