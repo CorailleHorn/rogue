@@ -6,13 +6,26 @@
 #include <SFML/Audio.hpp>
 #include "AnimationSprite.h"
 
+struct AnimPerso {
+  Animation idleG;
+  Animation walkG;
+  Animation atkG;
+  Animation degatG;
+  Animation mortG;
+  Animation idleD;
+  Animation walkD;
+  Animation atkD;
+  Animation degatD;
+  Animation mortD;
+};
+
 class Contents {
   public:
     Contents();
     ~Contents();
 
-    AnimationSprite* getJ_anim(char d);
-    AnimationSprite* getE_anim(char d);
+    Animation* getJ_anim(char d);
+    Animation* getE_anim(char d);
 
   private:
     sf::Texture* tJeu;
@@ -23,13 +36,5 @@ class Contents {
     AnimPerso* anim_Joueur;
     AnimPerso* anim_Ennemie;
 };
-
-struct AnimPerso {
-  AnimationSprite idle;
-  AnimationSprite haut;
-  AnimationSprite bas;
-  AnimationSprite gauche;
-  AnimationSprite droite;
-}
 
 #endif

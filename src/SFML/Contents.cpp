@@ -1,10 +1,9 @@
 #include "Contents.h"
-#include "SFMLJeu.h"
 
 using namespace std;
 using namespace sf;
 
-  Contents() {
+  Contents::Contents() {
 
       //New
   tJeu = new Texture;
@@ -65,7 +64,7 @@ using namespace sf;
     cerr << "Ton font charges pas batard" << '\n';
 
       //Animation Joueur Gauche
-  anim_Joueur->idleG.setSpriteSheet(tHero[0]);
+  anim_Joueur->idleG.setSpriteSheet(*tHero[0]);
   anim_Joueur->idleG.addFrame(sf::IntRect(2*32, 0, 32, 32));
   anim_Joueur->idleG.addFrame(sf::IntRect(3*32, 0, 32, 32));
   anim_Joueur->idleG.addFrame(sf::IntRect(4*32, 0, 32, 32));
@@ -80,7 +79,7 @@ using namespace sf;
   anim_Joueur->idleG.addFrame(sf::IntRect(0*32, 0, 32, 32));
   anim_Joueur->idleG.addFrame(sf::IntRect(1*32, 0, 32, 32));
 
-  anim_Joueur->walkG.setSpriteSheet(tHero[0]);
+  anim_Joueur->walkG.setSpriteSheet(*tHero[0]);
   anim_Joueur->walkG.addFrame(sf::IntRect(0*32, 1*32, 32, 32));
   anim_Joueur->walkG.addFrame(sf::IntRect(1*32, 1*32, 32, 32));
   anim_Joueur->walkG.addFrame(sf::IntRect(2*32, 1*32, 32, 32));
@@ -90,18 +89,18 @@ using namespace sf;
   anim_Joueur->walkG.addFrame(sf::IntRect(6*32, 1*32, 32, 32));
   anim_Joueur->walkG.addFrame(sf::IntRect(7*32, 1*32, 32, 32));
 
-  anim_Joueur->atkG.setSpriteSheet(tHero[0]);
+  anim_Joueur->atkG.setSpriteSheet(*tHero[0]);
   anim_Joueur->atkG.addFrame(sf::IntRect(0*32, 4*32, 32, 32));
   anim_Joueur->atkG.addFrame(sf::IntRect(1*32, 4*32, 32, 32));
   anim_Joueur->atkG.addFrame(sf::IntRect(2*32, 4*32, 32, 32));
 
-  anim_Joueur->degatG.setSpriteSheet(tHero[0]);
+  anim_Joueur->degatG.setSpriteSheet(*tHero[0]);
   anim_Joueur->degatG.addFrame(sf::IntRect(1*32, 6*32, 32, 32));
   anim_Joueur->degatG.addFrame(sf::IntRect(2*32, 6*32, 32, 32));
   anim_Joueur->degatG.addFrame(sf::IntRect(3*32, 6*32, 32, 32));
   anim_Joueur->degatG.addFrame(sf::IntRect(0*32, 6*32, 32, 32));
 
-  anim_Joueur->mortG.setSpriteSheet(tHero[0]);
+  anim_Joueur->mortG.setSpriteSheet(*tHero[0]);
   anim_Joueur->mortG.addFrame(sf::IntRect(1*32, 7*32, 32, 32));
   anim_Joueur->mortG.addFrame(sf::IntRect(2*32, 7*32, 32, 32));
   anim_Joueur->mortG.addFrame(sf::IntRect(3*32, 7*32, 32, 32));
@@ -110,7 +109,7 @@ using namespace sf;
   anim_Joueur->mortG.addFrame(sf::IntRect(6*32, 7*32, 32, 32));
 
     //Animation Joueur Droit
-  anim_Joueur->idleD.setSpriteSheet(tHero[0]);
+  anim_Joueur->idleD.setSpriteSheet(*tHero[0]);
   anim_Joueur->idleD.addFrame(sf::IntRect(2*32, 8*32, 32, 32));
   anim_Joueur->idleD.addFrame(sf::IntRect(3*32, 8*32, 32, 32));
   anim_Joueur->idleD.addFrame(sf::IntRect(4*32, 8*32, 32, 32));
@@ -125,7 +124,7 @@ using namespace sf;
   anim_Joueur->idleD.addFrame(sf::IntRect(0*32, 8*32, 32, 32));
   anim_Joueur->idleD.addFrame(sf::IntRect(1*32, 8*32, 32, 32));
 
-  anim_Joueur->walkD.setSpriteSheet(tHero[0]);
+  anim_Joueur->walkD.setSpriteSheet(*tHero[0]);
   anim_Joueur->walkD.addFrame(sf::IntRect(0*32, 9*32, 32, 32));
   anim_Joueur->walkD.addFrame(sf::IntRect(1*32, 9*32, 32, 32));
   anim_Joueur->walkD.addFrame(sf::IntRect(2*32, 9*32, 32, 32));
@@ -135,18 +134,18 @@ using namespace sf;
   anim_Joueur->walkD.addFrame(sf::IntRect(6*32, 9*32, 32, 32));
   anim_Joueur->walkD.addFrame(sf::IntRect(7*32, 9*32, 32, 32));
 
-  anim_Joueur->atkD.setSpriteSheet(tHero[0]);
+  anim_Joueur->atkD.setSpriteSheet(*tHero[0]);
   anim_Joueur->atkD.addFrame(sf::IntRect(0*32, 12*32, 32, 32));
   anim_Joueur->atkD.addFrame(sf::IntRect(1*32, 12*32, 32, 32));
   anim_Joueur->atkD.addFrame(sf::IntRect(2*32, 12*32, 32, 32));
 
-  anim_Joueur->degatD.setSpriteSheet(tHero[0]);
+  anim_Joueur->degatD.setSpriteSheet(*tHero[0]);
   anim_Joueur->degatD.addFrame(sf::IntRect(1*32, 14*32, 32, 32));
   anim_Joueur->degatD.addFrame(sf::IntRect(2*32, 14*32, 32, 32));
   anim_Joueur->degatD.addFrame(sf::IntRect(3*32, 14*32, 32, 32));
   anim_Joueur->degatD.addFrame(sf::IntRect(0*32, 14*32, 32, 32));
 
-  anim_Joueur->mortD.setSpriteSheet(tHero[0]);
+  anim_Joueur->mortD.setSpriteSheet(*tHero[0]);
   anim_Joueur->mortD.addFrame(sf::IntRect(1*32, 15*32, 32, 32));
   anim_Joueur->mortD.addFrame(sf::IntRect(2*32, 15*32, 32, 32));
   anim_Joueur->mortD.addFrame(sf::IntRect(3*32, 15*32, 32, 32));
@@ -155,7 +154,7 @@ using namespace sf;
   anim_Joueur->mortD.addFrame(sf::IntRect(6*32, 15*32, 32, 32));
 
     //Animation Ennemi
-  anim_Ennemie->idleG.setSpriteSheet(tEnnemi[0]);
+  anim_Ennemie->idleG.setSpriteSheet(*tEnnemi[0]);
   anim_Ennemie->idleG.addFrame(sf::IntRect(0*32, 0, 22, 32));
   anim_Ennemie->idleG.addFrame(sf::IntRect(1*32, 0, 22, 32));
   anim_Ennemie->idleG.addFrame(sf::IntRect(2*32, 0, 22, 32));
@@ -168,7 +167,7 @@ using namespace sf;
   anim_Ennemie->idleG.addFrame(sf::IntRect(9*32, 0, 22, 32));
   anim_Ennemie->idleG.addFrame(sf::IntRect(10*32, 0, 22, 32));
 
-  anim_Ennemie->walkG.setSpriteSheet(tEnnemi[1]);
+  anim_Ennemie->walkG.setSpriteSheet(*tEnnemi[1]);
   anim_Ennemie->walkG.addFrame(sf::IntRect(0*32, 0, 22, 32));
   anim_Ennemie->walkG.addFrame(sf::IntRect(1*32, 0, 22, 32));
   anim_Ennemie->walkG.addFrame(sf::IntRect(2*32, 0, 22, 32));
@@ -183,26 +182,41 @@ using namespace sf;
   anim_Ennemie->walkG.addFrame(sf::IntRect(11*32, 0, 22, 32));
   anim_Ennemie->walkG.addFrame(sf::IntRect(12*32, 0, 22, 32));
 
-  anim_Ennemie->bas.setSpriteSheet(texture);
-  anim_Ennemie->bas.addFrame(sf::IntRect(*32, 0, 22, 32));
-  anim_Ennemie->bas.addFrame(sf::IntRect(*32, 0, 22, 32));
-  anim_Ennemie->bas.addFrame(sf::IntRect(*32, 0, 22, 32));
-  anim_Ennemie->bas.addFrame(sf::IntRect(*32, 0, 22, 32));
+  anim_Ennemie->atkG.setSpriteSheet(*tEnnemi[2]);
+  anim_Ennemie->atkG.addFrame(sf::IntRect(4*32, 0, 40, 37));
+  anim_Ennemie->atkG.addFrame(sf::IntRect(5*32, 0, 40, 37));
+  anim_Ennemie->atkG.addFrame(sf::IntRect(6*32, 0, 40, 37));
+  anim_Ennemie->atkG.addFrame(sf::IntRect(7*32, 0, 40, 37));
 
-  anim_Ennemie->gauche.setSpriteSheet(texture);
-  anim_Ennemie->gauche.addFrame(sf::IntRect(*32, 0, 22, 32));
-  anim_Ennemie->gauche.addFrame(sf::IntRect(*32, 0, 22, 32));
-  anim_Ennemie->gauche.addFrame(sf::IntRect(*32, 0, 22, 32));
-  anim_Ennemie->gauche.addFrame(sf::IntRect(*32, 0, 22, 32));
+  anim_Ennemie->degatG.setSpriteSheet(*tEnnemi[3]);
+  anim_Ennemie->degatG.addFrame(sf::IntRect(1*32, 0, 32, 32));
+  anim_Ennemie->degatG.addFrame(sf::IntRect(2*32, 0, 32, 32));
+  anim_Ennemie->degatG.addFrame(sf::IntRect(3*32, 0, 32, 32));
+  anim_Ennemie->degatG.addFrame(sf::IntRect(4*32, 0, 32, 32));
+  anim_Ennemie->degatG.addFrame(sf::IntRect(5*32, 0, 32, 32));
+  anim_Ennemie->degatG.addFrame(sf::IntRect(6*32, 0, 32, 32));
+  anim_Ennemie->degatG.addFrame(sf::IntRect(7*32, 0, 32, 32));
+  anim_Ennemie->degatG.addFrame(sf::IntRect(0*32, 0, 32, 32));
 
-  anim_Ennemie->droite.setSpriteSheet(texture);
-  anim_Ennemie->droite.addFrame(sf::IntRect(*32, 0, 22, 32));
-  anim_Ennemie->droite.addFrame(sf::IntRect(*32, 0, 22, 32));
-  anim_Ennemie->droite.addFrame(sf::IntRect(*32, 0, 22, 32));
-  anim_Ennemie->droite.addFrame(sf::IntRect(*32, 0, 22, 32));
+  anim_Ennemie->mortG.setSpriteSheet(*tEnnemi[4]);
+  anim_Ennemie->mortG.addFrame(sf::IntRect(0*32, 0, 33, 32));
+  anim_Ennemie->mortG.addFrame(sf::IntRect(1*32, 0, 33, 32));
+  anim_Ennemie->mortG.addFrame(sf::IntRect(2*32, 0, 33, 32));
+  anim_Ennemie->mortG.addFrame(sf::IntRect(3*32, 0, 33, 32));
+  anim_Ennemie->mortG.addFrame(sf::IntRect(4*32, 0, 33, 32));
+  anim_Ennemie->mortG.addFrame(sf::IntRect(5*32, 0, 33, 32));
+  anim_Ennemie->mortG.addFrame(sf::IntRect(6*32, 0, 33, 32));
+  anim_Ennemie->mortG.addFrame(sf::IntRect(7*32, 0, 33, 32));
+  anim_Ennemie->mortG.addFrame(sf::IntRect(8*32, 0, 33, 32));
+  anim_Ennemie->mortG.addFrame(sf::IntRect(9*32, 0, 33, 32));
+  anim_Ennemie->mortG.addFrame(sf::IntRect(10*32, 0, 33, 32));
+  anim_Ennemie->mortG.addFrame(sf::IntRect(11*32, 0, 33, 32));
+  anim_Ennemie->mortG.addFrame(sf::IntRect(12*32, 0, 33, 32));
+  anim_Ennemie->mortG.addFrame(sf::IntRect(13*32, 0, 33, 32));
+  anim_Ennemie->mortG.addFrame(sf::IntRect(14*32, 0, 33, 32));
 }
 
-  ~Contents() {
+  Contents::~Contents() {
   delete tJeu;
   for (int i = 0; i < 3; i++)
     delete tHero[i];
@@ -213,61 +227,4 @@ using namespace sf;
   delete font;
   delete anim_Joueur;
   delete anim_Ennemie;
-}
-
-
-
-int main(int argc, char const *argv[]) {
-  Contents *c = new Contents;
-  int ok = 1;
-
-  Texture perso;
-  Sprite sprite_hero;
-  Sprite sprite_room;
-  Sprite sprite_corridor;
-  Sprite sprite_ennemi;
-  Sprite sprite_room;
-  Window window;
-  Font font;
-
-  sprite_perso.setTexture(perso);
-
-  window.create(VideoMode(1000, 1000), "Rogue");
-  window.setFramerateLimit(60);
-
-  while(window.isOpen()){
-      Event event;
-      while(window.pollEvent(event)){
-
-          if(event.type == Event::Closed){
-              window.close();
-          }
-
-          if(Keyboard::isKeyPressed(Keyboard::Z){
-
-          }
-
-          if(Keyboard::isKeyPressed(Keyboard::Q){
-
-          }
-
-          if(Keyboard::isKeyPressed(Keyboard::S){
-
-          }
-
-          if(Keyboard::isKeyPressed(Keyboard::D){
-
-          }
-
-      }
-      window.draw(sprite_hero);
-      window.display();
-      window.clear();
-  }
-
-
-  delete c;
-  c = NULL;
-
-  return 0;
 }
