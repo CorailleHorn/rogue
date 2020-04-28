@@ -17,28 +17,18 @@ int Room::getIDlinked() {
 float Room::getx0() {
     return x0;
 }
-float Room::getx1() {
-    return x1;
-}
 float Room::gety0() {
     return y0;
 }
-float Room::gety1() {
-    return y1;
-}
+
 
 int Room::getX0() {
     return X0;
 }
-int Room::getX1() {
-    return X1;
-}
 int Room::getY0() {
     return Y0;
 }
-int Room::getY1() {
-    return Y1;
-}
+
 
 int Room::getX() {
     return X;
@@ -60,28 +50,21 @@ void Room::setIDlinked(int const& val) {
 void Room::setx0(float const& val) {
     x0 = val;
 }
-void Room::setx1(float const& val) {
-    x1 = val;
-}
+
 void Room::sety0(float const& val) {
     y0 = val;
 }
 
-void Room::sety1(float const& val) {
-    y1 = val;
-}
 
 void Room::arrondValRoom() {
     //on arrondi les valeurs des rooms
     X0 = round(x0);
-    X1 = round(x1);
 	Y0 = round(y0);
-    Y1 = round(y1);
 }
 
 const bool Room::isRoomIn(int const& map_size) {
     //vérifie si la room est dans la map
-    if ((X0 >= 0) && (Y0 >= 0) && (X1 < map_size) && (Y1 < map_size)) return true;
+    if ((X0 >= 0) && (Y0 >= 0) && ((X0 + L - 1) < map_size) && ((Y0 + H - 1) < map_size)) return true;
     else return false;
 }
 
@@ -100,8 +83,7 @@ void Room::genInCircle(int const& map_size, int const& radius, int const& room_m
 
     x0 = (radius * r * cos(t)) + (map_size/2);
     y0 = (radius * r * sin(t)) + (map_size/2);
-    x1 = x0 + L - 1;
-    y1 = y0 + H - 1;
+
 }
 
 bool const Room::roomCollision(Room& A) {
@@ -116,7 +98,7 @@ bool const Room::roomCollision(Room& A) {
 }
 
 void Room::initCenterRooms() {
-    //on place les centres des rooms et on les gen aleatoire si il faut (quand taille paire)
+    //on place les centres des rooms
         X = X0 + (int)(L / 2) - 1;
 
         Y = Y0 + (int)(H / 2) - 1;
