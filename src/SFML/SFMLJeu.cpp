@@ -55,27 +55,36 @@ int ajoutTexture(Sprite* tab[100][100]){
             tab[x][y] = new Sprite;
             sprite.setTexture(content->tJeu);
             if (type == 0)
-                sprite.setTextureRect(intRect(32, 32, 32, 32));
-            else if (type == 1)
-                sprite.setTextureRect(intRect(32, 32, 32, 32));
+                sprite.setTextureRect(intRect(0, 0, 0, 0));
+            else if (type == 1){
+                if ((position_valide(x, y--) == 1) && (position_valide(x, y++) == 1) && (position_valide(x--, y) == 0) && (position_valide(x++, y) == 2)){
+                    sprite.setTextureRect(intRect(0, 32, 32, 64));
+                }
+                else if ((position_valide(x, y--) == 0) && (position_valide(x, y++) == 2) && (position_valide(x--, y) == 1) && (position_valide(x++, y) == 1)){
+                    sprite.setTextureRect(intRect(130, 0, 162, 32));
+                }
+                else if ((position_valide(x, y--) == 1) && (position_valide(x, y++) == 1) && (position_valide(x--, y) == 2) && (position_valide(x++, y) == 0)){
+                    sprite.setTextureRect(intRect(64, 32, 96, 64));
+                }
+                else if ((position_valide(x, y--) == 2) && (position_valide(x, y++) == 0) && (position_valide(x--, y) == 1) && (position_valide(x++, y) == 1)){
+                    sprite.setTextureRect(intRect(32, 64, 64, 96));
+                }
+                else if ((position_valide(x, y--) == 0) && (position_valide(x, y++) == 1) && (position_valide(x--, y) == 0) && (position_valide(x++, y) == 1)){
+                    sprite.setTextureRect(intRect(96, 0, 128, 32));
+                }
+                else if ((position_valide(x, y--) == 0) && (position_valide(x, y++) == 1) && (position_valide(x--, y) == 1) && (position_valide(x++, y) == 0)){
+                    sprite.setTextureRect(intRect(160, 0, 192, 32));
+                }
+                else if ((position_valide(x, y--) == 1) && (position_valide(x, y++) == 0) && (position_valide(x--, y) == 1) && (position_valide(x++, y) == 0)){
+                    sprite.setTextureRect(intRect(64, 64, 96, 96));
+                }
+                else if ((position_valide(x, y--) == 1) && (position_valide(x, y++) == 0) && (position_valide(x--, y) == 0) && (position_valide(x++, y) == 1)){
+                    sprite.setTextureRect(intRect(0, 64, 32, 96));
+                }
+            }
+
             else if (type == 2)
-                sprite.setTextureRect(intRect(32, 32, 32, 32));
-            else if (type == 3)
-                sprite.setTextureRect(intRect(32, 32, 32, 32));
-            else if (type == 4)
-                sprite.setTextureRect(intRect(32, 32, 32, 32));
-            else if (type == 5)
-                sprite.setTextureRect(intRect(32, 32, 32, 32));
-            else if (type == 6)
-                sprite.setTextureRect(intRect(32, 32, 32, 32));
-            else if (type == 7)
-                sprite.setTextureRect(intRect(32, 32, 32, 32));
-            else if (type == 8)
-                sprite.setTextureRect(intRect(32, 32, 32, 32));
-            else if (type == 9)
-                sprite.setTextureRect(intRect(32, 32, 32, 32));
-            else if (type == 10)
-                sprite.setTextureRect(intRect(32, 32, 32, 32));
+                sprite.setTextureRect(intRect(160, 304, 192, 336));
         }
     }
     return 0;
