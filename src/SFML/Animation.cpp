@@ -21,6 +21,8 @@
 //
 ////////////////////////////////////////////////////////////
 
+//Modifier sur setSpriteSheet
+
 #include "Animation.h"
 
 Animation::Animation() : m_texture(NULL)
@@ -33,9 +35,9 @@ void Animation::addFrame(sf::IntRect rect)
     m_frames.push_back(rect);
 }
 
-void Animation::setSpriteSheet(const sf::Texture& texture)
+void Animation::setSpriteSheet(const sf::Texture* texture)
 {
-    m_texture = &texture;
+    m_texture = texture;
 }
 
 const sf::Texture* Animation::getSpriteSheet() const

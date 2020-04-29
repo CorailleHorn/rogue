@@ -4,7 +4,7 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
-#include "AnimationSprite.h"
+#include "AnimatedSprite.h"
 
 struct AnimPerso {
   Animation idleG;
@@ -27,7 +27,7 @@ class Contents {
     Animation* getJ_anim(char d);
     Animation* getE_anim(char d);
 
-  private:
+
     sf::Texture* tJeu;
     sf::Texture* tHero[3];
     sf::Texture* tEnnemi[5];

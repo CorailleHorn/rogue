@@ -1,4 +1,18 @@
-all :  bin/SFML_jeu
+all :  test
+
+	#Test
+
+test : obj/Contents.o obj/AnimatedSprite.o obj/Animation.o
+	g++ -Wall -ggdb obj/Contents.o obj/AnimatedSprite.o obj/Animation.o -o bin/tests -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio
+
+obj/Contents.o : src/SFML/Contents.cpp src/SFML/Contents.h src/SFML/AnimatedSprite.h src/SFML/Animation.h
+	g++ -Wall -ggdb	-c src/SFML/Contents.cpp -o obj/Contents.o
+
+obj/AnimatedSprite.o : src/SFML/AnimatedSprite.cpp src/SFML/AnimatedSprite.h src/SFML/Animation.h
+	g++ -Wall -ggdb	-c src/SFML/AnimatedSprite.cpp -o obj/AnimatedSprite.o
+
+obj/Animation.o : src/SFML/Animation.cpp src/SFML/Animation.h
+	g++ -Wall -ggdb	-c src/SFML/Animation.cpp -o obj/Animation.o
 
 		#SFMLJeu
 

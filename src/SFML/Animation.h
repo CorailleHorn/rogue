@@ -21,6 +21,8 @@
 //
 ////////////////////////////////////////////////////////////
 
+//Fichier modifier sur le type de setSpriteSheet
+
 #ifndef ANIMATION_INCLUDE
 #define ANIMATION_INCLUDE
 
@@ -34,7 +36,7 @@ public:
     Animation();
 
     void addFrame(sf::IntRect rect);
-    void setSpriteSheet(const sf::Texture& texture);
+    void setSpriteSheet(const sf::Texture* texture);
     const sf::Texture* getSpriteSheet() const;
     std::size_t getSize() const;
     const sf::IntRect& getFrame(std::size_t n) const;

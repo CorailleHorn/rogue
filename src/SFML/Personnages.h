@@ -7,7 +7,7 @@
 #include <assert.h>
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
-#include "AnimationSprite.h"
+#include "AnimatedSprite.h"
 
 
 class Personnage {
@@ -28,10 +28,10 @@ class Personnage {
 		int getLv() const;
 		int getX() const;
 		int getY() const;
-		AnimationSprite *getSprite() const;
+		AnimatedSprite* getSprite() const;
 	protected:
 		int atk, def, pv, lv, x, y;
-		AnimationSprite* sprite;
+		AnimatedSprite* sprite;
 };
 
 
