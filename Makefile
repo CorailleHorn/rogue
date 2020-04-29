@@ -22,7 +22,11 @@ bin/SFML_jeu : obj/SFMLmain.o obj/SFMLJeu.o obj/Contents.o obj/SFMLMap.o obj/SFM
 obj/SFMLmain.o : src/SFML/main.cpp src/SFML/SFMLJeu.h src/SFML/Map.h src/SFML/Room.h src/SFML/Personnages.h src/SFML/Contents.h src/SFML/AnimatedSprite.h src/SFML/Animation.h
 	g++ -Wall -ggdb	-c src/SFML/main.cpp -o obj/SFMLmain.o
 
+<<<<<<< HEAD
+obj/SFMLJeu.o : src/SFML/SFMLJeu.cpp src/SFML/SFMLJeu.h src/SFML/Map.h src/SFML/Room.h src/SFML/Personnages.h
+=======
 obj/SFMLJeu.o : src/SFML/SFMLJeu.cpp src/SFML/SFMLJeu.h src/SFML/Map.h src/SFML/Room.h src/SFML/Personnages.h src/SFML/Contents.h src/SFML/AnimatedSprite.h src/SFML/Animation.h
+>>>>>>> c93bfd97082f6cfa740c3663ee4761e52bfbd940
 	g++ -Wall -ggdb	-c src/SFML/SFMLJeu.cpp -o obj/SFMLJeu.o
 
 obj/Contents.o : src/SFML/Contents.cpp src/SFML/Contents.h src/SFML/AnimatedSprite.h src/SFML/Animation.h
