@@ -577,7 +577,7 @@ bool const Map::allRoomsCollisions(unsigned int const ID) {
 }
 
 float* Map::moyenneRooms(float mean[]) {
-    //renvoie la moyenne des tailles de toutes les rooms dans la map
+    //renvoie la moyenne des tailles en Largeur et Hauteur de toutes les rooms dans la map
     for(unsigned int i = 0; i < list_room.size(); i++) {
         mean[0] += list_room[i].getH();
         mean[1] += list_room[i].getL();
@@ -590,7 +590,6 @@ float* Map::moyenneRooms(float mean[]) {
 
 void Map::ajouterRoomsTXT() {
     //ajouter l'affichage des rooms dans la map
-    //on arrondi d'abord les valeurs
     for (unsigned int i = 0; i < list_room.size(); i++) {
         //on ajoute la largeur des rooms
         // j parcourant la largeur de la room
@@ -612,10 +611,7 @@ void Map::ajouterRoomsTXT() {
 
 void Map::ajouterRoomsSFML() {
     //ajouter les valeurs d'affichage de la map
-    //on arrondi d'abord les valeurs
     for (unsigned int i = 0; i < list_room.size(); i++) {
-
-
         //on ajoute la largeur des rooms
         // j parcourant la largeur de la room
         for (int j = 0; j < list_room[i].getL(); j++) {
@@ -694,7 +690,7 @@ int Map::size() {
 }
 
 void Map::viderMap() {
-    //on fabrique la map : 0:vide 1:plein
+    //on vide la map i.e. on remet toutes les valeurs à 0
     for (int i = 0; i < map_size; i++) {
         for (int j = 0; j < map_size; j++) {
             ptr_map[i][j] = 0;
@@ -703,7 +699,7 @@ void Map::viderMap() {
 }
 
 void Map::afficherMapTXT() {
-    //on affiche dans le terminal lignes par lignes
+    //on affiche dans le terminal lignes par lignes avec les codes voulu
     for (int i = 0; i < map_size; i++) {
         for (int j = 0; j < map_size; j++) {
             if (ptr_map[j][i] == 0) cout << "  ";
@@ -721,7 +717,7 @@ void Map::afficherMapTXT() {
 }
 
 void Map::afficherMapSFML() {
-    //on affiche dans le terminal lignes par lignes
+    // [DEBUG UNIQUEMENT] on affiche dans le terminal lignes par lignes la version qu'on envoie pour la sfml
     for (int i = 0; i < map_size; i++) {
         for (int j = 0; j < map_size; j++) {
             if (ptr_map[j][i] == 0) cout <<"  ";
@@ -730,6 +726,7 @@ void Map::afficherMapSFML() {
         }
         cout << endl;
     }
+    //on affiche une ligne de **
     for (int i = 0; i < map_size; i++) {
         cout << "**";
     }
