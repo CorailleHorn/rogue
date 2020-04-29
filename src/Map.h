@@ -30,8 +30,6 @@ public:
   void initLinks();
   int priorite(std::vector<std::pair<bool, float>> prio);
 
-  void choisirRoomLink(int const ID);
-  bool const isRoomLinked(int ID1, int ID2);
   void ajouterLinks();
 
   void genCorridors();
@@ -67,7 +65,6 @@ private:
 
   int map_size, nbrooms, radius, room_max_size, room_min_size, nb_ennemie;
   int hxm1, hym1;
-  int nb_corridors;
   //Hero *hero;
   //std::vector<Ennemi*> ennemis;
 };
