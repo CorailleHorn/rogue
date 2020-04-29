@@ -43,15 +43,15 @@ int Room::getL() {
     return L;
 }
 //MUTATEUR
-void Room::setIDlinked(int const& val) {
+void Room::setIDlinked(int const val) {
     IDlinked = val;
 }
 
-void Room::setx0(float const& val) {
+void Room::setx0(float const val) {
     x0 = val;
 }
 
-void Room::sety0(float const& val) {
+void Room::sety0(float const val) {
     y0 = val;
 }
 
@@ -62,14 +62,14 @@ void Room::arrondValRoom() {
 	Y0 = round(y0);
 }
 
-const bool Room::isRoomIn(int const& map_size) {
+const bool Room::isRoomIn(int const map_size) {
     //vérifie si la room est dans la map
     if ((X0 >= 0) && (Y0 >= 0) && ((X0 + L - 1) < map_size) && ((Y0 + H - 1) < map_size)) return true;
     else return false;
 }
 
 
-void Room::genInCircle(int const& map_size, int const& radius, int const& room_max_size, int const& room_min_size) {
+void Room::genInCircle(int const map_size, int const radius, int const room_max_size, int const room_min_size) {
     //on genere des tailles aléatoire
     H = (rand() % (room_max_size - room_min_size)) + room_min_size;//hauteur
     L = (rand() % (room_max_size - room_min_size)) + room_min_size;//largeur

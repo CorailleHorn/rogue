@@ -13,7 +13,7 @@ int main(int argc, char *argv[])
 	srand(seed);
 	cout << seed << endl;
 	Map* donjon = new Map();
-	//donjon->initGenerationDebug();
+
 	donjon->testRegression();
 
 	delete donjon;
