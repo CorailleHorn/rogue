@@ -5,6 +5,7 @@
 #include <string>
 #include <assert.h>
 #include "Map.h"
+#include "Room.h"
 
 using namespace std;
 
@@ -15,8 +16,8 @@ float dist2Points(float x1, float y1, float x2, float y2) {
 }
 
 
-Map::Map(int const& size, int const& nb, int const& rad, int const& max, int const& min) :
-    map_size(size), nbrooms(nb), radius(rad), room_max_size(max), room_min_size(min), nb_corridors(0) {
+Map::Map(int const size, int const nb, int const rad, int const max, int const min) :
+    map_size(size), nbrooms(nb), radius(rad), room_max_size(max), room_min_size(min) {
     ptr_map = new int*[map_size];
     //on initialise les pointeurs sur des valeurs nulles
     for (int i = 0; i < map_size; i++) {
@@ -47,21 +48,22 @@ Map::~Map() {
 
 }
 
-/*
+
 void Map::initGeneration() { //on lance la generation complete
     genRooms(); //on genere les rooms dans un cercle
     eclatement();//on procede a l'eclatement des rooms en leur donnant une physique (et donc un vecteur de deplacement)
     updateRooms();//on "met a jour" les rooms affichables (a l'interieur de map)
     chooseRooms();//on selectionne les rooms avec un aspect jouable
-
-    ajouterRoomsTXT();//on ajoute les rooms dans la map physiquement
+    ajouterRoomsSFML();//on ajoute les rooms dans la map physiquement
 
     initLinks(); //on initialise les liens pour pouvoir ensuite gen les couloirs
-
     genCorridors();
 
-    ajouterCorridorsTXT();
-
+    ajouterCorridorsSimpleSFML();
+    ajouterCorridorsSFML();
+    afficherMapSFML();
+    viderMap();
+/*
     int pos[2];
     for(long unsigned int i = 1; i < list_room.size(); i++) {
       nb_ennemie = rand() % 2 + 1;
@@ -86,8 +88,8 @@ void Map::initGeneration() { //on lance la generation complete
     hym1 =list_room[0].getY();
     hero->setX(hxm1);
     hero->setY(hym1);
-    ptr_map[hxm1][hym1] = 2;
-}*/
+    ptr_map[hxm1][hym1] = 2;*/
+}
 
 
 void Map::testRegression() { //on lance le test de regression
@@ -104,7 +106,6 @@ void Map::testRegression() { //on lance le test de regression
     assert(M->nbrooms == 100);
     assert(M->radius == 5);
     assert(M->room_max_size == 20 && M->room_min_size == 5);
-    assert(M->nb_corridors == 0);
     for (int i = 0; i < M->map_size; i++) {
         for (int j = 0; j < M->map_size; j++) {
           assert(M->ptr_map[i][j] == 0);
@@ -122,7 +123,6 @@ void Map::testRegression() { //on lance le test de regression
     assert(M2.nbrooms == 100);
     assert(M2.radius == 5);
     assert(M2.room_max_size == 20 && M2.room_min_size == 5);
-    assert(M2.nb_corridors == 0);
     for(int i = 0; i < M2.map_size; i++) {
         for (int j = 0; j < M2.map_size; j++) {
           assert(M2.ptr_map[i][j] == 0);
@@ -210,7 +210,6 @@ void Map::testRegression() { //on lance le test de regression
         //assert(M2.list_room[i].getIDlinked() != i);
 
     }
-    assert(M2.nb_corridors <= (int)M2.list_room.size());
     M2.ajouterLinks();
     for(int i = 0; i < (int)M2.list_room.size(); i++) {
         //ligne pour afficher les liens de manière condensé
@@ -240,24 +239,9 @@ void Map::testRegression() { //on lance le test de regression
         M2.ptr_map[M2.list_room[i].getX()][M2.list_room[i].getY()] = i;
     }
     M2.afficherMapTXT();
-    M2.viderMap();
 
-    //STEP 6 : ON AFFICHE LES COULOIRS DE MANIERE JOUABLE
-    M2.ajouterRoomsTXT();
-    for(int i = 0; i < (int)M2.list_room.size(); i++) {
-        //lignes pour l'affichage des données des rooms
-        cout<< "room " << i << " : " << M2.list_room[i].getH() << ";"
-        << M2.list_room[i].getL() << " - " << M2.list_room[i].getX0() << ";"
-        << M2.list_room[i].getY0() << endl;
 
-        //ligne pour l'affichage des numéros des rooms
-        M2.ptr_map[M2.list_room[i].getX()][M2.list_room[i].getY()] = i;
-    }
-    M2.ajouterCorridorsTXT();
-
-    M2.afficherMapTXT();
-
-    //STEP 7 : ON AFFICHE LA VERSION POUR LA SFML
+    //STEP  : ON AFFICHE LA VERSION POUR LA SFML
     M2.viderMap();
     M2.ajouterRoomsSFML();
     M2.ajouterCorridorsSimpleSFML();
@@ -293,7 +277,7 @@ void Map::eclatement() {
 }
 
 void Map::chooseRooms() {
-    //on choisis toutes les rooms plus grande que 1.25 * la moyenne de toute les
+    //on choisis toutes les rooms plus grande que la moyenne de toute les
     //rooms affichées
     float mean[2] = {0,0};
     moyenneRooms(mean);
@@ -309,40 +293,52 @@ void Map::chooseRooms() {
 }
 
 
-
 void Map::initLinks() {
-    int inc = 0; //incrementeur pour calculer le nombre de couloirs nb_corridors,
-    for (int i = 0; i < (int)list_room.size(); i++) {
-        choisirRoomLink(i);
-        if(list_room[i].getIDlinked() != -1) {
-            inc++;
-        }
+    //version utilisant l'algorithme de PRIM
+    //pour trouver un arbre de liens couvrant toutes les rooms de poid minimal
+
+    //tableau de priorité contenant un boolean (true -> si déjà affiché) les priorités de chaque id de rooms
+    vector<pair<bool, float>> prio;
+
+    for(int i = 0; i < (int)list_room.size(); i++) {
+        prio.push_back(make_pair(false, 100000));
     }
-    nb_corridors = inc;
-}
+    //On commence au sommet de la room 0 en lui donnant la plus faible valeur (elle passera donc en priorité)
+    prio[0].second = 0;
 
+    int valt;
+    float arrete;
 
-void Map::choisirRoomLink(int const ID) {
-    //on initialise chaque liens dans un tableau et on en choisis un
-    float distmin = 100000; //on donne juste un distance max de depart assez grande
-    int IDmin = -1;
-    int idist;
-    for (int i = 0; i < (int)list_room.size(); i++) {
-        if (!isRoomLinked(ID,i) && !(i == ID)) {
-            idist = dist2Points(list_room[ID].getX(), list_room[ID].getY(),list_room[i].getX(), list_room[i].getY());
-            if(idist < distmin) {
-                distmin = idist;
-                IDmin = i;
+    for(int k = 0; k < (int)list_room.size() - 1; k++) {
+        //t prend les valeurs de l'element a la priorite la plus importante i.e. la valeur la plus petit
+        valt = priorite(prio);
+        prio[valt].first = true;
+        for(int i = 0; i < (int)list_room.size(); i++){
+            //on verifie qu'on etudie une arrete entre deux éléments différents
+            if(valt != i) {
+                arrete = dist2Points(list_room[valt].getX(), list_room[valt].getY(), list_room[i].getX(), list_room[i].getY());
+                if(prio[i].first == false && prio[i].second >= arrete) {
+                    list_room[i].setIDlinked(valt);
+                    prio[i].second = arrete;
+                }
             }
         }
+
     }
-    list_room[ID].setIDlinked(IDmin);
-    //ligne pour afficher les liens de manière condensé
-    //cout << ID  << " -> " <<list_room[ID].getIDlinked() <<endl;;
+
 }
 
-bool const Map::isRoomLinked(int id1, int id2) {
-    return (id1 == list_room[id2].getIDlinked());
+int Map::priorite(const vector<pair<bool, float>> &prio) {
+    //retourne
+    float min = 10000000.0;
+    int p;
+    for(int i = 0; i < (int)list_room.size(); i++) {
+        if(prio[i].first == false && prio[i].second < min) {
+            p = i;
+            min = prio[i].second;
+        }
+    }
+    return p;
 }
 
 void Map::ajouterLinks(){
@@ -352,14 +348,15 @@ void Map::ajouterLinks(){
     for(int i = 0; i < (int)list_room.size(); i++) {
         //ces variables "de transition" ne sont pas necessaire, elle sont
         //seulement là pour plus de lisibilité du code
-        x0 = list_room[i].getX();
-        y0 = list_room[i].getY();
         r = list_room[i].getIDlinked();
-        x1 = list_room[r].getX();
-        y1 = list_room[r].getY();
-        diffX = x0 - x1;
-        diffY = y0 - y1;
+
         if(r != -1) {
+            x0 = list_room[i].getX();
+            y0 = list_room[i].getY();
+            x1 = list_room[r].getX();
+            y1 = list_room[r].getY();
+            diffX = x0 - x1;
+            diffY = y0 - y1;
             if( diffX <= 0) {
                 for (int j = 0; j < abs(diffX); j++) {
                     ptr_map[x0 + j][y0] = -1;
@@ -388,12 +385,13 @@ void Map::genCorridors() {
     int id2, x, y, r, incx, incy;
     int id_corridor = 0;
     pair<int,int>  pair1, pair2;
-
-    list_corridor.resize(nb_corridors);
+    Corridor a;
+    a.layer.resize(0);
 
     for(int i = 0; i < (int)list_room.size(); i++) {
         id2 = list_room[i].getIDlinked();
         if(id2 != -1) {
+            list_corridor.push_back(a);
 
             x = list_room[i].getX();
             y = list_room[i].getY();
@@ -457,231 +455,85 @@ void Map::genCorridors() {
 }
 
 
-void Map::ajouterCorridorsTXT() {
-    //version d'affichage en terminal
+void Map::ajouterCorridorsSFML() {
+    //version d'affichage graphique en SFML
     int x,y;
     for(int i = 0; i < (int)list_corridor.size(); i++) {
-        x = list_corridor[i].layer[0].first;
-        y = list_corridor[i].layer[0].second;
-        ptr_map[x][y] = 0;
-        //si le suivant est sur un bord on s'assure qu'il n'y ais pas de trou
-        if(!isPointInRoom(list_corridor[i].layer[1].first, list_corridor[i].layer[1].second,"bords")) {
-
-            if(!isPointInRoom(x-1,y-1, "exc") && !isPointInCorridor(x-1,y-1,i))
-                ptr_map[x-1][y-1] = 1;
-            if(!isPointInRoom(x-1,y, "exc") && !isPointInCorridor(x-1,y,i))
-                ptr_map[x-1][y] = 1;
-            if(!isPointInRoom(x-1,y+1, "exc") && !isPointInCorridor(x-1,y+1,i))
-                ptr_map[x-1][y+1] = 1;
-            if(!isPointInRoom(x,y-1, "exc") && !isPointInCorridor(x,y-1,i))
-                ptr_map[x][y-1] = 1;
-            if(!isPointInRoom(x,y+1, "exc") && !isPointInCorridor(x,y+1,i))
-                ptr_map[x][y+1] = 1;
-            if(!isPointInRoom(x+1,y-1, "exc") && !isPointInCorridor(x+1,y-1,i))
-                ptr_map[x+1][y-1] = 1;
-            if(!isPointInRoom(x+1,y, "exc") && !isPointInCorridor(x+1,y,i))
-                ptr_map[x+1][y] = 1;
-            if(!isPointInRoom(x+1,y+1, "exc") && !isPointInCorridor(x+1,y+1,i))
-                ptr_map[x+1][y+1] = 1;
-
-        }
-
-        for(int j = 1; j < (int)list_corridor[i].layer.size(); j++) {
+        for(int j = 0; j < (int)list_corridor[i].layer.size(); j++) {
             x = list_corridor[i].layer[j].first;
             y = list_corridor[i].layer[j].second;
-            if(!isPointInCorridor(x,y,i)) {
+            //si c'est le dernier ou le premier bloc de couloirs
+            if(j == 0 || j == (int)list_corridor[i].layer.size() - 1) {
+                if(ptr_map[x-1][y-1] == 0)
+                    ptr_map[x-1][y-1] = 1;
+                if(ptr_map[x-1][y] == 0)
+                    ptr_map[x-1][y] = 1;
+                if(ptr_map[x-1][y+1] == 0)
+                    ptr_map[x-1][y+1] = 1;
+                if(ptr_map[x][y-1] == 0)
+                    ptr_map[x][y-1] = 1;
+                if(ptr_map[x][y+1] == 0)
+                    ptr_map[x][y+1] = 1;
+                if(ptr_map[x+1][y-1] == 0)
+                    ptr_map[x+1][y-1] = 1;
+                if(ptr_map[x+1][y] == 0)
+                    ptr_map[x+1][y] = 1;
+                if(ptr_map[x+1][y+1] == 0)
+                    ptr_map[x+1][y+1] = 1;
+            }
+            else {
                 if(x == list_corridor[i].layer[j - 1].first) {
 
-                    if(!isPointInRoom(x+1,y, "exc"))
+                    if(ptr_map[x + 1][y] == 0)
                         ptr_map[x + 1][y] = 1;
-                    if(!isPointInRoom(x-1,y, "exc"))
+                    if(ptr_map[x - 1][y] == 0)
                         ptr_map[x - 1][y] = 1;
 
                     if( y == list_corridor[i].layer[j + 1].second) {
                         if(y > list_corridor[i].layer[j - 1].second) {
-                            ptr_map[x + 1][y + 1] = 1;
-                            ptr_map[x][y + 1] = 1;
-                            ptr_map[x - 1][y + 1] = 1;
+                            if(ptr_map[x + 1][y + 1] == 0)
+                                ptr_map[x + 1][y + 1] = 1;
+                            if(ptr_map[x][y + 1] == 0)
+                                ptr_map[x][y + 1] = 1;
+                            if(ptr_map[x - 1][y + 1] == 0)
+                                ptr_map[x - 1][y + 1] = 1;
                         }
                         else {
-                            ptr_map[x + 1][y - 1] = 1;
-                            ptr_map[x][y - 1] = 1;
-                            ptr_map[x - 1][y - 1] = 1;
+                            if(ptr_map[x + 1][y - 1] == 0)
+                                ptr_map[x + 1][y - 1] = 1;
+                            if(ptr_map[x][y - 1] == 0)
+                                ptr_map[x][y - 1] = 1;
+                            if(ptr_map[x - 1][y - 1] == 0)
+                                ptr_map[x - 1][y - 1] = 1;
                         }
 
                     }
                 }
                 else {
-                    if(!isPointInRoom(x,y+1, "exc"))
+                    if(ptr_map[x][y + 1] != 1 && ptr_map[x][y + 1] != 2)
                         ptr_map[x][y + 1] = 1;
-                    if(!isPointInRoom(x,y-1, "exc"))
+                    if(ptr_map[x][y - 1] != 1 && ptr_map[x][y - 1] != 2)
                         ptr_map[x][y - 1] = 1;
 
                     if( x == list_corridor[i].layer[j + 1].first) {
                         if(x > list_corridor[i].layer[j - 1].first) {
-                            ptr_map[x+1][y + 1] = 1;
-                            ptr_map[x+1][y] = 1;
-                            ptr_map[x+1][y - 1] = 1;
+                            if(ptr_map[x + 1][y + 1] == 0)
+                                ptr_map[x + 1][y + 1] = 1;
+                            if(ptr_map[x + 1][y] == 0)
+                                ptr_map[x+1][y] = 1;
+                            if(ptr_map[x + 1][y - 1] == 0)
+                                ptr_map[x + 1][y - 1] = 1;
                         }
                         else {
-                            ptr_map[x-1][y + 1] = 1;
-                            ptr_map[x-1][y] = 1;
-                            ptr_map[x-1][y - 1] = 1;
+                            if(ptr_map[x - 1][y + 1] == 0)
+                                ptr_map[x - 1][y + 1] = 1;
+                            if(ptr_map[x - 1][y] == 0)
+                                ptr_map[x - 1][y] = 1;
+                            if(ptr_map[x - 1][y - 1] == 0)
+                                ptr_map[x - 1][y - 1] = 1;
                         }
 
                     }
-                }
-            }
-
-            ptr_map[x][y] = 0;
-        }
-    }
-}
-/*
-//version 1 avec affichage détaillé des couloirs (angle)
-void Map::ajouterCorridorsSFML() {
-    //version d'affichage graphique en SFML
-    int x,y;
-    for(int i = 0; i < (int)list_corridor.size(); i++) {
-
-        x = list_corridor[i].layer[0].first;
-        y = list_corridor[i].layer[0].second;
-
-            if(ptr_map[x-1][y-1] == 0)
-                ptr_map[x-1][y-1] = 7;
-            if(ptr_map[x-1][y] == 0)
-                ptr_map[x-1][y] = 3;
-            if(ptr_map[x-1][y+1] == 0)
-                ptr_map[x-1][y+1] = 9;
-            if(ptr_map[x][y-1] == 0)
-                ptr_map[x][y-1] = 5;
-            if(ptr_map[x][y+1] == 0)
-                ptr_map[x][y+1] = 6;
-            if(ptr_map[x+1][y-1] == 0)
-                ptr_map[x+1][y-1] = 8;
-            if(ptr_map[x+1][y] == 0)
-                ptr_map[x+1][y] = 4;
-            if(ptr_map[x+1][y+1] == 0)
-                ptr_map[x+1][y+1] = 10;
-
-        for(int j = 1; j < (int)list_corridor[i].layer.size(); j++) {
-            x = list_corridor[i].layer[j].first;
-            y = list_corridor[i].layer[j].second;
-
-            if(x == list_corridor[i].layer[j - 1].first) {
-
-                if(ptr_map[x + 1][y] != 1 && ptr_map[x + 1][y] != 2)
-                    ptr_map[x + 1][y] = 4;
-                if(ptr_map[x - 1][y] != 1 && ptr_map[x - 1][y] != 2)
-                    ptr_map[x - 1][y] = 3;
-
-                if( y == list_corridor[i].layer[j + 1].second) {
-                    if(y > list_corridor[i].layer[j - 1].second) {
-                        ptr_map[x + 1][y + 1] = 10;
-                        ptr_map[x][y + 1] = 5;
-                        ptr_map[x - 1][y + 1] = 9;
-                    }
-                    else {
-                        ptr_map[x + 1][y - 1] = 8;
-                        ptr_map[x][y - 1] = 6;
-                        ptr_map[x - 1][y - 1] = 7;
-                    }
-
-                }
-            }
-            else {
-                if(ptr_map[x][y + 1] != 1 && ptr_map[x][y + 1] != 2)
-                    ptr_map[x][y + 1] = 6;
-                if(ptr_map[x][y - 1] != 1 && ptr_map[x][y - 1] != 2)
-                    ptr_map[x][y - 1] = 5;
-
-                if( x == list_corridor[i].layer[j + 1].first) {
-                    if(x > list_corridor[i].layer[j - 1].first) {
-                        ptr_map[x+1][y + 1] = 10;
-                        ptr_map[x+1][y] = 4;
-                        ptr_map[x+1][y - 1] = 8;
-                    }
-                    else {
-                        ptr_map[x-1][y + 1] = 9;
-                        ptr_map[x-1][y] = 3;
-                        ptr_map[x-1][y - 1] = 7;
-                    }
-
-                }
-            }
-        }
-    }
-}
-*/
-
-void Map::ajouterCorridorsSFML() {
-    //version d'affichage graphique en SFML
-    int x,y;
-    for(int i = 0; i < (int)list_corridor.size(); i++) {
-
-        x = list_corridor[i].layer[0].first;
-        y = list_corridor[i].layer[0].second;
-
-            if(ptr_map[x-1][y-1] == 0)
-                ptr_map[x-1][y-1] = 1;
-            if(ptr_map[x-1][y] == 0)
-                ptr_map[x-1][y] = 1;
-            if(ptr_map[x-1][y+1] == 0)
-                ptr_map[x-1][y+1] = 1;
-            if(ptr_map[x][y-1] == 0)
-                ptr_map[x][y-1] = 1;
-            if(ptr_map[x][y+1] == 0)
-                ptr_map[x][y+1] = 1;
-            if(ptr_map[x+1][y-1] == 0)
-                ptr_map[x+1][y-1] = 1;
-            if(ptr_map[x+1][y] == 0)
-                ptr_map[x+1][y] = 1;
-            if(ptr_map[x+1][y+1] == 0)
-                ptr_map[x+1][y+1] = 1;
-
-        for(int j = 1; j < (int)list_corridor[i].layer.size(); j++) {
-            x = list_corridor[i].layer[j].first;
-            y = list_corridor[i].layer[j].second;
-
-            if(x == list_corridor[i].layer[j - 1].first) {
-
-                if(ptr_map[x + 1][y] != 1 && ptr_map[x + 1][y] != 2)
-                    ptr_map[x + 1][y] = 1;
-                if(ptr_map[x - 1][y] != 1 && ptr_map[x - 1][y] != 2)
-                    ptr_map[x - 1][y] = 1;
-
-                if( y == list_corridor[i].layer[j + 1].second) {
-                    if(y > list_corridor[i].layer[j - 1].second) {
-                        ptr_map[x + 1][y + 1] = 1;
-                        ptr_map[x][y + 1] = 1;
-                        ptr_map[x - 1][y + 1] = 1;
-                    }
-                    else {
-                        ptr_map[x + 1][y - 1] = 1;
-                        ptr_map[x][y - 1] = 1;
-                        ptr_map[x - 1][y - 1] = 1;
-                    }
-
-                }
-            }
-            else {
-                if(ptr_map[x][y + 1] != 1 && ptr_map[x][y + 1] != 2)
-                    ptr_map[x][y + 1] = 1;
-                if(ptr_map[x][y - 1] != 1 && ptr_map[x][y - 1] != 2)
-                    ptr_map[x][y - 1] = 1;
-
-                if( x == list_corridor[i].layer[j + 1].first) {
-                    if(x > list_corridor[i].layer[j - 1].first) {
-                        ptr_map[x+1][y + 1] = 1;
-                        ptr_map[x+1][y] = 1;
-                        ptr_map[x+1][y - 1] = 1;
-                    }
-                    else {
-                        ptr_map[x-1][y + 1] = 1;
-                        ptr_map[x-1][y] = 1;
-                        ptr_map[x-1][y - 1] = 1;
-                    }
-
                 }
             }
         }
@@ -703,9 +555,9 @@ void Map::ajouterCorridorsSimpleSFML() {
 }
 
 
-bool const Map::isPointInCorridor(int const &X, int const &Y, int const &ID) {
+bool const Map::isPointInCorridor(int const X, int const Y, unsigned int const ID) {
     //test si le point du couloir ID passe a travers un couloir déjà affiché
-    for(int i = 0; i < ID; i++) {
+    for(unsigned int i = 0; i < ID; i++) {
         for(int j = 0; j < (int)list_corridor[i].layer.size() ; j++) {
             if(((X == list_corridor[i].layer[j].first)
             &&  (Y == list_corridor[i].layer[j].second)))
@@ -714,8 +566,8 @@ bool const Map::isPointInCorridor(int const &X, int const &Y, int const &ID) {
     }
     return false;
 }
-bool const Map::isPointInRoom(int const &X, int const &Y, string param) {
-    //test si point est dans une room
+bool const Map::isPointInRoom(int const X, int const Y, string const &param) {
+    //test si point est dans une room avec différent parametre possible
     //bords inclues
     if(param == "inc") {
         for(int i = 0; i < (int)list_room.size(); i++) {
@@ -819,6 +671,8 @@ void Map::ajouterRoomsSFML() {
                 ptr_map[list_room[i].getX0() + k][list_room[i].getY0() + j] = 2;
             }
         }
+        //on affiche le num de la room
+        list_room[i].initCenterRooms();
     }
 }
 
@@ -867,8 +721,8 @@ void Map::updateRooms() {
   return 0;
 }*/
 
-int Map::position_valide(const int &x, const int &y) {
-  return ptr_map[x][y];
+bool Map::position_valide(const int &x, const int &y) {
+  return !ptr_map[x][y];
 }
 
 void Map::viderMap() {
@@ -903,8 +757,8 @@ void Map::afficherMapSFML() {
     for (int i = 0; i < map_size; i++) {
         for (int j = 0; j < map_size; j++) {
             if (ptr_map[j][i] == 0) cout <<"  ";
-            else if (ptr_map[j][i] == 10) cout << 10;
-            else cout << " " << ptr_map[j][i];
+            else if (ptr_map[j][i] == 2) cout << " 2";
+            else cout <<"##";
         }
         cout << endl;
     }
@@ -913,23 +767,3 @@ void Map::afficherMapSFML() {
     }
     cout << endl;
 }
-
-/*void Map::afficherTout() {
-    //on affiche dans le terminal lignes par lignes
-    for (int i = 0; i < map_size; i++) {
-        for (int j = 0; j < map_size; j++) {
-            if (ptr_map[j][i] == 0) cout << "  ";
-            else if (ptr_map[j][i] == 1) cout << "##";
-            else if(ptr_map[j][i] == 2) cout << hero->getSprite() << " ";
-            else if(ptr_map[j][i] == 3) cout << ennemis[1]->getSprite() << " ";
-            else if (ptr_map[j][i] == -1) cout << "XX";
-            else if (ptr_map[j][i] < 10) cout << " " << ptr_map[j][i]; //petite modif pour afficher les num des rooms
-            else cout << ptr_map[j][i];
-        }
-        cout << endl;
-    }
-    for (int i = 0; i < map_size; i++) {
-        cout << "**";
-    }
-    cout << endl;
-}*/
