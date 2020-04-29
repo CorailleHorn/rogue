@@ -46,11 +46,10 @@ int ajoutTexture(){ // Affiche les sprites en verifiant les cases autour pour le
 
     Contents* content = new Contents;
     Map* m = new Map;
-    Sprite tab[100][100];
-
-    for (int x = 0; x < 100; x++){
-
-        for (int y = 0; y < 100; y++){
+    m->initGeneration();
+    Sprite tab[90][90];
+    for (int x = 0; x < 90; x++){
+        for (int y = 0; y < 90; y++){
 
             int type = m->position_valide(x, y);
             tab[x][y].setTexture(*(content->tJeu));
@@ -146,5 +145,7 @@ int ajoutTexture(){ // Affiche les sprites en verifiant les cases autour pour le
             }
         }
     }
+    delete m;
+    delete content;
     return 0;
 }

@@ -61,8 +61,8 @@ void Map::initGeneration() { //on lance la generation complete
 
     ajouterCorridorsSimpleSFML();
     ajouterCorridorsSFML();
-    afficherMapSFML();
-    viderMap();
+    //afficherMapSFML();
+    //viderMap();
 /*
     int pos[2];
     for(long unsigned int i = 1; i < list_room.size(); i++) {
@@ -721,7 +721,7 @@ void Map::updateRooms() {
   return 0;
 }*/
 
-bool Map::position_valide(const int &x, const int &y) {
+int Map::position_valide(const int &x, const int &y) {
   return ptr_map[x][y];
 }
 
