@@ -159,8 +159,11 @@ int ajoutTexture(){ // Affiche les sprites en verifiant les cases autour pour le
             }
         }
     }
-    while(true) {
+    int stop = false;
+    while(!stop) {
     window.display();
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+      stop = true;
     }
     delete m;
     delete content;
