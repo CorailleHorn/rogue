@@ -1,4 +1,4 @@
-all :  test
+all : bin/SFML_jeu
 
 	#Test
 
@@ -16,20 +16,33 @@ obj/Animation.o : src/SFML/Animation.cpp src/SFML/Animation.h
 
 		#SFMLJeu
 
-bin/SFML_jeu : obj/SFMLmain.o obj/SFMLJeu.o obj/SFMLMap.o obj/SFMLRoom.o obj/SFMLPersonnages.o
-	g++ -Wall -ggdb obj/SFMLmain.o obj/SFMLJeu.o obj/SFMLMap.o obj/SFMLRoom.o obj/SFMLPersonnages.o -o bin/SFML_jeu -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio
+bin/SFML_jeu : obj/SFMLmain.o obj/SFMLJeu.o obj/Contents.o obj/SFMLMap.o obj/SFMLRoom.o obj/SFMLPersonnages.o obj/AnimatedSprite.o obj/Animation.o
+	g++ -Wall -ggdb obj/SFMLmain.o obj/SFMLJeu.o obj/SFMLMap.o obj/SFMLRoom.o obj/SFMLPersonnages.o obj/Contents.o obj/AnimatedSprite.o obj/Animation.o -o bin/SFML_jeu -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio
 
-obj/SFMLmain.o : src/SFML/main.cpp src/SFML/SFMLJeu.h src/SFML/Map.h src/SFML/Room.h src/SFML/Personnages.h
+obj/SFMLmain.o : src/SFML/main.cpp src/SFML/SFMLJeu.h src/SFML/Map.h src/SFML/Room.h src/SFML/Personnages.h src/SFML/Contents.h src/SFML/AnimatedSprite.h src/SFML/Animation.h
 	g++ -Wall -ggdb	-c src/SFML/main.cpp -o obj/SFMLmain.o
 
+<<<<<<< HEAD
 obj/SFMLJeu.o : src/SFML/SFMLJeu.cpp src/SFML/SFMLJeu.h src/SFML/Map.h src/SFML/Room.h src/SFML/Personnages.h
+=======
+obj/SFMLJeu.o : src/SFML/SFMLJeu.cpp src/SFML/SFMLJeu.h src/SFML/Map.h src/SFML/Room.h src/SFML/Personnages.h src/SFML/Contents.h src/SFML/AnimatedSprite.h src/SFML/Animation.h
+>>>>>>> c93bfd97082f6cfa740c3663ee4761e52bfbd940
 	g++ -Wall -ggdb	-c src/SFML/SFMLJeu.cpp -o obj/SFMLJeu.o
+
+obj/Contents.o : src/SFML/Contents.cpp src/SFML/Contents.h src/SFML/AnimatedSprite.h src/SFML/Animation.h
+	g++ -Wall -ggdb	-c src/SFML/Contents.cpp -o obj/Contents.o
 
 obj/SFMLMap.o : src/SFML/Map.cpp src/SFML/Map.h src/SFML/Room.h src/SFML/Personnages.h
 	g++ -std=c++11 -Wall -ggdb -c src/SFML/Map.cpp -o obj/SFMLMap.o
 
-obj/SFMLPersonnages.o : src/SFML/Personnages.cpp src/SFML/Personnages.h
+obj/SFMLPersonnages.o : src/SFML/Personnages.cpp src/SFML/Personnages.h src/SFML/AnimatedSprite.h src/SFML/Animation.h
 	g++ -std=c++11 -Wall -ggdb -c src/SFML/Personnages.cpp -o obj/SFMLPersonnages.o
+
+obj/AnimatedSprite.o : src/SFML/AnimatedSprite.cpp src/SFML/AnimatedSprite.h src/SFML/Animation.h
+	g++ -Wall -ggdb	-c src/SFML/AnimatedSprite.cpp -o obj/AnimatedSprite.o
+
+obj/Animation.o : src/SFML/Animation.cpp src/SFML/Animation.h
+	g++ -Wall -ggdb	-c src/SFML/Animation.cpp -o obj/Animation.o
 
 obj/SFMLRoom.o : src/SFML/Room.cpp src/SFML/Room.h
 	g++ -Wall -ggdb -c src/SFML/Room.cpp -o obj/SFMLRoom.o
