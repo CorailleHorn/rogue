@@ -725,6 +725,10 @@ int Map::position_valide(const int &x, const int &y) {
   return ptr_map[x][y];
 }
 
+int Map::size() {
+  return map_size;
+}
+
 void Map::viderMap() {
     //on fabrique la map : 0:vide 1:plein
     for (int i = 0; i < map_size; i++) {
