@@ -11,20 +11,22 @@ using namespace std;
 //on créer un constante PI pour les calculs utilisant de la trigonométrie
 long double const PI = 3.1415926535897932384626433832795028841968;
 
+//fonction retournant un float de la distance entre deux points (x1,y1) et (x2,y2)
 float dist2Points(float x1, float y1, float x2, float y2) {
     return sqrt(pow((x1 - x2), 2) + pow((y1 - y2), 2));
 }
 
-
+//constructeur surchargé de map prenant plusieurs paramètres (voir doc)
 Map::Map(int const size, int const nb, int const rad, int const max, int const min) :
     map_size(size), nbrooms(nb), radius(rad), room_max_size(max), room_min_size(min) {
+    //on "fabrique" la map ptr_map, pointeur de pointeur
     ptr_map = new int*[map_size];
     //on initialise les pointeurs sur des valeurs nulles
     for (int i = 0; i < map_size; i++) {
       ptr_map[i] = nullptr;
     }
 
-    //on affecte a chaque pointeur du tableau un tableau alloué dynamiquement
+    //on affecte a chaque pointeur du tableau, un tableau alloué dynamiquement
     for (int i = 0; i < map_size; i++) {
       ptr_map[i] = new int[map_size];
     }
@@ -37,6 +39,7 @@ Map::Map(int const size, int const nb, int const rad, int const max, int const m
   hero = h;
 }*/
 
+//constructeur par défaut de map
 Map::Map() : Map(90,100,5,20,5) {} //param par defaut
 
 Map::~Map() {
@@ -59,8 +62,7 @@ void Map::initGeneration() { //on lance la generation complete
     initLinks(); //on initialise les liens pour pouvoir ensuite gen les couloirs
     genCorridors();// on gen les couloirs
 
-    ajouterCorridorsSimpleSFML(); // on ajoute les chemins des couloirs sans les murs telles qu'on les veut pour l'affichage graphique
-    ajouterCorridorsSFML(); // on ajoute les murs
+    ajouterCorridorsSFML();  // on ajoute les chemins des couloirs avec les murs telles qu'on les veut pour l'affichage graphique
     //afficherMapSFML(); // on affiche la map ; inutile en graphique
     viderMap(); // on vide la map i.e. on remet tout les valeurs de map à 0; PENSER à la commenter pour pouvoir utiliser les donner de maps après génération
 /*
@@ -244,7 +246,6 @@ void Map::testRegression() { //on lance le test de regression
     //STEP 7 : ON AFFICHE LA VERSION POUR LA SFML
     M2.viderMap();
     M2.ajouterRoomsSFML();
-    M2.ajouterCorridorsSimpleSFML();
     M2.ajouterCorridorsSFML();
     M2.afficherMapSFML();
 
@@ -256,6 +257,7 @@ void Map::genRooms()  {
 
         //on gen les rooms dans un cercle, puis on "éclate" les particules
         list_room[i].genInCircle(map_size, radius, room_max_size, room_min_size);
+        //on initialise tout les liens à -1
         list_room[i].setIDlinked(-1);
     }
 }
@@ -265,8 +267,9 @@ void Map::eclatement() {
     //pour chaque room on la déplace suivant un angle variant sur le cercle tant qu'elle est en collision avec une des rooms de la map
 
     for (unsigned int i = 0; i < list_room.size(); i++) {
+        //tant que toutes les autres rooms sont en collision avec la room que l'on déplace
         while (allRoomsCollisions(i)) {
-
+            //déplacement de la room dans toutes les directions du cercle trigonométrique
             list_room[i].setx0(list_room[i].getx0() +  (cos(((i + 1.0) * PI) / (nbrooms / 2))));
             list_room[i].sety0(list_room[i].gety0() + (sin(((i + 1.0) * PI) / (nbrooms / 2))));
         }
@@ -284,7 +287,7 @@ void Map::chooseRooms() {
     //NOTE: on ne met pas de unsigned int pour i car cette valeur peut prendre-1
     for (int i = 0; i < (int)list_room.size(); i++) {
         if ((list_room[i].getH() < mean[0]) || (list_room[i].getL() < mean[1])) {
-            list_room.erase(list_room.begin() + i);
+            list_room.erase(list_room.begin() + i); // suppression de la room du tableau
             i--;
         }
     }
@@ -292,31 +295,41 @@ void Map::chooseRooms() {
 
 
 void Map::initLinks() {
-    //version utilisant l'algorithme de PRIM
-    //pour trouver un arbre de liens couvrant toutes les rooms de poid minimal
+    //on initialise les liens entres les centres des rooms pour ensuite générer des couloirs allant d'un centre à l'autre
 
-    //tableau de priorité contenant un boolean (true -> si déjà affiché) les priorités de chaque id de rooms
+    //version utilisant l'algorithme de PRIM–DIJKSTRA
+    //pour trouver un arbre de liens couvrant toutes les centres des rooms et qui soit de poid minimal
+    //pour plus d'informations : https://fr.wikipedia.org/wiki/Algorithme_de_Prim
+
+    //tableau de priorité contenant un boolean (true si déjà lié) et les "poids" ou priorités de chaque id de rooms
+    //par la suite on choisira une a une les rooms par leurs poids dans un ordre croissant
     vector<pair<bool, float>> prio;
-
+    //on initialise toutes les rooms comme n'ayant pas été lié
+    // et on leur donne une une valeur très grande
     for(int i = 0; i < (int)list_room.size(); i++) {
         prio.push_back(make_pair(false, 100000));
     }
     //On commence au sommet de la room 0 en lui donnant la plus faible valeur (elle passera donc en priorité)
     prio[0].second = 0;
 
-    int valt;
+    int p;
     float arrete;
-
+    //pour toute les rooms -1 car il faut q'il reste au moins deux rooms valides à étudier
     for(int k = 0; k < (int)list_room.size() - 1; k++) {
-        //t prend les valeurs de l'element a la priorite la plus importante i.e. la valeur la plus petit
-        valt = priorite(prio);
-        prio[valt].first = true;
+        //p prend les valeurs de l'element a la priorite la plus importante i.e. la valeur la plus petite
+        p = priorite(prio);
+        prio[p].first = true;
+        //on teste si on peut la lié aux autres rooms
         for(int i = 0; i < (int)list_room.size(); i++){
-            //on verifie qu'on etudie une arrete entre deux éléments différents
-            if(valt != i) {
-                arrete = dist2Points(list_room[valt].getX(), list_room[valt].getY(), list_room[i].getX(), list_room[i].getY());
+            //on verifie qu'on etudie une arrete entre deux éléments différents (pour éviter des calculs supplémentaire)
+            if(p != i) {
+                //on calcule la distance entre le centre de la room p et de la room i
+                arrete = dist2Points(list_room[p].getX(), list_room[p].getY(), list_room[i].getX(), list_room[i].getY());
+                //si la room est valide et que son arrete et inferieur à au poid de I qui correspond [si déjà modifié] au poid de son arrete précédente
                 if(prio[i].first == false && prio[i].second >= arrete) {
-                    list_room[i].setIDlinked(valt);
+                    //on lie
+                    list_room[i].setIDlinked(p);
+                    //le poids de i devient la distance entre p et i
                     prio[i].second = arrete;
                 }
             }
@@ -327,7 +340,7 @@ void Map::initLinks() {
 }
 
 int Map::priorite(const vector<pair<bool, float>> &prio) {
-    //retourne
+    //retourne l'indice de la valeur la plus petite dans le tableau prio soit le poid minimal
     float min = 10000000.0;
     int p;
     for(int i = 0; i < (int)list_room.size(); i++) {
@@ -341,13 +354,16 @@ int Map::priorite(const vector<pair<bool, float>> &prio) {
 
 void Map::ajouterLinks(){
     //on ajoute les liens sur la map pour mieux visualiser si la gen est correct
+    //ici pas d'aléatoire ni de génération propre car on utilisera uniquement cette fonction en debug
+
     int r, x0, y0, x1, y1, diffX, diffY;
+    //ces variables "de transition" ne sont pas necessaire, elle sont
+    //seulement là pour plus de lisibilité du code
 
     for(int i = 0; i < (int)list_room.size(); i++) {
-        //ces variables "de transition" ne sont pas necessaire, elle sont
-        //seulement là pour plus de lisibilité du code
+        //on récupère le lien de la room
         r = list_room[i].getIDlinked();
-
+        //si le lien existe
         if(r != -1) {
             x0 = list_room[i].getX();
             y0 = list_room[i].getY();
@@ -355,6 +371,8 @@ void Map::ajouterLinks(){
             y1 = list_room[r].getY();
             diffX = x0 - x1;
             diffY = y0 - y1;
+            //si le second point est à un x supérieur premier
+            //on ajoute a la map les points allant d'un x à l'autre
             if( diffX <= 0) {
                 for (int j = 0; j < abs(diffX); j++) {
                     ptr_map[x0 + j][y0] = -1;
@@ -365,6 +383,7 @@ void Map::ajouterLinks(){
                     ptr_map[x0 - j][y0] = -1;
                 }
             }
+            //si le second point est à un y supérieur premier
             if( diffY <= 0) {
                 for (int j = 0; j < abs(diffY); j++) {
                     ptr_map[x1][y0 + j] = -1;
@@ -380,47 +399,57 @@ void Map::ajouterLinks(){
 }
 
 void Map::genCorridors() {
+    //on génère les couloirs procéduralement en deux lignes de droite d'un centre à l'autre
     int id2, x, y, r, incx, incy;
     int id_corridor = 0;
-    pair<int,int>  pair1, pair2;
-    Corridor a;
+    pair<int,int>  pair1, pair2; //on créer
+    Corridor a; //on créer un couloir a, couloir de base
     a.layer.resize(0);
 
     for(int i = 0; i < (int)list_room.size(); i++) {
+        //on donne à id2 l'indice de la room liée
         id2 = list_room[i].getIDlinked();
+        //si ce lien existe
         if(id2 != -1) {
+            //on initialise le couloir dans le tableau de couloirs
             list_corridor.push_back(a);
-
+            //coordonnées du centre de la room i point de départ du couloir
             x = list_room[i].getX();
             y = list_room[i].getY();
 
-            r = rand() % 2 - 1;
-            if (r) {
-
+            //on fait commencer les couloirs en ordonnée ou en abcisse suivant la valeur de r
+            r = rand() % 2 - 1; //0 ou 1
+            if (r) { // si on commence par un couloir de type y
+                //point de flexion du couloir a mi chemin entre la room i et id2
                 pair1 = make_pair(list_room[i].getX(), list_room[id2].getY());
 
+                //incrementeur des y en fonction de la direction à prendre
                 if(pair1.second > y) incy = 1;
                 else incy = -1;
 
+                //tant qu'on a pas atteint le point de flexion on ajoute les blocs
                 while( y != pair1.second ) {
+                    //on place les "bloc" du couloir successivement si le point est n'est pas dans room (bords exclues)
                     y += incy;
                     if(!isPointInRoom(x, y, "exc"))
                         list_corridor[id_corridor].layer.push_back(make_pair(x,y));
                 }
-
+                //point d'arrivé = centre de la room id2
                 pair2 = make_pair(list_room[id2].getX(), list_room[id2].getY());
 
+                //incrementeur des x en fonction de la direction à prendre
                 if(pair2.first > x) incx = 1;
                 else incx = -1;
-
+                //tant qu'on a pas atteint le point de flexion on ajoute les blocs
                 while( x != pair2.first ) {
+                    //on place les "bloc" du couloir successivement si le point est n'est pas dans room (bords exclues)
                     x += incx;
                     if(!isPointInRoom(x, y, "exc"))
                         list_corridor[id_corridor].layer.push_back(make_pair(x,y));
                 }
 
             }
-            else {
+            else {// si on commence par un couloir de type x
                 pair1 = make_pair(list_room[id2].getX(), list_room[i].getY());
 
                 if(pair1.first > x) incx = 1;
@@ -455,11 +484,15 @@ void Map::genCorridors() {
 
 void Map::ajouterCorridorsSFML() {
     //version d'affichage graphique en SFML
+    //note : dans cette affichage on ne creer pas les chemins au couloirs seulement les chemins
     int x,y;
     for(int i = 0; i < (int)list_corridor.size(); i++) {
         for(int j = 0; j < (int)list_corridor[i].layer.size(); j++) {
+            //
             x = list_corridor[i].layer[j].first;
             y = list_corridor[i].layer[j].second;
+
+            ptr_map[x][y] = 2;
 
             if(ptr_map[x-1][y-1] == 0)
                 ptr_map[x-1][y-1] = 1;
@@ -482,18 +515,6 @@ void Map::ajouterCorridorsSFML() {
 }
 
 
-void Map::ajouterCorridorsSimpleSFML() {
-    //version d'affichage graphique en SFML
-    //note : dans cette affichage on ne creer pas de murs au couloirs
-    int x,y;
-    for(int i = 0; i < (int)list_corridor.size(); i++) {
-        for(int j = 0; j < (int)list_corridor[i].layer.size(); j++) {
-            x = list_corridor[i].layer[j].first;
-            y = list_corridor[i].layer[j].second;
-            ptr_map[x][y] = 2;
-        }
-    }
-}
 
 
 bool const Map::isPointInCorridor(int const X, int const Y, unsigned int const ID) {
