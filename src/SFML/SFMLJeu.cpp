@@ -46,7 +46,7 @@ int ajoutTexture(){ // Affiche les sprites en verifiant les cases autour pour le
 
     Contents* content = new Contents;
     Map* m = new Map;
-    Sprite** tab = new Sprite* [100];
+    Sprite tab[100][100];
 
     for (int x = 0; x < 100; x++){
 
