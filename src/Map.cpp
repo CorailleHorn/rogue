@@ -8,7 +8,7 @@
 #include "Room.h"
 
 using namespace std;
-
+//on créer un constante PI pour les calculs utilisant de la trigonométrie
 long double const PI = 3.1415926535897932384626433832795028841968;
 
 float dist2Points(float x1, float y1, float x2, float y2) {
@@ -57,12 +57,12 @@ void Map::initGeneration() { //on lance la generation complete
     ajouterRoomsSFML();//on ajoute les rooms dans la map physiquement
 
     initLinks(); //on initialise les liens pour pouvoir ensuite gen les couloirs
-    genCorridors();
+    genCorridors();// on gen les couloirs
 
-    ajouterCorridorsSimpleSFML();
-    ajouterCorridorsSFML();
-    afficherMapSFML();
-    viderMap();
+    ajouterCorridorsSimpleSFML(); // on ajoute les chemins des couloirs sans les murs telles qu'on les veut pour l'affichage graphique
+    ajouterCorridorsSFML(); // on ajoute les murs
+    //afficherMapSFML(); // on affiche la map ; inutile en graphique
+    viderMap(); // on vide la map i.e. on remet tout les valeurs de map à 0; PENSER à la commenter pour pouvoir utiliser les donner de maps après génération
 /*
     int pos[2];
     for(long unsigned int i = 1; i < list_room.size(); i++) {
@@ -241,15 +241,12 @@ void Map::testRegression() { //on lance le test de regression
     M2.afficherMapTXT();
 
 
-    //STEP  : ON AFFICHE LA VERSION POUR LA SFML
+    //STEP 7 : ON AFFICHE LA VERSION POUR LA SFML
     M2.viderMap();
     M2.ajouterRoomsSFML();
     M2.ajouterCorridorsSimpleSFML();
     M2.ajouterCorridorsSFML();
     M2.afficherMapSFML();
-
-
-
 
 }
 
@@ -281,6 +278,7 @@ void Map::chooseRooms() {
     //rooms affichées
     float mean[2] = {0,0};
     moyenneRooms(mean);
+    //dans ces lignes on peut choisir si on veut un plus grand nombre de rooms en divisant la moyenne
     //mean[0] *= 0.75;
     //mean[1] *= 0.75;
     //NOTE: on ne met pas de unsigned int pour i car cette valeur peut prendre-1
@@ -462,80 +460,23 @@ void Map::ajouterCorridorsSFML() {
         for(int j = 0; j < (int)list_corridor[i].layer.size(); j++) {
             x = list_corridor[i].layer[j].first;
             y = list_corridor[i].layer[j].second;
-            //si c'est le dernier ou le premier bloc de couloirs
-            if(j == 0 || j == (int)list_corridor[i].layer.size() - 1) {
-                if(ptr_map[x-1][y-1] == 0)
-                    ptr_map[x-1][y-1] = 1;
-                if(ptr_map[x-1][y] == 0)
-                    ptr_map[x-1][y] = 1;
-                if(ptr_map[x-1][y+1] == 0)
-                    ptr_map[x-1][y+1] = 1;
-                if(ptr_map[x][y-1] == 0)
-                    ptr_map[x][y-1] = 1;
-                if(ptr_map[x][y+1] == 0)
-                    ptr_map[x][y+1] = 1;
-                if(ptr_map[x+1][y-1] == 0)
-                    ptr_map[x+1][y-1] = 1;
-                if(ptr_map[x+1][y] == 0)
-                    ptr_map[x+1][y] = 1;
-                if(ptr_map[x+1][y+1] == 0)
-                    ptr_map[x+1][y+1] = 1;
-            }
-            else {
-                if(x == list_corridor[i].layer[j - 1].first) {
 
-                    if(ptr_map[x + 1][y] == 0)
-                        ptr_map[x + 1][y] = 1;
-                    if(ptr_map[x - 1][y] == 0)
-                        ptr_map[x - 1][y] = 1;
-
-                    if( y == list_corridor[i].layer[j + 1].second) {
-                        if(y > list_corridor[i].layer[j - 1].second) {
-                            if(ptr_map[x + 1][y + 1] == 0)
-                                ptr_map[x + 1][y + 1] = 1;
-                            if(ptr_map[x][y + 1] == 0)
-                                ptr_map[x][y + 1] = 1;
-                            if(ptr_map[x - 1][y + 1] == 0)
-                                ptr_map[x - 1][y + 1] = 1;
-                        }
-                        else {
-                            if(ptr_map[x + 1][y - 1] == 0)
-                                ptr_map[x + 1][y - 1] = 1;
-                            if(ptr_map[x][y - 1] == 0)
-                                ptr_map[x][y - 1] = 1;
-                            if(ptr_map[x - 1][y - 1] == 0)
-                                ptr_map[x - 1][y - 1] = 1;
-                        }
-
-                    }
-                }
-                else {
-                    if(ptr_map[x][y + 1] != 1 && ptr_map[x][y + 1] != 2)
-                        ptr_map[x][y + 1] = 1;
-                    if(ptr_map[x][y - 1] != 1 && ptr_map[x][y - 1] != 2)
-                        ptr_map[x][y - 1] = 1;
-
-                    if( x == list_corridor[i].layer[j + 1].first) {
-                        if(x > list_corridor[i].layer[j - 1].first) {
-                            if(ptr_map[x + 1][y + 1] == 0)
-                                ptr_map[x + 1][y + 1] = 1;
-                            if(ptr_map[x + 1][y] == 0)
-                                ptr_map[x+1][y] = 1;
-                            if(ptr_map[x + 1][y - 1] == 0)
-                                ptr_map[x + 1][y - 1] = 1;
-                        }
-                        else {
-                            if(ptr_map[x - 1][y + 1] == 0)
-                                ptr_map[x - 1][y + 1] = 1;
-                            if(ptr_map[x - 1][y] == 0)
-                                ptr_map[x - 1][y] = 1;
-                            if(ptr_map[x - 1][y - 1] == 0)
-                                ptr_map[x - 1][y - 1] = 1;
-                        }
-
-                    }
-                }
-            }
+            if(ptr_map[x-1][y-1] == 0)
+                ptr_map[x-1][y-1] = 1;
+            if(ptr_map[x-1][y] == 0)
+                ptr_map[x-1][y] = 1;
+            if(ptr_map[x-1][y+1] == 0)
+                ptr_map[x-1][y+1] = 1;
+            if(ptr_map[x][y-1] == 0)
+                ptr_map[x][y-1] = 1;
+            if(ptr_map[x][y+1] == 0)
+                ptr_map[x][y+1] = 1;
+            if(ptr_map[x+1][y-1] == 0)
+                ptr_map[x+1][y-1] = 1;
+            if(ptr_map[x+1][y] == 0)
+                ptr_map[x+1][y] = 1;
+            if(ptr_map[x+1][y+1] == 0)
+                ptr_map[x+1][y+1] = 1;
         }
     }
 }
