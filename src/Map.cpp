@@ -484,21 +484,27 @@ void Map::ajouterCorridorsSFML() {
             else {
                 if(x == list_corridor[i].layer[j - 1].first) {
 
-                    if(ptr_map[x + 1][y] != 1 && ptr_map[x + 1][y] != 2)
+                    if(ptr_map[x + 1][y] == 0)
                         ptr_map[x + 1][y] = 1;
-                    if(ptr_map[x - 1][y] != 1 && ptr_map[x - 1][y] != 2)
+                    if(ptr_map[x - 1][y] == 0)
                         ptr_map[x - 1][y] = 1;
 
                     if( y == list_corridor[i].layer[j + 1].second) {
                         if(y > list_corridor[i].layer[j - 1].second) {
-                            ptr_map[x + 1][y + 1] = 1;
-                            ptr_map[x][y + 1] = 1;
-                            ptr_map[x - 1][y + 1] = 1;
+                            if(ptr_map[x + 1][y + 1] == 0)
+                                ptr_map[x + 1][y + 1] = 1;
+                            if(ptr_map[x][y + 1] == 0)
+                                ptr_map[x][y + 1] = 1;
+                            if(ptr_map[x - 1][y + 1] == 0)
+                                ptr_map[x - 1][y + 1] = 1;
                         }
                         else {
-                            ptr_map[x + 1][y - 1] = 1;
-                            ptr_map[x][y - 1] = 1;
-                            ptr_map[x - 1][y - 1] = 1;
+                            if(ptr_map[x + 1][y - 1] == 0)
+                                ptr_map[x + 1][y - 1] = 1;
+                            if(ptr_map[x][y - 1] == 0)
+                                ptr_map[x][y - 1] = 1;
+                            if(ptr_map[x - 1][y - 1] == 0)
+                                ptr_map[x - 1][y - 1] = 1;
                         }
 
                     }
@@ -511,14 +517,20 @@ void Map::ajouterCorridorsSFML() {
 
                     if( x == list_corridor[i].layer[j + 1].first) {
                         if(x > list_corridor[i].layer[j - 1].first) {
-                            ptr_map[x+1][y + 1] = 1;
-                            ptr_map[x+1][y] = 1;
-                            ptr_map[x+1][y - 1] = 1;
+                            if(ptr_map[x + 1][y + 1] == 0)
+                                ptr_map[x + 1][y + 1] = 1;
+                            if(ptr_map[x + 1][y] == 0)
+                                ptr_map[x+1][y] = 1;
+                            if(ptr_map[x + 1][y - 1] == 0)
+                                ptr_map[x + 1][y - 1] = 1;
                         }
                         else {
-                            ptr_map[x-1][y + 1] = 1;
-                            ptr_map[x-1][y] = 1;
-                            ptr_map[x-1][y - 1] = 1;
+                            if(ptr_map[x - 1][y + 1] == 0)
+                                ptr_map[x - 1][y + 1] = 1;
+                            if(ptr_map[x - 1][y] == 0)
+                                ptr_map[x - 1][y] = 1;
+                            if(ptr_map[x - 1][y - 1] == 0)
+                                ptr_map[x - 1][y - 1] = 1;
                         }
 
                     }
