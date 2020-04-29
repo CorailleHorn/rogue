@@ -13,8 +13,8 @@ struct Corridor {
 
 class Map {
 public:
-  Map(int const& size, int const& nb, int const& radius, int const& room_max_size,
-      int const& room_min_size);
+  Map(int const size, int const nb, int const radius, int const room_max_size,
+      int const room_min_size);
   Map(Hero *h);
   Map();
   ~Map();
@@ -28,7 +28,7 @@ public:
   void chooseRooms();
 
   void initLinks();
-  int priorite(std::vector<std::pair<bool, float>> prio);
+  int priorite(const std::vector<std::pair<bool, float>> &prio);
 
   void ajouterLinks();
 
@@ -36,8 +36,8 @@ public:
   void ajouterCorridorsTXT();
   void ajouterCorridorsSimpleSFML();
   void ajouterCorridorsSFML();
-  bool const isPointInCorridor(int const &X, int const &Y, int const &ID);
-  bool const isPointInRoom(int const &X, int const &Y, std::string param);
+  bool const isPointInCorridor(int const X, int const Y, unsigned int const ID);
+  bool const isPointInRoom(int const X, int const Y, std::string const &param);
 
   bool const allRoomsCollisions(unsigned int const ID);
   float* moyenneRooms(float mean[]);

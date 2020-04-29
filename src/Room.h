@@ -19,15 +19,15 @@ public:
 	int getL();
 
 	//mutateur
-	void setIDlinked(int const& val);
+	void setIDlinked(int const val);
 
-	void setx0(float const& val);
-	void sety0(float const& val);
+	void setx0(float const val);
+	void sety0(float const val);
 
 	void arrondValRoom();
-	bool const isRoomIn(int const& size);
+	bool const isRoomIn(int const size);
 
-	void genInCircle(int const& map_size, int const& radius, int const& room_max_size, int const& room_min_size);
+	void genInCircle(int const map_size, int const radius, int const room_max_size, int const room_min_size);
 	bool const roomCollision(Room& A);
 
     void initCenterRooms();
