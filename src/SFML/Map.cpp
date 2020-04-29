@@ -241,7 +241,7 @@ void Map::testRegression() { //on lance le test de regression
     M2.afficherMapTXT();
 
 
-    //STEP  : ON AFFICHE LA VERSION POUR LA SFML
+    //STEP 6 : ON AFFICHE LA VERSION POUR LA SFML
     M2.viderMap();
     M2.ajouterRoomsSFML();
     M2.ajouterCorridorsSimpleSFML();
