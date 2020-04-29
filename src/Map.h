@@ -26,7 +26,9 @@ public:
   void genRooms();
   void eclatement();
   void chooseRooms();
+
   void initLinks();
+  int priorite(std::vector<std::pair<bool, float>> prio);
 
   void choisirRoomLink(int const ID);
   bool const isRoomLinked(int ID1, int ID2);

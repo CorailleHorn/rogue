@@ -211,7 +211,7 @@ void Map::testRegression() { //on lance le test de regression
         //assert(M2.list_room[i].getIDlinked() != i);
 
     }
-    assert(M2.nb_corridors <= (int)M2.list_room.size());
+    assert(M2.nb_corridors = (int)M2.list_room.size() - 1);
     M2.ajouterLinks();
     for(int i = 0; i < (int)M2.list_room.size(); i++) {
         //ligne pour afficher les liens de manière condensé
@@ -259,11 +259,11 @@ void Map::testRegression() { //on lance le test de regression
     M2.afficherMapTXT();
 
     //STEP 7 : ON AFFICHE LA VERSION POUR LA SFML
-    M2.viderMap();
+    /*M2.viderMap();
     M2.ajouterRoomsSFML();
     M2.ajouterCorridorsSimpleSFML();
     M2.ajouterCorridorsSFML();
-    M2.afficherMapSFML();
+    M2.afficherMapSFML();*/
 
 
 
@@ -310,16 +310,51 @@ void Map::chooseRooms() {
 }
 
 
-
 void Map::initLinks() {
-    int inc = 0; //incrementeur pour calculer le nombre de couloirs nb_corridors,
-    for (int i = 0; i < (int)list_room.size(); i++) {
-        choisirRoomLink(i);
-        if(list_room[i].getIDlinked() != -1) {
-            inc++;
+    //version utilisant l'algorithme de PRIM
+    //pour trouver un arbre de liens couvrant toutes les rooms de poid minimal
+
+    //tableau de priorité contenant un boolean (true -> si déjà affiché) les priorités de chaque id de rooms
+    vector<pair<bool, float>> prio;
+
+    for(int i = 0; i < (int)list_room.size(); i++) {
+        prio.push_back(make_pair(false, 100000));
+    }
+    //On commence au sommet de la room 0 en lui donnant la plus faible valeur (elle passera donc en priorité)
+    prio[0].second = 0;
+
+    int valt;
+    float arrete;
+
+    for(int k = 0; k < (int)list_room.size() - 1; k++) {
+        //t prend les valeurs de l'element a la priorite la plus importante i.e. la valeur la plus petite
+        valt = priorite(prio);
+        prio[valt].first = true;
+
+        for(int i = 0; i < (int)list_room.size(); i++){
+            //on verifie qu'on etudie une arrete entre deux éléments différents
+            arrete = dist2Points(list_room[valt].getX(), list_room[valt].getY(), list_room[i].getX(), list_room[i].getY());
+            if(prio[i].first == false && prio[i].second >= arrete) {
+                list_room[i].setIDlinked(valt);
+                prio[i].second = arrete;
+            }
+        }
+
+    }
+    nb_corridors = list_room.size() - 1;
+
+
+}
+
+int Map::priorite(vector<pair<bool, float>> prio) {
+    //retourne
+    int p = 0;
+    for(int i = 1; i < (int)prio.size(); i++) {
+        if(prio[i].first == false && prio[i].second < prio[p].second) {
+            p = i;
         }
     }
-    nb_corridors = inc;
+    return p;
 }
 
 
@@ -619,7 +654,7 @@ void Map::ajouterCorridorsSFML() {
     //version d'affichage graphique en SFML
     int x,y;
     for(int i = 0; i < (int)list_corridor.size(); i++) {
-        
+
         x = list_corridor[i].layer[0].first;
         y = list_corridor[i].layer[0].second;
 
