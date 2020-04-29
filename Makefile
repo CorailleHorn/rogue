@@ -1,4 +1,4 @@
-all : test
+all : bin/SFML_jeu
 
 	#Test
 
@@ -25,8 +25,8 @@ obj/SFMLmain.o : src/SFML/main.cpp src/SFML/SFMLJeu.h src/SFML/Map.h src/SFML/Ro
 obj/SFMLJeu.o : src/SFML/SFMLJeu.cpp src/SFML/SFMLJeu.h src/SFML/Map.h src/SFML/Room.h src/SFML/Personnages.h src/SFML/Contents.h src/SFML/AnimatedSprite.h src/SFML/Animation.h
 	g++ -Wall -ggdb	-c src/SFML/SFMLJeu.cpp -o obj/SFMLJeu.o
 
-#obj/Contents.o : src/SFML/Contents.cpp src/SFML/Contents.h src/SFML/AnimatedSprite.h src/SFML/Animation.h
-#	g++ -Wall -ggdb	-c src/SFML/Contents.cpp -o obj/Contents.o
+obj/Contents.o : src/SFML/Contents.cpp src/SFML/Contents.h src/SFML/AnimatedSprite.h src/SFML/Animation.h
+	g++ -Wall -ggdb	-c src/SFML/Contents.cpp -o obj/Contents.o
 
 obj/SFMLMap.o : src/SFML/Map.cpp src/SFML/Map.h src/SFML/Room.h src/SFML/Personnages.h
 	g++ -std=c++11 -Wall -ggdb -c src/SFML/Map.cpp -o obj/SFMLMap.o
@@ -34,11 +34,11 @@ obj/SFMLMap.o : src/SFML/Map.cpp src/SFML/Map.h src/SFML/Room.h src/SFML/Personn
 obj/SFMLPersonnages.o : src/SFML/Personnages.cpp src/SFML/Personnages.h src/SFML/AnimatedSprite.h src/SFML/Animation.h
 	g++ -std=c++11 -Wall -ggdb -c src/SFML/Personnages.cpp -o obj/SFMLPersonnages.o
 
-#obj/AnimatedSprite.o : src/SFML/AnimatedSprite.cpp src/SFML/AnimatedSprite.h src/SFML/Animation.h
-#	g++ -Wall -ggdb	-c src/SFML/AnimatedSprite.cpp -o obj/AnimatedSprite.o
+obj/AnimatedSprite.o : src/SFML/AnimatedSprite.cpp src/SFML/AnimatedSprite.h src/SFML/Animation.h
+	g++ -Wall -ggdb	-c src/SFML/AnimatedSprite.cpp -o obj/AnimatedSprite.o
 
-#obj/Animation.o : src/SFML/Animation.cpp src/SFML/Animation.h
-#	g++ -Wall -ggdb	-c src/SFML/Animation.cpp -o obj/Animation.o
+obj/Animation.o : src/SFML/Animation.cpp src/SFML/Animation.h
+	g++ -Wall -ggdb	-c src/SFML/Animation.cpp -o obj/Animation.o
 
 obj/SFMLRoom.o : src/SFML/Room.cpp src/SFML/Room.h
 	g++ -Wall -ggdb -c src/SFML/Room.cpp -o obj/SFMLRoom.o

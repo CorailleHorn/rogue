@@ -300,7 +300,7 @@ using namespace sf;
   delete anim_Joueur;
   delete anim_Ennemie;
 }
-
+/*
 int main()
 {
     // setup window
@@ -380,3 +380,4 @@ int main()
     delete c;
     return 0;
 }
+*/
