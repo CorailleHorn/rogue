@@ -9,7 +9,7 @@ using namespace sf;
   tJeu = new Texture;
   for (int i = 0; i < 3; i++)
     tHero[i] = new Texture;
-  for (int i = 0; i < 6; i++)
+  for (int i = 0; i < 10; i++)
     tEnnemi[i] = new Texture;
   for (int i = 0; i < 8; i++)
     sJeu[i] = new SoundBuffer;
@@ -28,15 +28,25 @@ using namespace sf;
   if (!tHero[2]->loadFromFile("../data/img/health_bar/health_bar.png"))
     cerr << "Ton image charges pas batard" << '\n';
 
-  if (!tEnnemi[0]->loadFromFile("../data/img/Skeleton/Sprite_Sheets/Skeleton_Idle.png"))
+  if (!tEnnemi[0]->loadFromFile("../data/img/Skeleton/Skeleton_Idle.png"))
     cerr << "Ton image charges pas batard" << '\n';
-  if (!tEnnemi[1]->loadFromFile("../data/img/Skeleton/Sprite_Sheets/Skeleton_Walk.png"))
+  if (!tEnnemi[1]->loadFromFile("../data/img/Skeleton/Skeleton_Walk.png"))
     cerr << "Ton image charges pas batard" << '\n';
-  if (!tEnnemi[2]->loadFromFile("../data/img/Skeleton/Sprite_Sheets/Skeleton_Attack.png"))
+  if (!tEnnemi[2]->loadFromFile("../data/img/Skeleton/Skeleton_Attack.png"))
     cerr << "Ton image charges pas batard" << '\n';
-  if (!tEnnemi[3]->loadFromFile("../data/img/Skeleton/Sprite_Sheets/Skeleton_Hit.png"))
+  if (!tEnnemi[3]->loadFromFile("../data/img/Skeleton/Skeleton_Hit.png"))
     cerr << "Ton image charges pas batard" << '\n';
-  if (!tEnnemi[4]->loadFromFile("../data/img/Skeleton/Sprite_Sheets/Skeleton_Dead.png"))
+  if (!tEnnemi[4]->loadFromFile("../data/img/Skeleton/Skeleton_Dead.png"))
+    cerr << "Ton image charges pas batard" << '\n';
+  if (!tEnnemi[5]->loadFromFile("../data/img/Skeleton/Skeleton_IdleD.png"))
+    cerr << "Ton image charges pas batard" << '\n';
+  if (!tEnnemi[6]->loadFromFile("../data/img/Skeleton/Skeleton_WalkD.png"))
+    cerr << "Ton image charges pas batard" << '\n';
+  if (!tEnnemi[7]->loadFromFile("../data/img/Skeleton/Skeleton_AttackD.png"))
+    cerr << "Ton image charges pas batard" << '\n';
+  if (!tEnnemi[8]->loadFromFile("../data/img/Skeleton/Skeleton_HitD.png"))
+    cerr << "Ton image charges pas batard" << '\n';
+  if (!tEnnemi[9]->loadFromFile("../data/img/Skeleton/Skeleton_DeadD.png"))
     cerr << "Ton image charges pas batard" << '\n';
 
       //Son
@@ -155,17 +165,17 @@ using namespace sf;
 
     //Animation Ennemi
   anim_Ennemie->idleG.setSpriteSheet(tEnnemi[0]);
-  anim_Ennemie->idleG.addFrame(sf::IntRect(0*32, 0, 22, 32));
-  anim_Ennemie->idleG.addFrame(sf::IntRect(1*32, 0, 22, 32));
-  anim_Ennemie->idleG.addFrame(sf::IntRect(2*32, 0, 22, 32));
-  anim_Ennemie->idleG.addFrame(sf::IntRect(3*32, 0, 22, 32));
-  anim_Ennemie->idleG.addFrame(sf::IntRect(4*32, 0, 22, 32));
-  anim_Ennemie->idleG.addFrame(sf::IntRect(5*32, 0, 22, 32));
-  anim_Ennemie->idleG.addFrame(sf::IntRect(6*32, 0, 22, 32));
-  anim_Ennemie->idleG.addFrame(sf::IntRect(7*32, 0, 22, 32));
-  anim_Ennemie->idleG.addFrame(sf::IntRect(8*32, 0, 22, 32));
-  anim_Ennemie->idleG.addFrame(sf::IntRect(9*32, 0, 22, 32));
-  anim_Ennemie->idleG.addFrame(sf::IntRect(10*32, 0, 22, 32));
+  anim_Ennemie->idleG.addFrame(sf::IntRect(0*32, 0, 50, 32));
+  anim_Ennemie->idleG.addFrame(sf::IntRect(1*32, 0, 50, 32));
+  anim_Ennemie->idleG.addFrame(sf::IntRect(2*32, 0, 50, 32));
+  anim_Ennemie->idleG.addFrame(sf::IntRect(3*32, 0, 50, 32));
+  anim_Ennemie->idleG.addFrame(sf::IntRect(4*32, 0, 50, 32));
+  anim_Ennemie->idleG.addFrame(sf::IntRect(5*32, 0, 50, 32));
+  anim_Ennemie->idleG.addFrame(sf::IntRect(6*32, 0, 50, 32));
+  anim_Ennemie->idleG.addFrame(sf::IntRect(7*32, 0, 50, 32));
+  anim_Ennemie->idleG.addFrame(sf::IntRect(8*32, 0, 50, 32));
+  anim_Ennemie->idleG.addFrame(sf::IntRect(9*32, 0, 50, 32));
+  anim_Ennemie->idleG.addFrame(sf::IntRect(10*32, 0, 50, 32));
 
   anim_Ennemie->walkG.setSpriteSheet(tEnnemi[1]);
   anim_Ennemie->walkG.addFrame(sf::IntRect(0*32, 0, 22, 32));
@@ -214,6 +224,67 @@ using namespace sf;
   anim_Ennemie->mortG.addFrame(sf::IntRect(12*32, 0, 33, 32));
   anim_Ennemie->mortG.addFrame(sf::IntRect(13*32, 0, 33, 32));
   anim_Ennemie->mortG.addFrame(sf::IntRect(14*32, 0, 33, 32));
+
+  anim_Ennemie->idleD.setSpriteSheet(tEnnemi[5]);
+  anim_Ennemie->idleD.addFrame(sf::IntRect(0*32, 0, 22, 32));
+  anim_Ennemie->idleD.addFrame(sf::IntRect(1*32, 0, 22, 32));
+  anim_Ennemie->idleD.addFrame(sf::IntRect(2*32, 0, 22, 32));
+  anim_Ennemie->idleD.addFrame(sf::IntRect(3*32, 0, 22, 32));
+  anim_Ennemie->idleD.addFrame(sf::IntRect(4*32, 0, 22, 32));
+  anim_Ennemie->idleD.addFrame(sf::IntRect(5*32, 0, 22, 32));
+  anim_Ennemie->idleD.addFrame(sf::IntRect(6*32, 0, 22, 32));
+  anim_Ennemie->idleD.addFrame(sf::IntRect(7*32, 0, 22, 32));
+  anim_Ennemie->idleD.addFrame(sf::IntRect(8*32, 0, 22, 32));
+  anim_Ennemie->idleD.addFrame(sf::IntRect(9*32, 0, 22, 32));
+  anim_Ennemie->idleD.addFrame(sf::IntRect(10*32, 0, 22, 32));
+
+  anim_Ennemie->walkD.setSpriteSheet(tEnnemi[6]);
+  anim_Ennemie->walkD.addFrame(sf::IntRect(0*32, 0, 22, 32));
+  anim_Ennemie->walkD.addFrame(sf::IntRect(1*32, 0, 22, 32));
+  anim_Ennemie->walkD.addFrame(sf::IntRect(2*32, 0, 22, 32));
+  anim_Ennemie->walkD.addFrame(sf::IntRect(3*32, 0, 22, 32));
+  anim_Ennemie->walkD.addFrame(sf::IntRect(4*32, 0, 22, 32));
+  anim_Ennemie->walkD.addFrame(sf::IntRect(5*32, 0, 22, 32));
+  anim_Ennemie->walkD.addFrame(sf::IntRect(6*32, 0, 22, 32));
+  anim_Ennemie->walkD.addFrame(sf::IntRect(7*32, 0, 22, 32));
+  anim_Ennemie->walkD.addFrame(sf::IntRect(8*32, 0, 22, 32));
+  anim_Ennemie->walkD.addFrame(sf::IntRect(9*32, 0, 22, 32));
+  anim_Ennemie->walkD.addFrame(sf::IntRect(10*32, 0, 22, 32));
+  anim_Ennemie->walkD.addFrame(sf::IntRect(11*32, 0, 22, 32));
+  anim_Ennemie->walkD.addFrame(sf::IntRect(12*32, 0, 22, 32));
+
+  anim_Ennemie->atkD.setSpriteSheet(tEnnemi[7]);
+  anim_Ennemie->atkD.addFrame(sf::IntRect(4*32, 0, 40, 37));
+  anim_Ennemie->atkD.addFrame(sf::IntRect(5*32, 0, 40, 37));
+  anim_Ennemie->atkD.addFrame(sf::IntRect(6*32, 0, 40, 37));
+  anim_Ennemie->atkD.addFrame(sf::IntRect(7*32, 0, 40, 37));
+
+  anim_Ennemie->degatD.setSpriteSheet(tEnnemi[8]);
+  anim_Ennemie->degatD.addFrame(sf::IntRect(1*32, 0, 32, 32));
+  anim_Ennemie->degatD.addFrame(sf::IntRect(2*32, 0, 32, 32));
+  anim_Ennemie->degatD.addFrame(sf::IntRect(3*32, 0, 32, 32));
+  anim_Ennemie->degatD.addFrame(sf::IntRect(4*32, 0, 32, 32));
+  anim_Ennemie->degatD.addFrame(sf::IntRect(5*32, 0, 32, 32));
+  anim_Ennemie->degatD.addFrame(sf::IntRect(6*32, 0, 32, 32));
+  anim_Ennemie->degatD.addFrame(sf::IntRect(7*32, 0, 32, 32));
+  anim_Ennemie->degatD.addFrame(sf::IntRect(0*32, 0, 32, 32));
+
+  anim_Ennemie->mortD.setSpriteSheet(tEnnemi[9]);
+  anim_Ennemie->mortD.addFrame(sf::IntRect(0*32, 0, 33, 32));
+  anim_Ennemie->mortD.addFrame(sf::IntRect(1*32, 0, 33, 32));
+  anim_Ennemie->mortD.addFrame(sf::IntRect(2*32, 0, 33, 32));
+  anim_Ennemie->mortD.addFrame(sf::IntRect(3*32, 0, 33, 32));
+  anim_Ennemie->mortD.addFrame(sf::IntRect(4*32, 0, 33, 32));
+  anim_Ennemie->mortD.addFrame(sf::IntRect(5*32, 0, 33, 32));
+  anim_Ennemie->mortD.addFrame(sf::IntRect(6*32, 0, 33, 32));
+  anim_Ennemie->mortD.addFrame(sf::IntRect(7*32, 0, 33, 32));
+  anim_Ennemie->mortD.addFrame(sf::IntRect(8*32, 0, 33, 32));
+  anim_Ennemie->mortD.addFrame(sf::IntRect(9*32, 0, 33, 32));
+  anim_Ennemie->mortD.addFrame(sf::IntRect(10*32, 0, 33, 32));
+  anim_Ennemie->mortD.addFrame(sf::IntRect(11*32, 0, 33, 32));
+  anim_Ennemie->mortD.addFrame(sf::IntRect(12*32, 0, 33, 32));
+  anim_Ennemie->mortD.addFrame(sf::IntRect(13*32, 0, 33, 32));
+  anim_Ennemie->mortD.addFrame(sf::IntRect(14*32, 0, 33, 32));
 }
 
   Contents::~Contents() {
@@ -238,7 +309,7 @@ int main()
 
     Contents* c = new Contents;
 
-    Animation* currentAnimation = &(c->anim_Joueur->idleG);
+    Animation* currentAnimation = &(c->anim_Ennemie->idleG);
 
     // set up AnimatedSprite
     AnimatedSprite animatedSprite(sf::seconds(0.2), true);
@@ -265,25 +336,25 @@ int main()
         sf::Vector2f movement(0.f, 0.f);
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
         {
-            currentAnimation = &(c->anim_Joueur->walkG);
+            currentAnimation = &(c->anim_Ennemie->walkG);
             movement.y -= speed;
             noKeyWasPressed = false;
         }
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
         {
-            currentAnimation = &(c->anim_Joueur->atkG);
+            currentAnimation = &(c->anim_Ennemie->atkG);
             movement.y += speed;
             noKeyWasPressed = false;
         }
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
         {
-            currentAnimation = &(c->anim_Joueur->degatD);
+            currentAnimation = &(c->anim_Ennemie->degatD);
             movement.x -= speed;
             noKeyWasPressed = false;
         }
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
         {
-            currentAnimation = &(c->anim_Joueur->mortG);
+            currentAnimation = &(c->anim_Ennemie->mortG);
             movement.x += speed;
             noKeyWasPressed = false;
         }
@@ -293,7 +364,7 @@ int main()
         // if no key was pressed stop the animation
         if (noKeyWasPressed)
         {
-            currentAnimation = &(c->anim_Joueur->idleG);
+            currentAnimation = &(c->anim_Ennemie->idleG);
         }
         noKeyWasPressed = true;
 
