@@ -8,14 +8,14 @@
 #include "Personnages.h"
 
 struct Corridor {
-  std::vector<std::pair<int,int> > layer;
+  std::vector<std::pair<int,int>> layer;
 };
 
 class Map {
 public:
-  Map(int const& size, int const& nb, int const& radius, int const& room_max_size,
-      int const& room_min_size);
-  //Map(Hero *h);
+  Map(int const size, int const nb, int const radius, int const room_max_size,
+      int const room_min_size);
+  Map(Hero *h);
   Map();
   ~Map();
 
@@ -26,18 +26,17 @@ public:
   void genRooms();
   void eclatement();
   void chooseRooms();
-  void initLinks();
 
-  void choisirRoomLink(int const ID);
-  bool const isRoomLinked(int ID1, int ID2);
+  void initLinks();
+  int priorite(const std::vector<std::pair<bool, float>> &prio);
+
   void ajouterLinks();
 
   void genCorridors();
-  void ajouterCorridorsTXT();
   void ajouterCorridorsSimpleSFML();
   void ajouterCorridorsSFML();
-  bool const isPointInCorridor(int const &X, int const &Y, int const &ID);
-  bool const isPointInRoom(int const &X, int const &Y, std::string param);
+  bool const isPointInCorridor(int const X, int const Y, unsigned int const ID);
+  bool const isPointInRoom(int const X, int const Y, std::string const &param);
 
   bool const allRoomsCollisions(unsigned int const ID);
   float* moyenneRooms(float mean[]);
@@ -48,7 +47,7 @@ public:
 
   int newPosHero();
   int update();
-  int position_valide(const int &x, const int &y);
+  bool position_valide(const int &x, const int &y);
 
 
 
@@ -65,7 +64,6 @@ private:
 
   int map_size, nbrooms, radius, room_max_size, room_min_size, nb_ennemie;
   int hxm1, hym1;
-  int nb_corridors;
   //Hero *hero;
   //std::vector<Ennemi*> ennemis;
 };
