@@ -722,7 +722,7 @@ void Map::updateRooms() {
 }*/
 
 bool Map::position_valide(const int &x, const int &y) {
-  return !ptr_map[x][y];
+  return ptr_map[x][y];
 }
 
 void Map::viderMap() {
