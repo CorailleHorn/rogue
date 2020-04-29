@@ -48,21 +48,22 @@ Map::~Map() {
 
 }
 
-/*
+
 void Map::initGeneration() { //on lance la generation complete
     genRooms(); //on genere les rooms dans un cercle
     eclatement();//on procede a l'eclatement des rooms en leur donnant une physique (et donc un vecteur de deplacement)
     updateRooms();//on "met a jour" les rooms affichables (a l'interieur de map)
     chooseRooms();//on selectionne les rooms avec un aspect jouable
-
-    ajouterRoomsTXT();//on ajoute les rooms dans la map physiquement
+    ajouterRoomsSFML();//on ajoute les rooms dans la map physiquement
 
     initLinks(); //on initialise les liens pour pouvoir ensuite gen les couloirs
-
     genCorridors();
 
-    ajouterCorridorsTXT();
-
+    ajouterCorridorsSimpleSFML();
+    ajouterCorridorsSFML();
+    afficherMapSFML();
+    viderMap();
+/*
     int pos[2];
     for(long unsigned int i = 1; i < list_room.size(); i++) {
       nb_ennemie = rand() % 2 + 1;
@@ -87,8 +88,8 @@ void Map::initGeneration() { //on lance la generation complete
     hym1 =list_room[0].getY();
     hero->setX(hxm1);
     hero->setY(hym1);
-    ptr_map[hxm1][hym1] = 2;
-}*/
+    ptr_map[hxm1][hym1] = 2;*/
+}
 
 
 void Map::testRegression() { //on lance le test de regression
@@ -238,24 +239,9 @@ void Map::testRegression() { //on lance le test de regression
         M2.ptr_map[M2.list_room[i].getX()][M2.list_room[i].getY()] = i;
     }
     M2.afficherMapTXT();
-    /*M2.viderMap();
 
-    //STEP 6 : ON AFFICHE LES COULOIRS DE MANIERE JOUABLE
-    M2.ajouterRoomsTXT();
-    for(int i = 0; i < (int)M2.list_room.size(); i++) {
-        //lignes pour l'affichage des données des rooms
-        cout<< "room " << i << " : " << M2.list_room[i].getH() << ";"
-        << M2.list_room[i].getL() << " - " << M2.list_room[i].getX0() << ";"
-        << M2.list_room[i].getY0() << endl;
 
-        //ligne pour l'affichage des numéros des rooms
-        M2.ptr_map[M2.list_room[i].getX()][M2.list_room[i].getY()] = i;
-    }
-    M2.ajouterCorridorsTXT();
-
-    M2.afficherMapTXT();*/
-
-    //STEP 7 : ON AFFICHE LA VERSION POUR LA SFML
+    //STEP  : ON AFFICHE LA VERSION POUR LA SFML
     M2.viderMap();
     M2.ajouterRoomsSFML();
     M2.ajouterCorridorsSimpleSFML();
@@ -468,6 +454,7 @@ void Map::genCorridors() {
     }
 }
 
+
 void Map::ajouterCorridorsSFML() {
     //version d'affichage graphique en SFML
     int x,y;
@@ -626,6 +613,28 @@ float* Map::moyenneRooms(float mean[]) {
 }
 
 
+void Map::ajouterRoomsTXT() {
+    //ajouter l'affichage des rooms dans la map
+    //on arrondi d'abord les valeurs
+    for (unsigned int i = 0; i < list_room.size(); i++) {
+        //on ajoute la largeur des rooms
+        // j parcourant la largeur de la room
+        for (int j = 0; j < list_room[i].getL(); j++) {
+            ptr_map[list_room[i].getX0() + j][list_room[i].getY0()] = 1;
+            ptr_map[list_room[i].getX0() + j][(list_room[i].getY0() + list_room[i].getH() - 1) ] = 1;
+        }
+        //on ajoute la hauteur des rooms
+        // k parcourant la hauteur de la room
+        for (int k = 0; k < list_room[i].getH(); k++) {
+            ptr_map[list_room[i].getX0()][list_room[i].getY0() + k] = 1;
+            ptr_map[(list_room[i].getX0() + list_room[i].getL() - 1) ][list_room[i].getY0() + k] = 1;
+        }
+        //on affiche le num de la room
+        list_room[i].initCenterRooms();
+
+    }
+}
+
 void Map::ajouterRoomsSFML() {
     //ajouter les valeurs d'affichage de la map
     //on arrondi d'abord les valeurs
@@ -650,7 +659,6 @@ void Map::ajouterRoomsSFML() {
                 ptr_map[list_room[i].getX0() + k][list_room[i].getY0() + j] = 2;
             }
         }
-
         //on affiche le num de la room
         list_room[i].initCenterRooms();
     }
@@ -714,13 +722,31 @@ void Map::viderMap() {
     }
 }
 
+void Map::afficherMapTXT() {
+    //on affiche dans le terminal lignes par lignes
+    for (int i = 0; i < map_size; i++) {
+        for (int j = 0; j < map_size; j++) {
+            if (ptr_map[j][i] == 0) cout << "  ";
+            else if (ptr_map[j][i] == 1) cout << "##";
+            else if (ptr_map[j][i] == -1) cout << "XX";
+            else if (ptr_map[j][i] < 10) cout << " " << ptr_map[j][i]; //petite modif pour afficher les num des rooms
+            else cout << ptr_map[j][i];
+        }
+        cout << endl;
+    }
+    for (int i = 0; i < map_size; i++) {
+        cout << "**";
+    }
+    cout << endl;
+}
+
 void Map::afficherMapSFML() {
     //on affiche dans le terminal lignes par lignes
     for (int i = 0; i < map_size; i++) {
         for (int j = 0; j < map_size; j++) {
             if (ptr_map[j][i] == 0) cout <<"  ";
-            else if (ptr_map[j][i] == 10) cout << 10;
-            else cout <<" " << ptr_map[j][i];
+            else if (ptr_map[j][i] == 2) cout << " 2";
+            else cout <<"##";
         }
         cout << endl;
     }

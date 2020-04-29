@@ -33,7 +33,6 @@ public:
   void ajouterLinks();
 
   void genCorridors();
-  void ajouterCorridorsTXT();
   void ajouterCorridorsSimpleSFML();
   void ajouterCorridorsSFML();
   bool const isPointInCorridor(int const X, int const Y, unsigned int const ID);
