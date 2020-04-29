@@ -1,10 +1,8 @@
 #include "SFMLJeu.h"
-#include "Contents.h"
-#include "Map.h"
 
 using namespace sf;
 
-void Boucle (Hero *h) {
+/*void Boucle (Hero *h) {
   bool jeu = true;
   char touche;
   Map *m = new Map();
@@ -42,9 +40,9 @@ void Boucle (Hero *h) {
 void Detruit(Map *m){
     delete m;
     m = NULL;
-}
+}*/
 
-int ajoutTexture(){
+int ajoutTexture(){ // Affiche les sprites en verifiant les cases autour pour les cas particuliers (coins)
 
     Contents* content = new Contents;
     Map* m = new Map;
@@ -56,59 +54,96 @@ int ajoutTexture(){
 
             int type = m->position_valide(x, y);
             tab[x][y].setTexture(*(content->tJeu));
-            if (type == 0)
+
+            if (type == 0){
                 tab[x][y].setTextureRect(sf::IntRect(0, 0, 0, 0));
-            else if (type == 1)
-                if (m->position_valide(x, y-1) == 1)
-                    if (m->position_valide(x, y+1) == 1)
-                        if (m->position_valide(x-1, y) == 0)
-                            if (m->position_valide(x+1, y) == 2)
+            }
+
+            else if (type == 1){
+                if (m->position_valide(x, y-1) == 1){
+                    if (m->position_valide(x, y+1) == 1){
+                        if (m->position_valide(x-1, y) == 0){
+                            if (m->position_valide(x+1, y) == 2){
                                 tab[x][y].setTextureRect(sf::IntRect(0, 32, 32, 32));
+                            }
+                        }
+                    }
+                }
+            }
 
-                else if (m->position_valide(x, y-1) == 0)
-                    if (m->position_valide(x, y+1) == 2)
-                        if (m->position_valide(x-1, y) == 1)
-                            if (m->position_valide(x+1, y) == 1)
+                else if (m->position_valide(x, y-1) == 0){
+                    if (m->position_valide(x, y+1) == 2){
+                        if (m->position_valide(x-1, y) == 1){
+                            if (m->position_valide(x+1, y) == 1){
                                 tab[x][y].setTextureRect(sf::IntRect(130, 0, 32, 32));
+                            }
+                        }
+                    }
+                }
 
-                else if (m->position_valide(x, y-1) == 1)
-                    if (m->position_valide(x, y+1) == 1)
-                        if (m->position_valide(x-1, y) == 2)
-                            if (m->position_valide(x+1, y) == 0)
+                else if (m->position_valide(x, y-1) == 1){
+                    if (m->position_valide(x, y+1) == 1){
+                        if (m->position_valide(x-1, y) == 2){
+                            if (m->position_valide(x+1, y) == 0){
                                 tab[x][y].setTextureRect(sf::IntRect(64, 32, 32, 32));
+                            }
+                        }
+                    }
+                }
 
-                else if (m->position_valide(x, y-1) == 2)
-                    if (m->position_valide(x, y+1) == 0)
-                        if (m->position_valide(x-1, y) == 1)
-                            if (m->position_valide(x+1, y) == 1)
+                else if (m->position_valide(x, y-1) == 2){
+                    if (m->position_valide(x, y+1) == 0){
+                        if (m->position_valide(x-1, y) == 1){
+                            if (m->position_valide(x+1, y) == 1){
                                 tab[x][y].setTextureRect(sf::IntRect(32, 64, 32, 32));
+                            }
+                        }
+                    }
+                }
 
-                else if (m->position_valide(x, y-1) == 0)
-                    if (m->position_valide(x, y+1) == 1)
-                        if (m->position_valide(x-1, y) == 0)
-                            if (m->position_valide(x+1, y) == 1)
+                else if (m->position_valide(x, y-1) == 0){
+                    if (m->position_valide(x, y+1) == 1){
+                        if (m->position_valide(x-1, y) == 0){
+                            if (m->position_valide(x+1, y) == 1){
                                 tab[x][y].setTextureRect(sf::IntRect(96, 0, 32, 32));
+                            }
+                        }
+                    }
+                }
 
-                else if (m->position_valide(x, y-1) == 0)
-                    if (m->position_valide(x, y+1) == 1)
-                        if (m->position_valide(x-1, y) == 1)
-                            if (m->position_valide(x+1, y) == 0)
+                else if (m->position_valide(x, y-1) == 0){
+                    if (m->position_valide(x, y+1) == 1){
+                        if (m->position_valide(x-1, y) == 1){
+                            if (m->position_valide(x+1, y) == 0){
                                 tab[x][y].setTextureRect(sf::IntRect(160, 0, 32, 32));
+                            }
+                        }
+                    }
+                }
 
-                else if (m->position_valide(x, y-1) == 1)
-                    if (m->position_valide(x, y+1) == 0)
-                        if (m->position_valide(x-1, y) == 1)
-                            if (m->position_valide(x+1, y) == 0)
+                else if (m->position_valide(x, y-1) == 1){
+                    if (m->position_valide(x, y+1) == 0){
+                        if (m->position_valide(x-1, y) == 1){
+                            if (m->position_valide(x+1, y) == 0){
                                 tab[x][y].setTextureRect(sf::IntRect(64, 64, 32, 32));
+                            }
+                        }
+                    }
+                }
 
-                else if (m->position_valide(x, y-1) == 1)
-                    if (m->position_valide(x, y+1) == 0)
-                        if (m->position_valide(x-1, y) == 0)
-                            if (m->position_valide(x+1, y) == 1)
+                else if (m->position_valide(x, y-1) == 1){
+                    if (m->position_valide(x, y+1) == 0){
+                        if (m->position_valide(x-1, y) == 0){
+                            if (m->position_valide(x+1, y) == 1){
                                 tab[x][y].setTextureRect(sf::IntRect(0, 64, 32, 32));
+                            }
+                        }
+                    }
+                }
 
-            else if (type == 2)
+            else if (type == 2){
                 tab[x][y].setTextureRect(sf::IntRect(160, 304, 32, 32));
+            }
         }
     }
     return 0;
