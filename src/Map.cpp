@@ -484,16 +484,16 @@ void Map::genCorridors() {
 
 void Map::ajouterCorridorsSFML() {
     //version d'affichage graphique en SFML
-    //note : dans cette affichage on ne creer pas les chemins au couloirs seulement les chemins
+    //on ajout ici à la map les couloirs avec les murs
     int x,y;
     for(int i = 0; i < (int)list_corridor.size(); i++) {
         for(int j = 0; j < (int)list_corridor[i].layer.size(); j++) {
             //
             x = list_corridor[i].layer[j].first;
             y = list_corridor[i].layer[j].second;
-
+            //on ajoute le chemin i.e. dans tout les cas (on a déjà testé dans la génération si on passait dans une room)
             ptr_map[x][y] = 2;
-
+            //ajoute les murs tout autour de chaque coordonees de chemins si l'endroit est vide donc égale à 0
             if(ptr_map[x-1][y-1] == 0)
                 ptr_map[x-1][y-1] = 1;
             if(ptr_map[x-1][y] == 0)
@@ -520,6 +520,7 @@ void Map::ajouterCorridorsSFML() {
 bool const Map::isPointInCorridor(int const X, int const Y, unsigned int const ID) {
     //test si le point du couloir ID passe a travers un couloir déjà affiché
     for(unsigned int i = 0; i < ID; i++) {
+        //on test si le point correspond à un point déjà définis
         for(int j = 0; j < (int)list_corridor[i].layer.size() ; j++) {
             if(((X == list_corridor[i].layer[j].first)
             &&  (Y == list_corridor[i].layer[j].second)))
@@ -529,7 +530,7 @@ bool const Map::isPointInCorridor(int const X, int const Y, unsigned int const I
     return false;
 }
 bool const Map::isPointInRoom(int const X, int const Y, string const &param) {
-    //test si point est dans une room avec différent parametre possible
+    //test si point est dans une room avec différent parametre possible (voir doc)
     //bords inclues
     if(param == "inc") {
         for(int i = 0; i < (int)list_room.size(); i++) {
@@ -576,7 +577,7 @@ bool const Map::allRoomsCollisions(unsigned int const ID) {
 }
 
 float* Map::moyenneRooms(float mean[]) {
-
+    //renvoie la moyenne des tailles de toutes les rooms dans la map
     for(unsigned int i = 0; i < list_room.size(); i++) {
         mean[0] += list_room[i].getH();
         mean[1] += list_room[i].getL();
