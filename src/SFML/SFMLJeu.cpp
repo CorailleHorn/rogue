@@ -43,23 +43,23 @@ void Detruit(Map *m){
 }*/
 
 int ajoutTexture(){ // Affiche les sprites en verifiant les cases autour pour les cas particuliers (coins)
-
-    Vector2i screenDimensions(800,600);
-    RenderWindow window(VideoMode(screenDimensions.x, screenDimensions.y), "Rogue !");
     Contents* content = new Contents;
     Map* m = new Map;
     m->initGeneration();
     int taille = m->size();
+    Vector2i screenDimensions(taille*32,taille*32);
+    RenderWindow window(VideoMode(screenDimensions.x, screenDimensions.y), "Rogue");
     Sprite tab[taille][taille];
+    window.clear();
     for (int x = 0; x < taille; x++){
         for (int y = 0; y < taille; y++){
 
             int type = m->position_valide(x, y);
             tab[x][y].setTexture(*(content->tJeu));
+            tab[x][y].setPosition(x*32, y*32);
 
             if (type == 0){
                 tab[x][y].setTextureRect(sf::IntRect(0, 0, 0, 0));
-                tab[x][y].setPosition(x*32, y*32);
                 window.draw(tab[x][y]);
             }
 
@@ -69,7 +69,6 @@ int ajoutTexture(){ // Affiche les sprites en verifiant les cases autour pour le
                         if (m->position_valide(x-1, y) == 0){
                             if (m->position_valide(x+1, y) == 2){
                                 tab[x][y].setTextureRect(sf::IntRect(0, 32, 32, 32));
-                                tab[x][y].setPosition(x*32, y*32);
                                 window.draw(tab[x][y]);
                             }
                         }
@@ -82,7 +81,6 @@ int ajoutTexture(){ // Affiche les sprites en verifiant les cases autour pour le
                         if (m->position_valide(x-1, y) == 1){
                             if (m->position_valide(x+1, y) == 1){
                                 tab[x][y].setTextureRect(sf::IntRect(130, 0, 32, 32));
-                                tab[x][y].setPosition(x*32, y*32);
                                 window.draw(tab[x][y]);
                             }
                         }
@@ -94,7 +92,6 @@ int ajoutTexture(){ // Affiche les sprites en verifiant les cases autour pour le
                         if (m->position_valide(x-1, y) == 2){
                             if (m->position_valide(x+1, y) == 0){
                                 tab[x][y].setTextureRect(sf::IntRect(64, 32, 32, 32));
-                                tab[x][y].setPosition(x*32, y*32);
                                 window.draw(tab[x][y]);
                             }
                         }
@@ -106,7 +103,6 @@ int ajoutTexture(){ // Affiche les sprites en verifiant les cases autour pour le
                         if (m->position_valide(x-1, y) == 1){
                             if (m->position_valide(x+1, y) == 1){
                                 tab[x][y].setTextureRect(sf::IntRect(32, 64, 32, 32));
-                                tab[x][y].setPosition(x*32, y*32);
                                 window.draw(tab[x][y]);
                             }
                         }
@@ -118,7 +114,6 @@ int ajoutTexture(){ // Affiche les sprites en verifiant les cases autour pour le
                         if (m->position_valide(x-1, y) == 0){
                             if (m->position_valide(x+1, y) == 1){
                                 tab[x][y].setTextureRect(sf::IntRect(96, 0, 32, 32));
-                                tab[x][y].setPosition(x*32, y*32);
                                 window.draw(tab[x][y]);
                             }
                         }
@@ -130,7 +125,6 @@ int ajoutTexture(){ // Affiche les sprites en verifiant les cases autour pour le
                         if (m->position_valide(x-1, y) == 1){
                             if (m->position_valide(x+1, y) == 0){
                                 tab[x][y].setTextureRect(sf::IntRect(160, 0, 32, 32));
-                                tab[x][y].setPosition(x*32, y*32);
                                 window.draw(tab[x][y]);
                             }
                         }
@@ -142,7 +136,6 @@ int ajoutTexture(){ // Affiche les sprites en verifiant les cases autour pour le
                         if (m->position_valide(x-1, y) == 1){
                             if (m->position_valide(x+1, y) == 0){
                                 tab[x][y].setTextureRect(sf::IntRect(64, 64, 32, 32));
-                                tab[x][y].setPosition(x*32, y*32);
                                 window.draw(tab[x][y]);
                             }
                         }
@@ -154,7 +147,6 @@ int ajoutTexture(){ // Affiche les sprites en verifiant les cases autour pour le
                         if (m->position_valide(x-1, y) == 0){
                             if (m->position_valide(x+1, y) == 1){
                                 tab[x][y].setTextureRect(sf::IntRect(0, 64, 32, 32));
-                                tab[x][y].setPosition(x*32, y*32);
                                 window.draw(tab[x][y]);
                             }
                         }
@@ -163,10 +155,12 @@ int ajoutTexture(){ // Affiche les sprites en verifiant les cases autour pour le
 
             else if (type == 2){
                 tab[x][y].setTextureRect(sf::IntRect(160, 304, 32, 32));
-                tab[x][y].setPosition(x*32, y*32);
                 window.draw(tab[x][y]);
             }
         }
+    }
+    while(true) {
+    window.display();
     }
     delete m;
     delete content;

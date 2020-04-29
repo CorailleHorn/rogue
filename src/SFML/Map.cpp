@@ -37,7 +37,7 @@ Map::Map(int const size, int const nb, int const rad, int const max, int const m
   hero = h;
 }*/
 
-Map::Map() : Map(50,100,5,15,5) {} //param par defaut
+Map::Map() : Map(35,100,5,15,5) {} //param par defaut
 
 Map::~Map() {
   //on libère la mémoire du tableau 2D map
