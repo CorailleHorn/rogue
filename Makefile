@@ -5,14 +5,14 @@ all : bin/SFML_jeu
 test : obj/Contents.o obj/AnimatedSprite.o obj/Animation.o
 	g++ -Wall -ggdb obj/Contents.o obj/AnimatedSprite.o obj/Animation.o -o bin/tests -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio
 
-obj/Contents.o : src/SFML/Contents.cpp src/SFML/Contents.h src/SFML/AnimatedSprite.h src/SFML/Animation.h
-	g++ -Wall -ggdb	-c src/SFML/Contents.cpp -o obj/Contents.o
+#obj/Contents.o : src/SFML/Contents.cpp src/SFML/Contents.h src/SFML/AnimatedSprite.h src/SFML/Animation.h
+#	g++ -Wall -ggdb	-c src/SFML/Contents.cpp -o obj/Contents.o
 
-obj/AnimatedSprite.o : src/SFML/AnimatedSprite.cpp src/SFML/AnimatedSprite.h src/SFML/Animation.h
-	g++ -Wall -ggdb	-c src/SFML/AnimatedSprite.cpp -o obj/AnimatedSprite.o
+#obj/AnimatedSprite.o : src/SFML/AnimatedSprite.cpp src/SFML/AnimatedSprite.h src/SFML/Animation.h
+#	g++ -Wall -ggdb	-c src/SFML/AnimatedSprite.cpp -o obj/AnimatedSprite.o
 
-obj/Animation.o : src/SFML/Animation.cpp src/SFML/Animation.h
-	g++ -Wall -ggdb	-c src/SFML/Animation.cpp -o obj/Animation.o
+#obj/Animation.o : src/SFML/Animation.cpp src/SFML/Animation.h
+#	g++ -Wall -ggdb	-c src/SFML/Animation.cpp -o obj/Animation.o
 
 		#SFMLJeu
 
@@ -22,11 +22,7 @@ bin/SFML_jeu : obj/SFMLmain.o obj/SFMLJeu.o obj/Contents.o obj/SFMLMap.o obj/SFM
 obj/SFMLmain.o : src/SFML/main.cpp src/SFML/SFMLJeu.h src/SFML/Map.h src/SFML/Room.h src/SFML/Personnages.h src/SFML/Contents.h src/SFML/AnimatedSprite.h src/SFML/Animation.h
 	g++ -Wall -ggdb	-c src/SFML/main.cpp -o obj/SFMLmain.o
 
-<<<<<<< HEAD
-obj/SFMLJeu.o : src/SFML/SFMLJeu.cpp src/SFML/SFMLJeu.h src/SFML/Map.h src/SFML/Room.h src/SFML/Personnages.h
-=======
 obj/SFMLJeu.o : src/SFML/SFMLJeu.cpp src/SFML/SFMLJeu.h src/SFML/Map.h src/SFML/Room.h src/SFML/Personnages.h src/SFML/Contents.h src/SFML/AnimatedSprite.h src/SFML/Animation.h
->>>>>>> c93bfd97082f6cfa740c3663ee4761e52bfbd940
 	g++ -Wall -ggdb	-c src/SFML/SFMLJeu.cpp -o obj/SFMLJeu.o
 
 obj/Contents.o : src/SFML/Contents.cpp src/SFML/Contents.h src/SFML/AnimatedSprite.h src/SFML/Animation.h
