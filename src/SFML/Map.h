@@ -7,15 +7,16 @@
 #include "Room.h"
 #include "Personnages.h"
 
-//structure couloir contenant des tableaux dynamiques des coordonees de chaques points des couloirs
+
 struct Corridor {
+//structure couloir contenant des tableaux dynamiques des coordonees de chaques points des couloirs
   std::vector<std::pair<int,int>> layer;
 };
 
 class Map {
+//classe Map contenant principalement la map du donjon, la génération, les tableaux des salles et des rooms
 public:
     //METHODES
-
     Map(int const size, int const nb, int const radius, int const room_max_size,
         int const room_min_size); //constructeur surchargé avec les paramètres de création
     Map(Hero *h); //constructeur surchargé avec le hero
@@ -52,6 +53,17 @@ public:
     void viderMap(); //vide la map i.e. met toute les valeurs de la map à 0
     void afficherMapTXT(); //affiche la version shell de la map en terminal
     void afficherMapSFML();//affiche la version graphique de la map en terminal [uniquement en debug]
+
+    //Accesseur
+    int getValueMap(int const X, int const Y); //retourne la valeur de map en X et Y
+    //accesseur pour les rooms
+    int getX0Room(int const ID); 
+    int getY0Room(int const ID);
+    int getXRoom(int const ID);
+    int getYRoom(int const ID);
+    int getHRoom(int const ID);
+    int getLRoom(int const ID);
+
 
 
 private:

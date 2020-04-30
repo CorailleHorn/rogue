@@ -732,3 +732,34 @@ void Map::afficherMapSFML() {
     }
     cout << endl;
 }
+
+//ACCESSEUR
+
+int getValueMap(int const X, int const Y) {
+    //retourne la valeur de map en X et Y
+    return ptr_map[X][Y];
+}
+//accesseur pour les rooms
+int getX0Room(int const ID){
+    return list_room[ID].getX0();
+}
+
+int getY0Room(int const ID){
+    return list_room[ID]getY0();
+}
+
+int getXRoom(int const ID){
+    return list_room[ID]getX();
+}
+
+int getYRoom(int const ID){
+    return list_room[ID]getY();
+}
+
+int getHRoom(int const ID){
+    return list_room[ID]getH();
+}
+
+int getLRoom(int const ID){
+    return list_room[ID]getL();
+}

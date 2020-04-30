@@ -2,9 +2,10 @@
 #define ROOM_H
 
 class Room {
+//classe Room (salles) contenant principalement les coordonnees des salles, la hauteur et la largeur
 public:
-
-	//accesseur
+	//Méthode
+	//Accesseur
 	int getIDlinked();
 
 	float getx0();
