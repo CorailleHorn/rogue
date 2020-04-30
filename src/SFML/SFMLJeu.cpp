@@ -61,6 +61,8 @@ int ajoutTexture(){ // Affiche les sprites en verifiant les cases autour pour le
             tab[x][y].setTexture(*(content->tJeu));
 /*
             else if (type == 1){ // Mur / Coin
+                tab[x][y].setTextureRect(IntRect(320, 256, 32, 32));
+            }
                 //tab[x][y].setTextureRect(IntRect(0, 32, 32, 32));
 
                 if (m->getValueMap(x, y-1) == 1){ // Mur gauche
@@ -114,7 +116,7 @@ int ajoutTexture(){ // Affiche les sprites en verifiant les cases autour pour le
                                     //if (m->getValueMap(x-1, y-1) == 0){
                                         //if (m->getValueMap(x-1, y+1) == 0){
                                             //if (m->getValueMap(x+1, y+1) == 2){
-                                                tab[x][y].setTextureRect(IntRect(0, 0, 32, 32));
+                                                tab[x][y].setTextureRect(IntRect(320, 256, 32, 32));
                                             //}
                                         //}
                                     //}
@@ -132,7 +134,7 @@ int ajoutTexture(){ // Affiche les sprites en verifiant les cases autour pour le
                                     //if (m->getValueMap(x+1, y-1) == 0){
                                         //if (m->getValueMap(x+1, y+1) == 0){
                                             //if (m->getValueMap(x-1, y+1) == 2){
-                                                tab[x][y].setTextureRect(IntRect(64, 0, 32, 32));
+                                                tab[x][y].setTextureRect(IntRect(320, 256, 32, 32));
                                             //}
                                         //}
                                     //}
@@ -150,7 +152,7 @@ int ajoutTexture(){ // Affiche les sprites en verifiant les cases autour pour le
                                     //if (m->getValueMap(x+1, y+1) == 0){
                                         //if (m->getValueMap(x-1, y-1) == 2){
                                             //if (m->getValueMap(x-1, y+1) == 0){
-                                                tab[x][y].setTextureRect(IntRect(64, 64, 32, 32));
+                                                tab[x][y].setTextureRect(IntRect(320, 256, 32, 32));
                                             //}
                                         //}
                                     //}
@@ -168,7 +170,7 @@ int ajoutTexture(){ // Affiche les sprites en verifiant les cases autour pour le
                                     //if (m->getValueMap(x+1, y-1) == 2){
                                         //if (m->getValueMap(x-1, y-1) == 0){
                                             //if (m->getValueMap(x-1, y+1) == 0){
-                                                tab[x][y].setTextureRect(IntRect(0, 64, 32, 32));
+                                                tab[x][y].setTextureRect(IntRect(320, 256, 32, 32));
                                             //}
                                         //}
                                     //}
@@ -176,8 +178,8 @@ int ajoutTexture(){ // Affiche les sprites en verifiant les cases autour pour le
                             }
                         }
                     }
-                }
-*/
+                }*/
+
             if (type == 2){ //Intérieur
                 tab[x][y].setTextureRect(IntRect(192, 256, 32, 32));
             }
