@@ -20,11 +20,12 @@ void Boucle (Hero *h) {
   AnimatedSprite hero(seconds(0.2), true);
   hero.setPosition(Vector2f(h->getX()*32, h->getY()*32));
   Clock frameClock;
-  float speed = 1.f;
+  float speed = 2.f;
   bool noKeyWasPressed = true;
+  Vector2f movement(0.f, 0.f);
+  int pas = 0;
   while (window.isOpen())
   {
-      Vector2f movement(0.f, 0.f);
       Event event;
       while (window.pollEvent(event))
       {
@@ -34,42 +35,49 @@ void Boucle (Hero *h) {
               window.close();
       }
       Time frameTime = frameClock.restart();
-      if (Keyboard::isKeyPressed(Keyboard::Up))
-      {
-          h->haut();
-          movement.y -= speed;
-          std::cout << "\nmouvement Up Good";
-          noKeyWasPressed = false;
+      if(pas == 0){
+          if (Keyboard::isKeyPressed(Keyboard::Up))
+          {
+            h->haut();
+            movement.y -= speed;
+            std::cout << "\nmouvement Up Good";
+            noKeyWasPressed = false;
+          }
+          else if (Keyboard::isKeyPressed(Keyboard::Down))
+          {
+            h->bas();
+            movement.y += speed;
+            std::cout << "\nmouvement Down Good";
+            noKeyWasPressed = false;
+          }
+          else if(Keyboard::isKeyPressed(Keyboard::Left))
+          {
+            h->gauche();
+            movement.x -= speed;
+            std::cout << "\nmouvement Left Good";
+            noKeyWasPressed = false;
+          }
+          else if (Keyboard::isKeyPressed(Keyboard::Right))
+          {
+            h->droite();
+            movement.x += speed;
+            std::cout << "\nmouvement Right Good";
+            noKeyWasPressed = false;
+            pas += speed;
+          }
       }
-      if (Keyboard::isKeyPressed(Keyboard::Down))
-      {
-          h->bas();
-          movement.y += speed;
-          std::cout << "\nmouvement Down Good";
-          noKeyWasPressed = false;
-      }
-      if(Keyboard::isKeyPressed(Keyboard::Left))
-      {
-          h->gauche();
-          movement.x -= speed;
-          std::cout << "\nmouvement Left Good";
-          noKeyWasPressed = false;
-      }
-      if (Keyboard::isKeyPressed(Keyboard::Right))
-      {
-          h->droite();
-          movement.x += speed;
-          std::cout << "\nmouvement Right Good";
-          noKeyWasPressed = false;
-      }
+      if(movement != Vector2f(0.f,0.f))
+        pas += speed;
       view.move(movement);
       minimap.move(movement);
       hero.play(*h->getSprite());
       hero.move(movement);
       hero.update(frameTime);
       window.setView(view);
-      if (noKeyWasPressed)
+      if (noKeyWasPressed && pas == 32)
       {
+        pas = 0;
+        movement = Vector2f(0.f,0.f);
         h->idle();
       }
       noKeyWasPressed = true;
