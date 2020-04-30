@@ -16,6 +16,7 @@ class Personnage {
 		virtual ~Personnage();
 		int combat(Personnage* p);
 		int degat(const int &atkA);
+		int idle();
 		int haut();
 		int bas();
 		int gauche();
