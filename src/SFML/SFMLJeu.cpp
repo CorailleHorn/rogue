@@ -14,17 +14,17 @@ void Boucle (Hero *h) {
   int taille = m->size();
   Sprite tab[90][90];
   ajoutTexture(content, m, tab);
-  View view(Vector2f(h->getX(), h->getY()), Vector2f(screenDimensions/2));
-  View minimap(Vector2f(h->getX(), h->getY()), Vector2f(taille*32, taille*32));
-  minimap.setViewport(sf::FloatRect(0.75f, 0.f, 0.25f, 0.25f));
-  AnimatedSprite hero(sf::seconds(0.2), true);
-  hero.setPosition(sf::Vector2f(h->getX(), h->getY()));
-  sf::Clock frameClock;
+  View view(Vector2f(h->getX()*32, h->getY()*32), Vector2f(screenDimensions/2));
+  View minimap(Vector2f(h->getX()*32, h->getY()*32), Vector2f(taille*32, taille*32));
+  minimap.setViewport(FloatRect(0.75f, 0.f, 0.25f, 0.25f));
+  AnimatedSprite hero(seconds(0.2), true);
+  hero.setPosition(Vector2f(h->getX()*32, h->getY()*32));
+  Clock frameClock;
   float speed = 1.f;
   bool noKeyWasPressed = true;
   while (window.isOpen())
   {
-      sf::Vector2f movement(0.f, 0.f);
+      Vector2f movement(0.f, 0.f);
       Event event;
       while (window.pollEvent(event))
       {
@@ -33,7 +33,7 @@ void Boucle (Hero *h) {
           if (event.type == Event::KeyPressed && event.key.code == Keyboard::Escape)
               window.close();
       }
-      sf::Time frameTime = frameClock.restart();
+      Time frameTime = frameClock.restart();
       if (Keyboard::isKeyPressed(Keyboard::Up))
       {
           h->haut();
@@ -62,15 +62,15 @@ void Boucle (Hero *h) {
           std::cout << "\nmouvement Right Good";
           noKeyWasPressed = false;
       }
-      view.setCenter(sf::Vector2f(h->getX(), h->getY()));
-      minimap.setCenter(sf::Vector2f(h->getX(), h->getY()));
+      view.move(movement);
+      minimap.move(movement);
       hero.play(*h->getSprite());
       hero.move(movement);
       hero.update(frameTime);
       window.setView(view);
       if (noKeyWasPressed)
       {
-          movement = Vector2f(0, 0);
+        h->idle();
       }
       noKeyWasPressed = true;
       // draw

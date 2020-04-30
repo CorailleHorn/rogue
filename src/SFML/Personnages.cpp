@@ -27,6 +27,11 @@ using namespace sf;
 		return 0;
 	}
 
+	int Personnage::idle() {
+		currentSprite = &sprites->idleD;
+		return 0;
+	}
+
 	int Personnage::haut() {//Déplacement des personnages
 		currentSprite = &sprites->walkD;
 		y--;
