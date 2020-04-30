@@ -604,9 +604,6 @@ void Map::ajouterRoomsTXT() {
             ptr_map[list_room[i].getX0()][list_room[i].getY0() + k] = 1;
             ptr_map[(list_room[i].getX0() + list_room[i].getL() - 1) ][list_room[i].getY0() + k] = 1;
         }
-        //on affiche le num de la room
-        list_room[i].initCenterRooms();
-
     }
 }
 
@@ -634,8 +631,6 @@ void Map::ajouterRoomsSFML() {
                 ptr_map[list_room[i].getX0() + k][list_room[i].getY0() + j] = 2;
             }
         }
-        //on affiche le num de la room
-        list_room[i].initCenterRooms();
     }
 }
 

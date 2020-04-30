@@ -505,13 +505,6 @@ void Map::ajouterRooms() {
             ptr_map[list_room[i].getX0()][list_room[i].getY0() + k] = 1;
             ptr_map[list_room[i].getX1()][list_room[i].getY0() + k] = 1;
         }
-        //on affiche le num de la room
-        list_room[i].initCenterRooms();
-        //ligne pour l'affichage des numéros des rooms
-        //ptr_map[list_room[i].getX()][list_room[i].getY()] = i;
-        //lignes pour l'affichage des données des rooms
-        //cout << "room " << i << " : " << list_room[i].getH() << ";" << list_room[i].getL()
-        //<< " - " << list_room[i].getX0() << ";" << list_room[i].getY0() << endl;
     }
 }
 

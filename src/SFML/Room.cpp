@@ -77,6 +77,7 @@ void Room::arrondValRoom() {
     X1 = round(x1);
 	Y0 = round(y0);
     Y1 = round(y1);
+    initCenterRooms();
 }
 
 const bool Room::isRoomIn(int const& map_size) {
