@@ -191,7 +191,8 @@ int ajoutTexture(){ // Affiche les sprites en verifiant les cases autour pour le
               window.draw(tab[x][y]);
         window.display();
     }
-    //delete m;
+    system("clear");
+    delete m;
     delete content;
     return 0;
 }
