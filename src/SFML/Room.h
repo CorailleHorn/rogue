@@ -31,12 +31,16 @@ public:
 	void genInCircle(int const map_size, int const radius, int const room_max_size, int const room_min_size);
 	bool const roomCollision(Room& A); //test si une room A entre en collision avec this
 
-    void initCenterRooms(); // on créer les valeurs des centres des rooms [TOUJOURS UTILISER APRES arrondValRoom]
+
 
 
 
 
 private:
+	//METHODES
+    void initCenterRooms(); // on créer les valeurs des centres des rooms [TOUJOURS UTILISER APRES arrondValRoom]
+
+	//ATTRIBUTS
 	int X, Y;  //coordonnees du centre de la room
 	int IDlinked; // ID de la room lié
 	float x0, y0; //coordonees du point en haut à gauche de la room en float pour les calculs
