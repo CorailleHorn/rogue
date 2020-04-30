@@ -74,10 +74,13 @@ void Boucle (Hero *h) {
       hero.move(movement);
       hero.update(frameTime);
       window.setView(view);
-      if (noKeyWasPressed && pas == 32)
+      if (noKeyWasPressed && pas == 32.f)
       {
         pas = 0;
         movement = Vector2f(0.f,0.f);
+        View view(Vector2f(h->getX()*32, h->getY()*32), Vector2f(screenDimensions/2));
+        View minimap(Vector2f(h->getX()*32, h->getY()*32), Vector2f(taille*32, taille*32));
+        hero.setPosition(Vector2f(h->getX()*32, h->getY()*32));
         h->idle();
       }
       noKeyWasPressed = true;
