@@ -64,11 +64,8 @@ int ajoutTexture(){ // Affiche les sprites en verifiant les cases autour pour le
             }
 
             else if (type == 1){ // Mur / Coin
-                tab[x][y].setTextureRect(IntRect(320, 256, 32, 32));
-            }
-                //tab[x][y].setTextureRect(IntRect(0, 32, 32, 32));
 
-                /*if (m->getValueMap(x, y-1) == 1){ // Mur gauche
+                if (m->getValueMap(x, y-1) == 1){ // Mur gauche
                     if (m->getValueMap(x, y+1) == 1){
                         if (m->getValueMap(x-1, y) == 0){
                             if (m->getValueMap(x+1, y) == 2){
@@ -77,6 +74,7 @@ int ajoutTexture(){ // Affiche les sprites en verifiant les cases autour pour le
                         }
                     }
                 }
+
                 else if (m->getValueMap(x, y-1) == 0){ // Mur du haut
                     if (m->getValueMap(x, y+1) == 2){
                         if (m->getValueMap(x-1, y) == 1){
@@ -106,6 +104,7 @@ int ajoutTexture(){ // Affiche les sprites en verifiant les cases autour pour le
                         }
                     }
                 }
+
                 else {
                     tab[x][y].setTextureRect(IntRect(320, 256, 32, 32));
                 }
