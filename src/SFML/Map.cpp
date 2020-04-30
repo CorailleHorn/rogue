@@ -674,16 +674,11 @@ void Map::updateRooms() {
   }
   return 0;
 }*/
-/*
-
-int Map::position_valide(const int &x, const int &y) {
-  return ptr_map[x][y];
-}
 
 int Map::size() {
   return map_size;
 }
-*/
+
 void Map::viderMap() {
     //on vide la map i.e. on remet toutes les valeurs à 0
     for (int i = 0; i < map_size; i++) {

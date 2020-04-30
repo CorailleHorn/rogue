@@ -46,7 +46,6 @@ public:
 
     int newPosHero();
     int update();
-    int position_valide(const int &x, const int &y);
     int size();
 
 
