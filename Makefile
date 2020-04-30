@@ -1,4 +1,4 @@
-all : bin/SFML_jeu
+all : bin/SFML_jeu bin/exec_gen_test
 
 	#Test
 
@@ -18,6 +18,10 @@ test : obj/Contents.o obj/AnimatedSprite.o obj/Animation.o
 
 bin/SFML_jeu : obj/SFMLmain.o obj/SFMLJeu.o obj/Contents.o obj/SFMLMap.o obj/SFMLRoom.o obj/SFMLPersonnages.o obj/AnimatedSprite.o obj/Animation.o
 	g++ -Wall -ggdb obj/SFMLmain.o obj/SFMLJeu.o obj/Contents.o obj/SFMLMap.o obj/SFMLRoom.o obj/SFMLPersonnages.o obj/AnimatedSprite.o obj/Animation.o -o bin/SFML_jeu -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio
+
+
+bin/exec_gen_test : obj/RegressionGeneration.o obj/SFMLRoom.o obj/SFMLMap.o obj/SFMLPersonnages.o
+	g++ -Wall -ggdb obj/RegressionGeneration.o obj/SFMLRoom.o obj/SFMLMap.o obj/SFMLPersonnages.o -o bin/exec_gen_test
 
 obj/SFMLmain.o : src/SFML/main.cpp src/SFML/SFMLJeu.h src/SFML/Map.h src/SFML/Room.h src/SFML/Personnages.h src/SFML/Contents.h src/SFML/AnimatedSprite.h src/SFML/Animation.h
 	g++ -Wall -ggdb	-c src/SFML/main.cpp -o obj/SFMLmain.o
@@ -52,11 +56,12 @@ obj/SFMLRoom.o : src/SFML/Room.cpp src/SFML/Room.h
 bin/txt_jeu : obj/txtmain.o obj/txtJeu.o obj/txtMap.o obj/txtRoom.o obj/txtPersonnages.o
 	g++ -Wall -ggdb obj/txtmain.o obj/txtJeu.o obj/txtMap.o obj/txtRoom.o obj/txtPersonnages.o -o bin/txt_jeu
 
-#bin/exec_gen_test : obj/RegressionGeneration.o obj/Room.o obj/Map.o obj/Personnages.o
-#	g++ -Wall -ggdb obj/RegressionGeneration.o obj/Room.o obj/Map.o -o bin/exec_gen_test
 
 obj/txtmain.o : src/txt/main.cpp src/txt/txtJeu.h src/txt/Map.h src/txt/Room.h src/txt/Personnages.h
 	g++ -Wall -ggdb	-c src/txt/main.cpp -o obj/txtmain.o
+
+obj/RegressionGeneration.o : src/SFML/RegressionGeneration.cpp src/SFML/Map.h src/SFML/Personnages.h src/SFML/Room.h
+	g++ -Wall -ggdb	-c src/SFML/RegressionGeneration.cpp -o obj/RegressionGeneration.o
 
 #obj/RegressionGeneration.o : src/txt/RegressionGeneration.cpp src/txt/Map.h src/txt/Personnages.h src/txt/Room.h
 #	g++ -Wall -ggdb	-c src/txt/RegressionGeneration.cpp -o obj/RegressionGeneration.o

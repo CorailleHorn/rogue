@@ -603,9 +603,6 @@ void Map::ajouterRoomsTXT() {
             ptr_map[list_room[i].getX0()][list_room[i].getY0() + k] = 1;
             ptr_map[(list_room[i].getX0() + list_room[i].getL() - 1) ][list_room[i].getY0() + k] = 1;
         }
-        //on affiche le num de la room
-        list_room[i].initCenterRooms();
-
     }
 }
 
@@ -630,8 +627,6 @@ void Map::ajouterRoomsSFML() {
                 ptr_map[list_room[i].getX0() + k][list_room[i].getY0() + j] = 2;
             }
         }
-        //on affiche le num de la room
-        list_room[i].initCenterRooms();
     }
 }
 
@@ -679,7 +674,7 @@ void Map::updateRooms() {
   }
   return 0;
 }*/
-
+/*
 
 int Map::position_valide(const int &x, const int &y) {
   return ptr_map[x][y];
@@ -688,7 +683,7 @@ int Map::position_valide(const int &x, const int &y) {
 int Map::size() {
   return map_size;
 }
-
+*/
 void Map::viderMap() {
     //on vide la map i.e. on remet toutes les valeurs à 0
     for (int i = 0; i < map_size; i++) {
@@ -735,31 +730,31 @@ void Map::afficherMapSFML() {
 
 //ACCESSEUR
 
-int getValueMap(int const X, int const Y) {
+int Map::getValueMap(int const X, int const Y) {
     //retourne la valeur de map en X et Y
     return ptr_map[X][Y];
 }
 //accesseur pour les rooms
-int getX0Room(int const ID){
+int Map::getX0Room(int const ID){
     return list_room[ID].getX0();
 }
 
-int getY0Room(int const ID){
-    return list_room[ID]getY0();
+int Map::getY0Room(int const ID){
+    return list_room[ID].getY0();
 }
 
-int getXRoom(int const ID){
-    return list_room[ID]getX();
+int Map::getXRoom(int const ID){
+    return list_room[ID].getX();
 }
 
-int getYRoom(int const ID){
-    return list_room[ID]getY();
+int Map::getYRoom(int const ID){
+    return list_room[ID].getY();
 }
 
-int getHRoom(int const ID){
-    return list_room[ID]getH();
+int Map::getHRoom(int const ID){
+    return list_room[ID].getH();
 }
 
-int getLRoom(int const ID){
-    return list_room[ID]getL();
+int Map::getLRoom(int const ID){
+    return list_room[ID].getL();
 }

@@ -57,7 +57,7 @@ public:
     //Accesseur
     int getValueMap(int const X, int const Y); //retourne la valeur de map en X et Y
     //accesseur pour les rooms
-    int getX0Room(int const ID); 
+    int getX0Room(int const ID);
     int getY0Room(int const ID);
     int getXRoom(int const ID);
     int getYRoom(int const ID);
@@ -77,7 +77,7 @@ private:
     std::vector<Corridor> list_corridor; //tableau contenant des structures de type Corridor, correspondant aux couloirs du donjon
 
     int map_size, nbrooms, radius, room_max_size, room_min_size, nb_ennemie;
-    //taille de la map, nombre de rooms, radian , taille max d'une room en H et L, taille min d'une room en H et L, nombres d'ennemies
+    //taille de la map, nombre de rooms, rayon , taille max d'une room en H et L, taille min d'une room en H et L, nombres d'ennemies
     int hxm1, hym1;
     //Hero *hero;
     //std::vector<Ennemi*> ennemis;
