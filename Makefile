@@ -1,4 +1,4 @@
-all : bin/SFML_jeu bin/exec_gen_test
+all : bin/SFML_jeu
 
 	#Test
 
@@ -20,8 +20,8 @@ bin/SFML_jeu : obj/SFMLmain.o obj/SFMLJeu.o obj/Contents.o obj/SFMLMap.o obj/SFM
 	g++ -Wall -ggdb obj/SFMLmain.o obj/SFMLJeu.o obj/Contents.o obj/SFMLMap.o obj/SFMLRoom.o obj/SFMLPersonnages.o obj/AnimatedSprite.o obj/Animation.o -o bin/SFML_jeu -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio
 
 
-bin/exec_gen_test : obj/RegressionGeneration.o obj/SFMLRoom.o obj/SFMLMap.o obj/SFMLPersonnages.o
-	g++ -Wall -ggdb obj/RegressionGeneration.o obj/SFMLRoom.o obj/SFMLMap.o obj/SFMLPersonnages.o -o bin/exec_gen_test
+#bin/exec_gen_test : obj/RegressionGeneration.o obj/SFMLRoom.o obj/SFMLMap.o obj/SFMLPersonnages.o
+#	g++ -Wall -ggdb obj/RegressionGeneration.o obj/SFMLRoom.o obj/SFMLMap.o obj/SFMLPersonnages.o -o bin/exec_gen_test
 
 obj/SFMLmain.o : src/SFML/main.cpp src/SFML/SFMLJeu.h src/SFML/Map.h src/SFML/Room.h src/SFML/Personnages.h src/SFML/Contents.h src/SFML/AnimatedSprite.h src/SFML/Animation.h
 	g++ -Wall -ggdb	-c src/SFML/main.cpp -o obj/SFMLmain.o
