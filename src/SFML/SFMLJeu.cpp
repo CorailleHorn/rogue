@@ -47,14 +47,15 @@ int ajoutTexture(){ // Affiche les sprites en verifiant les cases autour pour le
     Map* m = new Map;
     m->initGeneration();
     int taille = m->size();
-    Vector2i screenDimensions(1280, 720);
+    Vector2i screenDimensions(taille*32, taille*32);
     RenderWindow window(VideoMode(screenDimensions.x, screenDimensions.y), "Rogue");
     window.setFramerateLimit(60);
     Sprite tab[taille][taille];
     for (int x = 0; x < taille; x++){
+      std::cout << '\n';
         for (int y = 0; y < taille; y++){
-
             int type = m->getValueMap(x, y);
+            std::cout << type;
             tab[x][y].setTexture(*(content->tJeu));
             tab[x][y].setPosition(x*32, y*32);
 

@@ -64,7 +64,7 @@ void Map::initGeneration() { //on lance la generation complete
 
     ajouterCorridorsSFML();  // on ajoute les chemins des couloirs avec les murs telles qu'on les veut pour l'affichage graphique
     //afficherMapSFML(); // on affiche la map ; inutile en graphique
-    viderMap(); // on vide la map i.e. on remet tout les valeurs de map à 0; PENSER à la commenter pour pouvoir utiliser les donner de maps après génération
+    //viderMap(); // on vide la map i.e. on remet tout les valeurs de map à 0; PENSER à la commenter pour pouvoir utiliser les donner de maps après génération
 /*
     int pos[2];
     for(long unsigned int i = 1; i < list_room.size(); i++) {
