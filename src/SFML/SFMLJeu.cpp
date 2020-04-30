@@ -47,9 +47,11 @@ int ajoutTexture(){ // Affiche les sprites en verifiant les cases autour pour le
     Map* m = new Map;
     m->initGeneration();
     int taille = m->size();
-    Vector2i screenDimensions(taille*32, taille*32);
+    Vector2i screenDimensions(720, 720);
     RenderWindow window(VideoMode(screenDimensions.x, screenDimensions.y), "Rogue");
     window.setFramerateLimit(60);
+    View view(sf::Vector2f(350.f, 350.f), sf::Vector2f(720.f, 720.f));
+    window.setView(view);
     Sprite tab[taille][taille];
     for (int x = 1; x < taille-1; x++){
       std::cout << '\n';
@@ -197,7 +199,30 @@ int ajoutTexture(){ // Affiche les sprites en verifiant les cases autour pour le
             if (event.type == Event::KeyPressed && event.key.code == Keyboard::Escape)
                 window.close();
         }
+        if (Keyboard::isKeyPressed(Keyboard::Up))
+        {
+            view.move(0.f, -32.f);
+            std::cout << "\nmouvement Up Good";
+        }
+        if (Keyboard::isKeyPressed(Keyboard::Down))
+        {
+            view.move(0.f, 32.f);
+            std::cout << "\nmouvement Down Good";
 
+        }
+        if(Keyboard::isKeyPressed(Keyboard::Left))
+        {
+            view.move(-32.f, 0.f);
+            std::cout << "\nmouvement Left Good";
+
+        }
+        if (Keyboard::isKeyPressed(Keyboard::Right))
+        {
+            view.move(32.f, 0.f);
+            std::cout << "\nmouvement Right Good";
+
+        }
+        window.setView(view);
         // draw
         window.clear();
         for (int x = 0; x < taille; x++)
