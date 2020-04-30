@@ -112,6 +112,12 @@ void ajoutTexture(Contents* content, Map* m, Sprite tab[90][90]) {
           int type = m->getValueMap(x, y);
           std::cout << type;
           tab[x][y].setTexture(*(content->tJeu));
+          if (type == 0){
+              tab[x][y].setTextureRect(IntRect(0, 0, 0, 0));
+          }
+          if (type == 1){
+              tab[x][y].setTextureRect(IntRect(320, 256, 32, 32));
+          }
           if (type == 2){ //Intérieur
               tab[x][y].setTextureRect(IntRect(192, 256, 32, 32));
           }
