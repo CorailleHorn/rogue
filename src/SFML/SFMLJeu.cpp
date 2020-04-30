@@ -59,8 +59,6 @@ int ajoutTexture(){ // Affiche les sprites en verifiant les cases autour pour le
             int type = m->getValueMap(x, y);
             std::cout << type;
             tab[x][y].setTexture(*(content->tJeu));
-            tab[x][y].setPosition(x*32, y*32);
-
             if (type == 0){
                 tab[x][y].setTextureRect(IntRect(0, 0, 0, 0));
             }
@@ -148,6 +146,7 @@ int ajoutTexture(){ // Affiche les sprites en verifiant les cases autour pour le
             else if (type == 2){
                 tab[x][y].setTextureRect(IntRect(160, 304, 32, 32));
             }
+            tab[x][y].setPosition(x*32, y*32);
         }
     }
     Clock frameClock;
