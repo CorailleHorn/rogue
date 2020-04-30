@@ -9,6 +9,6 @@
 
 void Boucle(Hero *h);
 void Detruit(Map *m);
-int ajoutTexture();
+void ajoutTexture(Contents* content, Map* m, sf::Sprite tab[90][90]);
 
 #endif

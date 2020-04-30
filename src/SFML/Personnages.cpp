@@ -8,7 +8,7 @@ using namespace sf;
 
 	Personnage::Personnage() { //Constructeur pour un personnage
 		atk = def = pv = lv = x = y = 1;
-		sprite = new AnimatedSprite;
+		currentSprite = new Animation;
 	}
 
 	Personnage::~Personnage() {}//Destructeur de personnage
@@ -27,22 +27,26 @@ using namespace sf;
 		return 0;
 	}
 
-	int Personnage::Haut() {//Déplacement des personnages
+	int Personnage::haut() {//Déplacement des personnages
+		currentSprite = &sprites->walkD;
 		y--;
 		return 0;
 	}
 
-	int Personnage::Bas() {//Déplacement des personnages
+	int Personnage::bas() {//Déplacement des personnages
+		currentSprite = &sprites->walkD;
 		y++;
 		return 0;
 	}
 
-	int Personnage::Gauche() {//Déplacement des personnages
+	int Personnage::gauche() {//Déplacement des personnages
+		currentSprite = &sprites->walkG;
 		x--;
 		return 0;
 	}
 
-	int Personnage::Droite() {//Déplacement des personnages
+	int Personnage::droite() {//Déplacement des personnages
+		currentSprite = &sprites->walkD;
 		x++;
 		return 0;
 	}
@@ -81,22 +85,27 @@ using namespace sf;
 		return y;
 	}
 
-	AnimatedSprite* Personnage::getSprite() const {
-		return sprite;
+	void Personnage::setSprites(AnimPerso* s_template) {
+		sprites = s_template;
+		currentSprite = &sprites->idleD;
+	}
+
+	Animation* Personnage::getSprite() const {
+		return currentSprite;
 	}
 
 	Hero::Hero() { //Constructeur du héro
 		atk = def = pv = 10;
 		lv = x = y = 1;
     name = "";
-		sprite = new AnimatedSprite;
+		currentSprite = new Animation;
 	}
 
 	Hero::Hero(string sname) { //Constructeur avec le nom du héro
 		atk = def = pv = 10;
 		lv = x = y = 1;
 		name = sname;
-		sprite = new AnimatedSprite;
+		currentSprite = new Animation;
 	}
 
 	Hero::~Hero() {} //Destructeur du héro
@@ -265,7 +274,7 @@ using namespace sf;
 		}
 		x = 1;
 		y = 2;
-		sprite = new AnimatedSprite;
+		currentSprite = new Animation;
 	}
 
 	Ennemi::~Ennemi() {}

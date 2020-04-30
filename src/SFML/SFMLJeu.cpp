@@ -2,47 +2,117 @@
 
 using namespace sf;
 
-/*void Boucle (Hero *h) {
-  bool jeu = true;
-  char touche;
-  Map *m = new Map();
+void Boucle (Hero *h) {
+  Vector2i screenDimensions(720, 720);
+  RenderWindow window(VideoMode(screenDimensions.x, screenDimensions.y), "Rogue");
+  window.setFramerateLimit(60);
+  Contents* content = new Contents;
+  Map* m = new Map;
   m->initGeneration();
-  while(jeu){
-    m->update();
-    m->afficherTout();
-    touche = fgetc(stdin);
-    switch (touche) {
-      case 'z':
-        if(m->getValueMap(h->getX(),(h->getY() + 1)))
-          h->Haut();
-        break;
-      case 's':
-        if(m->getValueMap(h->getX(),(h->getY() - 1)))
-          h->Bas();
-        break;
-      case 'q':
-        if(m->getValueMap((h->getX() - 1),h->getY()))
-          h->Gauche();
-        break;
-      case 'd':
-        if(m->getValueMap((h->getX() + 1),h->getY()))
-          h->Droite();
-        break;
-      case 'a':
-        jeu = false;
-        break;
-    }
-    system("clear");
+  m->positionnement(h);
+  h->setSprites(content->anim_Joueur);
+  int taille = m->size();
+  Sprite tab[90][90];
+  ajoutTexture(content, m, tab);
+  View view(Vector2f(h->getX(), h->getY()), Vector2f(screenDimensions/2));
+  window.setView(view);
+  AnimatedSprite hero(sf::seconds(0.2), true);
+  hero.setPosition(sf::Vector2f(h->getX(), h->getY()));
+  sf::Clock frameClock;
+  float speed = 1.f;
+  bool noKeyWasPressed = true;
+  sf::Vector2f movement(0.f, 0.f);
+  while (window.isOpen())
+  {
+      Event event;
+      while (window.pollEvent(event))
+      {
+          if (event.type == Event::Closed)
+              window.close();
+          if (event.type == Event::KeyPressed && event.key.code == Keyboard::Escape)
+              window.close();
+      }
+      sf::Time frameTime = frameClock.restart();
+      if (Keyboard::isKeyPressed(Keyboard::Up))
+      {
+          h->haut();
+          movement.y = -speed;
+          view.setCenter(sf::Vector2f(h->getX(), h->getY()));
+          std::cout << "\nmouvement Up Good";
+          noKeyWasPressed = false;
+      }
+      if (Keyboard::isKeyPressed(Keyboard::Down))
+      {
+          h->bas();
+          movement.y = speed;
+          view.setCenter(sf::Vector2f(h->getX(), h->getY()));
+          std::cout << "\nmouvement Down Good";
+          noKeyWasPressed = false;
+      }
+      if(Keyboard::isKeyPressed(Keyboard::Left))
+      {
+          h->gauche();
+          movement.x = -speed;
+          view.setCenter(sf::Vector2f(h->getX(), h->getY()));
+          std::cout << "\nmouvement Left Good";
+          noKeyWasPressed = false;
+      }
+      if (Keyboard::isKeyPressed(Keyboard::Right))
+      {
+          h->droite();
+          movement.x = speed;
+          view.setCenter(sf::Vector2f(h->getX(), h->getY()));
+          std::cout << "\nmouvement Right Good";
+          noKeyWasPressed = false;
+      }
+      hero.play(*h->getSprite());
+      hero.move(movement * frameTime.asSeconds());
+      hero.update(frameTime);
+      window.setView(view);
+      if (noKeyWasPressed)
+      {
+          movement = Vector2f(0, 0);
+      }
+      noKeyWasPressed = true;
+      // draw
+      window.clear();
+      for (int x = 0; x < taille; x++)
+          for (int y = 0; y < taille; y++)
+            window.draw(tab[x][y]);
+      window.draw(hero);
+      window.display();
   }
+  system("clear");
   Detruit(m);
+  delete content;
 }
 
 void Detruit(Map *m){
     delete m;
     m = NULL;
-}*/
+}
 
-int ajoutTexture(){ // Affiche les sprites en verifiant les cases autour pour les cas particuliers (coins)
+
+void ajoutTexture(Contents* content, Map* m, Sprite tab[90][90]) {
+  int taille = m->size();
+  for (int x = 1; x < taille-1; x++){
+    std::cout << '\n';
+      for (int y = 1; y < taille-1; y++){
+          int type = m->getValueMap(x, y);
+          std::cout << type;
+          tab[x][y].setTexture(*(content->tJeu));
+          if (type == 2){ //Intérieur
+              tab[x][y].setTextureRect(IntRect(192, 256, 32, 32));
+          }
+          else{
+              tab[x][y].setTextureRect(IntRect(0, 0, 0, 0));
+          }
+          tab[x][y].setPosition(x*32, y*32);
+      }
+  }
+}
+
+/*int ajoutTexture(){ // Affiche les sprites en verifiant les cases autour pour les cas particuliers (coins)
     Contents* content = new Contents;
     Map* m = new Map;
     m->initGeneration();
@@ -59,7 +129,7 @@ int ajoutTexture(){ // Affiche les sprites en verifiant les cases autour pour le
             int type = m->getValueMap(x, y);
             std::cout << type;
             tab[x][y].setTexture(*(content->tJeu));
-/*
+//
             else if (type == 1){ // Mur / Coin
                 tab[x][y].setTextureRect(IntRect(320, 256, 32, 32));
             }
@@ -178,7 +248,8 @@ int ajoutTexture(){ // Affiche les sprites en verifiant les cases autour pour le
                             }
                         }
                     }
-                }*/
+                }
+//
 
             if (type == 2){ //Intérieur
                 tab[x][y].setTextureRect(IntRect(192, 256, 32, 32));
@@ -235,4 +306,4 @@ int ajoutTexture(){ // Affiche les sprites en verifiant les cases autour pour le
     delete m;
     delete content;
     return 0;
-}
+}*/

@@ -44,10 +44,9 @@ public:
     void ajouterRoomsSFML();//ajoute les rooms pour l'affichage en SFML
     void updateRooms();//met à jour les rooms avec des positions en int qui était en float
 
-    int newPosHero();
-    int update();
+//    int update();
     int size();
-
+    void positionnement(Hero *hero/*, std::vector<Ennemi*> ennemis*/);
 
     void viderMap(); //vide la map i.e. met toute les valeurs de la map à 0
     void afficherMapTXT(); //affiche la version shell de la map en terminal

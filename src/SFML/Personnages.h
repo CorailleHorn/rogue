@@ -7,7 +7,7 @@
 #include <assert.h>
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
-#include "AnimatedSprite.h"
+#include "Contents.h"
 
 
 class Personnage {
@@ -16,10 +16,10 @@ class Personnage {
 		virtual ~Personnage();
 		int combat(Personnage* p);
 		int degat(const int &atkA);
-		int Haut();
-		int Bas();
-		int Gauche();
-		int Droite();
+		int haut();
+		int bas();
+		int gauche();
+		int droite();
 		int setX(const int &sx);
 		int setY(const int &sy);
 		int getAtk() const;
@@ -28,10 +28,12 @@ class Personnage {
 		int getLv() const;
 		int getX() const;
 		int getY() const;
-		AnimatedSprite* getSprite() const;
+		void setSprites(AnimPerso* s_template);
+		Animation* getSprite() const;
 	protected:
 		int atk, def, pv, lv, x, y;
-		AnimatedSprite* sprite;
+		AnimPerso* sprites;
+		Animation* currentSprite;
 };
 
 

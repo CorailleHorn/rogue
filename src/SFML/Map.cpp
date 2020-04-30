@@ -644,16 +644,6 @@ void Map::updateRooms() {
     }
 }
 
-/*int Map::newPosHero() {
-  if(hxm1 != hero->getX() || hym1 != hero->getY()) {
-    ptr_map[hxm1][hym1] = 0;
-    hxm1 = hero->getX();
-    hym1 = hero->getY();
-    ptr_map[hxm1][hym1] = 2;
-  }
-  return 0;
-}*/
-
 /*int Map::update() {
   newPosHero();
   for(unsigned int i = 0; i < ennemis.size(); i++) {
@@ -677,6 +667,34 @@ void Map::updateRooms() {
 
 int Map::size() {
   return map_size;
+}
+
+void Map::positionnement(Hero *hero/*, std::vector<Ennemi*> ennemis*/) {
+  /*int pos[2];
+  for(long unsigned int i = 1; i < list_room.size(); i++) {
+    nb_ennemie = rand() % 2 + 1;
+    for(int j = 0; j < nb_ennemie; j++) {
+      if(ennemis.size() == 0) {
+        pos[0] = rand() % (list_room[i].getX0()-(list_room[i].getX0() + list_room[i].getL() - 1) ) + (list_room[i].getX0()+1);
+        pos[1] = rand() % (list_room[i].getY0()-(list_room[i].getY0() + list_room[i].getH() - 1) ) + (list_room[i].getY0()+1);
+      }
+      else {
+        do {
+          pos[0] = rand() % (list_room[i].getX0()-(list_room[i].getX0() + list_room[i].getL() - 1) ) + (list_room[i].getX0()+1);
+          pos[1] = rand() % (list_room[i].getY0()-(list_room[i].getY0() + list_room[i].getH() - 1) ) + (list_room[i].getY0()+1);
+        } while(ennemis[ennemis.size()-1]->getX() == pos[0]
+            && ennemis[ennemis.size()-1]->getY() == pos[1]);
+      }
+      ennemis.push_back(new Ennemi(hero->getLv()));
+      ennemis[ennemis.size()-1]->setX(pos[0]);
+      ennemis[ennemis.size()-1]->setY(pos[1]);
+    }
+  }*/
+  hxm1 = list_room[0].getX();
+  hym1 = list_room[0].getY();
+  hero->setX(hxm1);
+  hero->setY(hym1);
+  ptr_map[hxm1][hym1] = 2;
 }
 
 void Map::viderMap() {
