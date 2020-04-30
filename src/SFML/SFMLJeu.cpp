@@ -15,15 +15,16 @@ void Boucle (Hero *h) {
   Sprite tab[90][90];
   ajoutTexture(content, m, tab);
   View view(Vector2f(h->getX(), h->getY()), Vector2f(screenDimensions/2));
-  window.setView(view);
+  View minimap(Vector2f(h->getX(), h->getY()), Vector2f(taille*32, taille*32));
+  minimap.setViewport(sf::FloatRect(0.75f, 0.f, 0.25f, 0.25f));
   AnimatedSprite hero(sf::seconds(0.2), true);
   hero.setPosition(sf::Vector2f(h->getX(), h->getY()));
   sf::Clock frameClock;
   float speed = 1.f;
   bool noKeyWasPressed = true;
-  sf::Vector2f movement(0.f, 0.f);
   while (window.isOpen())
   {
+      sf::Vector2f movement(0.f, 0.f);
       Event event;
       while (window.pollEvent(event))
       {
@@ -36,37 +37,35 @@ void Boucle (Hero *h) {
       if (Keyboard::isKeyPressed(Keyboard::Up))
       {
           h->haut();
-          movement.y = -speed;
-          view.setCenter(sf::Vector2f(h->getX(), h->getY()));
+          movement.y -= speed;
           std::cout << "\nmouvement Up Good";
           noKeyWasPressed = false;
       }
       if (Keyboard::isKeyPressed(Keyboard::Down))
       {
           h->bas();
-          movement.y = speed;
-          view.setCenter(sf::Vector2f(h->getX(), h->getY()));
+          movement.y += speed;
           std::cout << "\nmouvement Down Good";
           noKeyWasPressed = false;
       }
       if(Keyboard::isKeyPressed(Keyboard::Left))
       {
           h->gauche();
-          movement.x = -speed;
-          view.setCenter(sf::Vector2f(h->getX(), h->getY()));
+          movement.x -= speed;
           std::cout << "\nmouvement Left Good";
           noKeyWasPressed = false;
       }
       if (Keyboard::isKeyPressed(Keyboard::Right))
       {
           h->droite();
-          movement.x = speed;
-          view.setCenter(sf::Vector2f(h->getX(), h->getY()));
+          movement.x += speed;
           std::cout << "\nmouvement Right Good";
           noKeyWasPressed = false;
       }
+      view.setCenter(sf::Vector2f(h->getX(), h->getY()));
+      minimap.setCenter(sf::Vector2f(h->getX(), h->getY()));
       hero.play(*h->getSprite());
-      hero.move(movement * frameTime.asSeconds());
+      hero.move(movement);
       hero.update(frameTime);
       window.setView(view);
       if (noKeyWasPressed)
@@ -80,6 +79,10 @@ void Boucle (Hero *h) {
           for (int y = 0; y < taille; y++)
             window.draw(tab[x][y]);
       window.draw(hero);
+      window.setView(minimap);
+      for (int x = 0; x < taille; x++)
+          for (int y = 0; y < taille; y++)
+            window.draw(tab[x][y]);
       window.display();
   }
   system("clear");
