@@ -59,14 +59,27 @@ int ajoutTexture(){ // Affiche les sprites en verifiant les cases autour pour le
             int type = m->getValueMap(x, y);
             std::cout << type;
             tab[x][y].setTexture(*(content->tJeu));
-/*
-            else if (type == 1){ // Mur / Coin
+
+            if (type == 0){
+                tab[x][y].setTextureRect(IntRect(192, 256, 32, 32));
+            }
+
+            if (type == 1){ // Mur / Coin
 
                 if (m->getValueMap(x, y-1) == 1){ // Mur gauche
                     if (m->getValueMap(x, y+1) == 1){
                         if (m->getValueMap(x-1, y) == 0){
                             if (m->getValueMap(x+1, y) == 2){
-                                tab[x][y].setTextureRect(IntRect(0, 32, 32, 32));
+                                if (m->getValueMap(x+1, y+1) == 2){
+                                    if (m->getValueMap(x+1, y-1) == 2){
+                                        if (m->getValueMap(x-1, y+1) == 0){
+                                            if (m->getValueMap(x-1, y-1) == 0){
+                                                std::cout <<  "ok1 ";
+                                                tab[x][y].setTextureRect(IntRect(192, 256, 32, 32));
+                                            }
+                                        }
+                                    }
+                                }
                             }
                         }
                     }
@@ -76,7 +89,16 @@ int ajoutTexture(){ // Affiche les sprites en verifiant les cases autour pour le
                     if (m->getValueMap(x, y+1) == 2){
                         if (m->getValueMap(x-1, y) == 1){
                             if (m->getValueMap(x+1, y) == 1){
-                                tab[x][y].setTextureRect(IntRect(32, 0, 32, 32));
+                                if (m->getValueMap(x+1, y+1) == 2){
+                                    if (m->getValueMap(x+1, y-1) == 0){
+                                        if (m->getValueMap(x-1, y+1) == 2){
+                                            if (m->getValueMap(x-1, y-1) == 0){
+                                                std::cout <<  "ok2 ";
+                                                tab[x][y].setTextureRect(IntRect(192, 256, 32, 32));
+                                            }
+                                        }
+                                    }
+                                }
                             }
                         }
                     }
@@ -86,7 +108,16 @@ int ajoutTexture(){ // Affiche les sprites en verifiant les cases autour pour le
                     if (m->getValueMap(x, y+1) == 1){
                         if (m->getValueMap(x-1, y) == 2){
                             if (m->getValueMap(x+1, y) == 0){
-                                tab[x][y].setTextureRect(IntRect(64, 32, 32, 32));
+                                if (m->getValueMap(x+1, y+1) == 0){
+                                    if (m->getValueMap(x+1, y-1) == 0){
+                                        if (m->getValueMap(x-1, y+1) == 2){
+                                            if (m->getValueMap(x-1, y-1) == 2){
+                                                std::cout <<  "ok3 ";
+                                                tab[x][y].setTextureRect(IntRect(192, 256, 32, 32));
+                                            }
+                                        }
+                                    }
+                                }
                             }
                         }
                     }
@@ -96,30 +127,35 @@ int ajoutTexture(){ // Affiche les sprites en verifiant les cases autour pour le
                     if (m->getValueMap(x, y+1) == 0){
                         if (m->getValueMap(x-1, y) == 1){
                             if (m->getValueMap(x+1, y) == 1){
-                                tab[x][y].setTextureRect(IntRect(32, 64, 32, 32));
+                                if (m->getValueMap(x+1, y+1) == 0){
+                                    if (m->getValueMap(x+1, y-1) == 2){
+                                        if (m->getValueMap(x-1, y+1) == 0){
+                                            if (m->getValueMap(x-1, y-1) == 2){
+                                                std::cout <<  "ok4 ";
+                                                tab[x][y].setTextureRect(IntRect(192, 256, 32, 32));
+                                            }
+                                        }
+                                    }
+                                }
                             }
                         }
                     }
                 }
 
-                else {
-                    tab[x][y].setTextureRect(IntRect(320, 256, 32, 32));
-                }
-            }
-
                 else if (m->getValueMap(x, y-1) == 0){ // Coin haut gauche ok
                     if (m->getValueMap(x, y+1) == 1){
                         if (m->getValueMap(x-1, y) == 0){
                             if (m->getValueMap(x+1, y) == 1){
-                                //if (m->getValueMap(x+1, y-1) == 0){
-                                    //if (m->getValueMap(x-1, y-1) == 0){
-                                        //if (m->getValueMap(x-1, y+1) == 0){
-                                            //if (m->getValueMap(x+1, y+1) == 2){
-                                                tab[x][y].setTextureRect(IntRect(320, 256, 32, 32));
-                                            //}
-                                        //}
-                                    //}
-                                //}
+                                if (m->getValueMap(x+1, y-1) == 0){
+                                    if (m->getValueMap(x-1, y-1) == 0){
+                                        if (m->getValueMap(x-1, y+1) == 0){
+                                            if (m->getValueMap(x+1, y+1) == 2){
+                                                std::cout <<  "ok5 ";
+                                                tab[x][y].setTextureRect(IntRect(192, 256, 32, 32));
+                                            }
+                                        }
+                                    }
+                                }
                             }
                         }
                     }
@@ -129,15 +165,16 @@ int ajoutTexture(){ // Affiche les sprites en verifiant les cases autour pour le
                     if (m->getValueMap(x, y+1) == 1){
                         if (m->getValueMap(x-1, y) == 1){
                             if (m->getValueMap(x+1, y) == 0){
-                                //if (m->getValueMap(x-1, y-1) == 0){
-                                    //if (m->getValueMap(x+1, y-1) == 0){
-                                        //if (m->getValueMap(x+1, y+1) == 0){
-                                            //if (m->getValueMap(x-1, y+1) == 2){
-                                                tab[x][y].setTextureRect(IntRect(320, 256, 32, 32));
-                                            //}
-                                        //}
-                                    //}
-                                //}
+                                if (m->getValueMap(x-1, y-1) == 0){
+                                    if (m->getValueMap(x+1, y-1) == 0){
+                                        if (m->getValueMap(x+1, y+1) == 0){
+                                            if (m->getValueMap(x-1, y+1) == 2){
+                                                std::cout <<  "ok6 ";
+                                                tab[x][y].setTextureRect(IntRect(192, 256, 32, 32));
+                                            }
+                                        }
+                                    }
+                                }
                             }
                         }
                     }
@@ -147,15 +184,16 @@ int ajoutTexture(){ // Affiche les sprites en verifiant les cases autour pour le
                     if (m->getValueMap(x, y+1) == 0){
                         if (m->getValueMap(x-1, y) == 1){
                             if (m->getValueMap(x+1, y) == 0){
-                                //if (m->getValueMap(x+1, y-1) == 0){
-                                    //if (m->getValueMap(x+1, y+1) == 0){
-                                        //if (m->getValueMap(x-1, y-1) == 2){
-                                            //if (m->getValueMap(x-1, y+1) == 0){
-                                                tab[x][y].setTextureRect(IntRect(320, 256, 32, 32));
-                                            //}
-                                        //}
-                                    //}
-                                //}
+                                if (m->getValueMap(x+1, y-1) == 0){
+                                    if (m->getValueMap(x+1, y+1) == 0){
+                                        if (m->getValueMap(x-1, y-1) == 2){
+                                            if (m->getValueMap(x-1, y+1) == 0){
+                                                std::cout <<  "ok7 ";
+                                                tab[x][y].setTextureRect(IntRect(192, 256, 32, 32));
+                                            }
+                                        }
+                                    }
+                                }
                             }
                         }
                     }
@@ -165,26 +203,101 @@ int ajoutTexture(){ // Affiche les sprites en verifiant les cases autour pour le
                     if (m->getValueMap(x, y+1) == 0){
                         if (m->getValueMap(x-1, y) == 0){
                             if (m->getValueMap(x+1, y) == 1){
-                                //if (m->getValueMap(x+1, y+1) == 0){
-                                    //if (m->getValueMap(x+1, y-1) == 2){
-                                        //if (m->getValueMap(x-1, y-1) == 0){
-                                            //if (m->getValueMap(x-1, y+1) == 0){
-                                                tab[x][y].setTextureRect(IntRect(320, 256, 32, 32));
-                                            //}
-                                        //}
-                                    //}
-                                //}
+                                if (m->getValueMap(x+1, y+1) == 0){
+                                    if (m->getValueMap(x+1, y-1) == 2){
+                                        if (m->getValueMap(x-1, y-1) == 0){
+                                            if (m->getValueMap(x-1, y+1) == 0){
+                                                std::cout <<  "ok8 ";
+                                                tab[x][y].setTextureRect(IntRect(192, 256, 32, 32));
+                                            }
+                                        }
+                                    }
+                                }
                             }
                         }
                     }
-                }*/
+                }
+                else if (m->getValueMap(x, y-1) == 1){ // Coin bas gauche 2
+                    if (m->getValueMap(x, y+1) == 2){
+                        if (m->getValueMap(x-1, y) == 2){
+                            if (m->getValueMap(x+1, y) == 1){
+                                if (m->getValueMap(x+1, y+1) == 2){
+                                    if (m->getValueMap(x+1, y-1) == 0){
+                                        if (m->getValueMap(x-1, y-1) == 2){
+                                            if (m->getValueMap(x-1, y+1) == 2){
+                                                std::cout <<  "ok9 ";
+                                                tab[x][y].setTextureRect(IntRect(192, 256, 32, 32));
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                else if (m->getValueMap(x, y-1) == 1){ // Coin bas droit 2
+                    if (m->getValueMap(x, y+1) == 2){
+                        if (m->getValueMap(x-1, y) == 1){
+                            if (m->getValueMap(x+1, y) == 2){
+                                if (m->getValueMap(x+1, y+1) == 2){
+                                    if (m->getValueMap(x+1, y-1) == 2){
+                                        if (m->getValueMap(x-1, y-1) == 0){
+                                            if (m->getValueMap(x-1, y+1) == 2){
+                                                std::cout <<  "ok10 ";
+                                                tab[x][y].setTextureRect(IntRect(192, 256, 32, 32));
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                else if (m->getValueMap(x, y-1) == 2){ // Coin haut gauche 2
+                    if (m->getValueMap(x, y+1) == 1){
+                        if (m->getValueMap(x-1, y) == 2){
+                            if (m->getValueMap(x+1, y) == 1){
+                                if (m->getValueMap(x+1, y+1) == 0){
+                                    if (m->getValueMap(x+1, y-1) == 2){
+                                        if (m->getValueMap(x-1, y-1) == 2){
+                                            if (m->getValueMap(x-1, y+1) == 2){
+                                                std::cout <<  "ok11 ";
+                                                tab[x][y].setTextureRect(IntRect(192, 256, 32, 32));
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                else if (m->getValueMap(x, y-1) == 2){ // Coin haut droit 2
+                    if (m->getValueMap(x, y+1) == 1){
+                        if (m->getValueMap(x-1, y) == 1){
+                            if (m->getValueMap(x+1, y) == 2){
+                                if (m->getValueMap(x+1, y+1) == 2){
+                                    if (m->getValueMap(x+1, y-1) == 2){
+                                        if (m->getValueMap(x-1, y-1) == 2){
+                                            if (m->getValueMap(x-1, y+1) == 0){
+                                                std::cout <<  "ok12 ";
+                                                tab[x][y].setTextureRect(IntRect(192, 256, 32, 32));
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
 
             if (type == 2){ //Intérieur
                 tab[x][y].setTextureRect(IntRect(192, 256, 32, 32));
             }
             else{
-                tab[x][y].setTextureRect(IntRect(0, 0, 0, 0));
+                tab[x][y].setTextureRect(IntRect(224, 224, 32, 32));
             }
+
             tab[x][y].setPosition(x*32, y*32);
         }
     }
