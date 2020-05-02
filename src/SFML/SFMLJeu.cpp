@@ -124,13 +124,13 @@ void ajoutTexture(Contents* content, Map* m, Sprite tab[90][90]) {
               tab[x][y].setTextureRect(IntRect(0, 160, 32, 32));
           }
           if (type == 1){
-              tab[x][y].setTextureRect(IntRect(320, 256, 32, 32));
+              tab[x][y].setTextureRect(IntRect(0, 416, 32, 32));
           }
           if (type == 2){ //Intérieur
               tab[x][y].setTextureRect(IntRect(192, 256, 32, 32));
           }
           else{
-              tab[x][y].setTextureRect(IntRect(0, 0, 0, 0));
+              tab[x][y].setTextureRect(IntRect(0, 448, 32, 32));
           }
           tab[x][y].setPosition(x*32, y*32);
       }
