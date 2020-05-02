@@ -36,28 +36,32 @@ void Boucle (Hero *h) {
       }
       Time frameTime = frameClock.restart();
       if(pas == 0){
-          if (Keyboard::isKeyPressed(Keyboard::Up))
+          if (Keyboard::isKeyPressed(Keyboard::Up) &&
+          m->getValueMap(h->getX(),(h->getY() - 1)) == 2)
           {
             h->haut();
             movement.y -= speed;
             std::cout << "\nmouvement Up Good";
             noKeyWasPressed = false;
           }
-          else if (Keyboard::isKeyPressed(Keyboard::Down))
+          else if (Keyboard::isKeyPressed(Keyboard::Down) &&
+          m->getValueMap(h->getX(),(h->getY() + 1)) == 2)
           {
             h->bas();
             movement.y += speed;
             std::cout << "\nmouvement Down Good";
             noKeyWasPressed = false;
           }
-          else if(Keyboard::isKeyPressed(Keyboard::Left))
+          else if(Keyboard::isKeyPressed(Keyboard::Left) &&
+          m->getValueMap((h->getX() - 1),h->getY()) == 2)
           {
             h->gauche();
             movement.x -= speed;
             std::cout << "\nmouvement Left Good";
             noKeyWasPressed = false;
           }
-          else if (Keyboard::isKeyPressed(Keyboard::Right))
+          else if (Keyboard::isKeyPressed(Keyboard::Right) &&
+          m->getValueMap((h->getX() + 1),h->getY()) == 2)
           {
             h->droite();
             movement.x += speed;
@@ -109,9 +113,9 @@ void Detruit(Map *m){
 
 void ajoutTexture(Contents* content, Map* m, Sprite tab[90][90]) {
   int taille = m->size();
-  for (int x = 1; x < taille-1; x++){
+  for (int x = 0; x < taille; x++){
     std::cout << '\n';
-      for (int y = 1; y < taille-1; y++){
+      for (int y = 0; y < taille; y++){
           int type = m->getValueMap(x, y);
           std::cout << type;
           tab[x][y].setTexture(*(content->tJeu));
