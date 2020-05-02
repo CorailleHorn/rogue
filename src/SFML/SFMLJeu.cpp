@@ -8,8 +8,9 @@ void Boucle (Hero *h) {
   window.setFramerateLimit(60);
   Contents* content = new Contents;
   Map* m = new Map;
+  std::vector<Ennemi*> ennemis;
   m->initGeneration();
-  m->positionnement(h);
+  m->positionnement(h, ennemis);
   h->setSprites(content->anim_Joueur);
   int taille = m->size();
   Sprite tab[90][90];

@@ -669,8 +669,8 @@ int Map::size() {
   return map_size;
 }
 
-void Map::positionnement(Hero *hero/*, std::vector<Ennemi*> ennemis*/) {
-  /*int pos[2];
+void Map::positionnement(Hero *hero, std::vector<Ennemi*> ennemis) {
+  int pos[2];
   for(long unsigned int i = 1; i < list_room.size(); i++) {
     nb_ennemie = rand() % 2 + 1;
     for(int j = 0; j < nb_ennemie; j++) {
@@ -689,7 +689,7 @@ void Map::positionnement(Hero *hero/*, std::vector<Ennemi*> ennemis*/) {
       ennemis[ennemis.size()-1]->setX(pos[0]);
       ennemis[ennemis.size()-1]->setY(pos[1]);
     }
-  }*/
+  }
   hxm1 = list_room[0].getX();
   hym1 = list_room[0].getY();
   hero->setX(hxm1);
