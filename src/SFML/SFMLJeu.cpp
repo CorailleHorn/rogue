@@ -90,8 +90,6 @@ void Boucle (Hero *h) {
           m->setValueMap(ennemis[i]->getX(),ennemis[i]->getY(), 4);
         }
     }
-    std::cout << "scale : " << h->getCurrentPV()->getScale().x << '\n';
-
     pasE++;
     if(movementH != Vector2f(0.f,0.f))
       pasH += speed;
