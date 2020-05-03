@@ -82,12 +82,14 @@ void Boucle (Hero *h) {
       if(pasE == 0)
         for(unsigned int i = 0; i < ennemis.size(); i++) {
           m->setValueMap(ennemis[i]->getX(),ennemis[i]->getY());
-          if(m->getRoom(h->getX(),h->getY()) == m->getRoom(ennemis[i]->getX(),ennemis[i]->getY()))
-            movementE[i] = ennemis[i]->update(m->getValueMap(ennemis[i]->getX(),(ennemis[i]->getY() - 1)),
-              m->getValueMap(ennemis[i]->getX(),(ennemis[i]->getY() + 1)),
-              m->getValueMap((ennemis[i]->getX() - 1),ennemis[i]->getY()),
-              m->getValueMap((ennemis[i]->getX() + 1),ennemis[i]->getY()), h);
-          m->setValueMap(ennemis[i]->getX(),ennemis[i]->getY(), 4);
+          if(ennemis[i]->getPv() > 0) {
+            if(m->getRoom(h->getX(),h->getY()) == m->getRoom(ennemis[i]->getX(),ennemis[i]->getY()))
+              movementE[i] = ennemis[i]->update(m->getValueMap(ennemis[i]->getX(),(ennemis[i]->getY() - 1)),
+                m->getValueMap(ennemis[i]->getX(),(ennemis[i]->getY() + 1)),
+                m->getValueMap((ennemis[i]->getX() - 1),ennemis[i]->getY()),
+                m->getValueMap((ennemis[i]->getX() + 1),ennemis[i]->getY()), h);
+            m->setValueMap(ennemis[i]->getX(),ennemis[i]->getY(), 4);
+          }
         }
     }
     pasE++;
@@ -108,8 +110,17 @@ void Boucle (Hero *h) {
     window.setView(view);
     if(pasE == 32.f) {
       pasE = 0;
-      for(unsigned int i = 0; i < ennemis.size(); i++)
+      for(unsigned int i = 0; i < ennemis.size(); i++) {
         movementE[i] = Vector2f(0.f,0.f);
+        if(ennemis[i]->getPv() == 0) {
+          m->setValueMap(ennemis[i]->getX(),ennemis[i]->getY());
+          delete ennemis[i];
+          ennemis.erase(ennemis.begin()+i);
+          tEnnemis.erase(tEnnemis.begin()+i);
+          movementE.erase(movementE.begin()+i);
+          i--;
+        }
+      }
     }
     if (noKeyWasPressed && pasH == 32.f)
     {
@@ -143,6 +154,11 @@ void Boucle (Hero *h) {
   system("clear");
   Detruit(m);
   delete content;
+  for(unsigned int i = 0; i < ennemis.size(); i++)
+    delete ennemis[i];
+  ennemis.clear();
+  tEnnemis.clear();
+  movementE.clear();
 }
 
 void Detruit(Map *m){
