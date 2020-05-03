@@ -3,7 +3,7 @@
 using namespace std;
 using namespace sf;
 
-  Contents::Contents() {
+Contents::Contents() {
 
       //New
   tJeu = new Texture;

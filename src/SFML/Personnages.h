@@ -15,6 +15,7 @@ class Personnage {
 		virtual ~Personnage();
 		int combat(Personnage* p);
 		int degat(const int &atkA, bool gauche = true);
+		void pvUpdate();
 		int idle();
 		int haut();
 		int bas();
@@ -22,19 +23,23 @@ class Personnage {
 		int droite();
 		int setX(const int &sx);
 		int setY(const int &sy);
+		int setSprites(AnimPerso* s_template, sf::Texture *barre_pv, sf::Texture *texturePV);
+		int PvPos();
+		int movePv(sf::Vector2f pos);
 		int getAtk() const;
 		int getDef() const;
 		int getPv() const;
 		int getLv() const;
 		int getX() const;
 		int getY() const;
-		void setSprites(AnimPerso* s_template, sf::Sprite *barre_pv, sf::Texture texturePV);
+		sf::Sprite* getPvBarre() const;
+		sf::Sprite* getCurrentPV() const;
 		Animation* getSprite() const;
 	protected:
-		int atk, def, pv, lv, x, y;
+		int atk, def, pv, pvmax, lv, x, y;
 		AnimPerso* sprites;
 		Animation* currentSprite;
-		sf::Sprite spritePV, *barrePV;
+		sf::Sprite *currentPV, *barrePV;
 };
 
 

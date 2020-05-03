@@ -7,13 +7,19 @@ using namespace std;
 using namespace sf;
 
 	Personnage::Personnage() { //Constructeur pour un personnage
-		atk = def = pv = lv = x = y = 1;
+		atk = def = pv = pvmax = lv = x = y = 1;
+		sprites = new AnimPerso;
 		currentSprite = new Animation;
+		barrePV = new Sprite;
+		currentPV = new Sprite;
 	}
 
-	Personnage::~Personnage() {}//Destructeur de personnage
+	Personnage::~Personnage() { //Destructeur de personnage
+		delete barrePV;
+		delete currentPV;
+	}
 
-	int Personnage::combat(Personnage* p) {//
+	int Personnage::combat(Personnage* p) {
 		bool degat = false;
 		if(p->getX() == x+1 && p->getY() == y) {
 			currentSprite = &sprites->atkD;
@@ -34,8 +40,16 @@ using namespace sf;
 		if(d > 0) {
 			currentSprite = &sprites->degatD;
 			pv -= d;
+			pvUpdate();
 		}
 		return 0;
+	}
+
+	void Personnage::pvUpdate() {
+		cout << (float)(pvmax-pv/pvmax) << " ";
+		currentPV->setScale((float)(pvmax-pv/pvmax),1.f);
+		Vector2f ok = currentPV->getScale();
+		cout << ok.x << " ";
 	}
 
 	int Personnage::idle() {
@@ -77,6 +91,28 @@ using namespace sf;
 		return 0;
 	}
 
+
+	int Personnage::setSprites(AnimPerso* s_template, sf::Texture *barre_pv, sf::Texture *texturePV) {
+		sprites = s_template;
+		barrePV->setTexture(*barre_pv);
+		currentPV->setTexture(*texturePV);
+		currentSprite = &sprites->idleD;
+		return 0;
+	}
+
+	int Personnage::PvPos() {
+		Vector2f pos = Vector2f((x*32)-16,(y*32)-16);
+		barrePV->setPosition(pos);
+		currentPV->setPosition(Vector2f((pos.x + 14.f), pos.y));
+		return 0;
+	}
+
+	int Personnage::movePv(Vector2f pos) {
+		barrePV->move(pos);
+		currentPV->move(pos);
+		return 0;
+	}
+
 	int Personnage::getAtk() const {
 		return atk;
 	}
@@ -101,11 +137,12 @@ using namespace sf;
 		return y;
 	}
 
-	void Personnage::setSprites(AnimPerso* s_template, sf::Sprite *barre_pv, sf::Texture texturePV) {
-		sprites = s_template;
-		barrePV = barre_pv;
-		spritePV.setTexture(texturePV);
-		currentSprite = &sprites->idleD;
+	Sprite* Personnage::getPvBarre() const {
+		return barrePV;
+	}
+
+	Sprite* Personnage::getCurrentPV() const {
+		return currentPV;
 	}
 
 	Animation* Personnage::getSprite() const {
@@ -113,7 +150,7 @@ using namespace sf;
 	}
 
 	Hero::Hero() { //Constructeur du héro
-		atk = def = pv = 10;
+		atk = def = pv = pvmax = 10;
 		lv = x = y = 1;
     name = "";
 		currentSprite = new Animation;
@@ -290,6 +327,7 @@ using namespace sf;
 				def = stat + 5;
 				break;
 		}
+		pvmax = pv;
 		x = 1;
 		y = 2;
 		currentSprite = new Animation;

@@ -11,14 +11,16 @@ void Boucle (Hero *h) {
   std::vector<Ennemi*> ennemis;
   m->initGeneration();
   m->positionnement(h, ennemis);
-  h->setSprites(content->anim_Joueur);
+  h->setSprites(content->anim_Joueur, content->tHero[1], content->tHero[2]);
+  h->PvPos();
   std::vector<AnimatedSprite> tEnnemis;
   std::vector<Vector2f> movementE;
   for(unsigned int i = 0; i < ennemis.size(); i++) {
-    ennemis[i]->setSprites(content->anim_Ennemie);
     tEnnemis.push_back(AnimatedSprite(seconds(0.2), true));
     tEnnemis[i].setPosition(Vector2f(ennemis[i]->getX()*32, ennemis[i]->getY()*32));
     movementE.push_back(Vector2f(0.f, 0.f));
+    ennemis[i]->setSprites(content->anim_Ennemie, content->tEnnemi[10], content->tEnnemi[11]);
+    ennemis[i]->PvPos();
   }
   int taille = m->size();
   Sprite tab[90][90];
@@ -94,10 +96,12 @@ void Boucle (Hero *h) {
       hero.play(*h->getSprite());
       hero.move(movementH);
       hero.update(frameTime);
+      h->movePv(Vector2f(movementH.x,movementH.y));
       for(unsigned int i = 0; i < ennemis.size(); i++) {
         tEnnemis[i].play(*ennemis[i]->getSprite());
         tEnnemis[i].move(movementE[i]);
         tEnnemis[i].update(frameTime);
+        ennemis[i]->movePv(Vector2f(movementE[i].x,movementE[i].y));
       }
       window.setView(view);
       if(pasE == 32.f) {
@@ -121,8 +125,13 @@ void Boucle (Hero *h) {
           for (int y = 0; y < taille; y++)
             window.draw(tab[x][y]);
       window.draw(hero);
-      for(unsigned int i = 0; i < ennemis.size(); i++)
+      window.draw(*(h->getPvBarre()));
+      window.draw(*(h->getCurrentPV()));
+      for(unsigned int i = 0; i < ennemis.size(); i++) {
         window.draw(tEnnemis[i]);
+        window.draw(*(ennemis[i]->getPvBarre()));
+        window.draw(*(ennemis[i]->getCurrentPV()));
+      }
       window.setView(minimap);
       for (int x = 0; x < taille; x++)
           for (int y = 0; y < taille; y++)
