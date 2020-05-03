@@ -12,8 +12,13 @@ void Boucle (Hero *h) {
   m->initGeneration();
   m->positionnement(h, ennemis);
   h->setSprites(content->anim_Joueur);
-  for(unsigned int i = 0; i < ennemis.size(); i++)
+  std::vector<AnimatedSprite> tEnnemis;
+  for(unsigned int i = 0; i < ennemis.size(); i++) {
     ennemis[i]->setSprites(content->anim_Ennemie);
+    tEnnemis.push_back(AnimatedSprite(seconds(0.2), true));
+    tEnnemis[i].setPosition(Vector2f(ennemis[i]->getX()*32, ennemis[i]->getY()*32));
+    tEnnemis[i].play(*ennemis[i]->getSprite());
+  }
   int taille = m->size();
   Sprite tab[90][90];
   ajoutTexture(content, m, tab);
@@ -80,6 +85,8 @@ void Boucle (Hero *h) {
       hero.play(*h->getSprite());
       hero.move(movement);
       hero.update(frameTime);
+      for(unsigned int i = 0; i < ennemis.size(); i++)
+        tEnnemis[i].update(frameTime);
       window.setView(view);
       if (noKeyWasPressed && pas == 32.f)
       {
@@ -97,6 +104,8 @@ void Boucle (Hero *h) {
           for (int y = 0; y < taille; y++)
             window.draw(tab[x][y]);
       window.draw(hero);
+      for(unsigned int i = 0; i < ennemis.size(); i++)
+        window.draw(tEnnemis[i]);
       window.setView(minimap);
       for (int x = 0; x < taille; x++)
           for (int y = 0; y < taille; y++)
