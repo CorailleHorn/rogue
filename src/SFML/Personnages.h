@@ -28,12 +28,13 @@ class Personnage {
 		int getLv() const;
 		int getX() const;
 		int getY() const;
-		void setSprites(AnimPerso* s_template);
+		void setSprites(AnimPerso* s_template, sf::Sprite *barre_pv, sf::Texture texturePV);
 		Animation* getSprite() const;
 	protected:
 		int atk, def, pv, lv, x, y;
 		AnimPerso* sprites;
 		Animation* currentSprite;
+		sf::Sprite spritePV, *barrePV;
 };
 
 

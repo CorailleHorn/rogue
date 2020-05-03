@@ -101,8 +101,10 @@ using namespace sf;
 		return y;
 	}
 
-	void Personnage::setSprites(AnimPerso* s_template) {
+	void Personnage::setSprites(AnimPerso* s_template, sf::Sprite *barre_pv, sf::Texture texturePV) {
 		sprites = s_template;
+		barrePV = barre_pv;
+		spritePV.setTexture(texturePV);
 		currentSprite = &sprites->idleD;
 	}
 

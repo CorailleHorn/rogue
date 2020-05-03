@@ -9,7 +9,7 @@ using namespace sf;
   tJeu = new Texture;
   for (int i = 0; i < 3; i++)
     tHero[i] = new Texture;
-  for (int i = 0; i < 10; i++)
+  for (int i = 0; i < 12; i++)
     tEnnemi[i] = new Texture;
   for (int i = 0; i < 8; i++)
     sJeu[i] = new SoundBuffer;
@@ -47,6 +47,10 @@ using namespace sf;
   if (!tEnnemi[8]->loadFromFile("../data/img/Skeleton/Skeleton_HitD.png"))
     cerr << "Ton image charges pas batard" << '\n';
   if (!tEnnemi[9]->loadFromFile("../data/img/Skeleton/Skeleton_DeadD.png"))
+    cerr << "Ton image charges pas batard" << '\n';
+  if (!tEnnemi[10]->loadFromFile("../data/img/health_bar/health_bar_decoration.png"))
+    cerr << "Ton image charges pas batard" << '\n';
+  if (!tEnnemi[11]->loadFromFile("../data/img/health_bar/health_bar.png"))
     cerr << "Ton image charges pas batard" << '\n';
 
       //Son
@@ -292,7 +296,7 @@ using namespace sf;
   delete tJeu;
   for (int i = 0; i < 3; i++)
     delete tHero[i];
-  for (int i = 0; i < 5; i++)
+  for (int i = 0; i < 12; i++)
     delete tEnnemi[i];
   for (int i = 0; i < 8; i++)
     delete sJeu[i];
@@ -300,84 +304,3 @@ using namespace sf;
   delete anim_Joueur;
   delete anim_Ennemie;
 }
-/*
-int main()
-{
-    // setup window
-    sf::Vector2i screenDimensions(800,600);
-    sf::RenderWindow window(sf::VideoMode(screenDimensions.x, screenDimensions.y), "Animations!");
-    window.setFramerateLimit(60);
-
-    Contents* c = new Contents;
-
-    Animation* currentAnimation = &(c->anim_Ennemie->idleD);
-
-    // set up AnimatedSprite
-    AnimatedSprite animatedSprite(sf::seconds(0.2), true);
-    animatedSprite.setPosition(sf::Vector2f(screenDimensions / 2));
-    sf::Clock frameClock;
-
-    float speed = 80.f;
-    bool noKeyWasPressed = true;
-
-    while (window.isOpen())
-    {
-        sf::Event event;
-        while (window.pollEvent(event))
-        {
-            if (event.type == sf::Event::Closed)
-                window.close();
-            if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape)
-                window.close();
-        }
-
-        sf::Time frameTime = frameClock.restart();
-
-        // if a key was pressed set the correct animation and move correctly
-        sf::Vector2f movement(0.f, 0.f);
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
-        {
-            currentAnimation = &(c->anim_Ennemie->walkD);
-            movement.y -= speed;
-            noKeyWasPressed = false;
-        }
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
-        {
-            currentAnimation = &(c->anim_Ennemie->atkD);
-            movement.y += speed;
-            noKeyWasPressed = false;
-        }
-        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
-        {
-            currentAnimation = &(c->anim_Ennemie->degatD);
-            movement.x -= speed;
-            noKeyWasPressed = false;
-        }
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
-        {
-            currentAnimation = &(c->anim_Ennemie->mortD);
-            movement.x += speed;
-            noKeyWasPressed = false;
-        }
-        animatedSprite.play(*currentAnimation);
-        animatedSprite.move(movement * frameTime.asSeconds());
-
-        // if no key was pressed stop the animation
-        if (noKeyWasPressed)
-        {
-            currentAnimation = &(c->anim_Ennemie->idleD);
-        }
-        noKeyWasPressed = true;
-
-        // update AnimatedSprite
-        animatedSprite.update(frameTime);
-
-        // draw
-        window.clear();
-        window.draw(animatedSprite);
-        window.display();
-    }
-    delete c;
-    return 0;
-}
-*/
