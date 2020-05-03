@@ -669,7 +669,7 @@ int Map::size() {
   return map_size;
 }
 
-void Map::positionnement(Hero *hero, std::vector<Ennemi*> ennemis) {
+void Map::positionnement(Hero *hero, std::vector<Ennemi*> &ennemis) {
   int pos[2];
   for(long unsigned int i = 1; i < list_room.size(); i++) {
     nb_ennemie = rand() % 2 + 1;

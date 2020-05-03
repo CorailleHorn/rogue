@@ -12,6 +12,8 @@ void Boucle (Hero *h) {
   m->initGeneration();
   m->positionnement(h, ennemis);
   h->setSprites(content->anim_Joueur);
+  for(unsigned int i = 0; i < ennemis.size(); i++)
+    ennemis[i]->setSprites(content->anim_Ennemie);
   int taille = m->size();
   Sprite tab[90][90];
   ajoutTexture(content, m, tab);

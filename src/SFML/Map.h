@@ -46,7 +46,7 @@ public:
 
 //    int update();
     int size();
-    void positionnement(Hero *hero, std::vector<Ennemi*> ennemis);
+    void positionnement(Hero *hero, std::vector<Ennemi*> &ennemis);
 
     void viderMap(); //vide la map i.e. met toute les valeurs de la map à 0
     void afficherMapTXT(); //affiche la version shell de la map en terminal

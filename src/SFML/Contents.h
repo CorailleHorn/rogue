@@ -24,8 +24,8 @@ class Contents {
     Contents();
     ~Contents();
 
-    Animation* getJ_anim(char d);
-    Animation* getE_anim(char d);
+    Animation* getJ_anim(AnimPerso d);
+    Animation* getE_anim(AnimPerso d);
 
 
     sf::Texture* tJeu;
