@@ -13,11 +13,12 @@ void Boucle (Hero *h) {
   m->positionnement(h, ennemis);
   h->setSprites(content->anim_Joueur);
   std::vector<AnimatedSprite> tEnnemis;
+  std::vector<Vector2f> movementE;
   for(unsigned int i = 0; i < ennemis.size(); i++) {
     ennemis[i]->setSprites(content->anim_Ennemie);
     tEnnemis.push_back(AnimatedSprite(seconds(0.2), true));
     tEnnemis[i].setPosition(Vector2f(ennemis[i]->getX()*32, ennemis[i]->getY()*32));
-    tEnnemis[i].play(*ennemis[i]->getSprite());
+    movementE.push_back(Vector2f(0.f, 0.f));
   }
   int taille = m->size();
   Sprite tab[90][90];
@@ -31,8 +32,8 @@ void Boucle (Hero *h) {
   float speed = 2.f;
   bool noKeyWasPressed = true;
   Vector2f movementH(0.f, 0.f);
-  Vector2f movementE(0.f, 0.f);
-  int pas = 0;
+  int pasH = 0;
+  int pasE = 0;
   while (window.isOpen())
   {
       Event event;
@@ -44,53 +45,69 @@ void Boucle (Hero *h) {
               window.close();
       }
       Time frameTime = frameClock.restart();
-      if(pas == 0){
-          if (Keyboard::isKeyPressed(Keyboard::Up) &&
-          m->getValueMap(h->getX(),(h->getY() - 1)) == 2)
-          {
-            h->haut();
-            movementH.y -= speed;
-            noKeyWasPressed = false;
-          }
-          else if (Keyboard::isKeyPressed(Keyboard::Down) &&
-          m->getValueMap(h->getX(),(h->getY() + 1)) == 2)
-          {
-            h->bas();
-            movementH.y += speed;
-            noKeyWasPressed = false;
-          }
-          else if(Keyboard::isKeyPressed(Keyboard::Left) &&
-          m->getValueMap((h->getX() - 1),h->getY()) == 2)
-          {
-            h->gauche();
-            movementH.x -= speed;
-            noKeyWasPressed = false;
-          }
-          else if (Keyboard::isKeyPressed(Keyboard::Right) &&
-          m->getValueMap((h->getX() + 1),h->getY()) == 2)
-          {
-            h->droite();
-            movementH.x += speed;
-            noKeyWasPressed = false;
-          }
+      if(pasH == 0){
+        m->setValueMap(h->getX(),h->getY());
+        if (Keyboard::isKeyPressed(Keyboard::Up) &&
+        m->getValueMap(h->getX(),(h->getY() - 1)) == 2) {
+          h->haut();
+          movementH.y -= speed;
+          noKeyWasPressed = false;
+        }
+        else if (Keyboard::isKeyPressed(Keyboard::Down) &&
+        m->getValueMap(h->getX(),(h->getY() + 1)) == 2) {
+          h->bas();
+          movementH.y += speed;
+          noKeyWasPressed = false;
+        }
+        else if(Keyboard::isKeyPressed(Keyboard::Left) &&
+        m->getValueMap((h->getX() - 1),h->getY()) == 2) {
+          h->gauche();
+          movementH.x -= speed;
+          noKeyWasPressed = false;
+        }
+        else if (Keyboard::isKeyPressed(Keyboard::Right) &&
+        m->getValueMap((h->getX() + 1),h->getY()) == 2)
+        {
+          h->droite();
+          movementH.x += speed;
+          noKeyWasPressed = false;
+        }
+        m->setValueMap(h->getX(),h->getY(), 3);
+        for(unsigned int i = 0; i < ennemis.size(); i++)
+          h->combat(ennemis[i]);
       }
+      if(pasE == 0)
+        for(unsigned int i = 0; i < ennemis.size(); i++) {
+          m->setValueMap(ennemis[i]->getX(),ennemis[i]->getY());
+          if(m->getRoom(h->getX(),h->getY()) == m->getRoom(ennemis[i]->getX(),ennemis[i]->getY()))
+            movementE[i] = ennemis[i]->update(m->getValueMap(ennemis[i]->getX(),(ennemis[i]->getY() - 1)),
+              m->getValueMap(ennemis[i]->getX(),(ennemis[i]->getY() + 1)),
+              m->getValueMap((ennemis[i]->getX() - 1),ennemis[i]->getY()),
+              m->getValueMap((ennemis[i]->getX() + 1),ennemis[i]->getY()), h);
+          m->setValueMap(ennemis[i]->getX(),ennemis[i]->getY(), 4);
+        }
+      pasE++;
       if(movementH != Vector2f(0.f,0.f))
-        pas += speed;
-      for(unsigned int i = 0; i < ennemis.size(); i++) {
-        movementE = ennemis[i]->move(m->donGet());
-        tEnnemis[i].move(movementE);
-      }
+        pasH += speed;
       view.move(movementH);
       minimap.move(movementH);
       hero.play(*h->getSprite());
       hero.move(movementH);
       hero.update(frameTime);
-      for(unsigned int i = 0; i < ennemis.size(); i++)
+      for(unsigned int i = 0; i < ennemis.size(); i++) {
+        tEnnemis[i].play(*ennemis[i]->getSprite());
+        tEnnemis[i].move(movementE[i]);
         tEnnemis[i].update(frameTime);
+      }
       window.setView(view);
-      if (noKeyWasPressed && pas == 32.f)
+      if(pasE == 32.f) {
+        pasE = 0;
+        for(unsigned int i = 0; i < ennemis.size(); i++)
+          movementE[i] = Vector2f(0.f,0.f);
+      }
+      if (noKeyWasPressed && pasH == 32.f)
       {
-        pas = 0;
+        pasH = 0;
         movementH = Vector2f(0.f,0.f);
         View view(Vector2f(h->getX()*32, h->getY()*32), Vector2f(screenDimensions/2));
         View minimap(Vector2f(h->getX()*32, h->getY()*32), Vector2f(taille*32, taille*32));

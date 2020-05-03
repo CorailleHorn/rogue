@@ -47,15 +47,16 @@ public:
 //    int update();
     int size();
     void positionnement(Hero *hero, std::vector<Ennemi*> &ennemis);
-    int (*donGet())(int ,int);
 
     void viderMap(); //vide la map i.e. met toute les valeurs de la map à 0
     void afficherMapTXT(); //affiche la version shell de la map en terminal
     void afficherMapSFML();//affiche la version graphique de la map en terminal [uniquement en debug]
 
+    void setValueMap(int const X, int const Y, int value = 2);
     //Accesseur
     int getValueMap(int const X, int const Y); //retourne la valeur de map en X et Y
     //accesseur pour les rooms
+    int getRoom(int const X, int const Y);
     int getX0Room(int const ID);
     int getY0Room(int const ID);
     int getXRoom(int const ID);

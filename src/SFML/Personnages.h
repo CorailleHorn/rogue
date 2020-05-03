@@ -9,13 +9,12 @@
 #include <SFML/Audio.hpp>
 #include "Contents.h"
 
-
 class Personnage {
 	public:
 		Personnage();
 		virtual ~Personnage();
 		int combat(Personnage* p);
-		int degat(const int &atkA);
+		int degat(const int &atkA, bool gauche = true);
 		int idle();
 		int haut();
 		int bas();
@@ -55,7 +54,7 @@ class Ennemi : public Personnage {
 	public:
 		Ennemi();
 		Ennemi(const int &leveling);
-		sf::Vector2f move(int (*Pos)(int, int));
+		sf::Vector2f update(int h, int b, int g, int d, Personnage* hero);
 		~Ennemi();
 };
 

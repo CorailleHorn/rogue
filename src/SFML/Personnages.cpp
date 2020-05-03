@@ -14,16 +14,27 @@ using namespace sf;
 	Personnage::~Personnage() {}//Destructeur de personnage
 
 	int Personnage::combat(Personnage* p) {//
-		if((p->getX() == x-1) || (p->getX() == x+1)
-		|| (p->getY() == y-1) || (p->getY() == y+1))
+		bool degat = false;
+		if(p->getX() == x+1 && p->getY() == y) {
+			currentSprite = &sprites->atkD;
+			degat = true;
+		}
+		if((p->getX() == x-1 && p->getY() == y)
+		|| (p->getX() == x && (p->getY() == y-1 || p->getY() == y+1))) {
+			currentSprite = &sprites->atkG;
+			degat = true;
+		}
+		if(degat)
 			p->degat(atk);
 		return 0;
 	}
 
-	int Personnage::degat(const int &atkA) { //permets de définir le nombre de dégats que l'on va mettre au joueur
-		int d = ((atkA - def) + 1);
-		if(d >= 0)
+	int Personnage::degat(const int &atkA, bool gauche) { //permets de définir le nombre de dégats que l'on va mettre au joueur
+		int d = ((atkA - (def/2)) + 1);
+		if(d > 0) {
+			currentSprite = &sprites->degatD;
 			pv -= d;
+		}
 		return 0;
 	}
 
@@ -282,28 +293,25 @@ using namespace sf;
 		currentSprite = new Animation;
 	}
 
-	sf::Vector2f Ennemi::move(int (*Pos)(int, int)) {
-		if (Pos(x,(y - 1)) == 2)
-		{
+	sf::Vector2f Ennemi::update(int h, int b, int g, int d, Personnage* hero) {
+		combat(hero);
+		if (h == 2 && hero->getY() < y && (hero->getY() != y-1 || hero->getX() != x)) {
 			haut();
 			return Vector2f(0,-1);
 		}
-		else if (Pos(x,(y + 1)) == 2)
-		{
+		else if (b == 2 && hero->getY() > y && (hero->getY() != y+1 || hero->getX() != x)) {
 			bas();
 			return Vector2f(0,1);
 		}
-		else if(Pos((x - 1),y) == 2)
-		{
+		else if(g == 2 && hero->getX() < x && (hero->getX() != x-1 || hero->getY() != y)) {
 			gauche();
 			return Vector2f(-1,0);
 		}
-		else if (Pos((x + 1),y) == 2)
-		{
+		else if (d == 2 && hero->getX() > x && (hero->getX() != x+1 || hero->getY() != y)) {
 			droite();
 			return Vector2f(1,0);
 		}
-		return 0;
+		return Vector2f(0,0);
 	}
 
 	Ennemi::~Ennemi() {}

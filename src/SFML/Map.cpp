@@ -675,13 +675,13 @@ void Map::positionnement(Hero *hero, std::vector<Ennemi*> &ennemis) {
     nb_ennemie = rand() % 2 + 1;
     for(int j = 0; j < nb_ennemie; j++) {
       if(ennemis.size() == 0) {
-        pos[0] = rand() % (list_room[i].getX0()-(list_room[i].getX0() + list_room[i].getL() - 1) ) + (list_room[i].getX0()+1);
-        pos[1] = rand() % (list_room[i].getY0()-(list_room[i].getY0() + list_room[i].getH() - 1) ) + (list_room[i].getY0()+1);
+        pos[0] = rand() % (list_room[i].getX0()-(list_room[i].getX0() + list_room[i].getL() - 1) ) + (list_room[i].getX0());
+        pos[1] = rand() % (list_room[i].getY0()-(list_room[i].getY0() + list_room[i].getH() - 1) ) + (list_room[i].getY0());
       }
       else {
         do {
-          pos[0] = rand() % (list_room[i].getX0()-(list_room[i].getX0() + list_room[i].getL() - 1) ) + (list_room[i].getX0()+1);
-          pos[1] = rand() % (list_room[i].getY0()-(list_room[i].getY0() + list_room[i].getH() - 1) ) + (list_room[i].getY0()+1);
+          pos[0] = rand() % (list_room[i].getX0()-(list_room[i].getX0() + list_room[i].getL() - 1) ) + (list_room[i].getX0());
+          pos[1] = rand() % (list_room[i].getY0()-(list_room[i].getY0() + list_room[i].getH() - 1) ) + (list_room[i].getY0());
         } while(ennemis[ennemis.size()-1]->getX() == pos[0]
             && ennemis[ennemis.size()-1]->getY() == pos[1]);
       }
@@ -695,10 +695,6 @@ void Map::positionnement(Hero *hero, std::vector<Ennemi*> &ennemis) {
   hero->setX(hxm1);
   hero->setY(hym1);
   ptr_map[hxm1][hym1] = 2;
-}
-
-int (*Map::donGet())(int ,int) {
-  return getValueMap;
 }
 
 void Map::viderMap() {
@@ -745,6 +741,10 @@ void Map::afficherMapSFML() {
     cout << endl;
 }
 
+void Map::setValueMap(int const X, int const Y, int value) {
+  ptr_map[X][Y] = value;
+}
+
 //ACCESSEUR
 
 int Map::getValueMap(int const X, int const Y) {
@@ -752,6 +752,14 @@ int Map::getValueMap(int const X, int const Y) {
     return ptr_map[X][Y];
 }
 //accesseur pour les rooms
+int Map::getRoom(int const X, int const Y) {
+  for(long unsigned int i = 0; i < list_room.size(); i++)
+   if(X > list_room[i].getX0() && X < list_room[i].getX0()+list_room[i].getL()-1 &&
+      Y > list_room[i].getY0() && Y < list_room[i].getY0()+list_room[i].getH()-1)
+    return i;
+  return -1;
+}
+
 int Map::getX0Room(int const ID){
     return list_room[ID].getX0();
 }
