@@ -282,4 +282,28 @@ using namespace sf;
 		currentSprite = new Animation;
 	}
 
+	sf::Vector2f Ennemi::move(int (*Pos)(int, int)) {
+		if (Pos(x,(y - 1)) == 2)
+		{
+			haut();
+			return Vector2f(0,-1);
+		}
+		else if (Pos(x,(y + 1)) == 2)
+		{
+			bas();
+			return Vector2f(0,1);
+		}
+		else if(Pos((x - 1),y) == 2)
+		{
+			gauche();
+			return Vector2f(-1,0);
+		}
+		else if (Pos((x + 1),y) == 2)
+		{
+			droite();
+			return Vector2f(1,0);
+		}
+		return 0;
+	}
+
 	Ennemi::~Ennemi() {}

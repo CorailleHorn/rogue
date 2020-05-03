@@ -30,7 +30,8 @@ void Boucle (Hero *h) {
   Clock frameClock;
   float speed = 2.f;
   bool noKeyWasPressed = true;
-  Vector2f movement(0.f, 0.f);
+  Vector2f movementH(0.f, 0.f);
+  Vector2f movementE(0.f, 0.f);
   int pas = 0;
   while (window.isOpen())
   {
@@ -48,42 +49,41 @@ void Boucle (Hero *h) {
           m->getValueMap(h->getX(),(h->getY() - 1)) == 2)
           {
             h->haut();
-            movement.y -= speed;
-            std::cout << "\nmouvement Up Good";
+            movementH.y -= speed;
             noKeyWasPressed = false;
           }
           else if (Keyboard::isKeyPressed(Keyboard::Down) &&
           m->getValueMap(h->getX(),(h->getY() + 1)) == 2)
           {
             h->bas();
-            movement.y += speed;
-            std::cout << "\nmouvement Down Good";
+            movementH.y += speed;
             noKeyWasPressed = false;
           }
           else if(Keyboard::isKeyPressed(Keyboard::Left) &&
           m->getValueMap((h->getX() - 1),h->getY()) == 2)
           {
             h->gauche();
-            movement.x -= speed;
-            std::cout << "\nmouvement Left Good";
+            movementH.x -= speed;
             noKeyWasPressed = false;
           }
           else if (Keyboard::isKeyPressed(Keyboard::Right) &&
           m->getValueMap((h->getX() + 1),h->getY()) == 2)
           {
             h->droite();
-            movement.x += speed;
-            std::cout << "\nmouvement Right Good";
+            movementH.x += speed;
             noKeyWasPressed = false;
-            pas += speed;
           }
       }
-      if(movement != Vector2f(0.f,0.f))
+      if(movementH != Vector2f(0.f,0.f))
         pas += speed;
-      view.move(movement);
-      minimap.move(movement);
+      for(unsigned int i = 0; i < ennemis.size(); i++) {
+        movementE = ennemis[i]->move(m->donGet());
+        tEnnemis[i].move(movementE);
+      }
+      view.move(movementH);
+      minimap.move(movementH);
       hero.play(*h->getSprite());
-      hero.move(movement);
+      hero.move(movementH);
       hero.update(frameTime);
       for(unsigned int i = 0; i < ennemis.size(); i++)
         tEnnemis[i].update(frameTime);
@@ -91,7 +91,7 @@ void Boucle (Hero *h) {
       if (noKeyWasPressed && pas == 32.f)
       {
         pas = 0;
-        movement = Vector2f(0.f,0.f);
+        movementH = Vector2f(0.f,0.f);
         View view(Vector2f(h->getX()*32, h->getY()*32), Vector2f(screenDimensions/2));
         View minimap(Vector2f(h->getX()*32, h->getY()*32), Vector2f(taille*32, taille*32));
         hero.setPosition(Vector2f(h->getX()*32, h->getY()*32));

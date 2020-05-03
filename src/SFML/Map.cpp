@@ -697,6 +697,10 @@ void Map::positionnement(Hero *hero, std::vector<Ennemi*> &ennemis) {
   ptr_map[hxm1][hym1] = 2;
 }
 
+int (*Map::donGet())(int ,int) {
+  return getValueMap;
+}
+
 void Map::viderMap() {
     //on vide la map i.e. on remet toutes les valeurs à 0
     for (int i = 0; i < map_size; i++) {

@@ -55,6 +55,7 @@ class Ennemi : public Personnage {
 	public:
 		Ennemi();
 		Ennemi(const int &leveling);
+		sf::Vector2f move(int (*Pos)(int, int));
 		~Ennemi();
 };
 
