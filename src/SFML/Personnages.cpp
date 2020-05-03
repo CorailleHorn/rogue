@@ -38,18 +38,21 @@ using namespace sf;
 	int Personnage::degat(const int &atkA, bool gauche) { //permets de définir le nombre de dégats que l'on va mettre au joueur
 		int d = ((atkA - (def/2)) + 1);
 		if(d > 0) {
-			currentSprite = &sprites->degatD;
-			pv -= d;
+			if(pv - d < 0) {
+				currentSprite = &sprites->mortG;
+				pv = 0;
+			}
+			else {
+				currentSprite = &sprites->degatD;
+				pv -= d;
+			}
 			pvUpdate();
 		}
 		return 0;
 	}
 
 	void Personnage::pvUpdate() {
-		cout << (float)(pvmax-pv/pvmax) << " ";
-		currentPV->setScale((float)(pvmax-pv/pvmax),1.f);
-		Vector2f ok = currentPV->getScale();
-		cout << ok.x << " ";
+		currentPV->setScale((float)pv/pvmax,1.f);
 	}
 
 	int Personnage::idle() {

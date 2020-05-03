@@ -38,15 +38,16 @@ void Boucle (Hero *h) {
   int pasE = 0;
   while (window.isOpen())
   {
-      Event event;
-      while (window.pollEvent(event))
-      {
-          if (event.type == Event::Closed)
-              window.close();
-          if (event.type == Event::KeyPressed && event.key.code == Keyboard::Escape)
-              window.close();
-      }
-      Time frameTime = frameClock.restart();
+    Event event;
+    while (window.pollEvent(event))
+    {
+        if (event.type == Event::Closed)
+            window.close();
+        if (event.type == Event::KeyPressed && event.key.code == Keyboard::Escape)
+            window.close();
+    }
+    Time frameTime = frameClock.restart();
+    if(h->getPv() > 0) {
       if(pasH == 0){
         m->setValueMap(h->getX(),h->getY());
         if (Keyboard::isKeyPressed(Keyboard::Up) &&
@@ -88,55 +89,58 @@ void Boucle (Hero *h) {
               m->getValueMap((ennemis[i]->getX() + 1),ennemis[i]->getY()), h);
           m->setValueMap(ennemis[i]->getX(),ennemis[i]->getY(), 4);
         }
-      pasE++;
-      if(movementH != Vector2f(0.f,0.f))
-        pasH += speed;
-      view.move(movementH);
-      minimap.move(movementH);
-      hero.play(*h->getSprite());
-      hero.move(movementH);
-      hero.update(frameTime);
-      h->movePv(Vector2f(movementH.x,movementH.y));
-      for(unsigned int i = 0; i < ennemis.size(); i++) {
-        tEnnemis[i].play(*ennemis[i]->getSprite());
-        tEnnemis[i].move(movementE[i]);
-        tEnnemis[i].update(frameTime);
-        ennemis[i]->movePv(Vector2f(movementE[i].x,movementE[i].y));
-      }
-      window.setView(view);
-      if(pasE == 32.f) {
-        pasE = 0;
-        for(unsigned int i = 0; i < ennemis.size(); i++)
-          movementE[i] = Vector2f(0.f,0.f);
-      }
-      if (noKeyWasPressed && pasH == 32.f)
-      {
-        pasH = 0;
-        movementH = Vector2f(0.f,0.f);
-        View view(Vector2f(h->getX()*32, h->getY()*32), Vector2f(screenDimensions/2));
-        View minimap(Vector2f(h->getX()*32, h->getY()*32), Vector2f(taille*32, taille*32));
-        hero.setPosition(Vector2f(h->getX()*32, h->getY()*32));
-        h->idle();
-      }
-      noKeyWasPressed = true;
-      // draw
-      window.clear();
-      for (int x = 0; x < taille; x++)
-          for (int y = 0; y < taille; y++)
-            window.draw(tab[x][y]);
-      window.draw(hero);
-      window.draw(*(h->getPvBarre()));
-      window.draw(*(h->getCurrentPV()));
-      for(unsigned int i = 0; i < ennemis.size(); i++) {
-        window.draw(tEnnemis[i]);
-        window.draw(*(ennemis[i]->getPvBarre()));
-        window.draw(*(ennemis[i]->getCurrentPV()));
-      }
-      window.setView(minimap);
-      for (int x = 0; x < taille; x++)
-          for (int y = 0; y < taille; y++)
-            window.draw(tab[x][y]);
-      window.display();
+    }
+    std::cout << "scale : " << h->getCurrentPV()->getScale().x << '\n';
+
+    pasE++;
+    if(movementH != Vector2f(0.f,0.f))
+      pasH += speed;
+    view.move(movementH);
+    minimap.move(movementH);
+    hero.play(*h->getSprite());
+    hero.move(movementH);
+    hero.update(frameTime);
+    h->movePv(Vector2f(movementH.x,movementH.y));
+    for(unsigned int i = 0; i < ennemis.size(); i++) {
+      tEnnemis[i].play(*ennemis[i]->getSprite());
+      tEnnemis[i].move(movementE[i]);
+      tEnnemis[i].update(frameTime);
+      ennemis[i]->movePv(Vector2f(movementE[i].x,movementE[i].y));
+    }
+    window.setView(view);
+    if(pasE == 32.f) {
+      pasE = 0;
+      for(unsigned int i = 0; i < ennemis.size(); i++)
+        movementE[i] = Vector2f(0.f,0.f);
+    }
+    if (noKeyWasPressed && pasH == 32.f)
+    {
+      pasH = 0;
+      movementH = Vector2f(0.f,0.f);
+      View view(Vector2f(h->getX()*32, h->getY()*32), Vector2f(screenDimensions/2));
+      View minimap(Vector2f(h->getX()*32, h->getY()*32), Vector2f(taille*32, taille*32));
+      hero.setPosition(Vector2f(h->getX()*32, h->getY()*32));
+      h->idle();
+    }
+    noKeyWasPressed = true;
+    // draw
+    window.clear();
+    for (int x = 0; x < taille; x++)
+        for (int y = 0; y < taille; y++)
+          window.draw(tab[x][y]);
+    window.draw(hero);
+    window.draw(*(h->getPvBarre()));
+    window.draw(*(h->getCurrentPV()));
+    for(unsigned int i = 0; i < ennemis.size(); i++) {
+      window.draw(tEnnemis[i]);
+      window.draw(*(ennemis[i]->getPvBarre()));
+      window.draw(*(ennemis[i]->getCurrentPV()));
+    }
+    window.setView(minimap);
+    for (int x = 0; x < taille; x++)
+        for (int y = 0; y < taille; y++)
+          window.draw(tab[x][y]);
+    window.display();
   }
   system("clear");
   Detruit(m);
