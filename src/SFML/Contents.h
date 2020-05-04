@@ -21,12 +21,8 @@ struct AnimPerso {
 
 class Contents {
   public:
-    Contents();
-    ~Contents();
-
-    Animation* getJ_anim(AnimPerso d);
-    Animation* getE_anim(AnimPerso d);
-
+    Contents(); //Constructeur de Contents, charge toutes les data (sons, textures, font)
+    ~Contents(); //Destructeur de Contents, detruit toutes les data
 
     sf::Texture* tJeu;
     sf::Texture* tHero[3];

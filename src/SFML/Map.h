@@ -9,7 +9,7 @@
 
 struct Corridor {
 //structure couloir contenant des tableaux dynamiques des coordonees de chaques points des couloirs
-  std::vector<std::pair<int,int>> layer;
+  std::vector<std::pair<int,int> > layer;
 };
 
 class Map {
@@ -64,7 +64,7 @@ public:
 
 private:
     //METHODES
-    int priorite(const std::vector<std::pair<bool, float>> &prio); // renvoie le plus petit élément du tableau prio
+    int priorite(const std::vector<std::pair<bool, float> > &prio); // renvoie le plus petit élément du tableau prio
     bool const allRoomsCollisions(unsigned int const ID); //teste si une des rooms entre en collisions avec une des autres rooms présente dans list_room
 
     //ATTRIBUTS

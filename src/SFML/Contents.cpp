@@ -19,63 +19,61 @@ Contents::Contents() {
 
       //Image
   if (!tJeu->loadFromFile("../data/img/Dungeon_Tileset.png"))
-    cerr << "Ton image charges pas batard" << '\n';
-
+    cerr << "Erreur dans le chargement de la texture du donjon" << '\n';
   if (!tHero[0]->loadFromFile("../data/img/Adventurer_Sprite_Sheet.png"))
-    cerr << "Ton image charges pas batard" << '\n';
+    cerr << "Erreur dans le chargement de la texture du hero" << '\n';
   if (!tHero[1]->loadFromFile("../data/img/health_bar/health_bar_decoration.png"))
-    cerr << "Ton image charges pas batard" << '\n';
+    cerr << "Erreur dans le chargement de la barre de vie du hero" << '\n';
   if (!tHero[2]->loadFromFile("../data/img/health_bar/health_bar.png"))
-    cerr << "Ton image charges pas batard" << '\n';
-
+    cerr << "Erreur dans le chargement du contenu de la barre de vie du hero" << '\n';
   if (!tEnnemi[0]->loadFromFile("../data/img/Skeleton/Skeleton_Idle.png"))
-    cerr << "Ton image charges pas batard" << '\n';
+    cerr << "Erreur dans le chargement de la texture immobile des ennemis" << '\n';
   if (!tEnnemi[1]->loadFromFile("../data/img/Skeleton/Skeleton_Walk.png"))
-    cerr << "Ton image charges pas batard" << '\n';
+    cerr << "Erreur dans le chargement de la texture d'avancement des ennemis" << '\n';
   if (!tEnnemi[2]->loadFromFile("../data/img/Skeleton/Skeleton_Attack.png"))
-    cerr << "Ton image charges pas batard" << '\n';
+    cerr << "Erreur dans le chargement de la texture d'attaque des ennemis" << '\n';
   if (!tEnnemi[3]->loadFromFile("../data/img/Skeleton/Skeleton_Hit.png"))
-    cerr << "Ton image charges pas batard" << '\n';
+    cerr << "Erreur dans le chargement de la texture de degats des ennemis" << '\n';
   if (!tEnnemi[4]->loadFromFile("../data/img/Skeleton/Skeleton_Dead.png"))
-    cerr << "Ton image charges pas batard" << '\n';
+    cerr << "Erreur dans le chargement de la texture de mort des ennemis" << '\n';
   if (!tEnnemi[5]->loadFromFile("../data/img/Skeleton/Skeleton_IdleD.png"))
-    cerr << "Ton image charges pas batard" << '\n';
+    cerr << "Erreur dans le chargement de la texture immobile des ennemis" << '\n';
   if (!tEnnemi[6]->loadFromFile("../data/img/Skeleton/Skeleton_WalkD.png"))
-    cerr << "Ton image charges pas batard" << '\n';
+    cerr << "Erreur dans le chargement de la texture d'avancement des ennemis" << '\n';
   if (!tEnnemi[7]->loadFromFile("../data/img/Skeleton/Skeleton_AttackD.png"))
-    cerr << "Ton image charges pas batard" << '\n';
+    cerr << "Erreur dans le chargement de la texture d'attaque des ennemis" << '\n';
   if (!tEnnemi[8]->loadFromFile("../data/img/Skeleton/Skeleton_HitD.png"))
-    cerr << "Ton image charges pas batard" << '\n';
+    cerr << "Erreur dans le chargement de la texture de degats des ennemis" << '\n';
   if (!tEnnemi[9]->loadFromFile("../data/img/Skeleton/Skeleton_DeadD.png"))
-    cerr << "Ton image charges pas batard" << '\n';
+    cerr << "Erreur dans le chargement de la texture de mort des ennemis" << '\n';
   if (!tEnnemi[10]->loadFromFile("../data/img/health_bar/health_bar_decoration.png"))
-    cerr << "Ton image charges pas batard" << '\n';
+    cerr << "Erreur dans le chargement de la texture de la barre de vie des ennemis" << '\n';
   if (!tEnnemi[11]->loadFromFile("../data/img/health_bar/health_bar.png"))
-    cerr << "Ton image charges pas batard" << '\n';
+    cerr << "Erreur dans le chargement de la texture du contenu de la barre de vie des ennemis" << '\n';
 
       //Son
 
   if (!sJeu[0]->loadFromFile("../data/sounds/Cancel.wav"))
-    cerr << "Ton son charges pas batard" << '\n';
+    cerr << "Erreur lors du chargement d'un son" << '\n';
   if (!sJeu[1]->loadFromFile("../data/sounds/Select.wav"))
-    cerr << "Ton son charges pas batard" << '\n';
+    cerr << "Erreur lors du chargement d'un son" << '\n';
   if (!sJeu[2]->loadFromFile("../data/sounds/Confirm.wav"))
-    cerr << "Ton son charges pas batard" << '\n';
+    cerr << "Erreur lors du chargement d'un son" << '\n';
   if (!sJeu[3]->loadFromFile("../data/sounds/Text.wav"))
-    cerr << "Ton son charges pas batard" << '\n';
+    cerr << "Erreur lors du chargement d'un son" << '\n';
   if (!sJeu[4]->loadFromFile("../data/sounds/Hit.wav"))
-    cerr << "Ton son charges pas batard" << '\n';
+    cerr << "Erreur lors du chargement d'un son" << '\n';
   if (!sJeu[5]->loadFromFile("../data/sounds/point.wav"))
-    cerr << "Ton son charges pas batard" << '\n';
+    cerr << "Erreur lors du chargement d'un son" << '\n';
   if (!sJeu[6]->loadFromFile("../data/sounds/lvUp.wav"))
-    cerr << "Ton son charges pas batard" << '\n';
+    cerr << "Erreur lors du chargement d'un son" << '\n';
   if (!sJeu[7]->loadFromFile("../data/sounds/death.wav"))
-    cerr << "Ton son charges pas batard" << '\n';
+    cerr << "Erreur lors du chargement d'un son" << '\n';
 
       //Font
 
   if (!font->loadFromFile("../data/ttf/Silver.ttf"))
-    cerr << "Ton font charges pas batard" << '\n';
+    cerr << "Erreur lors du chargement du font" << '\n';
 
       //Animation Joueur Gauche
   anim_Joueur->idleD.setSpriteSheet(tHero[0]);
