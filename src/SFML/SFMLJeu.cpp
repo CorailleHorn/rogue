@@ -2,19 +2,11 @@
 
 using namespace sf;
 
-void Boucle (Hero *h) {
-  Vector2i screenDimensions(720, 720);
-  RenderWindow window(VideoMode(screenDimensions.x, screenDimensions.y), "Rogue");
-  window.setFramerateLimit(60);
-  Contents* content = new Contents;
-  Map* m = new Map;
-  std::vector<Ennemi*> ennemis;
+void Init(Hero* h, Contents* content, Map* m, std::vector<Ennemi*> ennemis, std::vector<AnimatedSprite> tEnnemis, std::vector<Vector2f> movementE) {
   m->initGeneration();
   m->positionnement(h, ennemis);
   h->setSprites(content->anim_Joueur, content->tHero[1], content->tHero[2]);
   h->PvPos();
-  std::vector<AnimatedSprite> tEnnemis;
-  std::vector<Vector2f> movementE;
   for(unsigned int i = 0; i < ennemis.size(); i++) {
     tEnnemis.push_back(AnimatedSprite(seconds(0.2), true));
     tEnnemis[i].setPosition(Vector2f(ennemis[i]->getX()*32, ennemis[i]->getY()*32));
@@ -22,8 +14,20 @@ void Boucle (Hero *h) {
     ennemis[i]->setSprites(content->anim_Ennemie, content->tEnnemi[10], content->tEnnemi[11]);
     ennemis[i]->PvPos();
   }
-  int taille = m->size();
+}
+
+void Boucle (Hero *h) {
+  Vector2i screenDimensions(720, 720);
+  RenderWindow window(VideoMode(screenDimensions.x, screenDimensions.y), "Rogue");
+  window.setFramerateLimit(60);
+  Contents* content = new Contents;
+  Map* m = new Map;
+  std::vector<Ennemi*> ennemis;
+  std::vector<AnimatedSprite> tEnnemis;
+  std::vector<Vector2f> movementE;
   Sprite tab[90][90];
+  Init(h, content, m, ennemis, tEnnemis, movementE);
+  int taille = m->size();
   ajoutTexture(content, m, tab);
   View view(Vector2f(h->getX()*32, h->getY()*32), Vector2f(screenDimensions/2));
   View minimap(Vector2f(h->getX()*32, h->getY()*32), Vector2f(taille*32, taille*32));
@@ -151,17 +155,17 @@ void Boucle (Hero *h) {
     window.display();
   }
   system("clear");
-  Detruit(m);
-  delete content;
-  for(unsigned int i = 0; i < ennemis.size(); i++)
-    delete ennemis[i];
-  ennemis.clear();
-  tEnnemis.clear();
-  movementE.clear();
+  Detruit(content, m, ennemis, tEnnemis, movementE);
 }
 
-void Detruit(Map *m){
+void Detruit(Contents* content, Map* m, std::vector<Ennemi*> ennemis, std::vector<AnimatedSprite> tEnnemis, std::vector<Vector2f> movementE){
     delete m;
+    delete content;
+    for(unsigned int i = 0; i < ennemis.size(); i++)
+      delete ennemis[i];
+    ennemis.clear();
+    tEnnemis.clear();
+    movementE.clear();
     m = NULL;
 }
 

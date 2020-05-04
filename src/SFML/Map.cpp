@@ -40,7 +40,7 @@ Map::Map(int const size, int const nb, int const rad, int const max, int const m
 }*/
 
 //constructeur par défaut de map
-Map::Map() : Map(45,50,5,10,5) {} //param par defaut
+Map::Map() : Map(45,25,5,10,5) {} //param par defaut
 
 Map::~Map() {
   //on libère la mémoire du tableau 2D map
