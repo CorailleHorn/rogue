@@ -2,7 +2,7 @@
 
 using namespace sf;
 
-void Init(Hero* h, Contents* content, Map* m, std::vector<Ennemi*> ennemis, std::vector<AnimatedSprite> tEnnemis, std::vector<Vector2f> movementE) {
+void Init(Hero* h, Contents* content, Map* m, std::vector<Ennemi*> &ennemis, std::vector<AnimatedSprite> &tEnnemis, std::vector<Vector2f> &movementE) {
   m->initGeneration();
   m->positionnement(h, ennemis);
   h->setSprites(content->anim_Joueur, content->tHero[1], content->tHero[2]);
@@ -158,7 +158,7 @@ void Boucle (Hero *h) {
   Detruit(content, m, ennemis, tEnnemis, movementE);
 }
 
-void Detruit(Contents* content, Map* m, std::vector<Ennemi*> ennemis, std::vector<AnimatedSprite> tEnnemis, std::vector<Vector2f> movementE){
+void Detruit(Contents* content, Map* m, std::vector<Ennemi*> &ennemis, std::vector<AnimatedSprite> &tEnnemis, std::vector<Vector2f> &movementE){
     delete m;
     delete content;
     for(unsigned int i = 0; i < ennemis.size(); i++)
@@ -181,14 +181,11 @@ void ajoutTexture(Contents* content, Map* m, Sprite tab[90][90]) {
           if (type == 0){
               tab[x][y].setTextureRect(IntRect(224, 320, 32, 32));
           }
-          if (type == 1){
-              tab[x][y].setTextureRect(IntRect(0, 416, 32, 32));
+          else if (type == 1){
+              tab[x][y].setTextureRect(IntRect(36, 84, 32, 32));
           }
-          if (type == 2){ //Intérieur
+          else if (type == 2){ //Intérieur
               tab[x][y].setTextureRect(IntRect(192, 256, 32, 32));
-          }
-          else{
-              tab[x][y].setTextureRect(IntRect(224, 320, 32, 32));
           }
           tab[x][y].setPosition(x*32, y*32);
       }
