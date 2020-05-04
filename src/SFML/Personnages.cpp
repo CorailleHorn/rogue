@@ -6,7 +6,7 @@
 using namespace std;
 using namespace sf;
 
-	Personnage::Personnage() { //Constructeur pour un personnage
+	Personnage::Personnage() {
 		atk = def = pv = pvmax = lv = x = y = 1;
 		sprites = new AnimPerso;
 		currentSprite = new Animation;
@@ -14,7 +14,7 @@ using namespace sf;
 		currentPV = new Sprite;
 	}
 
-	Personnage::~Personnage() { //Destructeur de personnage
+	Personnage::~Personnage() {
 		delete barrePV;
 		delete currentPV;
 	}
@@ -37,7 +37,7 @@ using namespace sf;
 		return 0;
 	}
 
-	int Personnage::degat(const int &atkA, bool gauche) { //permets de définir le nombre de dégats que l'on va mettre au joueur
+	int Personnage::degat(const int &atkA, bool gauche) {
 		int d = (((rand() % atkA) - (def/2)) + 1);
 		if(d > 0) {
 			if(pv - d < 0) {
@@ -62,25 +62,25 @@ using namespace sf;
 		return 0;
 	}
 
-	int Personnage::haut() {//Déplacement des personnages
+	int Personnage::haut() {
 		currentSprite = &sprites->walkD;
 		y--;
 		return 0;
 	}
 
-	int Personnage::bas() {//Déplacement des personnages
+	int Personnage::bas() {
 		currentSprite = &sprites->walkD;
 		y++;
 		return 0;
 	}
 
-	int Personnage::gauche() {//Déplacement des personnages
+	int Personnage::gauche() {
 		currentSprite = &sprites->walkG;
 		x--;
 		return 0;
 	}
 
-	int Personnage::droite() {//Déplacement des personnages
+	int Personnage::droite() {
 		currentSprite = &sprites->walkD;
 		x++;
 		return 0;
@@ -161,16 +161,16 @@ using namespace sf;
 		currentSprite = new Animation;
 	}
 
-	Hero::Hero(string sname) { //Constructeur avec le nom du héro
+	Hero::Hero(string sname) {
 		atk = def = pv = 10;
 		lv = x = y = 1;
 		name = sname;
 		currentSprite = new Animation;
 	}
 
-	Hero::~Hero() {} //Destructeur du héro
+	Hero::~Hero() {}
 
-	int Hero::lvUp() { //Permets l'augmentation du niveau du joueur ainsi que des ces points d'attaque, de défense et pvs
+	int Hero::lvUp() {
 		int choix[4];
 		cout << "Vous disposez de 3 points pour augmenter vos statistiques." <<	endl
 			<< "Que décidez vous de faire: " << endl
@@ -294,7 +294,7 @@ using namespace sf;
 			return 0;
 		}
 
-	int Hero::setName(string sname) {//Définir le nom du joueur
+	int Hero::setName(string sname) {
 			name = sname;
 			return 0;
 	}
@@ -303,9 +303,9 @@ using namespace sf;
 		return name;
 	}
 
-	Ennemi::Ennemi() : Ennemi(1) {} //Constructeur par defaut (Niveau 1)
+	Ennemi::Ennemi() : Ennemi(1) {}
 
-	Ennemi::Ennemi(const int &leveling) { //Constructeur par niveau de l'ennemi
+	Ennemi::Ennemi(const int &leveling) { 
 		lv = leveling;
 		int stat = 3 * lv;
 		int randomiser = rand() % 3 + 1;
