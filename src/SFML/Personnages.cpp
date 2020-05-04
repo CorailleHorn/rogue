@@ -30,8 +30,10 @@ using namespace sf;
 			currentSprite = &sprites->atkG;
 			degat = true;
 		}
-		if(degat)
+		if(degat) {
 			p->degat(atk);
+			return 1;
+		}
 		return 0;
 	}
 

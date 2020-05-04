@@ -80,8 +80,9 @@ void Boucle (Hero *h) {
           noKeyWasPressed = false;
         }
         m->setValueMap(h->getX(),h->getY(), 3);
-        for(unsigned int i = 0; i < ennemis.size(); i++)
-          h->combat(ennemis[i]);
+        unsigned int idE = 0;
+        while(idE < ennemis.size() && !(h->combat(ennemis[idE])))
+          idE++;
       }
       if(pasE == 0)
         for(unsigned int i = 0; i < ennemis.size(); i++) {
@@ -172,6 +173,20 @@ void Detruit(Contents* content, Map* m, std::vector<Ennemi*> &ennemis, std::vect
 
 void ajoutTexture(Contents* content, Map* m, Sprite tab[90][90]) {
   int taille = m->size();
+  Vector2i solPossible[11];
+  solPossible[0] = Vector2i(256,160);
+  solPossible[1] = Vector2i(256,192);
+  solPossible[2] = Vector2i(288,160);
+  solPossible[3] = Vector2i(288,192);
+  solPossible[4] = Vector2i(384,160);
+  solPossible[5] = Vector2i(416,160);
+  solPossible[6] = Vector2i(353,320);
+  solPossible[7] = Vector2i(384,320);
+  solPossible[8] = Vector2i(416,320);
+  solPossible[9] = Vector2i(384,288);
+  solPossible[10] = Vector2i(384,352);
+  int solPris;
+  bool special = (bool)(rand() % 2);
   for (int x = 0; x < taille; x++){
     std::cout << '\n';
       for (int y = 0; y < taille; y++){
@@ -185,7 +200,12 @@ void ajoutTexture(Contents* content, Map* m, Sprite tab[90][90]) {
               tab[x][y].setTextureRect(IntRect(36, 84, 32, 32));
           }
           else if (type == 2){ //Intérieur
-              tab[x][y].setTextureRect(IntRect(192, 256, 32, 32));
+            if(special)
+              solPris = rand() % 6;
+            else
+              solPris = rand() % (11-6) + 6;
+            tab[x][y].setTextureRect(IntRect(solPossible[solPris].x, solPossible[solPris].y, 32, 32));
+
           }
           tab[x][y].setPosition(x*32, y*32);
       }
