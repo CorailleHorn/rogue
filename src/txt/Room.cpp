@@ -3,9 +3,10 @@
 #include "Room.h"
 
 using namespace std;
-
+//on créer un constante PI pour les calculs utilisant de la trigonométrie
 long double const PI = 3.1415926535897932384626433832795028841968;
 
+//génère un double aléatoire
 double genRandomDouble() {
     return ((double)rand() / (RAND_MAX));
 }
@@ -60,6 +61,8 @@ void Room::arrondValRoom() {
     //on arrondi les valeurs des rooms
     X0 = round(x0);
 	Y0 = round(y0);
+    //on initialise les valeurs des centres des rooms
+    initCenterRooms();
 }
 
 const bool Room::isRoomIn(int const map_size) {
@@ -80,7 +83,7 @@ void Room::genInCircle(int const map_size, int const radius, int const room_max_
     float r;
     if (u > 1) r = (2 - u);
     else r = u;
-
+    
     x0 = (radius * r * cos(t)) + (map_size/2);
     y0 = (radius * r * sin(t)) + (map_size/2);
 
@@ -89,10 +92,10 @@ void Room::genInCircle(int const map_size, int const radius, int const room_max_
 bool const Room::roomCollision(Room& A) {
 
     //detecte si A entre en collision avec l'objet actuelle
-    if((A.getx0() >= x0 + L)      // trop à droite
+    if((A.getx0() >= x0 + L) // trop à droite
 	|| (A.getx0() + A.L <= x0) // trop à gauche
 	|| (A.gety0() >= y0 + H) // trop en bas
- 	|| (A.gety0() + A.H <= y0))  // trop en haut
+ 	|| (A.gety0() + A.H <= y0)) // trop en haut
         return false;
     else return true;
 }

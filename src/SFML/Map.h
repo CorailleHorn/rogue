@@ -7,7 +7,6 @@
 #include "Room.h"
 #include "Personnages.h"
 
-
 struct Corridor {
 //structure couloir contenant des tableaux dynamiques des coordonees de chaques points des couloirs
   std::vector<std::pair<int,int>> layer;
@@ -24,7 +23,6 @@ public:
     ~Map(); //destructeur
 
     void initGeneration(); //initialisation de la génération
-    void testRegression(); //initialisation de la génération
     void genRooms(); //génération des salles (rooms)
     void eclatement(); //procédure ou on éclate les rooms dans toutes les directions en leurs donnant une physique
     void chooseRooms(); //on séléctionne les rooms que l'on souhaite garder, on supprime les autres
@@ -40,7 +38,6 @@ public:
 
     float* moyenneRooms(float mean[]); //renvoie un tableau mean[Hauteur float, Largeur float] renvoyant la moyenne des hauteurs et des largeurs de toutes les rooms
 
-    void ajouterRoomsTXT();//ajoute les rooms pour l'affichage terminal
     void ajouterRoomsSFML();//ajoute les rooms pour l'affichage en SFML
     void updateRooms();//met à jour les rooms avec des positions en int qui était en float
 
@@ -49,7 +46,6 @@ public:
     void positionnement(Hero *hero, std::vector<Ennemi*> &ennemis);
 
     void viderMap(); //vide la map i.e. met toute les valeurs de la map à 0
-    void afficherMapTXT(); //affiche la version shell de la map en terminal
     void afficherMapSFML();//affiche la version graphique de la map en terminal [uniquement en debug]
 
     void setValueMap(int const X, int const Y, int value = 2);
