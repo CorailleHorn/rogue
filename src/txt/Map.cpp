@@ -713,8 +713,9 @@ void Map::afficherMapTXT() {
             if (ptr_map[j][i] == 0) cout << "  ";
             else if (ptr_map[j][i] == 1) cout << "##";
             else if (ptr_map[j][i] == -1) cout << "XX";
-            else if (ptr_map[j][i] < 10) cout << " " << ptr_map[j][i]; //petite modif pour afficher les num des rooms
-            else cout << ptr_map[j][i];
+            else if (ptr_map[j][i] == 20) cout << "HH";
+            else if (ptr_map[j][i] == 30) cout << "EE";
+            else cout << "  ";
         }
         cout << endl;
     }

@@ -267,3 +267,24 @@ using namespace std;
 	}
 
 	Ennemi::~Ennemi() {}
+
+	int Ennemi::update(int h, int b, int g, int d, Personnage* hero) {
+		combat(hero);
+		if (h == 2 && hero->getY() < y && (hero->getY() != y-1 || hero->getX() != x)) {
+			Haut();
+			return 1;
+		}
+		else if (b == 2 && hero->getY() > y && (hero->getY() != y+1 || hero->getX() != x)) {
+			Bas();
+			return 1;
+		}
+		else if(g == 2 && hero->getX() < x && (hero->getX() != x-1 || hero->getY() != y)) {
+			Gauche();
+			return 1;
+		}
+		else if (d == 2 && hero->getX() > x && (hero->getX() != x+1 || hero->getY() != y)) {
+			Droite();
+			return 1;
+		}
+		return 0;
+	}
