@@ -32,9 +32,9 @@ class Personnage {
 		int getLv() const;
 		int getX() const;
 		int getY() const;
-		sf::Sprite* getPvBarre() const;
-		sf::Sprite* getCurrentPV() const;
-		Animation* getSprite() const;
+		sf::Sprite getPvBarre() const;
+		sf::Sprite getCurrentPV() const;
+		Animation getSprite() const;
 	protected:
 		int atk, def, pv, pvmax, lv, x, y;
 		AnimPerso* sprites;

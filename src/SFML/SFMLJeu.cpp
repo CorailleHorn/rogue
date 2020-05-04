@@ -101,12 +101,12 @@ void Boucle (Hero *h) {
       pasH += speed;
     view.move(movementH);
     minimap.move(movementH);
-    hero.play(*h->getSprite());
+    hero.play(h->getSprite());
     hero.move(movementH);
     hero.update(frameTime);
     h->movePv(Vector2f(movementH.x,movementH.y));
     for(unsigned int i = 0; i < ennemis.size(); i++) {
-      tEnnemis[i].play(*ennemis[i]->getSprite());
+      tEnnemis[i].play(ennemis[i]->getSprite());
       tEnnemis[i].move(movementE[i]);
       tEnnemis[i].update(frameTime);
       ennemis[i]->movePv(Vector2f(movementE[i].x,movementE[i].y));
@@ -142,12 +142,12 @@ void Boucle (Hero *h) {
         for (int y = 0; y < taille; y++)
           window.draw(tab[x][y]);
     window.draw(hero);
-    window.draw(*(h->getPvBarre()));
-    window.draw(*(h->getCurrentPV()));
+    window.draw(h->getPvBarre());
+    window.draw(h->getCurrentPV());
     for(unsigned int i = 0; i < ennemis.size(); i++) {
       window.draw(tEnnemis[i]);
-      window.draw(*(ennemis[i]->getPvBarre()));
-      window.draw(*(ennemis[i]->getCurrentPV()));
+      window.draw(ennemis[i]->getPvBarre());
+      window.draw(ennemis[i]->getCurrentPV());
     }
     window.setView(minimap);
     for (int x = 0; x < taille; x++)

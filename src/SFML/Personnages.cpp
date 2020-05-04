@@ -142,16 +142,16 @@ using namespace sf;
 		return y;
 	}
 
-	Sprite* Personnage::getPvBarre() const {
-		return barrePV;
+	Sprite Personnage::getPvBarre() const {
+		return *barrePV;
 	}
 
-	Sprite* Personnage::getCurrentPV() const {
-		return currentPV;
+	Sprite Personnage::getCurrentPV() const {
+		return *currentPV;
 	}
 
-	Animation* Personnage::getSprite() const {
-		return currentSprite;
+	Animation Personnage::getSprite() const {
+		return *currentSprite;
 	}
 
 	Hero::Hero() { //Constructeur du héro
