@@ -40,7 +40,7 @@ Map::Map(int const size, int const nb, int const rad, int const max, int const m
 }*/
 
 //constructeur par défaut de map
-Map::Map() : Map(90,100,5,20,5) {} //param par defaut
+Map::Map() : Map(45,50,5,10,5) {} //param par defaut
 
 Map::~Map() {
   //on libère la mémoire du tableau 2D map
@@ -282,8 +282,8 @@ void Map::chooseRooms() {
     float mean[2] = {0,0};
     moyenneRooms(mean);
     //dans ces lignes on peut choisir si on veut un plus grand nombre de rooms en divisant la moyenne
-    //mean[0] *= 0.75;
-    //mean[1] *= 0.75;
+    mean[0] *= 0.75;
+    mean[1] *= 0.75;
     //NOTE: on ne met pas de unsigned int pour i car cette valeur peut prendre-1
     for (int i = 0; i < (int)list_room.size(); i++) {
         if ((list_room[i].getH() < mean[0]) || (list_room[i].getL() < mean[1])) {
@@ -675,13 +675,13 @@ void Map::positionnement(Hero *hero, std::vector<Ennemi*> &ennemis) {
     nb_ennemie = rand() % 2 + 1;
     for(int j = 0; j < nb_ennemie; j++) {
       if(ennemis.size() == 0) {
-        pos[0] = rand() % (list_room[i].getX0()-(list_room[i].getX0() + list_room[i].getL() - 1) ) + (list_room[i].getX0());
-        pos[1] = rand() % (list_room[i].getY0()-(list_room[i].getY0() + list_room[i].getH() - 1) ) + (list_room[i].getY0());
+        pos[0] = rand() % (list_room[i].getX0()-(list_room[i].getX0() + list_room[i].getL() - 2) ) + (list_room[i].getX0()+1);
+        pos[1] = rand() % (list_room[i].getY0()-(list_room[i].getY0() + list_room[i].getH() - 2) ) + (list_room[i].getY0()+1);
       }
       else {
         do {
-          pos[0] = rand() % (list_room[i].getX0()-(list_room[i].getX0() + list_room[i].getL() - 1) ) + (list_room[i].getX0());
-          pos[1] = rand() % (list_room[i].getY0()-(list_room[i].getY0() + list_room[i].getH() - 1) ) + (list_room[i].getY0());
+          pos[0] = rand() % (list_room[i].getX0()-(list_room[i].getX0() + list_room[i].getL() - 2) ) + (list_room[i].getX0()+1);
+          pos[1] = rand() % (list_room[i].getY0()-(list_room[i].getY0() + list_room[i].getH() - 2) ) + (list_room[i].getY0()+1);
         } while(ennemis[ennemis.size()-1]->getX() == pos[0]
             && ennemis[ennemis.size()-1]->getY() == pos[1]);
       }

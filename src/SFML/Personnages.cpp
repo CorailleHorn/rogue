@@ -36,7 +36,7 @@ using namespace sf;
 	}
 
 	int Personnage::degat(const int &atkA, bool gauche) { //permets de définir le nombre de dégats que l'on va mettre au joueur
-		int d = ((atkA - (def/2)) + 1);
+		int d = (((rand() % atkA) - (def/2)) + 1);
 		if(d > 0) {
 			if(pv - d < 0) {
 				currentSprite = &sprites->mortG;

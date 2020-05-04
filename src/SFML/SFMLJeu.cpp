@@ -83,11 +83,10 @@ void Boucle (Hero *h) {
         for(unsigned int i = 0; i < ennemis.size(); i++) {
           m->setValueMap(ennemis[i]->getX(),ennemis[i]->getY());
           if(ennemis[i]->getPv() > 0) {
-            if(m->getRoom(h->getX(),h->getY()) == m->getRoom(ennemis[i]->getX(),ennemis[i]->getY()))
-              movementE[i] = ennemis[i]->update(m->getValueMap(ennemis[i]->getX(),(ennemis[i]->getY() - 1)),
-                m->getValueMap(ennemis[i]->getX(),(ennemis[i]->getY() + 1)),
-                m->getValueMap((ennemis[i]->getX() - 1),ennemis[i]->getY()),
-                m->getValueMap((ennemis[i]->getX() + 1),ennemis[i]->getY()), h);
+            movementE[i] = ennemis[i]->update(m->getValueMap(ennemis[i]->getX(),(ennemis[i]->getY() - 1)),
+              m->getValueMap(ennemis[i]->getX(),(ennemis[i]->getY() + 1)),
+              m->getValueMap((ennemis[i]->getX() - 1),ennemis[i]->getY()),
+              m->getValueMap((ennemis[i]->getX() + 1),ennemis[i]->getY()), h);
             m->setValueMap(ennemis[i]->getX(),ennemis[i]->getY(), 4);
           }
         }
