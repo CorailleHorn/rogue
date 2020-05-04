@@ -50,6 +50,7 @@ class Ennemi : public Personnage {
 		Ennemi();
 		Ennemi(const int &leveling);
 		~Ennemi();
+		int update(int h, int b, int g, int d, Personnage* hero);
 };
 
 #endif
