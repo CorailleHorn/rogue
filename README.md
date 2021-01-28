@@ -26,7 +26,7 @@ Manon Billet (Gameplay)
 Jean (Génération du terrain)
 
 Pour lancer le programme (ubuntu) : 
-- Vous devez d'abord vous assurez d'avoir installé g++ ainsi que la biliothèque SFML : 
+- Vous devez d'abord vous assurer d'avoir installé g++ ainsi que la biliothèque SFML : 
 	```bash 
 	sudo apt install g++
 	sudo apt-get install libsfml-dev
@@ -42,7 +42,7 @@ Pour lancer le programme (ubuntu) :
 - Enfin vous pouvez executer le programme (mode graphique ou mode texte) :
 	```bash
 	./bin/SFML_jeu
-  ./bin/txt_jeu
+  	./bin/txt_jeu
 	```
 	
 
