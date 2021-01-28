@@ -31,11 +31,11 @@ To launch the program (ubuntu) :
 	```
 	
 Keys :
-	- a + Enter : Exit
-	- z + Enter : Top
-	- q + Enter : Left
-	- s + Enter : Bottom
-	- d + Enter: Right
+- a + Enter : Exit
+- z + Enter : Top
+- q + Enter : Left
+- s + Enter : Bottom
+- d + Enter: Right
 
 #FR
 
@@ -69,8 +69,8 @@ Pour lancer le programme (ubuntu) :
 	
 
 Touches :
-	- a + Enter : Sortir
-	- z + Enter : Haut
-	- q + Enter : Gauche
-	- s + Enter : Bas
-	- d + Enter : Droite
+- a + Enter : Sortir
+- z + Enter : Haut
+- q + Enter : Gauche
+- s + Enter : Bas
+- d + Enter : Droite
