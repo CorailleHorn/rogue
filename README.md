@@ -1,39 +1,54 @@
 # Rogue
 
-Notre projet s'appelle Rogue, mini-jeu 2D où le but est de tuer tous les ennemis grâce à notre héro dans une map de jeu.
+#EN
+Rogue is a second year Computer Science Degree project, consisting in the procedural generation of a dungeon (2D structure composed of a random number of randomly sized rooms linked by corridors) in C++ , with the addition of a gameplay start in the SFML library.
 
-Groupe: Les 3 Fantastiques
-BILLET Manon 11805662
-CELERIER Louis 11803338
-SAURY Jean 11805563
+This Project was carried out by : 
 
-Lien git: https://forge.univ-lyon1.fr/les-3-fantastiques/rogue
+Louis Celerier (Gameplay)
+Manon Billet (Gameplay)
+Jean (Field Generation)
 
-Organisation de notre projet:
-- Les executables sont créés dans le dossier bin/ grâce au Makefile.
-- Dans le fichier data se trouve toutes les ressources nécessaires à noter projet: les textures du personnages, des ennemis et de la barre de vie, la font pour l'écriture, les sons du jeu.
-- Le dossier doc/ regroupe la doxygen, le cahier des charges, le diagramme de gantt, l'UML et le powerpoint de notre soutenance.
-- Le dossier obj/ regroupe tous les fichiers objets générés par le Makefile.
-- Les fichiers sources se trouvent tous dans le dossier src/, séparés en 2 parties, la partie SFML en graphique et la partie txt en shell.
-- Il y a aussi évidemment le Makefile qui permets de générer notre jeu.
+Keys :
+	a + Enter : Exit
+	z + Enter : Top
+	q + Enter : Left
+	s + Enter : Bottom
+	d + Enter: Right
 
-Pour lancer notre jeu, il suffit de lancer un "make" à la racine de notre projet.
-Ainsi, le Makefile va générer les fichiers objets nécessaires.
-Il génère la version SFML et la version TXT.
-Une fois la génération de l'éxecutable faite, on l'éxécute à partir du fichier dans le dossier /bin disponible à la racine. Pour lancer la version SFML, on utilise l'executable "SFML_jeu", et pour la version TXT, on utilise l'executable "txt_jeu".
+#FR
+Rogue est un projet de deuxième année de Licence informatique, consistant en la génération procédurale d'un donjon (structure 2D composée d'un nombre aléatoire de chambres de tailles aléaotoire relié par des couloirs) en C++ , avec l'ajout d'un début de gameplay dans la bibliothèque SFML.
 
-Les commandes:
-- Flèche du haut pour monter
-- Flèche du bas pour descendre
-- Flèche de gauche pour aller à gauche
-- Flèche de droite pour aller à droite
+Ce Projet a été mené a bien par : 
 
-Règles du jeu:
-Le but est simple, éliminer tous les ennemis de la map. Les ennemis prennent des dégâts automatiquement lorsque le héro est autour d'eux.
+Louis Celerier (Gameplay)
+Manon Billet (Gameplay)
+Jean (Génération du terrain)
 
-Lorsqu'on rentre dans une room, les ennemis sont attirés par le héro et viennent directement à lui.
-Lorsque l'ennemi se trouve dans une des 8 cases autour de nous, la fonction de combat se lance et les ennemis comme le héro prennent des dégats.
-La partie est finie lorsque le héro a éliminé tous les ennemis de la map sans être mort.
-Le héro va ensuite monter de niveau et prendre des points d'attaques et/ou de défense et/ou des pv.
+Pour lancer le programme (ubuntu) : 
+- Vous devez d'abord vous assurez d'avoir installé g++ ainsi que la biliothèque SFML : 
+	```bash 
+	sudo apt install g++
+	sudo apt-get install libsfml-dev
+	```
+- Ensuite vous devez créer à la racine du dossier rogue/ deux répertoires obj/ et bin/ (ce dernier contiendra ses executables) :
+	```bash
+	mkdir obj bin
+	```
+- Après vous devrez lancer la commande suivante pour générer les executables : 
+	```bash
+	make
+	```
+- Enfin vous pouvez executer le programme (mode graphique ou mode texte) :
+	```bash
+	./bin/SFML_jeu
+  ./bin/txt_jeu
+	```
+	
 
-Les ressources se trouvant dans data/ n'ont pas toutes été utilisées.
+Touches :
+	a + Enter : Sortir
+	z + Enter : Haut
+	q + Enter : Gauche
+	s + Enter : Bas
+	d + Enter : Droite
